@@ -4,6 +4,7 @@
 
     <application
         android:allowBackup="true"
+        android:name=".App"
         android:icon="@mipmap/app_icon_completed"
         android:label="@string/app_name"
         android:supportsRtl="true"
