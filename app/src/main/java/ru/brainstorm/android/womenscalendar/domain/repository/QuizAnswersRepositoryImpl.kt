@@ -15,13 +15,13 @@ class QuizAnswersRepositoryImpl(private val sharedPreferences: SharedPreferences
         const val BIRTH_DATE = "current.birth_date"
     }
 
-    override fun saveInfo() {
+    override fun saveInfo(lastMenstruation: Date, averageTimeOfMenstruation: Int, averageTimeOfCycle: Int, birthDate: Date) {
         sharedPreferences.edit{
             clear()
-            putLong(LAST_MENSTRUATION, 0)
-            putInt(AVERAGE_TIME_OF_MENSTRUATION, 0)
-            putInt(AVERAGE_TIME_OF_CYCLE, 0)
-            putLong(BIRTH_DATE, 0)
+            putLong(LAST_MENSTRUATION, lastMenstruation.time)
+            putInt(AVERAGE_TIME_OF_MENSTRUATION, averageTimeOfMenstruation)
+            putInt(AVERAGE_TIME_OF_CYCLE, averageTimeOfCycle)
+            putLong(BIRTH_DATE, birthDate.time)
             apply()
         }
     }
