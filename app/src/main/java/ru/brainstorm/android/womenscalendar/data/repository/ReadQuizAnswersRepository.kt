@@ -1,7 +1,8 @@
 package ru.brainstorm.android.womenscalendar.data.repository
 
-import ru.brainstorm.android.womenscalendar.data.quiz.QuizAnswers
+import kotlinx.coroutines.Deferred
+import ru.brainstorm.android.womenscalendar.data.quiz.ReadQuizAnswersResult
 
 interface ReadQuizAnswersRepository{
-    fun readQuizInfo() : QuizAnswers
+    suspend fun readQuizInfoAsync() : Deferred<ReadQuizAnswersResult>
 }
