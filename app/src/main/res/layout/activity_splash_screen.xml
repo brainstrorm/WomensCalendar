@@ -4,4 +4,126 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.activity.SplashScreenActivity" />
+    tools:context=".presentation.activity.SplashScreenActivity"
+    android:background="@drawable/ic_background_1"
+
+
+    >
+
+
+    <LinearLayout
+        android:id="@+id/drops"
+        android:layout_width="336dp"
+        android:layout_height="357dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/circle_red"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.842">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="200dp"
+            android:layout_height="178dp">
+
+            <ImageView
+                android:id="@+id/drop_up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="1dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0"
+                app:srcCompat="@drawable/ic_vector_2"
+                tools:ignore="VectorDrawableCompat" />
+
+            <ImageView
+                android:id="@+id/drop_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/drop_up"
+                app:layout_constraintEnd_toEndOf="@+id/drop_up"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/drop_up"
+                app:layout_constraintTop_toTopOf="@+id/drop_up"
+                app:layout_constraintVertical_bias="0.0"
+                app:srcCompat="@drawable/ic_vector_3"
+                tools:ignore="VectorDrawableCompat" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="200dp"
+            android:layout_height="178dp">
+
+
+            <ImageView
+                android:id="@+id/drop_down"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                app:srcCompat="@drawable/ic_vector"
+                tools:ignore="VectorDrawableCompat" />
+
+            <ImageView
+                android:id="@+id/drop_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/drop_down"
+                app:layout_constraintEnd_toEndOf="@+id/drop_down"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/drop_down"
+                app:layout_constraintTop_toTopOf="@+id/drop_down"
+                app:layout_constraintVertical_bias="1.0"
+                app:srcCompat="@drawable/ic_vector_1"
+                tools:ignore="VectorDrawableCompat" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/circle_red"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:srcCompat="@drawable/ic_ellipse"
+        tools:layout_editor_absoluteX="25dp"
+        tools:ignore="VectorDrawableCompat" />
+
+    <ImageView
+        android:id="@+id/circle_white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/circle_red"
+        app:srcCompat="@drawable/ic_ellipse_1"
+        tools:ignore="VectorDrawableCompat"
+        tools:layout_editor_absoluteX="25dp" />
+
+    <ImageView
+        android:id="@+id/init"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/circle_white"
+        app:layout_constraintHorizontal_bias="0.51"
+        app:layout_constraintStart_toStartOf="@+id/circle_white"
+        app:layout_constraintTop_toTopOf="@+id/circle_white"
+        app:layout_constraintVertical_bias="0.855"
+        app:srcCompat="@drawable/ic_body_1"
+        tools:ignore="VectorDrawableCompat" />
+
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
