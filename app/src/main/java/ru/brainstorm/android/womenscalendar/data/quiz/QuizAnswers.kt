@@ -15,7 +15,7 @@ data class QuizAnswers(val lastMenstruation : Date,
                        val birthDate : Date): ReadQuizAnswersResult()
 
 /*
- * This object returned if there was any problems
+ * This object returned if there were any problems
  * It is object because it only signals to us, that there were some troubles
  * So there is no need to create instance
  */
