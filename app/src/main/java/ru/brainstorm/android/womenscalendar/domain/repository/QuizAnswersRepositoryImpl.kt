@@ -9,19 +9,19 @@ import java.util.*
 
 class QuizAnswersRepositoryImpl(private val sharedPreferences: SharedPreferences) : SaveQuizAnswersRepository{
     companion object{
-        val last_menstruation = Date(System.currentTimeMillis())
-        const val AVERAGE_TIME_OF_MENSTRUATION = 0
-        const val AVERAGE_TIME_OF_CYCLE = 0
-        val birth_date = Date(System.currentTimeMillis())
+        const val LAST_MENSTRUATION = "current.last_menstruation"
+        const val AVERAGE_TIME_OF_MENSTRUATION = "current.average_time_of_menstruation"
+        const val AVERAGE_TIME_OF_CYCLE = "current.average_time_of_cycle"
+        const val BIRTH_DATE = "current.birth_date"
     }
 
     override fun saveInfo() {
         sharedPreferences.edit{
             clear()
-            putLong("last_menstruation",last_menstruation.time)
-            putInt("AVERAGE_TIMR_OF_MENSTRUATION", AVERAGE_TIME_OF_MENSTRUATION)
-            putInt("AVERAGE_TIME_OF_CYCLE", AVERAGE_TIME_OF_CYCLE)
-            putLong("birth_date", birth_date.time)
+            putLong(LAST_MENSTRUATION, 0)
+            putInt(AVERAGE_TIME_OF_MENSTRUATION, 0)
+            putInt(AVERAGE_TIME_OF_CYCLE, 0)
+            putLong(BIRTH_DATE, 0)
             apply()
         }
     }
