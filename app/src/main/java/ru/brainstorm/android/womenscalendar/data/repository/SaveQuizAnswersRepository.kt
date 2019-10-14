@@ -1,7 +1,11 @@
 package ru.brainstorm.android.womenscalendar.data.repository
 
-import java.util.*
+import kotlinx.coroutines.Job
+import java.util.Date
 
 interface SaveQuizAnswersRepository {
-    fun saveInfo(lastMenstruation: Date, averageTimeOfMenstruation: Int, averageTimeOfCycle: Int, birthDate: Date)
+    suspend fun saveInfo(lastMenstruation: Date,
+                 averageTimeOfMenstruation: Int,
+                 averageTimeOfCycle: Int,
+                 birthDate: Date): Job
 }
