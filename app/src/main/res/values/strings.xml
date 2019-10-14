@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">WomensCalendar</string>
+    <string name="init_rus">Синхронизация...</string>
+    <string name="init"></string>
+
+
 </resources>
