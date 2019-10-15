@@ -7,7 +7,6 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import ru.brainstorm.android.womenscalendar.data.quiz.QuizAnswers
 import ru.brainstorm.android.womenscalendar.data.repository.SaveQuizAnswersRepository
-import java.util.*
 
 class SaveQuizAnswersRepositoryImpl(private val sharedPreferences: SharedPreferences)
     : SaveQuizAnswersRepository {

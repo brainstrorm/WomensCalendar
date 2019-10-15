@@ -3,6 +3,7 @@ package ru.brainstorm.android.womenscalendar
 import android.app.Application
 import ru.brainstorm.android.womenscalendar.di.AppComponent
 import ru.brainstorm.android.womenscalendar.di.DaggerAppComponent
+import ru.brainstorm.android.womenscalendar.di.modules.QuizModule
 
 /**
  * @project WomensCalendar
@@ -20,6 +21,7 @@ class App : Application() {
 
     private fun initializeDagger() {
         appComponent = DaggerAppComponent.builder()
+            .quizModule(QuizModule(this))
             .build()
     }
 

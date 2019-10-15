@@ -4,6 +4,7 @@ import android.content.SharedPreferences
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
 import ru.brainstorm.android.womenscalendar.data.quiz.QuizAnswers
 import ru.brainstorm.android.womenscalendar.data.quiz.ReadQuizValidationError
 import ru.brainstorm.android.womenscalendar.data.repository.ReadQuizAnswersRepository
