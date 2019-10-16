@@ -1,7 +1,12 @@
 <resources>
     <string name="app_name">WomensCalendar</string>
     <string name="init_rus">Синхронизация...</string>
-    <string name="init"></string>
+    <string name="btn_poll_next">Далее</string>
+    <string name="btn_poll_dnt_remember">Не помню</string>
+    <string name="how_long_days">Сколько в среднем у вас идут \n месячные?</string>
+    <string name="when_start_days">Когда начались ваши последние \n месячные?</string>
+    <string name="year_of_birth">Прогнозы будут, если вы укажите ваш \n год рождения?</string>
+    <string name="step_poll">Шаг 1$d из 4 </string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

@@ -5,10 +5,10 @@ import androidx.core.content.edit
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import ru.brainstorm.android.womenscalendar.data.quiz.QuizAnswers
 import ru.brainstorm.android.womenscalendar.data.repository.SaveQuizAnswersRepository
-import java.util.*
 
-class QuizAnswersRepositoryImpl(private val sharedPreferences: SharedPreferences)
+class SaveQuizAnswersRepositoryImpl(private val sharedPreferences: SharedPreferences)
     : SaveQuizAnswersRepository {
 
     companion object{
@@ -18,16 +18,13 @@ class QuizAnswersRepositoryImpl(private val sharedPreferences: SharedPreferences
         private const val BIRTH_DATE = "current.birth_date"
     }
 
-    override suspend fun saveInfo(lastMenstruation: Date,
-                          averageTimeOfMenstruation: Int,
-                          averageTimeOfCycle: Int,
-                          birthDate: Date) = GlobalScope.launch(Dispatchers.IO) {
+    override suspend fun saveInfo(quizAnswers : QuizAnswers) = GlobalScope.launch(Dispatchers.IO) {
         sharedPreferences.edit{
             clear()
-            putLong(LAST_MENSTRUATION, lastMenstruation.time)
-            putInt(AVERAGE_TIME_OF_MENSTRUATION, averageTimeOfMenstruation)
-            putInt(AVERAGE_TIME_OF_CYCLE, averageTimeOfCycle)
-            putLong(BIRTH_DATE, birthDate.time)
+            putLong(LAST_MENSTRUATION, quizAnswers.lastMenstruation.time)
+            putInt(AVERAGE_TIME_OF_MENSTRUATION, quizAnswers.averageTimeOfMenstruation)
+            putInt(AVERAGE_TIME_OF_CYCLE, quizAnswers.averageTimeOfCycle)
+            putLong(BIRTH_DATE, quizAnswers.birthDate.time)
             apply()
         }
     }
