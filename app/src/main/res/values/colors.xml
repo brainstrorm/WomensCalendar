@@ -7,5 +7,8 @@
     <color name="color_Grey">#8AFFFFFF</color>
     <color name="color_White">#FFFFFF</color>
     <color name="color_Blue">#67899F</color>
-
+    <color name="colorPinkLite">#FFF4F8</color>
+    <color name="colorGreyFont">#40000000</color>
+    <color name="colorOfChosenNumber">#D4517D</color>
+    <dimen name="text_size_picker">48sp</dimen>
 </resources>

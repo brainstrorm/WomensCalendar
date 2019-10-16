@@ -12,8 +12,8 @@
 
         <item name="colorControlNormal">@android:color/transparent</item>
 
-        <item name="android:textColorPrimary">#40000000</item>
-        <item name="android:background">#FFF4F8</item>
+        <item name="android:textColorPrimary">@color/colorGreyFont</item>
+        <item name="android:background">@color/colorPinkLite</item>
         <item name="android:textSize">48sp</item>
     </style>
 </resources>

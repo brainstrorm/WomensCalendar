@@ -13,7 +13,8 @@ import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.AverageMe
 class QuizActivity : MvpAppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_quiz)
+        setContentView(R.layout.poll)
+        supportActionBar?.hide()
         val fm = supportFragmentManager
         fm.beginTransaction()
             .add(R.id.picker, AverageMenstruationFragment())
