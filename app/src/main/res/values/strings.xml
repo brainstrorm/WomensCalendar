@@ -8,5 +8,8 @@
     <string name="year_of_birth">Прогнозы будут, если вы укажите ваш \n год рождения?</string>
     <string name="step_poll">Шаг 1$d из 4 </string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 
 </resources>
