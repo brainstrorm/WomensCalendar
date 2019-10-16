@@ -93,11 +93,12 @@
     <ImageView
         android:id="@+id/circle_red"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="158dp"
+        android:background="@drawable/ic_ellipse_activity_splash"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        android:background="@drawable/ic_ellipse"
         tools:ignore="VectorDrawableCompat" />
 
     <ImageView
