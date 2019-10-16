@@ -1,4 +1,4 @@
-package ru.brainstorm.android.womenscalendar.presentation.presenter
+package ru.brainstorm.android.womenscalendar.presentation.quiz.fragment
 
 import android.content.Context
 import android.net.Uri

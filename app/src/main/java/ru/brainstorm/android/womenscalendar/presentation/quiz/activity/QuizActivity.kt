@@ -1,4 +1,4 @@
-package ru.brainstorm.android.womenscalendar.presentation.activity
+package ru.brainstorm.android.womenscalendar.presentation.quiz.activity
 
 import android.app.Dialog
 import android.os.Bundle
@@ -7,7 +7,7 @@ import kotlinx.android.synthetic.main.activity_quiz.*
 import kotlinx.android.synthetic.main.fragment_average_menstruation.*
 import moxy.MvpAppCompatActivity
 import ru.brainstorm.android.womenscalendar.R
-import ru.brainstorm.android.womenscalendar.presentation.presenter.AverageMenstruationFragment
+import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.AverageMenstruationFragment
 
 
 class QuizActivity : MvpAppCompatActivity() {

@@ -9,7 +9,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".presentation.activity.QuizActivity"></activity>
+        <activity android:name=".presentation.quiz.activity.QuizActivity"></activity>
         <activity android:name="ru.brainstorm.android.womenscalendar.presentation.splash.activity.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
