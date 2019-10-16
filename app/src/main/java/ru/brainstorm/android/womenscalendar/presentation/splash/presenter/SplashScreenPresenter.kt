@@ -1,4 +1,4 @@
-package ru.brainstorm.android.womenscalendar.presentation.presenter
+package ru.brainstorm.android.womenscalendar.presentation.splash.presenter
 
 import kotlinx.coroutines.*
 import moxy.InjectViewState
@@ -6,7 +6,7 @@ import moxy.MvpPresenter
 import ru.brainstorm.android.womenscalendar.data.quiz.QuizAnswers
 import ru.brainstorm.android.womenscalendar.data.quiz.ReadQuizValidationError
 import ru.brainstorm.android.womenscalendar.domain.repository.ReadQuizAnswersRepositoryImpl
-import ru.brainstorm.android.womenscalendar.presentation.view.SplashScreenView
+import ru.brainstorm.android.womenscalendar.presentation.splash.view.SplashScreenView
 import javax.inject.Inject
 
 /**

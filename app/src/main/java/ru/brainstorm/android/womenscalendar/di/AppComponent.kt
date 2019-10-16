@@ -3,8 +3,8 @@ package ru.brainstorm.android.womenscalendar.di
 import dagger.Component
 import dagger.Subcomponent
 import ru.brainstorm.android.womenscalendar.di.modules.QuizModule
-import ru.brainstorm.android.womenscalendar.presentation.activity.SplashScreenActivity
-import ru.brainstorm.android.womenscalendar.presentation.presenter.SplashScreenPresenter
+import ru.brainstorm.android.womenscalendar.presentation.splash.activity.SplashScreenActivity
+import ru.brainstorm.android.womenscalendar.presentation.splash.presenter.SplashScreenPresenter
 import javax.inject.Singleton
 
 /**

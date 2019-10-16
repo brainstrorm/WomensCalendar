@@ -1,4 +1,4 @@
-package ru.brainstorm.android.womenscalendar.presentation.view
+package ru.brainstorm.android.womenscalendar.presentation.splash.view
 
 import moxy.MvpView
 import moxy.viewstate.strategy.OneExecutionStateStrategy

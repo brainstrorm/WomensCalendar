@@ -1,4 +1,4 @@
-package ru.brainstorm.android.womenscalendar.presentation.activity
+package ru.brainstorm.android.womenscalendar.presentation.splash.activity
 
 import android.os.Bundle
 import moxy.MvpAppCompatActivity
@@ -6,8 +6,8 @@ import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import ru.brainstorm.android.womenscalendar.App
 import ru.brainstorm.android.womenscalendar.R
-import ru.brainstorm.android.womenscalendar.presentation.presenter.SplashScreenPresenter
-import ru.brainstorm.android.womenscalendar.presentation.view.SplashScreenView
+import ru.brainstorm.android.womenscalendar.presentation.splash.presenter.SplashScreenPresenter
+import ru.brainstorm.android.womenscalendar.presentation.splash.view.SplashScreenView
 
 class SplashScreenActivity : MvpAppCompatActivity(), SplashScreenView {
 
