@@ -10,7 +10,7 @@
         android:id="@+id/rect_main"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/progress_ellipse"
+        android:background="@drawable/progress_bar1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
