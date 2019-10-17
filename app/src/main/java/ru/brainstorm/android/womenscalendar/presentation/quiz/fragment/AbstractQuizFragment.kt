@@ -1,6 +1,7 @@
 package ru.brainstorm.android.womenscalendar.presentation.quiz.fragment
 
 import moxy.MvpAppCompatFragment
+import ru.brainstorm.android.womenscalendar.data.quiz.QuizAnswers
 
 /**
  * @project WomensCalendar
@@ -12,4 +13,6 @@ abstract class AbstractQuizFragment : MvpAppCompatFragment() {
     abstract fun getPrevFragment(): AbstractQuizFragment?
 
     abstract fun getStep(): Int
+
+    abstract fun setQuizAns(ans: QuizAnswers)
 }
