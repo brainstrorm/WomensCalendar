@@ -8,6 +8,10 @@
     <string name="year_of_birth">Прогнозы будут, если вы укажите ваш \n год рождения?</string>
     <string name="step_poll">Шаг %1$d из 4 </string>
     <string name="poll_init">Делаем прогнозы \n циклов...</string>
+    <string name="dnt_remember">Не помню</string>
+    <string name="next">Далее</string>
+
+
 
 
     <!-- TODO: Remove or change this placeholder text -->

@@ -10,5 +10,6 @@
     <color name="colorPinkLite">#FFF4F8</color>
     <color name="colorGreyFont">#40000000</color>
     <color name="colorOfChosenNumber">#D4517D</color>
+    <color name="colorGrey_dnt_remeber">#8AFFFFFF</color>
     <dimen name="text_size_picker">48sp</dimen>
 </resources>
