@@ -40,7 +40,11 @@ class AverageCycleFragment : AbstractQuizFragment(), AverageCycleView {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_average_cycle, container, false)
+        return inflater.inflate(R.layout.fragment_average_cycle, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         val averageMenstruationPicker = view.findViewById<NumberPicker>(R.id.averageCyclePicker)
         choose = view.findViewById(R.id.choose)
@@ -52,11 +56,11 @@ class AverageCycleFragment : AbstractQuizFragment(), AverageCycleView {
         averageMenstruationPicker.setTextSize(R.dimen.text_size_picker)
         averageMenstruationPicker.setSelectedTextColorResource(R.color.colorOfChosenNumber)
         averageMenstruationPicker.setSelectedTextSize(R.dimen.text_size_picker)
-        averageMenstruationPicker.setOnValueChangedListener { picker, oldVal, newVal ->
+        averageMenstruationPicker.setOnValueChangedListener { _, _, _ ->
             choose.isVisible = false
             days.isVisible = true
         }
-        return view
+
     }
 
     override fun getStep(): Int = 3
