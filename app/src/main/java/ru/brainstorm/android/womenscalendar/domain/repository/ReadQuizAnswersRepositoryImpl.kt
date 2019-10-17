@@ -26,8 +26,8 @@ class ReadQuizAnswersRepositoryImpl(private val sharedPreferences: SharedPrefere
         val averageTimeOfCycle = sharedPreferences.getInt(AVERAGE_TIME_OF_CYCLE, -1)
         val birthDate = Date(sharedPreferences.getLong(BIRTH_DATE, -1))
 
-        if(lastMenstruation.time != -1L && averageTimeOfMenstruation != -1 &&
-            averageTimeOfCycle != -1 && birthDate.time != -1L){
+        if(lastMenstruation.time != -1L || averageTimeOfMenstruation != -1 ||
+            averageTimeOfCycle != -1 || birthDate.time != -1L){
             return@async QuizAnswers(lastMenstruation, averageTimeOfMenstruation, averageTimeOfCycle, birthDate)
         }
 
