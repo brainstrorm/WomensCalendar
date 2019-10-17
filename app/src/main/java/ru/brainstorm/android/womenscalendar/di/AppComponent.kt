@@ -3,9 +3,6 @@ package ru.brainstorm.android.womenscalendar.di
 import dagger.Component
 import dagger.Subcomponent
 import ru.brainstorm.android.womenscalendar.di.modules.QuizModule
-import ru.brainstorm.android.womenscalendar.presentation.quiz.presenter.AverageCyclePresenter
-import ru.brainstorm.android.womenscalendar.presentation.quiz.presenter.AverageMenstruationPresenter
-import ru.brainstorm.android.womenscalendar.presentation.quiz.presenter.BirthDatePresenter
 import ru.brainstorm.android.womenscalendar.presentation.quiz.presenter.QuizActivityPresenter
 import ru.brainstorm.android.womenscalendar.presentation.splash.activity.SplashScreenActivity
 import ru.brainstorm.android.womenscalendar.presentation.splash.presenter.SplashScreenPresenter
@@ -32,11 +29,5 @@ interface AppComponent {
         fun splashPresenter(): SplashScreenPresenter
 
         fun quizActivityPresenter(): QuizActivityPresenter
-
-        fun averageMenstruationPresenter(): AverageMenstruationPresenter
-
-        fun averageCyclePresenter(): AverageCyclePresenter
-
-        fun birthDatePresenter(): BirthDatePresenter
     }
 }

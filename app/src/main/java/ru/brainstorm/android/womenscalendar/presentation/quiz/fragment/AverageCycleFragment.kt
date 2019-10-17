@@ -8,31 +8,16 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.view.isVisible
 import com.shawnlin.numberpicker.NumberPicker
-import moxy.presenter.InjectPresenter
-import moxy.presenter.ProvidePresenter
-import ru.brainstorm.android.womenscalendar.App
 import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.data.quiz.QuizAnswers
 import ru.brainstorm.android.womenscalendar.presentation.quiz.activity.QuizActivity
-import ru.brainstorm.android.womenscalendar.presentation.quiz.presenter.AverageCyclePresenter
-import ru.brainstorm.android.womenscalendar.presentation.quiz.view.AverageCycleView
 
 
-class AverageCycleFragment : AbstractQuizFragment(), AverageCycleView {
-
-    @InjectPresenter
-    lateinit var fragmentPresenter: AverageCyclePresenter
-
-    @ProvidePresenter
-    fun providePresenter() = App.appComponent.presenter().averageCyclePresenter()
+class AverageCycleFragment : AbstractQuizFragment() {
 
     private lateinit var choose: TextView
     private lateinit var days: TextView
     private lateinit var averageMenstruationPicker: NumberPicker
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

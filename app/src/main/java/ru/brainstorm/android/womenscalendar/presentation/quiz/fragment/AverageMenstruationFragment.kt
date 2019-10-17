@@ -9,23 +9,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.view.isVisible
 import com.shawnlin.numberpicker.NumberPicker
-import moxy.presenter.InjectPresenter
-import moxy.presenter.ProvidePresenter
-import ru.brainstorm.android.womenscalendar.App
 import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.data.quiz.QuizAnswers
 import ru.brainstorm.android.womenscalendar.presentation.quiz.activity.QuizActivity
-import ru.brainstorm.android.womenscalendar.presentation.quiz.presenter.AverageMenstruationPresenter
-import ru.brainstorm.android.womenscalendar.presentation.quiz.view.AverageMenstruationView
 
 
-class AverageMenstruationFragment : AbstractQuizFragment(), AverageMenstruationView{
-
-    @InjectPresenter
-    lateinit var fragmentPresenter: AverageMenstruationPresenter
-
-    @ProvidePresenter
-    fun providePresenter() = App.appComponent.presenter().averageMenstruationPresenter()
+class AverageMenstruationFragment : AbstractQuizFragment() {
 
     private lateinit var averageMenstruationPicker: NumberPicker
 
