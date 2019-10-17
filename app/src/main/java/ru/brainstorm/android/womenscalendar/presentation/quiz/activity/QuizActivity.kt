@@ -14,6 +14,8 @@ import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.AbstractQ
 import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.AverageMenstruationFragment
 import ru.brainstorm.android.womenscalendar.presentation.quiz.presenter.QuizActivityPresenter
 import ru.brainstorm.android.womenscalendar.presentation.quiz.view.QuizActivityView
+import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.AverageCycleFragment
+import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.BirthDateFragment
 
 
 class QuizActivity : MvpAppCompatActivity(), QuizActivityView, View.OnClickListener {
