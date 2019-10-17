@@ -21,7 +21,7 @@ class QuizActivity : MvpAppCompatActivity() {
         fm.beginTransaction()
             .add(R.id.picker, AverageMenstruationFragment())
             .commit()
-
+//
     }
 
 }
