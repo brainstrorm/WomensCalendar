@@ -20,6 +20,7 @@ class SplashScreenPresenter
 
     fun checkFirstLaunch() {
         GlobalScope.launch(Dispatchers.Main) {
+            delay(1_000)
             when (readQuizAnswersRepository.readQuizInfoAsync().await()) {
                 is ReadQuizValidationError -> {
                     viewState.goToQuiz()

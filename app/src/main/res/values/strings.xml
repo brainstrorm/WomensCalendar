@@ -6,7 +6,7 @@
     <string name="how_long_days">Сколько в среднем у вас идут \n месячные?</string>
     <string name="when_start_days">Когда начались ваши последние \n месячные?</string>
     <string name="year_of_birth">Прогнозы будут, если вы укажите ваш \n год рождения?</string>
-    <string name="step_poll">Шаг 1$d из 4 </string>
+    <string name="step_poll">Шаг %1$d из 4 </string>
     <string name="poll_init">Делаем прогнозы \n циклов...</string>
 
 

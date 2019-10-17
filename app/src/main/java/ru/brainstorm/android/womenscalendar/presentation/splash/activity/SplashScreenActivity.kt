@@ -1,6 +1,5 @@
 package ru.brainstorm.android.womenscalendar.presentation.splash.activity
 
-import android.content.Intent
 import android.os.Bundle
 import moxy.MvpAppCompatActivity
 import moxy.presenter.InjectPresenter
@@ -20,6 +19,7 @@ class SplashScreenActivity : MvpAppCompatActivity(), SplashScreenView {
     fun providePresenter(): SplashScreenPresenter = App.appComponent.presenter().splashPresenter()
 
     override fun goToQuiz() {
+        startActivity(QuizActivity.provideIntent(this@SplashScreenActivity))
     }
 
     override fun goToCalendar() {
@@ -31,8 +31,6 @@ class SplashScreenActivity : MvpAppCompatActivity(), SplashScreenView {
         setContentView(R.layout.activity_splash_screen)
         supportActionBar?.hide()
         splashScreenPresenter.checkFirstLaunch()
-        val intent = Intent(this, QuizActivity::class.java)
-        startActivity(intent)
     }
 
 }
