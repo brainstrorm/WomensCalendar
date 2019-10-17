@@ -10,11 +10,23 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.view.isVisible
 import com.shawnlin.numberpicker.NumberPicker
+import moxy.presenter.InjectPresenter
+import moxy.presenter.ProvidePresenter
+import ru.brainstorm.android.womenscalendar.App
 
 import ru.brainstorm.android.womenscalendar.R
+import ru.brainstorm.android.womenscalendar.presentation.quiz.presenter.AverageCyclePresenter
+import ru.brainstorm.android.womenscalendar.presentation.quiz.presenter.BirthDatePresenter
+import ru.brainstorm.android.womenscalendar.presentation.quiz.view.BirthDateView
 
 
-class BirthDateFragment : Fragment() {
+class BirthDateFragment : AbstractQuizFragment(), BirthDateView {
+
+    @InjectPresenter
+    lateinit var fragmentPresenter: BirthDatePresenter
+
+    @ProvidePresenter
+    fun providePresenter() = App.appComponent.presenter().birthDatePresenter()
 
     private lateinit var choose: TextView
 
@@ -44,6 +56,16 @@ class BirthDateFragment : Fragment() {
             choose.isVisible = false
         }
         return view
+    }
+
+    override fun getStep(): Int = 4
+
+    override fun getNextFragment(): AbstractQuizFragment? {
+        return null
+    }
+
+    override fun getPrevFragment(): AbstractQuizFragment? {
+        return AverageCycleFragment()
     }
 
 }

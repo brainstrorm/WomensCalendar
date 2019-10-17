@@ -11,12 +11,22 @@ import android.widget.TextView
 import androidx.core.view.isVisible
 import com.shawnlin.numberpicker.NumberPicker
 import moxy.MvpAppCompatFragment
+import moxy.presenter.InjectPresenter
+import moxy.presenter.ProvidePresenter
+import ru.brainstorm.android.womenscalendar.App
 
 import ru.brainstorm.android.womenscalendar.R
+import ru.brainstorm.android.womenscalendar.presentation.quiz.presenter.AverageCyclePresenter
+import ru.brainstorm.android.womenscalendar.presentation.quiz.view.AverageCycleView
 
 
-class AverageCycleFragment : MvpAppCompatFragment() {
+class AverageCycleFragment : AbstractQuizFragment(), AverageCycleView {
 
+    @InjectPresenter
+    lateinit var fragmentPresenter: AverageCyclePresenter
+
+    @ProvidePresenter
+    fun providePresenter() = App.appComponent.presenter().averageCyclePresenter()
 
     private lateinit var choose: TextView
     private lateinit var days: TextView
@@ -47,5 +57,15 @@ class AverageCycleFragment : MvpAppCompatFragment() {
             days.isVisible = true
         }
         return view
+    }
+
+    override fun getStep(): Int = 3
+
+    override fun getNextFragment(): AbstractQuizFragment? {
+        return BirthDateFragment()
+    }
+
+    override fun getPrevFragment(): AbstractQuizFragment? {
+        return AverageMenstruationFragment()
     }
 }

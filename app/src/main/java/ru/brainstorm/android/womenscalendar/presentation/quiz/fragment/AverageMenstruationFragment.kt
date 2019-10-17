@@ -41,10 +41,10 @@ class AverageMenstruationFragment : AbstractQuizFragment(), AverageMenstruationV
         averageMenstruationPicker.minValue = 0
         averageMenstruationPicker.maxValue = 10
         averageMenstruationPicker.setDividerColorResource(color.transparent)
-//        averageMenstruationPicker.setTextColorResource(R.color.colorGreyFont)
-//        averageMenstruationPicker.setTextSize(R.dimen.text_size_picker)
-//        averageMenstruationPicker.setSelectedTextColorResource(R.color.colorOfChosenNumber)
-//        averageMenstruationPicker.setSelectedTextSize(R.dimen.text_size_picker)
+        averageMenstruationPicker.setTextColorResource(R.color.colorGreyFont)
+        averageMenstruationPicker.setTextSize(R.dimen.text_size_picker)
+        averageMenstruationPicker.setSelectedTextColorResource(R.color.colorOfChosenNumber)
+        averageMenstruationPicker.setSelectedTextSize(R.dimen.text_size_picker)
         averageMenstruationPicker.setOnValueChangedListener { _, _, _ ->
             choose.isVisible = false
             days.isVisible = true
@@ -55,7 +55,7 @@ class AverageMenstruationFragment : AbstractQuizFragment(), AverageMenstruationV
     override fun getStep(): Int = 2
 
     override fun getNextFragment(): AbstractQuizFragment? {
-        return null
+        return AverageCycleFragment()
     }
 
     override fun getPrevFragment(): AbstractQuizFragment? {
