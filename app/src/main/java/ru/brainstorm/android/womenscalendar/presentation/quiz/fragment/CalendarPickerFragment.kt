@@ -79,10 +79,6 @@ class CalendarPickerFragment :  CalendarPickerView_, AbstractQuizFragment(), Has
     }
     //other code
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -97,186 +93,6 @@ class CalendarPickerFragment :  CalendarPickerView_, AbstractQuizFragment(), Has
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         var calendarView = view.findViewById<com.kizitonwose.calendarview.CalendarView>(R.id.calendarView)
-        /*val currentMonth = YearMonth.now()
-        val firstMonth = currentMonth.minusMonths(10)
-        val lastMonth = currentMonth.plusMonths(10)
-        val firstDayOfWeek = WeekFields.of(Locale.getDefault()).firstDayOfWeek
-        calendarView.setup(firstMonth, lastMonth, firstDayOfWeek)
-        calendarView.scrollToMonth(currentMonth)
-
-        class DayViewContainer(view: View) : ViewContainer(view) {
-            val textView = view.calendarDayText
-
-
-        }
-
-
-        calendarView.dayBinder = object : DayBinder<DayViewContainer> {
-            // Called only when a new container is needed.
-            override fun create(view: View) = DayViewContainer(view)
-
-            // Called every time we need to reuse a container.
-            override fun bind(container: DayViewContainer, day: CalendarDay) {
-                container.textView.text = day.date.dayOfMonth.toString()
-            }
-        }
-
-        class MonthViewContainer(view: View) : ViewContainer(view) {
-            val textView = view.HeaderText
-        }
-
-        calendarView.monthHeaderBinder = object : MonthHeaderFooterBinder<MonthViewContainer> {
-            override fun create(view: View) = MonthViewContainer(view)
-            override fun bind(container: MonthViewContainer, month: CalendarMonth) {
-                @SuppressLint("SetTextI18n") // Concatenation warning for `setText` call.
-                container.textView.text = "${month.yearMonth.month.name.toLowerCase().capitalize()} ${month.year}"
-            }
-        }*/
-        /*val daysOfWeek = daysOfWeekFromLocale()
-        legendLayout.children.forEachIndexed { index, view ->
-            (view as TextView).apply {
-                text = daysOfWeek[index].name.take(3).toLowerCase().capitalize()
-                setTextSize(TypedValue.COMPLEX_UNIT_SP, 15f)
-                setTextColorRes(R.color.example_4_grey)
-            }
-        }
-
-        val currentMonth = YearMonth.now()
-        calendarView.setup(currentMonth, currentMonth.plusMonths(12), daysOfWeek.first())
-        calendarView.scrollToMonth(currentMonth)
-
-
-        class DayViewContainer(view: View) : ViewContainer(view) {
-            lateinit var day: CalendarDay // Will be set when this container is bound.
-            val textView = view.calendarDayText
-            val roundBgView = view.exFourRoundBgView
-
-            init {
-                view.setOnClickListener {
-                    if (day.owner == DayOwner.THIS_MONTH && (day.date == today || day.date.isAfter(today))) {
-                        val date = day.date
-                        if (startDate != null) {
-                            if (date < startDate || endDate != null) {
-                                startDate = date
-                                endDate = null
-                            } else if (date != startDate) {
-                                endDate = date
-                            }
-                        } else {
-                            startDate = date
-                        }
-                        calendarView.notifyCalendarChanged()
-                        bindSummaryViews()
-                    }
-                }
-            }
-        }
-        calendarView.dayBinder = object : DayBinder<DayViewContainer> {
-            override fun create(view: View) = DayViewContainer(view)
-            override fun bind(container: DayViewContainer, day: CalendarDay) {
-                container.day = day
-                val textView = container.textView
-                val roundBgView = container.roundBgView
-
-                textView.text = null
-                textView.background = null
-                roundBgView.makeInVisible()
-
-                if (day.owner == DayOwner.THIS_MONTH) {
-                    textView.text = day.day.toString()
-
-                    if (day.date.isBefore(today)) {
-                        textView.setTextColorRes(R.color.example_4_grey_past)
-                    } else {
-                        when {
-                            startDate == day.date && endDate == null -> {
-                                textView.setTextColorRes(R.color.colorPrimaryDark)
-                                roundBgView.makeVisible()
-                                roundBgView.setBackgroundResource(R.drawable.example_4_single_selected_bg)
-                            }
-                            day.date == startDate -> {
-                                textView.setTextColorRes(R.color.colorPrimaryDark)
-                                updateDrawableRadius(textView)
-                                textView.background = startBackground
-                            }
-                            startDate != null && endDate != null && (day.date > startDate && day.date < endDate) -> {
-                                textView.setTextColorRes(R.color.colorPrimaryDark)
-                                textView.setBackgroundResource(R.drawable.example_4_continuous_selected_bg_middle)
-                            }
-                            day.date == endDate -> {
-                                textView.setTextColorRes(R.color.colorPrimaryDark)
-                                updateDrawableRadius(textView)
-                                textView.background = endBackground
-                            }
-                            day.date == today -> {
-                                textView.setTextColorRes(R.color.example_4_grey)
-                                roundBgView.makeVisible()
-                                roundBgView.setBackgroundResource(R.drawable.example_4_today_bg)
-                            }
-                            else -> textView.setTextColorRes(R.color.example_4_grey)
-                        }
-                    }
-                } else {
-
-                    // This part is to make the coloured selection background continuous
-                    // on the blank in and out dates across various months and also on dates(months)
-                    // between the start and end dates if the selection spans across multiple months.
-
-                    val startDate = startDate
-                    val endDate = endDate
-                    if (startDate != null && endDate != null) {
-                        // Mimic selection of inDates that are less than the startDate.
-                        // Example: When 26 Feb 2019 is startDate and 5 Mar 2019 is endDate,
-                        // this makes the inDates in Mar 2019 for 24 & 25 Feb 2019 look selected.
-                        if ((day.owner == DayOwner.PREVIOUS_MONTH
-                                    && startDate.monthValue == day.date.monthValue
-                                    && endDate.monthValue != day.date.monthValue) ||
-                            // Mimic selection of outDates that are greater than the endDate.
-                            // Example: When 25 Apr 2019 is startDate and 2 May 2019 is endDate,
-                            // this makes the outDates in Apr 2019 for 3 & 4 May 2019 look selected.
-                            (day.owner == DayOwner.NEXT_MONTH
-                                    && startDate.monthValue != day.date.monthValue
-                                    && endDate.monthValue == day.date.monthValue) ||
-
-                            // Mimic selection of in and out dates of intermediate
-                            // months if the selection spans across multiple months.
-                            (startDate < day.date && endDate > day.date
-                                    && startDate.monthValue != day.date.monthValue
-                                    && endDate.monthValue != day.date.monthValue)
-                        ) {
-                            textView.setBackgroundResource(R.drawable.example_4_continuous_selected_bg_middle)
-                        }
-                    }
-                }
-            }
-        }
-
-        class MonthViewContainer(view: View) : ViewContainer(view) {
-            val textView = view.exFourHeaderText
-        }
-        calendarView.monthHeaderBinder = object : MonthHeaderFooterBinder<MonthViewContainer> {
-            override fun create(view: View) = MonthViewContainer(view)
-            override fun bind(container: MonthViewContainer, month: CalendarMonth) {
-                val monthTitle = "${month.yearMonth.month.name.toLowerCase().capitalize()} ${month.year}"
-                container.textView.text = monthTitle
-            }
-        }
-
-        exFourSaveButton.setOnClickListener click@{
-            val startDate = startDate
-            val endDate = endDate
-            if (startDate != null && endDate != null) {
-                val formatter = DateTimeFormatter.ofPattern("d MMMM yyyy")
-                val text = "Selected: ${formatter.format(startDate)} - ${formatter.format(endDate)}"
-                Snackbar.make(requireView(), text, Snackbar.LENGTH_LONG).show()
-            } else {
-                Snackbar.make(requireView(), "No selection. Searching all Airbnb listings.", Snackbar.LENGTH_LONG)
-                    .show()
-            }
-            fragmentManager?.popBackStack()
-        }
-
-        bindSummaryViews()*/
         val daysOfWeek = daysOfWeekFromLocale()
         legendLayout.children.forEachIndexed { index, view ->
             (view as TextView).apply {
@@ -319,10 +135,10 @@ class CalendarPickerFragment :  CalendarPickerView_, AbstractQuizFragment(), Has
         calendarView.dayBinder = object : DayBinder<DayViewContainer> {
             override fun create(view: View) = DayViewContainer(view)
             override fun bind(container: DayViewContainer, day: CalendarDay) {
+
                 container.day = day
                 val textView = container.textView
                 val roundBgView = container.roundBgView
-
                 textView.text = null
                 textView.background = null
                 roundBgView.makeInVisible()
