@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="SUN"
+        android:text="ВС"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="14sp" />
 
@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="MON"
+        android:text="ПН"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="14sp" />
 
@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="TUE"
+        android:text="ВТ"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="14sp" />
 
@@ -44,7 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="WED"
+        android:text="СР"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="14sp" />
 
@@ -54,7 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="THU"
+        android:text="ЧТ"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="14sp" />
 
@@ -64,7 +64,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="FRI"
+        android:text="ПТ"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="14sp" />
 
@@ -74,7 +74,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="SAT"
+        android:text="СБ"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="14sp" />
 

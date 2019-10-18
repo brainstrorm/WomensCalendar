@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -9,6 +10,7 @@
      a single date is selected will result in a the background not being a perfect circle
      since the view is not square in shape.
      So we set the background on this view which has a margin on all sides instead-->
+
     <View
         android:id="@+id/exFourRoundBgView"
         android:layout_width="match_parent"
@@ -24,4 +26,6 @@
         android:gravity="center"
         android:textSize="16sp"
         tools:text="22" />
+
+
 </FrameLayout>

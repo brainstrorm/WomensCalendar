@@ -12,6 +12,7 @@
     <color name="colorOfChosenNumber">#D4517D</color>
     <dimen name="text_size_picker">48sp</dimen>
     <color name="color_red">#F00909</color>
+    <color name="colorPinkSelected">#B4035F</color>
 
     <color name="example_4_grey">#474747</color>
     <color name="example_4_green">#008489</color>

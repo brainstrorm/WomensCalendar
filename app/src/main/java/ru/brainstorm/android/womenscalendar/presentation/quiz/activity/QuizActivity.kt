@@ -32,7 +32,7 @@ class QuizActivity : MvpAppCompatActivity(), QuizActivityView, View.OnClickListe
         setContentView(R.layout.poll)
         supportActionBar?.hide()
         supportFragmentManager.beginTransaction()
-            .add(R.id.picker, CalendarPickerFragment())
+            .add(R.id.picker, CalendarPickerForQuizFragment())
             .commit()
         provideStep(1)
     }

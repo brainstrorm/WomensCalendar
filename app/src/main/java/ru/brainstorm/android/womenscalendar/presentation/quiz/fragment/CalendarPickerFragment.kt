@@ -1,54 +1,39 @@
 package ru.brainstorm.android.womenscalendar.presentation.quiz.fragment
 
-import android.annotation.SuppressLint
-import android.content.Context
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.drawable.GradientDrawable
-import android.icu.text.LocaleDisplayNames
-import android.icu.util.LocaleData
 import android.os.Build
 import android.os.Bundle
 import android.util.TypedValue
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.appcompat.content.res.AppCompatResources.getDrawable
-import androidx.appcompat.widget.Toolbar
-import androidx.core.content.ContextCompat
 import androidx.core.view.children
-import androidx.core.view.isVisible
-import com.google.android.material.snackbar.Snackbar
 import com.kizitonwose.calendarview.model.CalendarDay
 import com.kizitonwose.calendarview.model.CalendarMonth
 import com.kizitonwose.calendarview.model.DayOwner
 import com.kizitonwose.calendarview.ui.DayBinder
 import com.kizitonwose.calendarview.ui.MonthHeaderFooterBinder
 import com.kizitonwose.calendarview.ui.ViewContainer
-import kotlinx.android.synthetic.main.calendar_day_layout.view.*
 import kotlinx.android.synthetic.main.calendar_day_legend.*
 import kotlinx.android.synthetic.main.calendar_header.view.*
-import kotlinx.android.synthetic.main.fragment_calendar_picker.*
 import org.threeten.bp.LocalDate
 import org.threeten.bp.YearMonth
 import org.threeten.bp.format.DateTimeFormatter
-import org.threeten.bp.temporal.WeekFields
 import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.presentation.quiz.view.CalendarPickerView_
-import java.util.*
 
 
-
-class CalendarPickerFragment :  CalendarPickerView_, AbstractQuizFragment(), HasToolbar, HasBackButton{
-
-    //other code
-    override val toolbar: Toolbar?
-        get() = Toolbar
+class CalendarPickerFragment :  CalendarPickerView_, AbstractQuizFragment(){
 
 
     private val today = LocalDate.now()
+
+    private var weekDays = HashMap<String, String>()
+
 
     private var startDate: LocalDate? = null
     private var endDate: LocalDate? = null
@@ -92,11 +77,19 @@ class CalendarPickerFragment :  CalendarPickerView_, AbstractQuizFragment(), Has
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         var calendarView = view.findViewById<com.kizitonwose.calendarview.CalendarView>(R.id.calendarView)
+        weekDays.put("Mon", "Пн")
+        weekDays.put("Tue", "Вт")
+        weekDays.put("Wed", "Ср")
+        weekDays.put("Thu", "Чт")
+        weekDays.put("Fri", "Пт")
+        weekDays.put("Sat", "Сб")
+        weekDays.put("Sun", "Вс")
         val daysOfWeek = daysOfWeekFromLocale()
         legendLayout.children.forEachIndexed { index, view ->
             (view as TextView).apply {
-                text = daysOfWeek[index].name.take(3).toLowerCase().capitalize()
+                text = weekDays[daysOfWeek[index].name.take(3).toLowerCase().capitalize()]!!
                 setTextSize(TypedValue.COMPLEX_UNIT_SP, 15f)
                 setTextColorRes(R.color.example_4_grey)
             }
@@ -127,7 +120,6 @@ class CalendarPickerFragment :  CalendarPickerView_, AbstractQuizFragment(), Has
                             startDate = date
                         }
                         calendarView.notifyCalendarChanged()
-                        bindSummaryViews()
                     }
                 }
             }
@@ -221,7 +213,8 @@ class CalendarPickerFragment :  CalendarPickerView_, AbstractQuizFragment(), Has
             }
         }
 
-        exFourSaveButton.setOnClickListener click@{
+        //For save button!!! or ContinueButton
+        /*exFourSaveButton.setOnClickListener click@{
             val startDate = startDate
             val endDate = endDate
             if (startDate != null && endDate != null) {
@@ -233,31 +226,11 @@ class CalendarPickerFragment :  CalendarPickerView_, AbstractQuizFragment(), Has
                     .show()
             }
             fragmentManager?.popBackStack()
-        }
+        }*/
 
-        bindSummaryViews()
 
     }
 
-    private fun bindSummaryViews() {
-        if (startDate != null) {
-            exFourStartDateText.text = headerDateFormatter.format(startDate)
-            exFourStartDateText.setTextColorRes(R.color.example_4_grey)
-        } else {
-            exFourStartDateText.text = getString(R.string.start_date)
-            exFourStartDateText.setTextColor(Color.GRAY)
-        }
-        if (endDate != null) {
-            exFourEndDateText.text = headerDateFormatter.format(endDate)
-            exFourEndDateText.setTextColorRes(R.color.example_4_grey)
-        } else {
-            exFourEndDateText.text = getString(R.string.end_date)
-            exFourEndDateText.setTextColor(Color.GRAY)
-        }
-
-        // Enable save button if a range is selected or no date is selected at all, Airbnb style.
-        exFourSaveButton.isEnabled = endDate != null || (startDate == null && endDate == null)
-    }
 
     /*override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.example_4_menu, menu)
@@ -271,16 +244,6 @@ class CalendarPickerFragment :  CalendarPickerView_, AbstractQuizFragment(), Has
         }
     }*/
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.menuItemClear) {
-            startDate = null
-            endDate = null
-            calendarView.notifyCalendarChanged()
-            bindSummaryViews()
-            return true
-        }
-        return super.onOptionsItemSelected(item)
-    }
 
     override fun onStart() {
         super.onStart()
