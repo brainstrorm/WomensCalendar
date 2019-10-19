@@ -6,6 +6,7 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.view.children
 import com.kizitonwose.calendarview.CalendarView
@@ -16,7 +17,12 @@ import com.kizitonwose.calendarview.ui.DayBinder
 import com.kizitonwose.calendarview.ui.MonthHeaderFooterBinder
 import com.kizitonwose.calendarview.ui.ViewContainer
 import kotlinx.android.synthetic.main.calendar_day_legend.*
+import kotlinx.android.synthetic.main.calendar_day_legend.view.*
+
+
 import kotlinx.android.synthetic.main.calendar_header.view.*
+
+
 import org.threeten.bp.LocalDate
 import org.threeten.bp.YearMonth
 import ru.brainstorm.android.womenscalendar.R
@@ -68,17 +74,10 @@ class CalendarPickerForQuizFragment : CalendarPickerView_, AbstractQuizFragment(
         months.put("September", "Сентябрь")
 
         val daysOfWeek = daysOfWeekFromLocale()
-        legendLayout.children.forEachIndexed { index, view ->
-            (view as TextView).apply {
-                text = weekDays[daysOfWeek[index].name.take(3).toLowerCase().capitalize()]!!
-                setTextSize(TypedValue.COMPLEX_UNIT_SP, 15f)
-                setTextColorRes(R.color.example_4_grey)
-            }
-        }
 
 
         val currentMonth = YearMonth.now()
-        calendarView.setup(currentMonth, currentMonth.plusMonths(12), daysOfWeek.first())
+        calendarView.setup(currentMonth.minusMonths(12), currentMonth.plusMonths(12), daysOfWeek.first())
         calendarView.scrollToMonth(currentMonth)
 
         class DayViewContainer(view: View) : ViewContainer(view) {
@@ -86,6 +85,7 @@ class CalendarPickerForQuizFragment : CalendarPickerView_, AbstractQuizFragment(
             lateinit var day: CalendarDay
 
             val textView = view.findViewById<TextView>(R.id.calendarDayText)
+            val roundField = view.findViewById<View>(R.id.exFourRoundBgView)
 
             init {
                 view.setOnClickListener {
@@ -110,32 +110,41 @@ class CalendarPickerForQuizFragment : CalendarPickerView_, AbstractQuizFragment(
             override fun bind(container: DayViewContainer, day: CalendarDay) {
                 container.day = day
                 val textView = container.textView
+                val roundField = container.roundField
                 textView.text = day.date.dayOfMonth.toString()
 
                 if (day.owner == DayOwner.THIS_MONTH) {
                     textView.makeVisible()
+                    roundField.makeVisible()
                     when (day.date) {
                         selectedDate -> {
-                            textView.setTextColorRes(R.color.color_White)
-                            textView.setBackgroundResource(R.drawable.example_4_single_selected_bg)
+                            roundField.setBackgroundResource(R.drawable.example_4_single_selected_bg)
                         }
                         today -> {
                             textView.setTextColorRes(R.color.color_red)
-                            textView.background = null
+                            roundField.setBackgroundResource(R.drawable.day_round)
                         }
                         else -> {
-                            textView.setTextColorRes(R.color.design_default_color_primary)
-                            textView.background = null
+                            textView.setTextColorRes(R.color.colorDays)
+                            roundField.setBackgroundResource(R.drawable.day_round)
                         }
                     }
                 } else {
                     textView.makeInVisible()
+                    roundField.makeInVisible()
                 }
             }
         }
 
         class MonthViewContainer(view: View) : ViewContainer(view) {
             val textView = view.exFourHeaderText
+            val legendLayout = view.legendLayout.children.forEachIndexed { index, view ->
+                (view as TextView).apply {
+                    text = weekDays[daysOfWeek[index].name.take(3).toLowerCase().capitalize()]!!
+                    setTextSize(TypedValue.COMPLEX_UNIT_SP, 15f)
+                    setTextColorRes(R.color.colorDaysOfWeek)
+                }
+            }
         }
         calendarView.monthHeaderBinder = object : MonthHeaderFooterBinder<MonthViewContainer> {
             override fun create(view: View) = MonthViewContainer(view)
@@ -145,23 +154,6 @@ class CalendarPickerForQuizFragment : CalendarPickerView_, AbstractQuizFragment(
             }
         }
     }
-
-    /*private lateinit var menuItem: MenuItem
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.example_2_menu, menu)
-        menuItem = menu.getItem(0)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.menuItemDone) {
-            val date = selectedDate ?: return false
-            val text = "Selected: ${DateTimeFormatter.ofPattern("d MMMM yyyy").format(date)}"
-            Snackbar.make(requireView(), text, Snackbar.LENGTH_SHORT).show()
-            fragmentManager?.popBackStack()
-            return true
-        }
-        return super.onOptionsItemSelected(item)
-    }*/
 
     override fun getStep(): Int = 1
 

@@ -1,14 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/exFourHeaderText"
+    android:id="@+id/calendarHeader"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="start"
-    android:paddingStart="16dp"
-    android:paddingTop="10dp"
-    android:paddingEnd="16dp"
-    android:paddingBottom="10dp"
-    android:textColor="@color/example_4_grey"
-    android:textSize="26sp"
-    tools:text="October 2019"/>
+    android:gravity="center"
+    android:orientation="vertical"
+    android:background="@color/colorPinkLite"
+    tools:ignore="HardcodedText">
+    <TextView
+        android:id="@+id/exFourHeaderText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:paddingStart="16dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="10dp"
+        android:textColor="@color/colorDays"
+        android:textSize="26sp"
+        tools:text="Октябрь 2019"/>
+
+
+    <include
+        layout="@layout/calendar_day_legend"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp" />
+
+
+</LinearLayout>
