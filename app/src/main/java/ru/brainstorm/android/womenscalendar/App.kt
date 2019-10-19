@@ -1,6 +1,7 @@
 package ru.brainstorm.android.womenscalendar
 
 import android.app.Application
+import com.jakewharton.threetenabp.AndroidThreeTen
 import ru.brainstorm.android.womenscalendar.di.AppComponent
 import ru.brainstorm.android.womenscalendar.di.DaggerAppComponent
 import ru.brainstorm.android.womenscalendar.di.modules.QuizModule
@@ -17,6 +18,7 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         initializeDagger()
+        AndroidThreeTen.init(this)
     }
 
     private fun initializeDagger() {

@@ -1,5 +1,6 @@
 package ru.brainstorm.android.womenscalendar.presentation.quiz.fragment
 
+import androidx.fragment.app.Fragment
 import moxy.MvpAppCompatFragment
 
 /**

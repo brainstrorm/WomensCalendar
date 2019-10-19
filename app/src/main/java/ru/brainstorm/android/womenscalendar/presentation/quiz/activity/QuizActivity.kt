@@ -10,12 +10,9 @@ import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import ru.brainstorm.android.womenscalendar.App
 import ru.brainstorm.android.womenscalendar.R
-import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.AbstractQuizFragment
-import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.AverageMenstruationFragment
+import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.*
 import ru.brainstorm.android.womenscalendar.presentation.quiz.presenter.QuizActivityPresenter
 import ru.brainstorm.android.womenscalendar.presentation.quiz.view.QuizActivityView
-import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.AverageCycleFragment
-import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.BirthDateFragment
 
 
 class QuizActivity : MvpAppCompatActivity(), QuizActivityView, View.OnClickListener {
@@ -35,9 +32,9 @@ class QuizActivity : MvpAppCompatActivity(), QuizActivityView, View.OnClickListe
         setContentView(R.layout.poll)
         supportActionBar?.hide()
         supportFragmentManager.beginTransaction()
-            .add(R.id.picker, BirthDateFragment())
+            .add(R.id.picker, CalendarPickerForQuizFragment())
             .commit()
-        provideStep(2)
+        provideStep(1)
     }
 
     override fun onClick(p0: View?) {
