@@ -22,15 +22,26 @@ import kotlinx.android.synthetic.main.calendar_day_legend.view.*
 
 
 import kotlinx.android.synthetic.main.calendar_header.view.*
+import moxy.presenter.InjectPresenter
+import moxy.presenter.ProvidePresenter
 
 
 import org.threeten.bp.LocalDate
 import org.threeten.bp.YearMonth
+import ru.brainstorm.android.womenscalendar.App
 import ru.brainstorm.android.womenscalendar.R
+import ru.brainstorm.android.womenscalendar.presentation.quiz.presenter.BirthDatePresenter
+import ru.brainstorm.android.womenscalendar.presentation.quiz.presenter.CalendarPickerForQuizPresenter
 import ru.brainstorm.android.womenscalendar.presentation.quiz.view.CalendarPickerForQuizView
 import ru.brainstorm.android.womenscalendar.presentation.quiz.view.CalendarPickerView_
 
 class CalendarPickerForQuizFragment : AbstractQuizFragment(), CalendarPickerForQuizView{
+
+    @InjectPresenter
+    lateinit var fragmentPresenter: CalendarPickerForQuizPresenter
+
+    @ProvidePresenter
+    fun providePresenter() = App.appComponent.presenter().calendarPickerForQuizPresenter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

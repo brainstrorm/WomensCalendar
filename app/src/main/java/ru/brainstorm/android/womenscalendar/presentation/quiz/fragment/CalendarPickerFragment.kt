@@ -275,7 +275,7 @@ class CalendarPickerFragment :  CalendarPickerView_, AbstractQuizFragment(){
 
 
 
-    override fun getStep(): Int = 1
+    override fun getStep(): Int = 5
 
     override fun getNextFragment(): AbstractQuizFragment? {
         return AverageMenstruationFragment()

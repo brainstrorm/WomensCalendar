@@ -61,6 +61,6 @@ class AverageMenstruationFragment : AbstractQuizFragment(), AverageMenstruationV
     }
 
     override fun getPrevFragment(): AbstractQuizFragment? {
-        return null
+        return CalendarPickerForQuizFragment()
     }
 }
