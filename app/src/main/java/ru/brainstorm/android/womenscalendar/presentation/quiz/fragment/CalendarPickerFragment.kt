@@ -19,6 +19,7 @@ import com.kizitonwose.calendarview.ui.DayBinder
 import com.kizitonwose.calendarview.ui.MonthHeaderFooterBinder
 import com.kizitonwose.calendarview.ui.ViewContainer
 import kotlinx.android.synthetic.main.calendar_day_legend.*
+import kotlinx.android.synthetic.main.calendar_day_legend.view.*
 import kotlinx.android.synthetic.main.calendar_header.view.*
 import org.threeten.bp.LocalDate
 import org.threeten.bp.YearMonth
@@ -33,7 +34,7 @@ class CalendarPickerFragment :  CalendarPickerView_, AbstractQuizFragment(){
     private val today = LocalDate.now()
 
     private var weekDays = HashMap<String, String>()
-
+    private var months = HashMap<String, String>()
 
     private var startDate: LocalDate? = null
     private var endDate: LocalDate? = null
@@ -86,17 +87,23 @@ class CalendarPickerFragment :  CalendarPickerView_, AbstractQuizFragment(){
         weekDays.put("Fri", "Пт")
         weekDays.put("Sat", "Сб")
         weekDays.put("Sun", "Вс")
+
+        months.put("October", "Октябрь")
+        months.put("November", "Ноябрь")
+        months.put("December", "Декабрь")
+        months.put("January", "Январь")
+        months.put("February", "Февраль")
+        months.put("March", "Март")
+        months.put("April", "Апрель")
+        months.put("May", "Май")
+        months.put("June", "Июнь")
+        months.put("July", "Июль")
+        months.put("August", "Август")
+        months.put("September", "Сентябрь")
         val daysOfWeek = daysOfWeekFromLocale()
-        legendLayout.children.forEachIndexed { index, view ->
-            (view as TextView).apply {
-                text = weekDays[daysOfWeek[index].name.take(3).toLowerCase().capitalize()]!!
-                setTextSize(TypedValue.COMPLEX_UNIT_SP, 15f)
-                setTextColorRes(R.color.example_4_grey)
-            }
-        }
 
         val currentMonth = YearMonth.now()
-        calendarView.setup(currentMonth, currentMonth.plusMonths(12), daysOfWeek.first())
+        calendarView.setup(currentMonth.minusMonths(12), currentMonth.plusMonths(12), daysOfWeek.first())
         calendarView.scrollToMonth(currentMonth)
 
 
@@ -204,11 +211,18 @@ class CalendarPickerFragment :  CalendarPickerView_, AbstractQuizFragment(){
 
         class MonthViewContainer(view: View) : ViewContainer(view) {
             val textView = view.exFourHeaderText
+            val legendLayout = view.legendLayout.children.forEachIndexed { index, view ->
+                (view as TextView).apply {
+                    text = weekDays[daysOfWeek[index].name.take(3).toLowerCase().capitalize()]!!
+                    setTextSize(TypedValue.COMPLEX_UNIT_SP, 15f)
+                    setTextColorRes(R.color.colorDaysOfWeek)
+                }
+            }
         }
         calendarView.monthHeaderBinder = object : MonthHeaderFooterBinder<MonthViewContainer> {
             override fun create(view: View) = MonthViewContainer(view)
             override fun bind(container: MonthViewContainer, month: CalendarMonth) {
-                val monthTitle = "${month.yearMonth.month.name.toLowerCase().capitalize()} ${month.year}"
+                val monthTitle = "${months[month.yearMonth.month.name.toLowerCase().capitalize()]} ${month.year}"
                 container.textView.text = monthTitle
             }
         }
@@ -231,18 +245,6 @@ class CalendarPickerFragment :  CalendarPickerView_, AbstractQuizFragment(){
 
     }
 
-
-    /*override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.example_4_menu, menu)
-        Toolbar.post {
-            // Configure menu text to match what is in the Airbnb app.
-                Toolbar.findViewById<TextView>(R.id.menuItemClear).apply {
-                setTextColor(requireContext().getColorCompat(R.color.example_4_grey))
-                setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
-                isAllCaps = false
-            }
-        }
-    }*/
 
 
     override fun onStart() {

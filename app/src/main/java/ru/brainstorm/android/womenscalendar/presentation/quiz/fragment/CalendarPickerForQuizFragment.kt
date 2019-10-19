@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.RadioButton
 import android.widget.TextView
 import androidx.core.view.children
 import com.kizitonwose.calendarview.CalendarView
@@ -26,9 +27,10 @@ import kotlinx.android.synthetic.main.calendar_header.view.*
 import org.threeten.bp.LocalDate
 import org.threeten.bp.YearMonth
 import ru.brainstorm.android.womenscalendar.R
+import ru.brainstorm.android.womenscalendar.presentation.quiz.view.CalendarPickerForQuizView
 import ru.brainstorm.android.womenscalendar.presentation.quiz.view.CalendarPickerView_
 
-class CalendarPickerForQuizFragment : CalendarPickerView_, AbstractQuizFragment(){
+class CalendarPickerForQuizFragment : AbstractQuizFragment(), CalendarPickerForQuizView{
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -118,15 +120,15 @@ class CalendarPickerForQuizFragment : CalendarPickerView_, AbstractQuizFragment(
                     roundField.makeVisible()
                     when (day.date) {
                         selectedDate -> {
-                            roundField.setBackgroundResource(R.drawable.example_4_single_selected_bg)
+                            roundField.setBackgroundResource(R.drawable.round_field_selected)
                         }
                         today -> {
                             textView.setTextColorRes(R.color.color_red)
-                            roundField.setBackgroundResource(R.drawable.day_round)
+                            roundField.setBackgroundResource(R.drawable.round_field_not_selected)
                         }
                         else -> {
                             textView.setTextColorRes(R.color.colorDays)
-                            roundField.setBackgroundResource(R.drawable.day_round)
+                            roundField.setBackgroundResource(R.drawable.round_field_not_selected)
                         }
                     }
                 } else {

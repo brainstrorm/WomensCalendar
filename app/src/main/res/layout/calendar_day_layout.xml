@@ -30,14 +30,13 @@
         android:id="@+id/exFourRoundBgView"
         android:layout_width="16dp"
         android:layout_height="16dp"
-
-        android:background="@drawable/day_round"
+        android:background="@drawable/round_field_not_selected"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/calendarDayText"
-        app:layout_constraintVertical_bias="0.043" />
+        app:layout_constraintVertical_bias="0.03" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,7 +12,7 @@
     <color name="colorOfChosenNumber">#D4517D</color>
     <dimen name="text_size_picker">48sp</dimen>
     <color name="color_red">#F00909</color>
-    <color name="colorPinkSelected">#B4035F</color>
+    <color name="colorPinkSelected">#FF367A</color>
     <color name="colorGreyNotSelected">#DADADA</color>
     <color name="colorDaysOfWeek">#9D9D9D</color>
     <color name="colorDays">#5A5A5A</color>
