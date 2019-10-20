@@ -12,7 +12,6 @@ import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import ru.brainstorm.android.womenscalendar.App
 import ru.brainstorm.android.womenscalendar.R
-import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.AverageMenstruationFragment
 import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.CalendarPickerForQuizFragment
 import ru.brainstorm.android.womenscalendar.presentation.quiz.presenter.QuizActivityPresenter
 import ru.brainstorm.android.womenscalendar.presentation.quiz.view.QuizActivityView
@@ -23,7 +22,12 @@ class QuizActivity : MvpAppCompatActivity(), QuizActivityView, View.OnClickListe
     @InjectPresenter
     lateinit var quizPresenter: QuizActivityPresenter
 
-    lateinit var questions: Array<String>
+    private lateinit var questions: Array<String>
+
+    private lateinit var btnNextMiddle: TextView
+    private lateinit var btnNext: TextView
+    private lateinit var btnDntRemember: TextView
+    private lateinit var btnDntRememberWhite: TextView
 
     @ProvidePresenter
     fun providePresenter() = App.appComponent.presenter().quizActivityPresenter()
@@ -44,10 +48,10 @@ class QuizActivity : MvpAppCompatActivity(), QuizActivityView, View.OnClickListe
             .add(R.id.picker, CalendarPickerForQuizFragment())
             .commit()
         initFragments()
-        findViewById<View>(R.id.btn_next_middle).setOnClickListener(this)
-        findViewById<View>(R.id.btn_next).setOnClickListener(this)
-        findViewById<View>(R.id.btn_dnt_remember_white).setOnClickListener(this)
-        findViewById<View>(R.id.btn_dnt_remember).setOnClickListener(this)
+        btnNextMiddle = findViewById<TextView>(R.id.btn_next_middle).apply { setOnClickListener(this@QuizActivity) }
+        btnNext = findViewById<TextView>(R.id.btn_next).apply { setOnClickListener(this@QuizActivity) }
+        btnDntRememberWhite = findViewById<TextView>(R.id.btn_dnt_remember_white).apply { setOnClickListener(this@QuizActivity) }
+        btnDntRemember = findViewById<TextView>(R.id.btn_dnt_remember).apply { setOnClickListener(this@QuizActivity) }
         findViewById<View>(R.id.arrow).setOnClickListener(this)
     }
 
@@ -93,8 +97,19 @@ class QuizActivity : MvpAppCompatActivity(), QuizActivityView, View.OnClickListe
 
             when(step) {
 
-                0 ->  this.background = ResourcesCompat.getDrawable(resources,R.drawable.progress_bar1 ,null)
-                1 ->  this.background = ResourcesCompat.getDrawable(resources,R.drawable.progress_bar2 ,null)
+                //Hardcoded swap (sry I'm too lazy to do this shit normally ;-( )
+                0 -> {
+                    this.background = ResourcesCompat.getDrawable(resources,R.drawable.progress_bar1 ,null)
+                    btnNextMiddle.visibility = View.VISIBLE
+                    btnNext.visibility = View.GONE
+                    btnDntRemember.visibility = View.GONE
+                }
+                1 ->  {
+                    btnNextMiddle.visibility = View.GONE
+                    btnNext.visibility = View.VISIBLE
+                    btnDntRemember.visibility = View.VISIBLE
+                    this.background = ResourcesCompat.getDrawable(resources,R.drawable.progress_bar2 ,null)
+                }
                 2 ->  this.background = ResourcesCompat.getDrawable(resources,R.drawable.progress_bar3 ,null)
                 3 ->  this.background = ResourcesCompat.getDrawable(resources,R.drawable.progress_bar4 ,null)
 
