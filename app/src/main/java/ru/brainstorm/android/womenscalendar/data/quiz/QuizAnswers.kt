@@ -9,10 +9,10 @@ import java.util.Date
 sealed class ReadQuizAnswersResult
 
 //This class returned if we successfully read our data
-data class QuizAnswers(val lastMenstruation : Date,
-                       val averageTimeOfMenstruation : Int,
-                       val averageTimeOfCycle : Int,
-                       val birthDate : Date): ReadQuizAnswersResult()
+data class QuizAnswers(var lastMenstruation : Date,
+                       var averageTimeOfMenstruation : Int,
+                       var averageTimeOfCycle : Int,
+                       var birthDate : Date): ReadQuizAnswersResult()
 
 /*
  * This object returned if there were any problems

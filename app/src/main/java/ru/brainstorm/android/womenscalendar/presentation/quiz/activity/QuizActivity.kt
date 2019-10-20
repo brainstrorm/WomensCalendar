@@ -24,31 +24,42 @@ class QuizActivity : MvpAppCompatActivity(), QuizActivityView, View.OnClickListe
     @InjectPresenter
     lateinit var quizPresenter: QuizActivityPresenter
 
+    lateinit var questions: Array<String>
+
     @ProvidePresenter
     fun providePresenter() = App.appComponent.presenter().quizActivityPresenter()
 
     companion object {
+
+        const val TAG = "Quiz"
+
         fun provideIntent(packageContext: Context) = Intent(packageContext, QuizActivity::class.java)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.poll)
+        questions = resources.getStringArray(R.array.quiz_questions)
         supportActionBar?.hide()
         supportFragmentManager.beginTransaction()
-            .add(R.id.picker, CalendarPickerForQuizFragment())
+            .add(R.id.picker, AverageMenstruationFragment())
             .commit()
-        provideStep(1)
+        initFragments()
+        findViewById<View>(R.id.btn_next_middle).setOnClickListener(this)
+        findViewById<View>(R.id.btn_next).setOnClickListener(this)
+        findViewById<View>(R.id.btn_dnt_remember_white).setOnClickListener(this)
+        findViewById<View>(R.id.btn_dnt_remember).setOnClickListener(this)
+        findViewById<View>(R.id.imageButton2).setOnClickListener(this)
     }
 
     override fun onClick(p0: View?) {
         p0 ?: return
         when(p0.id) {
             R.id.btn_next_middle, R.id.btn_next -> {
-                performNext()
+                performNext(save = true)
             }
             R.id.btn_dnt_remember, R.id.btn_dnt_remember_white -> {
-                performNext()
+                performNext(save = false)
             }
             //It is back btn
             R.id.arrow -> {
@@ -57,42 +68,26 @@ class QuizActivity : MvpAppCompatActivity(), QuizActivityView, View.OnClickListe
         }
     }
 
-    private fun performPrev() = supportFragmentManager.also {
-        val fragment = it.findFragmentById(R.id.picker) as? AbstractQuizFragment
-        fragment ?: return@also
-        fragment.getPrevFragment()?.apply {
-            it.beginTransaction()
-                .replace(R.id.picker, this)
-                .commit()
-            this@QuizActivity.provideStep(getStep())
-        }
+    private fun performPrev() {
+        quizPresenter.performedPrev(supportFragmentManager)
     }
 
-    private fun performNext() = supportFragmentManager.also {
-        val fragment = it.findFragmentById(R.id.picker) as? AbstractQuizFragment
-        fragment ?: return@also
-        fragment.getNextFragment()?.apply {
-            it.beginTransaction()
-                .replace(R.id.picker, this)
-                .commit()
-        }
+    private fun performNext(save: Boolean) {
+        quizPresenter.performedNext(supportFragmentManager, save)
     }
 
-    private fun provideStep(step: Int) {
-        quizPresenter.provideStep(step)
+    private fun initFragments() {
+        quizPresenter.provideStep(1)
     }
 
     override fun setStep(step: Int) {
 
 
         findViewById<TextView>(R.id.step_poll).apply {
-            text = getString(R.string.step_poll, step)
-
+            text = getString(R.string.step_poll, step + 1)
         }
-
         findViewById<TextView>(R.id.text_poll).apply {
-            val array: Array<String> =  resources.getStringArray(R.array.poll_texts)
-            text = array[step]
+            text = questions[step]
         }
 
         findViewById<ImageView>(R.id.rect_main).apply {
@@ -106,6 +101,10 @@ class QuizActivity : MvpAppCompatActivity(), QuizActivityView, View.OnClickListe
 
             }
           }
+    }
+
+    override fun navigateToCalculation() {
+        Toast.makeText(this, "Quiz Completed!", Toast.LENGTH_SHORT).show()
     }
 
 }

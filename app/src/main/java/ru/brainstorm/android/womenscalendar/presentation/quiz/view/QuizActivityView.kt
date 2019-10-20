@@ -11,4 +11,7 @@ import moxy.viewstate.strategy.StateStrategyType
 interface QuizActivityView : MvpView {
     @StateStrategyType(OneExecutionStateStrategy::class)
     fun setStep(step: Int)
+
+    @StateStrategyType(OneExecutionStateStrategy::class)
+    fun navigateToCalculation()
 }

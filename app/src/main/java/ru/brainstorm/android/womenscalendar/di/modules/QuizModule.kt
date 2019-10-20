@@ -36,5 +36,5 @@ class QuizModule(private val application: Application) {
 
     @Provides
     fun provideSaveQuizAnswerRepository(sharedPreferences: SharedPreferences)
-            : SaveQuizAnswersRepository = SaveQuizAnswersRepositoryImpl(sharedPreferences)
+            : SaveQuizAnswersRepositoryImpl = SaveQuizAnswersRepositoryImpl(sharedPreferences)
 }
