@@ -3,7 +3,6 @@ package ru.brainstorm.android.womenscalendar.presentation.quiz.presenter
 import androidx.fragment.app.FragmentManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 import moxy.InjectViewState
 import moxy.MvpPresenter
