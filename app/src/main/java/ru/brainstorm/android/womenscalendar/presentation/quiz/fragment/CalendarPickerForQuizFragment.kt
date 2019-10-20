@@ -30,7 +30,7 @@ import org.threeten.bp.LocalDate
 import org.threeten.bp.YearMonth
 import ru.brainstorm.android.womenscalendar.App
 import ru.brainstorm.android.womenscalendar.R
-import ru.brainstorm.android.womenscalendar.presentation.quiz.presenter.BirthDatePresenter
+import ru.brainstorm.android.womenscalendar.data.quiz.QuizAnswers
 import ru.brainstorm.android.womenscalendar.presentation.quiz.presenter.CalendarPickerForQuizPresenter
 import ru.brainstorm.android.womenscalendar.presentation.quiz.view.CalendarPickerForQuizView
 import ru.brainstorm.android.womenscalendar.presentation.quiz.view.CalendarPickerView_
@@ -168,7 +168,7 @@ class CalendarPickerForQuizFragment : AbstractQuizFragment(), CalendarPickerForQ
         }
     }
 
-    override fun getStep(): Int = 1
+    override fun getStep(): Int = 0
 
     override fun getNextFragment(): AbstractQuizFragment? {
         return AverageMenstruationFragment()
@@ -176,5 +176,9 @@ class CalendarPickerForQuizFragment : AbstractQuizFragment(), CalendarPickerForQ
 
     override fun getPrevFragment(): AbstractQuizFragment? {
         return null
+    }
+
+    override fun setQuizAns(ans: QuizAnswers) {
+
     }
 }

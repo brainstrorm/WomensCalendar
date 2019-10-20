@@ -1,6 +1,5 @@
 package ru.brainstorm.android.womenscalendar.presentation.quiz.activity
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -8,13 +7,13 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
-import kotlinx.android.synthetic.main.poll_init.view.*
 import moxy.MvpAppCompatActivity
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import ru.brainstorm.android.womenscalendar.App
 import ru.brainstorm.android.womenscalendar.R
-import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.*
+import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.AverageMenstruationFragment
+import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.CalendarPickerForQuizFragment
 import ru.brainstorm.android.womenscalendar.presentation.quiz.presenter.QuizActivityPresenter
 import ru.brainstorm.android.womenscalendar.presentation.quiz.view.QuizActivityView
 
@@ -42,14 +41,14 @@ class QuizActivity : MvpAppCompatActivity(), QuizActivityView, View.OnClickListe
         questions = resources.getStringArray(R.array.quiz_questions)
         supportActionBar?.hide()
         supportFragmentManager.beginTransaction()
-            .add(R.id.picker, AverageMenstruationFragment())
+            .add(R.id.picker, CalendarPickerForQuizFragment())
             .commit()
         initFragments()
         findViewById<View>(R.id.btn_next_middle).setOnClickListener(this)
         findViewById<View>(R.id.btn_next).setOnClickListener(this)
         findViewById<View>(R.id.btn_dnt_remember_white).setOnClickListener(this)
         findViewById<View>(R.id.btn_dnt_remember).setOnClickListener(this)
-        findViewById<View>(R.id.imageButton2).setOnClickListener(this)
+        findViewById<View>(R.id.arrow).setOnClickListener(this)
     }
 
     override fun onClick(p0: View?) {
@@ -77,7 +76,7 @@ class QuizActivity : MvpAppCompatActivity(), QuizActivityView, View.OnClickListe
     }
 
     private fun initFragments() {
-        quizPresenter.provideStep(1)
+        quizPresenter.provideStep(0)
     }
 
     override fun setStep(step: Int) {
@@ -104,7 +103,7 @@ class QuizActivity : MvpAppCompatActivity(), QuizActivityView, View.OnClickListe
     }
 
     override fun navigateToCalculation() {
-        Toast.makeText(this, "Quiz Completed!", Toast.LENGTH_SHORT).show()
+
     }
 
 }

@@ -37,16 +37,15 @@
             android:layout_height="wrap_content"
             android:layout_weight="0"
             android:background="@null"
+            android:text="@string/btn_poll_next"
+            android:textColor="@color/color_White"
             android:textSize="17dp"
             android:visibility="invisible"
-            android:textColor="@color/color_White"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.48"
-            android:text=""
-            />
+            app:layout_constraintVertical_bias="0.48" />
 
         <TextView
             android:id="@+id/btn_dnt_remember"
@@ -55,7 +54,7 @@
             android:layout_marginEnd="20dp"
             android:layout_weight="0"
             android:background="@null"
-            android:text=""
+            android:text="@string/btn_poll_dnt_remember"
             android:textColor="@color/color_Grey"
             android:textSize="17dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -63,8 +62,7 @@
             app:layout_constraintHorizontal_bias="0.982"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.523"
-            />
+            app:layout_constraintVertical_bias="0.523" />
 
         <TextView
             android:id="@+id/btn_next"
@@ -72,32 +70,30 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="36dp"
             android:layout_weight="0"
-            android:textSize="17dp"
-
             android:background="@null"
+
+            android:text="@string/btn_poll_next"
             android:textColor="@color/color_White"
+            android:textSize="17dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.519"
-            android:text=""
-            />
+            app:layout_constraintVertical_bias="0.519" />
 
         <TextView
             android:id="@+id/btn_dnt_remember_white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0"
-            android:textColor="@color/color_White"
             android:background="@null"
+            android:text="@string/btn_poll_dnt_remember"
+            android:textColor="@color/color_White"
             android:textSize="17dp"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:text=""
-             />
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
