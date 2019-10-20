@@ -1,10 +1,14 @@
 package ru.brainstorm.android.womenscalendar.presentation.quiz.activity
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.res.ResourcesCompat
+import kotlinx.android.synthetic.main.poll_init.view.*
 import moxy.MvpAppCompatActivity
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
@@ -47,7 +51,7 @@ class QuizActivity : MvpAppCompatActivity(), QuizActivityView, View.OnClickListe
                 performNext()
             }
             //It is back btn
-            R.id.imageButton2 -> {
+            R.id.arrow -> {
                 performPrev()
             }
         }
@@ -79,9 +83,29 @@ class QuizActivity : MvpAppCompatActivity(), QuizActivityView, View.OnClickListe
     }
 
     override fun setStep(step: Int) {
+
+
         findViewById<TextView>(R.id.step_poll).apply {
             text = getString(R.string.step_poll, step)
+
         }
+
+        findViewById<TextView>(R.id.text_poll).apply {
+            val array: Array<String> =  resources.getStringArray(R.array.poll_texts)
+            text = array[step]
+        }
+
+        findViewById<ImageView>(R.id.rect_main).apply {
+
+            when(step) {
+
+                0 ->  this.background = ResourcesCompat.getDrawable(resources,R.drawable.progress_bar1 ,null)
+                1 ->  this.background = ResourcesCompat.getDrawable(resources,R.drawable.progress_bar2 ,null)
+                2 ->  this.background = ResourcesCompat.getDrawable(resources,R.drawable.progress_bar3 ,null)
+                3 ->  this.background = ResourcesCompat.getDrawable(resources,R.drawable.progress_bar4 ,null)
+
+            }
+          }
     }
 
 }

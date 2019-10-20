@@ -3,10 +3,15 @@
     <string name="init_rus">Синхронизация...</string>
     <string name="btn_poll_next">Далее</string>
     <string name="btn_poll_dnt_remember">Не помню</string>
-    <string name="how_long_days">Сколько в среднем у вас идут \n месячные?</string>
-    <string name="when_start_days">Когда начались ваши последние \n месячные?</string>
-    <string name="year_of_birth">Прогнозы будут, если вы укажите ваш \n год рождения?</string>
-    <string name="step_poll">Шаг %1$d из 4 </string>
+    <string-array name="poll_texts">
+
+        <string name="when_start_days0">Когда начались ваши последние \n месячные?</string>
+        <string name="when_start_days1">Когда начались ваши последние \n месячные?</string>
+        <string name="how_long_days">Сколько в среднем у вас идут \n месячные?</string>
+        <string name="year_of_birth">Прогнозы будут, если вы укажите ваш \n год рождения?</string>
+        </string-array>
+
+<string name="step_poll">Шаг %1$d из 4 </string>
     <string name="poll_init">Делаем прогнозы \n циклов...</string>
 
 
