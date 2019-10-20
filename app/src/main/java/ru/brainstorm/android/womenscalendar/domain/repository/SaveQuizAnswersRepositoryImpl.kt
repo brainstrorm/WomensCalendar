@@ -21,7 +21,7 @@ class SaveQuizAnswersRepositoryImpl(private val sharedPreferences: SharedPrefere
     override suspend fun saveInfo(quizAnswers : QuizAnswers) = GlobalScope.launch(Dispatchers.IO) {
         sharedPreferences.edit{
             clear()
-            putLong(LAST_MENSTRUATION, quizAnswers.lastMenstruation.time)
+            putString(LAST_MENSTRUATION, quizAnswers.lastMenstruation.toString())
             putInt(AVERAGE_TIME_OF_MENSTRUATION, quizAnswers.averageTimeOfMenstruation)
             putInt(AVERAGE_TIME_OF_CYCLE, quizAnswers.averageTimeOfCycle)
             putLong(BIRTH_DATE, quizAnswers.birthDate.time)

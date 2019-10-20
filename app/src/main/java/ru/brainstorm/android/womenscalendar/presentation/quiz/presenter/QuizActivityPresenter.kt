@@ -6,6 +6,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import moxy.InjectViewState
 import moxy.MvpPresenter
+import org.threeten.bp.LocalDate
 import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.data.quiz.QuizAnswers
 import ru.brainstorm.android.womenscalendar.domain.repository.SaveQuizAnswersRepositoryImpl
@@ -24,7 +25,7 @@ class QuizActivityPresenter
     @Inject constructor(private val saveQuizAnswersRepositoryImpl: SaveQuizAnswersRepositoryImpl)
         : MvpPresenter<QuizActivityView>() {
 
-    private val quizAnswers = QuizAnswers(Date(-1), -1, -1, Date(-1))
+    private val quizAnswers = QuizAnswers(LocalDate.MIN, -1, -1, Date(-1))
 
     fun provideStep(step: Int) = viewState.setStep(step)
 
