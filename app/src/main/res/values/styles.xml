@@ -16,4 +16,17 @@
         <item name="android:background">@color/colorPinkLite</item>
         <item name="android:textSize">48sp</item>
     </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light" />
+
+    <style name="Example4ToolbarTheme" parent="ThemeOverlay.MaterialComponents.Light">
+        <item name="colorControlNormal">@color/example_4_grey</item>
+    </style>
+
+    <style name="RadioButtonStyle" parent="AppTheme">
+        <item name="colorControlNormal">@color/colorGreyNotSelected</item>
+        <item name="colorAccent">@color/colorPinkSelected</item>
+    </style>
 </resources>

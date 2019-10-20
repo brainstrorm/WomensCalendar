@@ -24,7 +24,11 @@ class BirthDateFragment : AbstractQuizFragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_birth_date, container, false)
+        return inflater.inflate(R.layout.fragment_birth_date, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         averageMenstruationPicker = view.findViewById(R.id.birthDatePicker)
         choose = view.findViewById(R.id.choose)
@@ -36,12 +40,11 @@ class BirthDateFragment : AbstractQuizFragment() {
         averageMenstruationPicker.setTextSize(R.dimen.text_size_picker)
         averageMenstruationPicker.setSelectedTextColorResource(R.color.colorOfChosenNumber)
         averageMenstruationPicker.setSelectedTextSize(R.dimen.text_size_picker)
-        averageMenstruationPicker.setOnValueChangedListener { picker, oldVal, newVal ->
+        averageMenstruationPicker.setOnValueChangedListener { _, _, _ ->
             choose.isVisible = false
         }
-        return view
     }
-
+  
     override fun getStep(): Int = 3
 
     override fun getNextFragment(): AbstractQuizFragment? {

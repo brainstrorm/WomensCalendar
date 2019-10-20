@@ -26,8 +26,11 @@ class AverageMenstruationFragment : AbstractQuizFragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_average_menstruation, container, false)
+    }
 
-        val view = inflater.inflate(R.layout.fragment_average_menstruation, container, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         averageMenstruationPicker = view.findViewById<NumberPicker>(R.id.averageMenstruationPicker)
         choose = view.findViewById(R.id.choose)
@@ -43,7 +46,6 @@ class AverageMenstruationFragment : AbstractQuizFragment() {
             choose.isVisible = false
             days.isVisible = true
         }
-        return view
     }
 
     override fun getStep(): Int = 1
@@ -53,7 +55,7 @@ class AverageMenstruationFragment : AbstractQuizFragment() {
     }
 
     override fun getPrevFragment(): AbstractQuizFragment? {
-        return null
+        return CalendarPickerForQuizFragment()
     }
 
     override fun setQuizAns(ans: QuizAnswers) {
