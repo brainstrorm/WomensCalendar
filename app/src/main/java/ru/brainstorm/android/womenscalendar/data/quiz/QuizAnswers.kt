@@ -1,6 +1,7 @@
 package ru.brainstorm.android.womenscalendar.data.quiz
 
-import java.util.Date
+import org.threeten.bp.LocalDate
+import java.util.*
 
 /*
  * sealed class - like enum class, but it allows you
@@ -9,7 +10,7 @@ import java.util.Date
 sealed class ReadQuizAnswersResult
 
 //This class returned if we successfully read our data
-data class QuizAnswers(var lastMenstruation : Date,
+data class QuizAnswers(var lastMenstruation : LocalDate,
                        var averageTimeOfMenstruation : Int,
                        var averageTimeOfCycle : Int,
                        var birthDate : Date): ReadQuizAnswersResult()
