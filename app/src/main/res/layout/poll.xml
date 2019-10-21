@@ -107,7 +107,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/when_start_days"
+        android:text=""
         android:textColor="@color/colorPink"
         android:textSize="17dp"
         android:textStyle="bold"
