@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">WomensCalendar</string>
-    <string name="init_rus">Синхронизация...</string>
+    <string name="init_rus">Синхронизация…</string>
     <string name="btn_poll_next">Далее</string>
     <string name="btn_poll_dnt_remember">Не помню</string>
     <string name="today">Сегодня</string>
@@ -28,6 +28,12 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <string-array name="quiz_questions">
+        <item>Когда начались ваши последние \n месячные?</item>
+        <item>Сколько в среднем у вас идут \n месячные?</item>
+        <item>Сколько в среднем длится \n ваш цикл?</item>
+        <item>Прогнозы будут, если вы укажите ваш \n год рождения</item>
+    </string-array>
 
     <string name="example_1_title">Example 1</string>
     <string name="example_1_subtitle">Multiple selection, horizontal scrolling, shows usage of \"maxRowCount\" property to switch between week and month modes. Also shows usage of OutDateStyle \"endOfRow\".</string>

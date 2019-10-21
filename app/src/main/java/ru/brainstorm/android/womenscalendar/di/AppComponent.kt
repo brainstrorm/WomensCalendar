@@ -30,12 +30,6 @@ interface AppComponent {
 
         fun quizActivityPresenter(): QuizActivityPresenter
 
-        fun averageMenstruationPresenter(): AverageMenstruationPresenter
-
-        fun averageCyclePresenter(): AverageCyclePresenter
-
-        fun birthDatePresenter(): BirthDatePresenter
-
         fun calendarPickerForQuizPresenter(): CalendarPickerForQuizPresenter
     }
 }
