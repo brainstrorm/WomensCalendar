@@ -1,5 +1,6 @@
 package ru.brainstorm.android.womenscalendar.presentation.quiz.fragment
 
+
 import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
@@ -7,6 +8,8 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.RadioButton
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.core.view.children
@@ -17,10 +20,15 @@ import com.kizitonwose.calendarview.model.DayOwner
 import com.kizitonwose.calendarview.ui.DayBinder
 import com.kizitonwose.calendarview.ui.MonthHeaderFooterBinder
 import com.kizitonwose.calendarview.ui.ViewContainer
+import kotlinx.android.synthetic.main.calendar_day_legend.*
 import kotlinx.android.synthetic.main.calendar_day_legend.view.*
+
+
 import kotlinx.android.synthetic.main.calendar_header.view.*
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
+
+
 import org.threeten.bp.LocalDate
 import org.threeten.bp.YearMonth
 import org.threeten.bp.ZoneId
