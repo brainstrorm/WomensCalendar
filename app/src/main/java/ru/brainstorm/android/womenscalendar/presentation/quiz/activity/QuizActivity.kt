@@ -48,7 +48,7 @@ class QuizActivity : MvpAppCompatActivity(), QuizActivityView, View.OnClickListe
         questions = resources.getStringArray(R.array.quiz_questions)
         supportActionBar?.hide()
         supportFragmentManager.beginTransaction()
-            .add(R.id.picker, WeekModeCalendarFragment())
+            .add(R.id.picker, CalendarPickerForQuizFragment())
             .commit()
         initFragments()
         btnNextMiddle = findViewById<TextView>(R.id.btn_next_middle).apply { setOnClickListener(this@QuizActivity) }
