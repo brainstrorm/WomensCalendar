@@ -139,7 +139,7 @@
         app:layout_constraintStart_toEndOf="@+id/text_poll"
         app:layout_constraintTop_toTopOf="@+id/rect_main"
         app:layout_constraintVertical_bias="0.482"
-        app:srcCompat="@drawable/ic_vector_4"
+        app:srcCompat="@drawable/ic_vector_4_menu"
         tools:ignore="VectorDrawableCompat" />
 
     <TextView

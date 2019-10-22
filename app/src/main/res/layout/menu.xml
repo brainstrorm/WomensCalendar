@@ -36,7 +36,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0"
-            app:srcCompat="@drawable/ic_vector_3"
+            app:srcCompat="@drawable/ic_vector_3_menu"
             tools:ignore="VectorDrawableCompat" />
 
         <TextView
@@ -64,7 +64,7 @@
             app:layout_constraintStart_toEndOf="@+id/today"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.75"
-            app:srcCompat="@drawable/ic_vector_2"
+            app:srcCompat="@drawable/ic_vector_2_menu"
             tools:ignore="VectorDrawableCompat" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -100,7 +100,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0"
-            app:srcCompat="@drawable/ic_vector_1"
+            app:srcCompat="@drawable/ic_vector_1_menu"
             tools:ignore="VectorDrawableCompat" />
 
         <TextView
@@ -126,7 +126,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/info"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_vector"
+            app:srcCompat="@drawable/ic_vector_menu"
             tools:ignore="VectorDrawableCompat" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
