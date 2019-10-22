@@ -2,12 +2,9 @@ package ru.brainstorm.android.womenscalendar.presentation.today.activity
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import moxy.MvpAppCompatActivity
 import ru.brainstorm.android.womenscalendar.R
-import ru.brainstorm.android.womenscalendar.presentation.quiz.activity.QuizActivity
-import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.CalendarPickerFragment
 import ru.brainstorm.android.womenscalendar.presentation.today.fragment.WeekModeCalendarFragment
 
 class TodayActivity : MvpAppCompatActivity() {
@@ -23,8 +20,9 @@ class TodayActivity : MvpAppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_today)
+        supportActionBar?.hide()
         supportFragmentManager.beginTransaction()
-            .add(R.id.picker, WeekModeCalendarFragment())
+            .add(R.id.for_fragment, WeekModeCalendarFragment())
             .commit()
     }
 }
