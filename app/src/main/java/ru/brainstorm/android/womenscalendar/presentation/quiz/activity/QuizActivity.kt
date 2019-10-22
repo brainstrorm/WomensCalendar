@@ -40,7 +40,7 @@ class QuizActivity : MvpAppCompatActivity(), QuizActivityView, View.OnClickListe
 
         fun provideIntent(packageContext: Context) = Intent(packageContext, QuizActivity::class.java)
     }
-    //
+    ////
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
