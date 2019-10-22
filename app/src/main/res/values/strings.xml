@@ -3,11 +3,26 @@
     <string name="init_rus">Синхронизация…</string>
     <string name="btn_poll_next">Далее</string>
     <string name="btn_poll_dnt_remember">Не помню</string>
-    <string name="how_long_days">Сколько в среднем у вас идут \n месячные?</string>
-    <string name="when_start_days">Когда начались ваши последние \n месячные?</string>
-    <string name="year_of_birth">Прогнозы будут, если вы укажите ваш \n год рождения?</string>
-    <string name="step_poll">Шаг %1$d из 4 </string>
-    <string name="poll_init">Делаем прогнозы \n циклов…</string>
+    <string name="today">Сегодня</string>
+    <string name="calendar">Календарь</string>
+    <string name="information">Информация</string>
+    <string name="more">Еще</string>
+    <string name="new_date_text_menu">Изменить даты месячных</string>
+
+
+
+
+
+    <string-array name="poll_texts">
+
+        <item name="when_start_days0">Когда начались ваши последние \n месячные?</item>
+        <item name="when_start_days1">Когда начались ваши последние \n месячные?</item>
+        <item name="how_long_days">Сколько в среднем у вас идут \n месячные?</item>
+        <item name="year_of_birth">Прогнозы будут, если вы укажите ваш \n год рождения?</item>
+        </string-array>
+
+<string name="step_poll">Шаг %1$d из 4 </string>
+    <string name="poll_init">Делаем прогнозы \n циклов...</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
