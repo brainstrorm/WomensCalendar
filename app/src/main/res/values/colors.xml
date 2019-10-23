@@ -19,7 +19,10 @@
     <color name="colorGradient1">#FFDDE9</color>
     <color name="colorGradient2">#FFECF1</color>
     <color name="colorToday">#FFFFFF</color>
-
+    <color name="colorDayInRound">#A7A8A9</color>
+    <color name="colorPartOfCycleInRound">#457798</color>
+    <color name="colorForecastText">#3D6594</color>
+    <color name="colorForecastNumber">#3D6594</color>
 
     <color name="example_4_grey">#474747</color>
     <color name="example_4_green">#008489</color>

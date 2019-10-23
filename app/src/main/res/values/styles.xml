@@ -29,4 +29,16 @@
         <item name="colorControlNormal">@color/colorGreyNotSelected</item>
         <item name="colorAccent">@color/colorPinkSelected</item>
     </style>
+
+    <style name="TextInRound">
+
+        <item name="android:textSize">
+            12sp
+        </item>
+
+        <item name="android:textColor">
+            #A7A8A9
+        </item>
+
+    </style>
 </resources>
