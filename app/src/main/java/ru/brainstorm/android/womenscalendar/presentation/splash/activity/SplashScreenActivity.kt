@@ -9,7 +9,7 @@ import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.presentation.quiz.activity.QuizActivity
 import ru.brainstorm.android.womenscalendar.presentation.splash.presenter.SplashScreenPresenter
 import ru.brainstorm.android.womenscalendar.presentation.splash.view.SplashScreenView
-import ru.brainstorm.android.womenscalendar.presentation.today.activity.TodayActivity
+import ru.brainstorm.android.womenscalendar.presentation.menu.activity.MenuActivity
 
 class SplashScreenActivity : MvpAppCompatActivity(), SplashScreenView {
 
@@ -24,7 +24,7 @@ class SplashScreenActivity : MvpAppCompatActivity(), SplashScreenView {
     }
 
     override fun goToCalendar() {
-        startActivity(TodayActivity.provideIntent(this@SplashScreenActivity))
+        startActivity(MenuActivity.provideIntent(this@SplashScreenActivity))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
