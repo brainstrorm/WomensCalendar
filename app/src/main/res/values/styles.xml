@@ -30,15 +30,10 @@
         <item name="colorAccent">@color/colorPinkSelected</item>
     </style>
 
-    <style name="TextInRound">
-
-        <item name="android:textSize">
-            12sp
-        </item>
-
-        <item name="android:textColor">
-            #A7A8A9
-        </item>
-
+    <style name="graient1">
+        <item name="android:startColor">#E9F6FF</item>
+        <item name="android:endColor">#FFECD2</item>
     </style>
+
+
 </resources>

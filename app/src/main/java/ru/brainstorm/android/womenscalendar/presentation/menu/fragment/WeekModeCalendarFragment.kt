@@ -1,15 +1,27 @@
 package ru.brainstorm.android.womenscalendar.presentation.menu.fragment
 
+import android.content.res.Resources
+import android.graphics.Color
+import android.graphics.LinearGradient
+import android.graphics.Shader
+import android.graphics.drawable.Drawable
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
+import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat
+import com.sdsmdg.harjot.vectormaster.VectorMasterView
+import kotlinx.android.synthetic.main.fragment_week_mode_calendar.*
 import moxy.MvpAppCompatFragment
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import ru.brainstorm.android.womenscalendar.App
-
 import ru.brainstorm.android.womenscalendar.R
+import ru.brainstorm.android.womenscalendar.presentation.menu.activity.MenuActivity
 import ru.brainstorm.android.womenscalendar.presentation.menu.presenter.WeekModeCalendarPresenter
 import ru.brainstorm.android.womenscalendar.presentation.menu.view.WeekModeCalendarView
 
@@ -18,14 +30,15 @@ class WeekModeCalendarFragment : MvpAppCompatFragment(), WeekModeCalendarView {
     @InjectPresenter
     lateinit var weekModeCalendarPresenter: WeekModeCalendarPresenter
 
-
+    private lateinit var TVScreen : ConstraintLayout
+    private lateinit var TVIndicatorRound : ImageView
 
     @ProvidePresenter
     fun providePresenter() = App.appComponent.presenter().weekModeCalendarPresenter()
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
     }
 
     override fun onCreateView(
@@ -33,7 +46,10 @@ class WeekModeCalendarFragment : MvpAppCompatFragment(), WeekModeCalendarView {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_week_mode_calendar, container, false)
+        val view = inflater.inflate(R.layout.fragment_week_mode_calendar, container, false)
+        TVIndicatorRound = view.findViewById(R.id.indicatorRound)
+        TVScreen = view.findViewById(R.id.screen)
+        return view
     }
 
 
@@ -70,8 +86,15 @@ class WeekModeCalendarFragment : MvpAppCompatFragment(), WeekModeCalendarView {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun changeColors(indicator: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun changeColors(indicator: PartOfCycle) {
+        when(indicator){
+            PartOfCycle.EMPTY -> TVScreen.setBackgroundColor(ContextCompat.getColor(context!!,R.color.colorEmpty))
+            PartOfCycle.PRED_MENSTRUATION -> TVScreen.setBackgroundResource(R.drawable.gradient_pred_menstruation)
+            PartOfCycle.MENSTRUATION  -> TVScreen.setBackgroundColor(ContextCompat.getColor(context!!,R.color.colorMenstruation))
+            PartOfCycle.PRED_OVULATION -> TVScreen.setBackgroundResource(R.drawable.gradient_pred_ovulation)
+            PartOfCycle.OVULATION -> TVScreen.setBackgroundColor(ContextCompat.getColor(context!!,R.color.colorOvulation))
+        }
+
     }
 
 }

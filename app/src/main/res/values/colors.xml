@@ -24,6 +24,11 @@
     <color name="colorForecastText">#3D6594</color>
     <color name="colorForecastNumber">#3D6594</color>
 
+    //colors of parts of cycle
+    <color name="colorEmpty">#E9F6FF</color>
+    <color name="colorMenstruation">#FFE6EE</color>
+    <color name="colorOvulation">#FFECD2</color>
+
     <color name="example_4_grey">#474747</color>
     <color name="example_4_green">#008489</color>
     <color name="example_4_grey_past">#BEBEBE</color>
