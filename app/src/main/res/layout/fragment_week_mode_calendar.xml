@@ -45,7 +45,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/indicator_round"></ImageView>
+            app:srcCompat="@drawable/indicator_round_pred_menstruation"></ImageView>
 
         <ImageView
             android:id="@+id/indicatorRing"
@@ -55,7 +55,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/indicator_ring"></ImageView>
+            app:srcCompat="@drawable/indicator_ring_pred_menstruation"></ImageView>
 
         <TextView
             android:id="@+id/TVToday"

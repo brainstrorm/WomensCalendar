@@ -22,6 +22,7 @@ import moxy.presenter.ProvidePresenter
 import ru.brainstorm.android.womenscalendar.App
 import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.presentation.menu.activity.MenuActivity
+import ru.brainstorm.android.womenscalendar.presentation.menu.extra.PartOfCycle
 import ru.brainstorm.android.womenscalendar.presentation.menu.presenter.WeekModeCalendarPresenter
 import ru.brainstorm.android.womenscalendar.presentation.menu.view.WeekModeCalendarView
 
@@ -32,6 +33,7 @@ class WeekModeCalendarFragment : MvpAppCompatFragment(), WeekModeCalendarView {
 
     private lateinit var TVScreen : ConstraintLayout
     private lateinit var TVIndicatorRound : ImageView
+    private lateinit var TVIndicatorRing : ImageView
 
     @ProvidePresenter
     fun providePresenter() = App.appComponent.presenter().weekModeCalendarPresenter()
@@ -48,6 +50,7 @@ class WeekModeCalendarFragment : MvpAppCompatFragment(), WeekModeCalendarView {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_week_mode_calendar, container, false)
         TVIndicatorRound = view.findViewById(R.id.indicatorRound)
+        TVIndicatorRing = view.findViewById(R.id.indicatorRing)
         TVScreen = view.findViewById(R.id.screen)
         return view
     }
@@ -88,11 +91,32 @@ class WeekModeCalendarFragment : MvpAppCompatFragment(), WeekModeCalendarView {
 
     override fun changeColors(indicator: PartOfCycle) {
         when(indicator){
-            PartOfCycle.EMPTY -> TVScreen.setBackgroundColor(ContextCompat.getColor(context!!,R.color.colorEmpty))
-            PartOfCycle.PRED_MENSTRUATION -> TVScreen.setBackgroundResource(R.drawable.gradient_pred_menstruation)
-            PartOfCycle.MENSTRUATION  -> TVScreen.setBackgroundColor(ContextCompat.getColor(context!!,R.color.colorMenstruation))
-            PartOfCycle.PRED_OVULATION -> TVScreen.setBackgroundResource(R.drawable.gradient_pred_ovulation)
-            PartOfCycle.OVULATION -> TVScreen.setBackgroundColor(ContextCompat.getColor(context!!,R.color.colorOvulation))
+            PartOfCycle.EMPTY -> {
+                TVScreen.setBackgroundColor(ContextCompat.getColor(context!!, R.color.colorEmpty))
+                TVIndicatorRound.setBackgroundResource(R.drawable.indicator_round_empty)
+                TVIndicatorRing.setBackgroundResource(R.drawable.indicator_ring_empty)
+            }
+            PartOfCycle.PRED_MENSTRUATION ->{
+                TVScreen.setBackgroundResource(R.drawable.gradient_pred_menstruation)
+                TVIndicatorRound.setBackgroundResource(R.drawable.indicator_round_pred_menstruation)
+                TVIndicatorRing.setBackgroundResource(R.drawable.indicator_ring_pred_menstruation)
+            }
+            PartOfCycle.MENSTRUATION  ->{
+                TVScreen.setBackgroundColor(ContextCompat.getColor(context!!,R.color.colorMenstruation))
+                TVIndicatorRound.setBackgroundResource(R.drawable.indicator_round_menstruation)
+                TVIndicatorRing.setBackgroundResource(R.drawable.indicator_ring_menstruation)
+            }
+
+            PartOfCycle.PRED_OVULATION -> {
+                TVScreen.setBackgroundResource(R.drawable.gradient_pred_ovulation)
+                TVIndicatorRound.setBackgroundResource(R.drawable.indicator_round_pred_ovulation)
+                TVIndicatorRing.setBackgroundResource(R.drawable.indicator_ring_pred_ovulation)
+            }
+            PartOfCycle.OVULATION -> {
+                TVScreen.setBackgroundColor(ContextCompat.getColor(context!!,R.color.colorOvulation))
+                TVIndicatorRound.setBackgroundResource(R.drawable.indicator_round_ovulation)
+                TVIndicatorRing.setBackgroundResource(R.drawable.indicator_ring_ovulation)
+            }
         }
 
     }

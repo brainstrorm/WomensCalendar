@@ -3,7 +3,7 @@ package ru.brainstorm.android.womenscalendar.presentation.menu.view
 import moxy.MvpView
 import moxy.viewstate.strategy.OneExecutionStateStrategy
 import moxy.viewstate.strategy.StateStrategyType
-import ru.brainstorm.android.womenscalendar.presentation.menu.fragment.PartOfCycle
+import ru.brainstorm.android.womenscalendar.presentation.menu.extra.PartOfCycle
 
 interface WeekModeCalendarView : MvpView {
 
