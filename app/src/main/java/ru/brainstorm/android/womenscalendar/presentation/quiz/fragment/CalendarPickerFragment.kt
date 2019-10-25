@@ -24,6 +24,7 @@ import org.threeten.bp.LocalDate
 import org.threeten.bp.YearMonth
 import org.threeten.bp.format.DateTimeFormatter
 import ru.brainstorm.android.womenscalendar.R
+import ru.brainstorm.android.womenscalendar.data.database.entities.Cycle
 import ru.brainstorm.android.womenscalendar.data.quiz.QuizAnswers
 import ru.brainstorm.android.womenscalendar.presentation.quiz.view.CalendarPickerView_
 
@@ -285,7 +286,7 @@ class CalendarPickerFragment :  CalendarPickerView_, AbstractQuizFragment(){
         return null
     }
 
-    override fun setQuizAns(ans: QuizAnswers) {
+    override fun setQuizAns(cycle: Cycle) {
 
     }
 

@@ -35,6 +35,7 @@ import org.threeten.bp.ZoneId
 import org.threeten.bp.format.DateTimeFormatter
 import ru.brainstorm.android.womenscalendar.App
 import ru.brainstorm.android.womenscalendar.R
+import ru.brainstorm.android.womenscalendar.data.database.entities.Cycle
 import ru.brainstorm.android.womenscalendar.data.quiz.QuizAnswers
 import ru.brainstorm.android.womenscalendar.presentation.quiz.presenter.CalendarPickerForQuizPresenter
 import ru.brainstorm.android.womenscalendar.presentation.quiz.view.CalendarPickerForQuizView
@@ -183,8 +184,8 @@ class CalendarPickerForQuizFragment : AbstractQuizFragment(), CalendarPickerForQ
         return null
     }
 
-    override fun setQuizAns(ans: QuizAnswers) {
+    override fun setQuizAns(cycle: Cycle) {
         selectedDate ?: return
-        ans.lastMenstruation = selectedDate!!
+        cycle.startOfCycle = selectedDate!!.toString()
     }
 }
