@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.core.view.isVisible
 import com.shawnlin.numberpicker.NumberPicker
 import ru.brainstorm.android.womenscalendar.R
+import ru.brainstorm.android.womenscalendar.data.database.entities.Cycle
 import ru.brainstorm.android.womenscalendar.data.quiz.QuizAnswers
 import ru.brainstorm.android.womenscalendar.presentation.quiz.activity.QuizActivity
 
@@ -58,7 +59,7 @@ class AverageMenstruationFragment : AbstractQuizFragment() {
         return CalendarPickerForQuizFragment()
     }
 
-    override fun setQuizAns(ans: QuizAnswers) {
+    override fun setQuizAns(cycle: Cycle) {
         ans.averageTimeOfMenstruation = averageMenstruationPicker.value
         Log.d(QuizActivity.TAG, "Saving average time: ${ans.averageTimeOfMenstruation}")
     }
