@@ -14,5 +14,7 @@ class Cycle {
 
     var lengthOfCycle: Int = 0
 
+    var lengthOfMenstruation: Int = 0
+
     var predicted: Boolean = false
 }
