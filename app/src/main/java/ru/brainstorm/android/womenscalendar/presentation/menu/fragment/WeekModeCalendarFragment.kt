@@ -43,6 +43,7 @@ import ru.brainstorm.android.womenscalendar.presentation.menu.presenter.WeekMode
 import ru.brainstorm.android.womenscalendar.presentation.menu.view.WeekModeCalendarView
 import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.getColorCompat
 import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.setTextColorRes
+import java.util.*
 
 class WeekModeCalendarFragment : MvpAppCompatFragment(), WeekModeCalendarView {
 
@@ -57,17 +58,35 @@ class WeekModeCalendarFragment : MvpAppCompatFragment(), WeekModeCalendarView {
     private lateinit var TVForecastNumberPred : TextView
     private lateinit var TVForecastNumberPost : TextView
     private lateinit var TVAdditionalInfo : TextView
+    private lateinit var TVToday : TextView
 
-    private var selectedDate: LocalDate? = LocalDate.now()
+    private var selectedDate: LocalDate = LocalDate.now()
     private val today = LocalDate.now()
     private var menstruationStartDate  = LocalDate.parse("2019-10-27")
     private var menstruationEndDate  = LocalDate.parse("2019-10-29")
     private var ovulationStartDate  = LocalDate.parse("2019-11-01")
     private var ovulationEndDate  = LocalDate.parse("2019-11-10")
+    private var ovulationDate = LocalDate.parse("2019-11-07")
 
     private val dateFormatter = DateTimeFormatter.ofPattern("dd")
     private val dayFormatter = DateTimeFormatter.ofPattern("EEE")
+    private val dayFormatterRound = DateTimeFormatter.ofPattern("EEEE")
     private val monthFormatter = DateTimeFormatter.ofPattern("MMMM")
+
+    private var months = hashMapOf(
+        "января" to "январь",
+        "февраля" to "февраль",
+        "марта" to "март",
+        "апреля" to "апрель",
+        "мая" to "май",
+        "июня" to "июнь",
+        "июля" to "июль",
+        "августа" to "август",
+        "сентября" to "сентябрь",
+        "октября" to "октябрь",
+        "ноября" to "ноябрь",
+        "декабря" to "декабрь"
+    )
 
     private fun setColorsOfBackgroundAndVectors(backgroundColor : Int, roundColor : Int, ringColor : Int ){
         TVScreen.setBackgroundResource(backgroundColor)
@@ -97,6 +116,7 @@ class WeekModeCalendarFragment : MvpAppCompatFragment(), WeekModeCalendarView {
         TVForecastNumberPred = view.findViewById(R.id.TVForecastNumberPred)
         TVForecastNumberPost = view.findViewById(R.id.TVForecastNumberPost)
         TVAdditionalInfo = view.findViewById(R.id.TVAdditionalInfo)
+        TVToday = view.findViewById(R.id.TVToday)
         return view
     }
 
@@ -155,10 +175,89 @@ class WeekModeCalendarFragment : MvpAppCompatFragment(), WeekModeCalendarView {
                 dateText.text = dateFormatter.format(day.date)
                 dayText.text = dayFormatter.format(day.date)
                 if (day.date == selectedDate)
-                    monthText.text = monthFormatter.format(day.date).capitalize()
+                    monthText.text = months[monthFormatter.format(day.date)]!!.capitalize()
                 //dateText.setTextColor(view.context.getColorCompat(if (day.date == selectedDate) R.color.color_White else R.color.colorDays))
                 when(day.date){
-                    selectedDate -> dateText.setTextColor(view.context.getColorCompat(R.color.color_White))
+                    selectedDate -> {
+                        dateText.setTextColor(view.context.getColorCompat(R.color.color_White))
+                        if(selectedDate < menstruationStartDate){
+                            if(menstruationStartDate.dayOfYear - selectedDate.dayOfYear > 5){
+                                changeInformationInRound(
+                                    PartOfCycle.EMPTY_MENSTRUATION,
+                                    menstruationStartDate.dayOfYear - selectedDate.dayOfYear,
+                                    day
+                                )
+                                changeColors(PartOfCycle.EMPTY_MENSTRUATION)
+                            }else{
+                                changeInformationInRound(
+                                    PartOfCycle.PRED_MENSTRUATION,
+                                    menstruationStartDate.dayOfYear - selectedDate.dayOfYear,
+                                    day
+                                )
+                                changeColors(PartOfCycle.PRED_MENSTRUATION)
+                            }
+                        }
+                        when(selectedDate){
+                            in menstruationStartDate..menstruationEndDate -> {
+                                changeInformationInRound(PartOfCycle.MENSTRUATION,
+                                    selectedDate.dayOfYear - menstruationStartDate.dayOfYear + 1,
+                                    day
+                                )
+                                changeColors(PartOfCycle.MENSTRUATION)
+                            }
+                            in ovulationStartDate..ovulationDate-> {
+                                if(selectedDate < ovulationDate) {
+                                    changeInformationInRound(
+                                        PartOfCycle.PRED_OVULATION,
+                                        ovulationDate.dayOfYear - selectedDate.dayOfYear,
+                                        day
+                                    )
+                                    changeColors(PartOfCycle.PRED_OVULATION)
+                                }
+                                if (selectedDate == ovulationDate){
+                                    changeInformationInRound(
+                                        PartOfCycle.OVULATION,
+                                        0,
+                                        day
+                                    )
+                                    changeColors(PartOfCycle.OVULATION)
+                                }
+                                if (selectedDate > ovulationDate){
+                                    changeInformationInRound(
+                                        PartOfCycle.POST_OVULATION,
+                                        menstruationStartDate.dayOfYear - selectedDate.dayOfYear,
+                                        day
+                                    )
+                                    changeColors(PartOfCycle.POST_OVULATION)
+                                }
+                            }
+                            in ovulationEndDate..menstruationStartDate -> {
+                                if(menstruationStartDate.dayOfYear - selectedDate.dayOfYear > 5){
+                                    changeInformationInRound(
+                                        PartOfCycle.EMPTY_MENSTRUATION,
+                                        menstruationStartDate.dayOfYear - selectedDate.dayOfYear,
+                                        day
+                                    )
+                                    changeColors(PartOfCycle.EMPTY_MENSTRUATION)
+                                }else{
+                                    changeInformationInRound(
+                                        PartOfCycle.PRED_MENSTRUATION,
+                                        menstruationStartDate.dayOfYear - selectedDate.dayOfYear,
+                                        day
+                                    )
+                                    changeColors(PartOfCycle.PRED_MENSTRUATION)
+                                }
+                            }
+                            in menstruationEndDate..ovulationStartDate -> {
+                                changeInformationInRound(
+                                    PartOfCycle.EMPTY_OVULATION,
+                                    ovulationDate.dayOfYear - selectedDate.dayOfYear,
+                                    day
+                                )
+                                changeColors(PartOfCycle.EMPTY_OVULATION)
+                            }
+                        }
+                    }
                     in menstruationStartDate..menstruationEndDate -> dateText.setTextColor(view.context.getColorCompat(R.color.colorOfChosenNumber))
                     in ovulationStartDate..ovulationEndDate -> dateText.setTextColor(view.context.getColorCompat(R.color.colorOfChosenNumberOrange))
                     else -> dateText.setTextColor(view.context.getColorCompat(R.color.colorDays))
@@ -183,12 +282,13 @@ class WeekModeCalendarFragment : MvpAppCompatFragment(), WeekModeCalendarView {
 
     override fun changeInformationInRound(
         indicator: PartOfCycle,
-        forecast: String,
         numberOfDays: Int,
-        additionalInfo: String
+        day : CalendarDay
     ) {
         when(indicator){
             PartOfCycle.EMPTY_MENSTRUATION -> {
+                TVToday.text = "${dayFormatterRound.format(day.date).capitalize()}, ${dateFormatter.format(day.date)} ${monthFormatter.format(day.date)}"
+
                 TVForecastNumberPred.isVisible = true
                 TVForecastNumberPost.isVisible = false
 
@@ -201,10 +301,12 @@ class WeekModeCalendarFragment : MvpAppCompatFragment(), WeekModeCalendarView {
                 TVForecastText.text = GetDayAddition(numberOfDays)
                 TVForecastText.setTextColorRes(R.color.colorForecastTextBlue)
 
-                TVAdditionalInfo.text = additionalInfo
+                TVAdditionalInfo.text = "Малая вероятность \n забеременить"
                 TVAdditionalInfo.setTextColorRes(R.color.colorPartOfCycleInRoundBlue)
             }
             PartOfCycle.EMPTY_OVULATION -> {
+                TVToday.text = "${dayFormatterRound.format(day.date).capitalize()}, ${dateFormatter.format(day.date)} ${monthFormatter.format(day.date)}"
+
                 TVForecastNumberPred.isVisible = true
                 TVForecastNumberPost.isVisible = false
 
@@ -217,10 +319,12 @@ class WeekModeCalendarFragment : MvpAppCompatFragment(), WeekModeCalendarView {
                 TVForecastText.text = GetDayAddition(numberOfDays)
                 TVForecastText.setTextColorRes(R.color.colorForecastTextBlue)
 
-                TVAdditionalInfo.text = additionalInfo
+                TVAdditionalInfo.text = "Малая вероятность \n забеременить"
                 TVAdditionalInfo.setTextColorRes(R.color.colorPartOfCycleInRoundBlue)
             }
             PartOfCycle.PRED_MENSTRUATION -> {
+                TVToday.text = "${dayFormatterRound.format(day.date).capitalize()}, ${dateFormatter.format(day.date)} ${monthFormatter.format(day.date)}"
+
                 TVForecastNumberPred.isVisible = true
                 TVForecastNumberPost.isVisible = false
 
@@ -233,10 +337,12 @@ class WeekModeCalendarFragment : MvpAppCompatFragment(), WeekModeCalendarView {
                 TVForecastText.text = GetDayAddition(numberOfDays)
                 TVForecastText.setTextColorRes(R.color.colorForecastTextBlue)
 
-                TVAdditionalInfo.text = additionalInfo
+                TVAdditionalInfo.text = "Малая вероятность \n забеременить"
                 TVAdditionalInfo.setTextColorRes(R.color.colorPartOfCycleInRoundBlue)
             }
             PartOfCycle.PRED_OVULATION -> {
+                TVToday.text = "${dayFormatterRound.format(day.date).capitalize()}, ${dateFormatter.format(day.date)} ${monthFormatter.format(day.date)}"
+
                 TVForecastNumberPred.isVisible = true
                 TVForecastNumberPost.isVisible = false
 
@@ -249,10 +355,12 @@ class WeekModeCalendarFragment : MvpAppCompatFragment(), WeekModeCalendarView {
                 TVForecastText.text = GetDayAddition(numberOfDays)
                 TVForecastText.setTextColorRes(R.color.colorForecastTextBlue)
 
-                TVAdditionalInfo.text = additionalInfo
+                TVAdditionalInfo.text = "Средняя вероятность \n забеременить"
                 TVAdditionalInfo.setTextColorRes(R.color.colorPartOfCycleInRoundBlue)
             }
             PartOfCycle.MENSTRUATION -> {
+                TVToday.text = "${dayFormatterRound.format(day.date).capitalize()}, ${dateFormatter.format(day.date)} ${monthFormatter.format(day.date)}"
+
                 TVForecastNumberPred.isVisible = false
                 TVForecastNumberPost.isVisible = true
 
@@ -265,10 +373,12 @@ class WeekModeCalendarFragment : MvpAppCompatFragment(), WeekModeCalendarView {
                 TVForecastNumberPost.text = "$numberOfDays"
                 TVForecastNumberPost.setTextColorRes(R.color.colorForecastNumberPink)
 
-                TVAdditionalInfo.text = additionalInfo
+                TVAdditionalInfo.text = "Цикл длился \n 30 дней"
                 TVAdditionalInfo.setTextColorRes(R.color.colorPartOfCycleInRoundPink)
             }
             PartOfCycle.OVULATION -> {
+                TVToday.text = "${dayFormatterRound.format(day.date).capitalize()}, ${dateFormatter.format(day.date)} ${monthFormatter.format(day.date)}"
+
                 TVForecastNumberPred.isVisible = false
                 TVForecastNumberPost.isVisible = false
 
@@ -278,10 +388,12 @@ class WeekModeCalendarFragment : MvpAppCompatFragment(), WeekModeCalendarView {
                 TVForecastText.text = "овуляции"
                 TVForecastText.setTextColorRes(R.color.colorForecastTextYellow)
 
-                TVAdditionalInfo.text = additionalInfo
+                TVAdditionalInfo.text = "Высокая вероятность \n забеременить"
                 TVAdditionalInfo.setTextColorRes(R.color.colorPartOfCycleInRoundYellow)
             }
             PartOfCycle.POST_OVULATION -> {
+                TVToday.text = "${dayFormatterRound.format(day.date).capitalize()}, ${dateFormatter.format(day.date)} ${monthFormatter.format(day.date)}"
+
                 TVForecastNumberPred.isVisible = true
                 TVForecastNumberPost.isVisible = false
 
@@ -294,7 +406,7 @@ class WeekModeCalendarFragment : MvpAppCompatFragment(), WeekModeCalendarView {
                 TVForecastText.text = GetDayAddition(numberOfDays)
                 TVForecastText.setTextColorRes(R.color.colorForecastTextBlue)
 
-                TVAdditionalInfo.text = additionalInfo
+                TVAdditionalInfo.text = "Высокая вероятность \n забеременить"
                 TVAdditionalInfo.setTextColorRes(R.color.colorPartOfCycleInRoundBlue)
             }
         }

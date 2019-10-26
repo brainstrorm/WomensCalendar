@@ -1,5 +1,7 @@
 package ru.brainstorm.android.womenscalendar.presentation.menu.view
 
+
+import com.kizitonwose.calendarview.model.CalendarDay
 import moxy.MvpView
 import moxy.viewstate.strategy.OneExecutionStateStrategy
 import moxy.viewstate.strategy.StateStrategyType
@@ -12,9 +14,8 @@ interface WeekModeCalendarView : MvpView {
     @StateStrategyType(OneExecutionStateStrategy::class)
     fun changeInformationInRound(
         indicator: PartOfCycle,
-        forecast : String,
         numberOfDays : Int,
-        additionalInfo : String
+        day : CalendarDay
     )
 
     @StateStrategyType(OneExecutionStateStrategy::class)

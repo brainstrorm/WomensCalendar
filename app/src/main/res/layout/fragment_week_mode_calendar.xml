@@ -57,21 +57,21 @@
             android:id="@+id/indicatorRound"
             android:layout_width="275dp"
             android:layout_height="275dp"
+            android:background="@drawable/indicator_round_pred_menstruation"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/indicator_round_pred_menstruation"></ImageView>
+            app:layout_constraintTop_toTopOf="parent"></ImageView>
 
         <ImageView
             android:id="@+id/indicatorRing"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/indicator_ring_pred_menstruation"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/indicator_ring_pred_menstruation"></ImageView>
+            app:layout_constraintTop_toTopOf="parent"></ImageView>
 
         <TextView
             android:id="@+id/TVToday"
