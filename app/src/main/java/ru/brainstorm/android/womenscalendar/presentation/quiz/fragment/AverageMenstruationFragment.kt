@@ -11,7 +11,6 @@ import androidx.core.view.isVisible
 import com.shawnlin.numberpicker.NumberPicker
 import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.data.database.entities.Cycle
-import ru.brainstorm.android.womenscalendar.data.quiz.QuizAnswers
 import ru.brainstorm.android.womenscalendar.presentation.quiz.activity.QuizActivity
 
 
@@ -33,7 +32,7 @@ class AverageMenstruationFragment : AbstractQuizFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        averageMenstruationPicker = view.findViewById<NumberPicker>(R.id.averageMenstruationPicker)
+        averageMenstruationPicker = view.findViewById(R.id.averageMenstruationPicker)
         choose = view.findViewById(R.id.choose)
         days = view.findViewById(R.id.days)
         averageMenstruationPicker.minValue = 0

@@ -2,7 +2,6 @@ package ru.brainstorm.android.womenscalendar.presentation.quiz.fragment
 
 import androidx.fragment.app.Fragment
 import ru.brainstorm.android.womenscalendar.data.database.entities.Cycle
-import ru.brainstorm.android.womenscalendar.data.quiz.QuizAnswers
 
 /**
  * @project WomensCalendar

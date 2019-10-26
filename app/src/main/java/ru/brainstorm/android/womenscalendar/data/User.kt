@@ -8,4 +8,6 @@ object User {
     lateinit var firebaseId: String
 
     lateinit var birthDate: String
+
+    fun isInitialized(): Boolean = (this::firebaseId.isInitialized && this::birthDate.isInitialized)
 }

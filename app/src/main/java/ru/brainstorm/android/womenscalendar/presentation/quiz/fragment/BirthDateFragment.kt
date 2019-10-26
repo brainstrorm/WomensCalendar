@@ -11,7 +11,6 @@ import com.shawnlin.numberpicker.NumberPicker
 import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.data.User
 import ru.brainstorm.android.womenscalendar.data.database.entities.Cycle
-import ru.brainstorm.android.womenscalendar.data.quiz.QuizAnswers
 import ru.brainstorm.android.womenscalendar.presentation.quiz.activity.QuizActivity
 import java.time.LocalDate
 import java.util.*
@@ -65,7 +64,7 @@ class BirthDateFragment : AbstractQuizFragment() {
         c.set(Calendar.DAY_OF_YEAR, 1)
         c.set(Calendar.MONTH, 1)
         c.set(Calendar.YEAR, averageMenstruationPicker.value)
-        User.birthDate = LocalDate.ofEpochDay(c.timeInMillis).toString()
+        User.birthDate = LocalDate.of(averageMenstruationPicker.value, 1, 1).toString()
         Log.d(QuizActivity.TAG, "Saving date: ${User.birthDate}")
     }
 

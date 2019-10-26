@@ -10,7 +10,6 @@ import androidx.core.view.isVisible
 import com.shawnlin.numberpicker.NumberPicker
 import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.data.database.entities.Cycle
-import ru.brainstorm.android.womenscalendar.data.quiz.QuizAnswers
 import ru.brainstorm.android.womenscalendar.presentation.quiz.activity.QuizActivity
 
 
