@@ -149,7 +149,7 @@ class WeekModeCalendarFragment : MvpAppCompatFragment(), WeekModeCalendarView {
                     }
                 }
             }
-
+//
             fun bind(day: CalendarDay) {
                 this.day = day
                 dateText.text = dateFormatter.format(day.date)
