@@ -21,7 +21,7 @@ class SplashScreenPresenter
         : MvpPresenter<SplashScreenView>() {
 
     fun checkFirstLaunch() {
-        GlobalScope.launch(Dispatchers.Main) {
+        GlobalScope.launch(Dispatchers.IO) {
             delay(1_000)
             val readJob = readUserInfoRepository.readUserInfoAsync()
             val cycles = cycleDao.getAll()

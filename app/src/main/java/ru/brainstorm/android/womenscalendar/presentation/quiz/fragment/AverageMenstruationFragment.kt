@@ -59,8 +59,10 @@ class AverageMenstruationFragment : AbstractQuizFragment() {
     }
 
     override fun setQuizAns(cycle: Cycle) {
-        cycle.lengthOfMenstruation = averageMenstruationPicker.value
-        Log.d(QuizActivity.TAG, "Saving average time: ${cycle.lengthOfMenstruation}")
+        if (!choose.isVisible) {
+            cycle.lengthOfMenstruation = averageMenstruationPicker.value
+            Log.d(QuizActivity.TAG, "Saving average time: ${cycle.lengthOfMenstruation}")
+        }
     }
 
 }

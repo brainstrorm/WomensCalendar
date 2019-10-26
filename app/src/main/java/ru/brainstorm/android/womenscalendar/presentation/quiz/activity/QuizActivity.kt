@@ -111,8 +111,14 @@ class QuizActivity : MvpAppCompatActivity(), QuizActivityView, View.OnClickListe
                     btnDntRemember.visibility = View.VISIBLE
                     this.background = ResourcesCompat.getDrawable(resources,R.drawable.progress_bar2 ,null)
                 }
-                2 ->  this.background = ResourcesCompat.getDrawable(resources,R.drawable.progress_bar3 ,null)
-                3 ->  this.background = ResourcesCompat.getDrawable(resources,R.drawable.progress_bar4 ,null)
+                2 -> {
+                    btnDntRemember.visibility = View.VISIBLE
+                    this.background = ResourcesCompat.getDrawable(resources,R.drawable.progress_bar3 ,null)
+                }
+                3 ->  {
+                    btnDntRemember.visibility = View.GONE
+                    this.background = ResourcesCompat.getDrawable(resources,R.drawable.progress_bar4 ,null)
+                }
 
             }
           }
