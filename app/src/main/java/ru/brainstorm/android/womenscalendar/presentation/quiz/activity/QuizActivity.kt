@@ -12,6 +12,7 @@ import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import ru.brainstorm.android.womenscalendar.App
 import ru.brainstorm.android.womenscalendar.R
+import ru.brainstorm.android.womenscalendar.presentation.initialization.activity.InitializationActivity
 import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.CalendarPickerForQuizFragment
 import ru.brainstorm.android.womenscalendar.presentation.quiz.presenter.QuizActivityPresenter
 import ru.brainstorm.android.womenscalendar.presentation.quiz.view.QuizActivityView
@@ -119,7 +120,7 @@ class QuizActivity : MvpAppCompatActivity(), QuizActivityView, View.OnClickListe
     }
 
     override fun navigateToCalculation() {
-
+        startActivity(InitializationActivity.provideIntent(this@QuizActivity))
     }
 
 }

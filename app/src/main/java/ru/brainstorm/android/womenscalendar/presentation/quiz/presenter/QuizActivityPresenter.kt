@@ -62,4 +62,5 @@ class QuizActivityPresenter
             viewState.setStep(getStep())
         }
     }
+
 }
