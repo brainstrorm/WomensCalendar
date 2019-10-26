@@ -9,7 +9,9 @@ import androidx.room.PrimaryKey
  */
 @Entity
 class Note {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
+    var id: Long = 0
+
     lateinit var noteDate: String
 
     lateinit var noteText: String

@@ -15,6 +15,9 @@ interface NoteDao {
     @Query("SELECT * FROM note WHERE noteDate = :noteDate")
     suspend fun getByDate(noteDate: String): Note
 
+    @Query("SELECT * FROM note WHERE id = :id")
+    suspend fun getById(id: Long): Note
+
     @Insert
     suspend fun insert(note: Note)
 

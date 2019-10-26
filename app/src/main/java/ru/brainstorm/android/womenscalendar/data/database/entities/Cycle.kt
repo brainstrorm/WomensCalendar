@@ -9,7 +9,9 @@ import androidx.room.PrimaryKey
  */
 @Entity
 class Cycle {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
+    var id: Long = 0
+
     lateinit var startOfCycle: String
 
     var lengthOfCycle: Int = 0
