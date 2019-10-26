@@ -107,7 +107,7 @@ class WeekModeCalendarFragment : MvpAppCompatFragment(), WeekModeCalendarView {
 
         val dm = DisplayMetrics()
         val wm = requireContext().getSystemService(Context.WINDOW_SERVICE) as WindowManager
-        val monthText = view.exSevenMonthText
+        val monthText = view.MonthText
         wm.defaultDisplay.getMetrics(dm)
 
         calendarView.dayWidth = dm.widthPixels / 5
@@ -154,10 +154,9 @@ class WeekModeCalendarFragment : MvpAppCompatFragment(), WeekModeCalendarView {
                 this.day = day
                 dateText.text = dateFormatter.format(day.date)
                 dayText.text = dayFormatter.format(day.date)
-
-                dateText.setTextColor(view.context.getColorCompat(if (day.date == selectedDate) R.color.color_red else R.color.color_White))
                 if (day.date == selectedDate)
-                    monthText.text = monthFormatter.format(day.date)
+                    monthText.text = monthFormatter.format(day.date).capitalize()
+                dateText.setTextColor(view.context.getColorCompat(if (day.date == selectedDate) R.color.color_White else R.color.colorDays))
                 selectedView.isVisible = day.date == selectedDate
             }
         }

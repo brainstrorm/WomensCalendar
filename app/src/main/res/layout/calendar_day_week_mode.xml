@@ -20,27 +20,41 @@
             android:layout_gravity="center"
             android:layout_marginTop="4dp"
             android:gravity="center"
-            android:textColor="@color/colorPrimary"
+            android:layout_marginBottom="8dp"
+            android:textColor="@color/colorDaysOfWeek"
             android:textSize="14sp"
             tools:text="Mon" />
 
-        <TextView
-            android:id="@+id/exSevenDateText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:fontFamily="sans-serif-medium"
-            android:gravity="center"
-            android:textColor="@color/colorGreyFont"
-            android:textSize="18sp"
-            tools:text="24" />
+        <FrameLayout
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center">
+
+            <!--We have top and bottom margins on the TextView so there's more space between
+             continuous selected rows. This means that setting an oval background on it when
+             a single date is selected will result in a the background not being a perfect circle
+             since the view is not square in shape.
+             So we set the background on this view which has a margin on all sides instead-->
+            <View
+                android:id="@+id/exSevenSelectedView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="top|center"
+                android:background="@drawable/week_mode_single_selected_day" />
+
+            <TextView
+                android:id="@+id/exSevenDateText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="top|center"
+                android:layout_marginTop="2dp"
+                android:textColor="@color/colorDays"
+                android:textSize="18sp"
+                tools:text="24" />
+        </FrameLayout>
+
     </LinearLayout>
 
-    <View
-        android:id="@+id/exSevenSelectedView"
-        android:layout_width="match_parent"
-        android:layout_height="6dp"
-        android:layout_gravity="bottom"
-        android:background="@color/color_red" />
 
 </FrameLayout>
