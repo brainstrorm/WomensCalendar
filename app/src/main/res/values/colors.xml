@@ -20,10 +20,15 @@
     <color name="colorGradient2">#FFECF1</color>
     <color name="colorToday">#FFFFFF</color>
     <color name="colorDayInRound">#A7A8A9</color>
-    <color name="colorPartOfCycleInRound">#457798</color>
-    <color name="colorForecastText">#3D6594</color>
-    <color name="colorForecastNumber">#3D6594</color>
-
+    <color name="colorPartOfCycleInRoundBlue">#457798</color>
+    <color name="colorPartOfCycleInRoundPink">#F06292</color>
+    <color name="colorPartOfCycleInRoundYellow">#838383</color>
+    <color name="colorForecastTextBlue">#3D6594</color>
+    <color name="colorForecastNumberBlue">#3D6594</color>
+    <color name="colorForecastTextPink">#D5537F</color>
+    <color name="colorForecastNumberPink">#D5537F</color>
+    <color name="colorForecastTextYellow">#838383</color>
+    <color name="colorForecastNumberYellow">#838383</color>
     //colors of parts of cycle
     <color name="colorEmpty">#E9F6FF</color>
     <color name="colorMenstruation">#FFE6EE</color>
