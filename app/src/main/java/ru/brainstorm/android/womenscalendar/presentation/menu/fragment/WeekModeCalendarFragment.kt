@@ -60,10 +60,20 @@ class WeekModeCalendarFragment : MvpAppCompatFragment(), WeekModeCalendarView {
 
     private var selectedDate: LocalDate? = LocalDate.now()
     private val today = LocalDate.now()
+    private var menstruationStartDate  = LocalDate.parse("2019-10-27")
+    private var menstruationEndDate  = LocalDate.parse("2019-10-29")
+    private var ovulationStartDate  = LocalDate.parse("2019-11-01")
+    private var ovulationEndDate  = LocalDate.parse("2019-11-10")
 
     private val dateFormatter = DateTimeFormatter.ofPattern("dd")
     private val dayFormatter = DateTimeFormatter.ofPattern("EEE")
     private val monthFormatter = DateTimeFormatter.ofPattern("MMMM")
+
+    private fun setColorsOfBackgroundAndVectors(backgroundColor : Int, roundColor : Int, ringColor : Int ){
+        TVScreen.setBackgroundResource(backgroundColor)
+        TVIndicatorRound.setBackgroundResource(roundColor)
+        TVIndicatorRing.setBackgroundResource(ringColor)
+    }
 
     @ProvidePresenter
     fun providePresenter() = App.appComponent.presenter().weekModeCalendarPresenter()
@@ -91,18 +101,8 @@ class WeekModeCalendarFragment : MvpAppCompatFragment(), WeekModeCalendarView {
     }
 
 
-    private var weekDays = HashMap<String, String>()
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        weekDays.put("Mon", "Пн")
-        weekDays.put("Tue", "Вт")
-        weekDays.put("Wed", "Ср")
-        weekDays.put("Thu", "Чт")
-        weekDays.put("Fri", "Пт")
-        weekDays.put("Sat", "Сб")
-        weekDays.put("Sun", "Вс")
 
 
         val dm = DisplayMetrics()
@@ -156,7 +156,13 @@ class WeekModeCalendarFragment : MvpAppCompatFragment(), WeekModeCalendarView {
                 dayText.text = dayFormatter.format(day.date)
                 if (day.date == selectedDate)
                     monthText.text = monthFormatter.format(day.date).capitalize()
-                dateText.setTextColor(view.context.getColorCompat(if (day.date == selectedDate) R.color.color_White else R.color.colorDays))
+                //dateText.setTextColor(view.context.getColorCompat(if (day.date == selectedDate) R.color.color_White else R.color.colorDays))
+                when(day.date){
+                    selectedDate -> dateText.setTextColor(view.context.getColorCompat(R.color.color_White))
+                    in menstruationStartDate..menstruationEndDate -> dateText.setTextColor(view.context.getColorCompat(R.color.colorOfChosenNumber))
+                    in ovulationStartDate..ovulationEndDate -> dateText.setTextColor(view.context.getColorCompat(R.color.colorOfChosenNumberOrange))
+                    else -> dateText.setTextColor(view.context.getColorCompat(R.color.colorDays))
+                }
                 selectedView.isVisible = day.date == selectedDate
             }
         }
@@ -170,6 +176,8 @@ class WeekModeCalendarFragment : MvpAppCompatFragment(), WeekModeCalendarView {
         // Value for firstDayOfWeek does not matter since inDates and outDates are not generated.
         calendarView.setup(currentMonth, currentMonth.plusMonths(3), DayOfWeek.values().random())
         calendarView.scrollToDate(LocalDate.now())
+
+        //changeCalendar(LocalDate.parse("2019-10-28"), LocalDate.parse("2019-10-30"), LocalDate.parse("2019-11-03"), LocalDate.parse("2019-11-09"))
     }
 
 
@@ -292,46 +300,38 @@ class WeekModeCalendarFragment : MvpAppCompatFragment(), WeekModeCalendarView {
         }
     }
 
-    override fun changePeriods(
-        menstruationStart: Int,
-        menstruationFinish: Int,
-        ovulationStart: Int,
-        ovulationFinish: Int
+    override fun changeCalendar(
+        menstruationStart: LocalDate,
+        menstruationFinish: LocalDate,
+        ovulationStart:     LocalDate,
+        ovulationFinish: LocalDate
     ) {
+        menstruationStartDate = menstruationStart
+        menstruationEndDate = menstruationFinish
+        ovulationStartDate = ovulationStart
+        ovulationEndDate = ovulationFinish
     }
 
     override fun changeColors(indicator: PartOfCycle) {
         when(indicator){
             PartOfCycle.EMPTY_MENSTRUATION, PartOfCycle.EMPTY_OVULATION -> {
-                TVScreen.setBackgroundColor(ContextCompat.getColor(context!!, R.color.colorEmpty))
-                TVIndicatorRound.setBackgroundResource(R.drawable.indicator_round_empty)
-                TVIndicatorRing.setBackgroundResource(R.drawable.indicator_ring_empty)
+                setColorsOfBackgroundAndVectors(R.color.colorEmpty, R.drawable.indicator_round_empty, R.drawable.indicator_ring_empty)
             }
             PartOfCycle.PRED_MENSTRUATION ->{
-                TVScreen.setBackgroundResource(R.drawable.gradient_pred_menstruation)
-                TVIndicatorRound.setBackgroundResource(R.drawable.indicator_round_pred_menstruation)
-                TVIndicatorRing.setBackgroundResource(R.drawable.indicator_ring_pred_menstruation)
+                setColorsOfBackgroundAndVectors(R.drawable.gradient_pred_menstruation, R.drawable.indicator_round_pred_menstruation, R.drawable.indicator_ring_pred_menstruation)
             }
             PartOfCycle.MENSTRUATION  ->{
-                TVScreen.setBackgroundColor(ContextCompat.getColor(context!!,R.color.colorMenstruation))
-                TVIndicatorRound.setBackgroundResource(R.drawable.indicator_round_menstruation)
-                TVIndicatorRing.setBackgroundResource(R.drawable.indicator_ring_menstruation)
+                setColorsOfBackgroundAndVectors(R.color.colorMenstruation, R.drawable.indicator_round_menstruation, R.drawable.indicator_ring_menstruation)
             }
 
             PartOfCycle.PRED_OVULATION -> {
-                TVScreen.setBackgroundResource(R.drawable.gradient_pred_ovulation)
-                TVIndicatorRound.setBackgroundResource(R.drawable.indicator_round_pred_ovulation)
-                TVIndicatorRing.setBackgroundResource(R.drawable.indicator_ring_pred_ovulation)
+                setColorsOfBackgroundAndVectors(R.drawable.gradient_pred_ovulation, R.drawable.indicator_round_pred_ovulation, R.drawable.indicator_ring_pred_ovulation)
             }
             PartOfCycle.OVULATION -> {
-                TVScreen.setBackgroundColor(ContextCompat.getColor(context!!,R.color.colorOvulation))
-                TVIndicatorRound.setBackgroundResource(R.drawable.indicator_round_ovulation)
-                TVIndicatorRing.setBackgroundResource(R.drawable.indicator_ring_ovulation)
+                setColorsOfBackgroundAndVectors(R.color.colorOvulation, R.drawable.indicator_round_ovulation, R.drawable.indicator_ring_ovulation)
             }
             PartOfCycle.POST_OVULATION -> {
-                TVScreen.setBackgroundResource(R.drawable.gradient_post_ovulation)
-                TVIndicatorRound.setBackgroundResource(R.drawable.indicator_round_end_of_ovulation)
-                TVIndicatorRing.setBackgroundResource(R.drawable.indicator_ring_end_of_ovulation)
+                setColorsOfBackgroundAndVectors(R.drawable.gradient_post_ovulation, R.drawable.indicator_round_end_of_ovulation, R.drawable.indicator_ring_end_of_ovulation)
             }
         }
 
