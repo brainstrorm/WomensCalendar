@@ -8,7 +8,7 @@ import moxy.InjectViewState
 import moxy.MvpPresenter
 import org.threeten.bp.LocalDate
 import ru.brainstorm.android.womenscalendar.R
-import ru.brainstorm.android.womenscalendar.data.quiz.QuizAnswers
+import ru.brainstorm.android.womenscalendar.data.database.entities.Cycle
 import ru.brainstorm.android.womenscalendar.domain.repository.SaveQuizAnswersRepositoryImpl
 import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.AbstractQuizFragment
 import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.BirthDateFragment
@@ -25,12 +25,14 @@ class QuizActivityPresenter
     @Inject constructor(private val saveQuizAnswersRepositoryImpl: SaveQuizAnswersRepositoryImpl)
         : MvpPresenter<QuizActivityView>() {
 
-    private val quizAnswers = QuizAnswers(LocalDate.MIN, -1, -1, Date(-1))
+    private val cycle = Cycle().apply {
+        startOfCycle = ""
+    }
 
     fun provideStep(step: Int) = viewState.setStep(step)
 
     private fun saveResults() = GlobalScope.launch(Dispatchers.Main) {
-        saveQuizAnswersRepositoryImpl.saveInfo(quizAnswers).join()
+        saveQuizAnswersRepositoryImpl.saveInfo(cycle).join()
         viewState.navigateToCalculation()
     }
 
@@ -49,7 +51,7 @@ class QuizActivityPresenter
         val fragment = fm.findFragmentById(R.id.picker) as? AbstractQuizFragment
         fragment ?: return
         if (save) {
-            fragment.setQuizAns(quizAnswers)
+            fragment.setQuizAns(cycle)
             if (fragment is BirthDateFragment) {
                 saveResults()
                 return

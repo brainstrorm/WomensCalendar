@@ -1,7 +1,7 @@
 package ru.brainstorm.android.womenscalendar.presentation.quiz.fragment
 
 import androidx.fragment.app.Fragment
-import ru.brainstorm.android.womenscalendar.data.quiz.QuizAnswers
+import ru.brainstorm.android.womenscalendar.data.database.entities.Cycle
 
 /**
  * @project WomensCalendar
@@ -14,5 +14,5 @@ abstract class AbstractQuizFragment : Fragment() {
 
     abstract fun getStep(): Int
 
-    abstract fun setQuizAns(ans: QuizAnswers)
+    abstract fun setQuizAns(cycle: Cycle)
 }
