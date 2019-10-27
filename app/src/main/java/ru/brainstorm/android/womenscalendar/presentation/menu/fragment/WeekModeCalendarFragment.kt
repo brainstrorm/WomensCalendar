@@ -11,28 +11,24 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import com.kizitonwose.calendarview.model.CalendarDay
 import com.kizitonwose.calendarview.ui.DayBinder
 import com.kizitonwose.calendarview.ui.ViewContainer
 import kotlinx.android.synthetic.main.calendar_day_week_mode.view.*
 import kotlinx.android.synthetic.main.fragment_week_mode_calendar.*
 import kotlinx.android.synthetic.main.fragment_week_mode_calendar.view.*
-import moxy.MvpAppCompatFragment
-import moxy.presenter.InjectPresenter
-import moxy.presenter.ProvidePresenter
 import org.threeten.bp.DayOfWeek
 import org.threeten.bp.LocalDate
 import org.threeten.bp.YearMonth
 import org.threeten.bp.format.DateTimeFormatter
-import ru.brainstorm.android.womenscalendar.App
 import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.presentation.menu.extra.getDayAddition
 import ru.brainstorm.android.womenscalendar.presentation.menu.extra.PartOfCycle
-import ru.brainstorm.android.womenscalendar.presentation.menu.view.WeekModeCalendarView
 import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.getColorCompat
 import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.setTextColorRes
 
-class WeekModeCalendarFragment : MvpAppCompatFragment(), WeekModeCalendarView {
+class WeekModeCalendarFragment : Fragment() {
 
 
 
@@ -263,7 +259,7 @@ class WeekModeCalendarFragment : MvpAppCompatFragment(), WeekModeCalendarView {
     }
 
 
-    override fun changeInformationInRound(
+    fun changeInformationInRound(
         indicator: PartOfCycle,
         numberOfDays: Int,
         day : CalendarDay
@@ -395,7 +391,7 @@ class WeekModeCalendarFragment : MvpAppCompatFragment(), WeekModeCalendarView {
         }
     }
 
-    override fun changeCalendar(
+    fun changeCalendar(
         menstruationStart: LocalDate,
         menstruationFinish: LocalDate,
         ovulationStart:     LocalDate,
@@ -407,7 +403,7 @@ class WeekModeCalendarFragment : MvpAppCompatFragment(), WeekModeCalendarView {
         ovulationEndDate = ovulationFinish
     }
 
-    override fun changeColors(indicator: PartOfCycle) {
+    fun changeColors(indicator: PartOfCycle) {
         when(indicator){
             PartOfCycle.EMPTY_MENSTRUATION, PartOfCycle.EMPTY_OVULATION -> {
                 setColorsOfBackgroundAndVectors(R.color.colorEmpty, R.drawable.indicator_round_empty, R.drawable.indicator_ring_empty)
