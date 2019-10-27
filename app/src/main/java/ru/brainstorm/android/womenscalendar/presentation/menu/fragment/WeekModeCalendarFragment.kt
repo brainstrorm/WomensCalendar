@@ -1,12 +1,6 @@
 package ru.brainstorm.android.womenscalendar.presentation.menu.fragment
 
 import android.content.Context
-import android.content.res.Resources
-import android.graphics.Color
-import android.graphics.LinearGradient
-import android.graphics.Shader
-import android.graphics.drawable.Drawable
-import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.LayoutInflater
@@ -16,13 +10,10 @@ import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
-import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat
 import com.kizitonwose.calendarview.model.CalendarDay
 import com.kizitonwose.calendarview.ui.DayBinder
 import com.kizitonwose.calendarview.ui.ViewContainer
-import com.sdsmdg.harjot.vectormaster.VectorMasterView
 import kotlinx.android.synthetic.main.calendar_day_week_mode.view.*
 import kotlinx.android.synthetic.main.fragment_week_mode_calendar.*
 import kotlinx.android.synthetic.main.fragment_week_mode_calendar.view.*
@@ -33,22 +24,17 @@ import org.threeten.bp.DayOfWeek
 import org.threeten.bp.LocalDate
 import org.threeten.bp.YearMonth
 import org.threeten.bp.format.DateTimeFormatter
-import org.w3c.dom.Text
 import ru.brainstorm.android.womenscalendar.App
 import ru.brainstorm.android.womenscalendar.R
-import ru.brainstorm.android.womenscalendar.presentation.menu.activity.MenuActivity
-import ru.brainstorm.android.womenscalendar.presentation.menu.extra.GetDayAddition
+import ru.brainstorm.android.womenscalendar.presentation.menu.extra.getDayAddition
 import ru.brainstorm.android.womenscalendar.presentation.menu.extra.PartOfCycle
-import ru.brainstorm.android.womenscalendar.presentation.menu.presenter.WeekModeCalendarPresenter
 import ru.brainstorm.android.womenscalendar.presentation.menu.view.WeekModeCalendarView
 import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.getColorCompat
 import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.setTextColorRes
-import java.util.*
 
 class WeekModeCalendarFragment : MvpAppCompatFragment(), WeekModeCalendarView {
 
-    @InjectPresenter
-    lateinit var weekModeCalendarPresenter: WeekModeCalendarPresenter
+
 
     private lateinit var TVScreen : ConstraintLayout
     private lateinit var TVIndicatorRound : ImageView
@@ -93,9 +79,6 @@ class WeekModeCalendarFragment : MvpAppCompatFragment(), WeekModeCalendarView {
         TVIndicatorRound.setBackgroundResource(roundColor)
         TVIndicatorRing.setBackgroundResource(ringColor)
     }
-
-    @ProvidePresenter
-    fun providePresenter() = App.appComponent.presenter().weekModeCalendarPresenter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -298,7 +281,7 @@ class WeekModeCalendarFragment : MvpAppCompatFragment(), WeekModeCalendarView {
                 TVForecastNumberPred.text = "$numberOfDays"
                 TVForecastNumberPred.setTextColorRes(R.color.colorForecastNumberBlue)
 
-                TVForecastText.text = GetDayAddition(numberOfDays)
+                TVForecastText.text = numberOfDays.getDayAddition()
                 TVForecastText.setTextColorRes(R.color.colorForecastTextBlue)
 
                 TVAdditionalInfo.text = "Малая вероятность \n забеременить"
@@ -316,7 +299,7 @@ class WeekModeCalendarFragment : MvpAppCompatFragment(), WeekModeCalendarView {
                 TVForecastNumberPred.text = "$numberOfDays"
                 TVForecastNumberPred.setTextColorRes(R.color.colorForecastNumberBlue)
 
-                TVForecastText.text = GetDayAddition(numberOfDays)
+                TVForecastText.text = numberOfDays.getDayAddition()
                 TVForecastText.setTextColorRes(R.color.colorForecastTextBlue)
 
                 TVAdditionalInfo.text = "Малая вероятность \n забеременить"
@@ -334,7 +317,7 @@ class WeekModeCalendarFragment : MvpAppCompatFragment(), WeekModeCalendarView {
                 TVForecastNumberPred.text = "$numberOfDays"
                 TVForecastNumberPred.setTextColorRes(R.color.colorForecastNumberBlue)
 
-                TVForecastText.text = GetDayAddition(numberOfDays)
+                TVForecastText.text = numberOfDays.getDayAddition()
                 TVForecastText.setTextColorRes(R.color.colorForecastTextBlue)
 
                 TVAdditionalInfo.text = "Малая вероятность \n забеременить"
@@ -352,7 +335,7 @@ class WeekModeCalendarFragment : MvpAppCompatFragment(), WeekModeCalendarView {
                 TVForecastNumberPred.text = "$numberOfDays"
                 TVForecastNumberPred.setTextColorRes(R.color.colorForecastNumberBlue)
 
-                TVForecastText.text = GetDayAddition(numberOfDays)
+                TVForecastText.text = numberOfDays.getDayAddition()
                 TVForecastText.setTextColorRes(R.color.colorForecastTextBlue)
 
                 TVAdditionalInfo.text = "Средняя вероятность \n забеременить"
@@ -403,7 +386,7 @@ class WeekModeCalendarFragment : MvpAppCompatFragment(), WeekModeCalendarView {
                 TVForecastNumberPred.text = "$numberOfDays"
                 TVForecastNumberPred.setTextColorRes(R.color.colorForecastNumberBlue)
 
-                TVForecastText.text = GetDayAddition(numberOfDays)
+                TVForecastText.text = numberOfDays.getDayAddition()
                 TVForecastText.setTextColorRes(R.color.colorForecastTextBlue)
 
                 TVAdditionalInfo.text = "Высокая вероятность \n забеременить"
