@@ -18,6 +18,7 @@ import com.kizitonwose.calendarview.ui.ViewContainer
 import kotlinx.android.synthetic.main.calendar_day_week_mode.view.*
 import kotlinx.android.synthetic.main.fragment_week_mode_calendar.*
 import kotlinx.android.synthetic.main.fragment_week_mode_calendar.view.*
+import kotlinx.coroutines.selects.select
 import org.threeten.bp.DayOfWeek
 import org.threeten.bp.LocalDate
 import org.threeten.bp.YearMonth
@@ -109,7 +110,7 @@ class WeekModeCalendarFragment : Fragment() {
         val monthText = view.MonthText
         wm.defaultDisplay.getMetrics(dm)
 
-        calendarView.dayWidth = dm.widthPixels / 5
+        calendarView.dayWidth = dm.widthPixels / 7
 
         calendarView.dayHeight = (calendarView.dayWidth * 1.25).toInt()
 
@@ -160,6 +161,7 @@ class WeekModeCalendarFragment : Fragment() {
                     selectedDate -> {
                         dateText.setTextColor(view.context.getColorCompat(R.color.color_White))
                         if(selectedDate < menstruationStartDate){
+                            selectedView.setBackgroundResource(R.drawable.week_mode_single_selected_day)
                             if(menstruationStartDate.dayOfYear - selectedDate.dayOfYear > 5){
                                 changeInformationInRound(
                                     PartOfCycle.EMPTY_MENSTRUATION,
@@ -178,14 +180,16 @@ class WeekModeCalendarFragment : Fragment() {
                         }
                         when(selectedDate){
                             in menstruationStartDate..menstruationEndDate -> {
+                                selectedView.setBackgroundResource(R.drawable.blob_field_selected)
                                 changeInformationInRound(PartOfCycle.MENSTRUATION,
                                     selectedDate.dayOfYear - menstruationStartDate.dayOfYear + 1,
                                     day
                                 )
                                 changeColors(PartOfCycle.MENSTRUATION)
                             }
-                            in ovulationStartDate..ovulationDate-> {
+                            in ovulationStartDate..ovulationEndDate-> {
                                 if(selectedDate < ovulationDate) {
+                                    selectedView.setBackgroundResource(R.drawable.orange_field_selected)
                                     changeInformationInRound(
                                         PartOfCycle.PRED_OVULATION,
                                         ovulationDate.dayOfYear - selectedDate.dayOfYear,
@@ -194,6 +198,7 @@ class WeekModeCalendarFragment : Fragment() {
                                     changeColors(PartOfCycle.PRED_OVULATION)
                                 }
                                 if (selectedDate == ovulationDate){
+                                    selectedView.setBackgroundResource(R.drawable.ovulation_round_selected)
                                     changeInformationInRound(
                                         PartOfCycle.OVULATION,
                                         0,
@@ -201,7 +206,8 @@ class WeekModeCalendarFragment : Fragment() {
                                     )
                                     changeColors(PartOfCycle.OVULATION)
                                 }
-                                if (selectedDate > ovulationDate){
+                                if ((selectedDate > ovulationDate) && (selectedDate <= ovulationEndDate)){
+                                    selectedView.setBackgroundResource(R.drawable.orange_field_selected)
                                     changeInformationInRound(
                                         PartOfCycle.POST_OVULATION,
                                         menstruationStartDate.dayOfYear - selectedDate.dayOfYear,
@@ -211,6 +217,7 @@ class WeekModeCalendarFragment : Fragment() {
                                 }
                             }
                             in ovulationEndDate..menstruationStartDate -> {
+                                selectedView.setBackgroundResource(R.drawable.week_mode_single_selected_day)
                                 if(menstruationStartDate.dayOfYear - selectedDate.dayOfYear > 5){
                                     changeInformationInRound(
                                         PartOfCycle.EMPTY_MENSTRUATION,
@@ -228,6 +235,7 @@ class WeekModeCalendarFragment : Fragment() {
                                 }
                             }
                             in menstruationEndDate..ovulationStartDate -> {
+                                selectedView.setBackgroundResource(R.drawable.week_mode_single_selected_day)
                                 changeInformationInRound(
                                     PartOfCycle.EMPTY_OVULATION,
                                     ovulationDate.dayOfYear - selectedDate.dayOfYear,
@@ -238,10 +246,14 @@ class WeekModeCalendarFragment : Fragment() {
                         }
                     }
                     in menstruationStartDate..menstruationEndDate -> dateText.setTextColor(view.context.getColorCompat(R.color.colorOfChosenNumber))
+                    ovulationDate -> {
+                        selectedView.setBackgroundResource(R.drawable.ovulation_round_not_selected)
+                        dateText.setTextColor(view.context.getColorCompat(R.color.colorOfChosenNumberOrange))
+                    }
                     in ovulationStartDate..ovulationEndDate -> dateText.setTextColor(view.context.getColorCompat(R.color.colorOfChosenNumberOrange))
                     else -> dateText.setTextColor(view.context.getColorCompat(R.color.colorDays))
                 }
-                selectedView.isVisible = day.date == selectedDate
+                selectedView.isVisible = (day.date == selectedDate) || (day.date == ovulationDate)
             }
         }
 
