@@ -2,34 +2,50 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/screen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient1"
+    android:background="@drawable/gradient_pred_menstruation"
     android:clickable="true"
     android:focusable="true"
     android:orientation="vertical"
     tools:context=".presentation.menu.fragment.WeekModeCalendarFragment">
 
-    <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+    <TextView
+        android:id="@+id/MonthText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textColor="@color/colorDays"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Jun" />
+
+    <com.kizitonwose.calendarview.CalendarView
         android:id="@+id/calendarView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:cv_dayViewResource="@layout/calendar_day_week_mode"
+        app:cv_hasBoundaries="false"
+        app:cv_inDateStyle="none"
+        app:cv_maxRowCount="1"
 
-        android:layout_marginTop="5dp"
+        app:cv_orientation="horizontal"
+        app:cv_outDateStyle="none"
+        app:cv_scrollMode="continuous"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:mcv_calendarMode="week"
-        app:mcv_selectionColor="#B7C3CC"
-        app:mcv_showOtherDates="all" />
+        app:layout_constraintTop_toBottomOf="@+id/MonthText"
+        app:layout_constraintVertical_bias="0.0" />
 
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout4"
         android:layout_width="wrap_content"
-
         android:layout_height="wrap_content"
         android:layout_marginBottom="175dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -38,17 +54,98 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/indicator_round"></ImageView>
+            android:id="@+id/indicatorRound"
+            android:layout_width="275dp"
+            android:layout_height="275dp"
+            android:background="@drawable/indicator_round_pred_menstruation"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></ImageView>
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/indicatorRing"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/indicator_ring_pred_menstruation"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></ImageView>
 
-            app:srcCompat="@drawable/indicator_ring"></ImageView>
-    </FrameLayout>
+        <TextView
+            android:id="@+id/TVToday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="Среда, 23 октября"
+            android:textSize="12sp"
+            android:textColor="@color/colorDayInRound"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/TVPartOfCycle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Менструация через"
+            android:textColor="@color/colorPartOfCycleInRoundBlue"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.494"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/TVToday" />
+
+        <TextView
+            android:id="@+id/TVForecastText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="день"
+            android:textColor="@color/colorForecastTextBlue"
+            android:textSize="48sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.481"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/TVPartOfCycle" />
+
+        <TextView
+            android:id="@+id/TVForecastNumberPred"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1"
+            android:textColor="@color/colorForecastNumberBlue"
+            android:textSize="60sp"
+            app:layout_constraintEnd_toStartOf="@+id/TVForecastText"
+            app:layout_constraintHorizontal_bias="0.689"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/TVPartOfCycle" />
+
+        <TextView
+            android:id="@+id/TVAdditionalInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:text="Малая вероятность \n забеременить"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/TVForecastText" />
+
+        <TextView
+            android:id="@+id/TVForecastNumberPost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1"
+            android:textColor="@color/colorForecastNumberBlue"
+            android:textSize="60sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.307"
+            app:layout_constraintStart_toEndOf="@+id/TVForecastText"
+            app:layout_constraintTop_toBottomOf="@+id/TVPartOfCycle" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

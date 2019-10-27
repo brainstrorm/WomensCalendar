@@ -29,4 +29,11 @@
         <item name="colorControlNormal">@color/colorGreyNotSelected</item>
         <item name="colorAccent">@color/colorPinkSelected</item>
     </style>
+
+    <style name="graient1">
+        <item name="android:startColor">#E9F6FF</item>
+        <item name="android:endColor">#FFECD2</item>
+    </style>
+
+
 </resources>

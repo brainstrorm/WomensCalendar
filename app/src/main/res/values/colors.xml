@@ -10,6 +10,7 @@
     <color name="colorPinkLite">#FFF4F8</color>
     <color name="colorGreyFont">#40000000</color>
     <color name="colorOfChosenNumber">#D4517D</color>
+    <color name="colorOfChosenNumberOrange">#FF9574</color>
     <dimen name="text_size_picker">48sp</dimen>
     <color name="color_red">#F00909</color>
     <color name="colorPinkSelected">#FF367A</color>
@@ -19,7 +20,21 @@
     <color name="colorGradient1">#FFDDE9</color>
     <color name="colorGradient2">#FFECF1</color>
     <color name="colorToday">#FFFFFF</color>
-
+    <color name="colorDayInRound">#A7A8A9</color>
+    <color name="colorPartOfCycleInRoundBlue">#457798</color>
+    <color name="colorPartOfCycleInRoundPink">#F06292</color>
+    <color name="colorPartOfCycleInRoundYellow">#838383</color>
+    <color name="colorForecastTextBlue">#3D6594</color>
+    <color name="colorForecastNumberBlue">#3D6594</color>
+    <color name="colorForecastTextPink">#D5537F</color>
+    <color name="colorForecastNumberPink">#D5537F</color>
+    <color name="colorForecastTextYellow">#838383</color>
+    <color name="colorForecastNumberYellow">#838383</color>
+    <color name="colorWeekModeSingleSelectedDay">#B7C3CC</color>
+    //colors of parts of cycle
+    <color name="colorEmpty">#E9F6FF</color>
+    <color name="colorMenstruation">#FFE6EE</color>
+    <color name="colorOvulation">#FFECD2</color>
 
     <color name="example_4_grey">#474747</color>
     <color name="example_4_green">#008489</color>
