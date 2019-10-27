@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.core.view.isVisible
 import com.shawnlin.numberpicker.NumberPicker
 import ru.brainstorm.android.womenscalendar.R
-import ru.brainstorm.android.womenscalendar.data.quiz.QuizAnswers
+import ru.brainstorm.android.womenscalendar.data.database.entities.Cycle
 import ru.brainstorm.android.womenscalendar.presentation.quiz.activity.QuizActivity
 
 
@@ -57,8 +57,10 @@ class AverageCycleFragment : AbstractQuizFragment() {
         return AverageMenstruationFragment()
     }
 
-    override fun setQuizAns(ans: QuizAnswers) {
-        ans.averageTimeOfCycle = averageMenstruationPicker.value
-        Log.d(QuizActivity.TAG, "Saving cycle length: ${ans.averageTimeOfCycle}")
+    override fun setQuizAns(cycle: Cycle) {
+        if (!choose.isVisible) {
+            cycle.lengthOfCycle = averageMenstruationPicker.value
+            Log.d(QuizActivity.TAG, "Saving cycle length: ${cycle.lengthOfCycle}")
+        }
     }
 }

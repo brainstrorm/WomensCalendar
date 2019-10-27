@@ -1,9 +1,8 @@
 package ru.brainstorm.android.womenscalendar.data.repository
 
 import kotlinx.coroutines.Job
-import ru.brainstorm.android.womenscalendar.data.quiz.QuizAnswers
-import java.util.Date
+import ru.brainstorm.android.womenscalendar.data.database.entities.Cycle
 
 interface SaveQuizAnswersRepository {
-    suspend fun saveInfo(quizAnswers : QuizAnswers): Job
+    suspend fun saveInfo(cycle: Cycle): Job
 }

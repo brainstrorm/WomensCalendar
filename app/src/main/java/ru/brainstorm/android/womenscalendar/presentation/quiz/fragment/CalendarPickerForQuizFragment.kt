@@ -2,16 +2,12 @@ package ru.brainstorm.android.womenscalendar.presentation.quiz.fragment
 
 
 import android.annotation.SuppressLint
-import android.os.Build
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.RadioButton
 import android.widget.TextView
-import androidx.annotation.RequiresApi
 import androidx.core.view.children
 import com.kizitonwose.calendarview.CalendarView
 import com.kizitonwose.calendarview.model.CalendarDay
@@ -20,25 +16,17 @@ import com.kizitonwose.calendarview.model.DayOwner
 import com.kizitonwose.calendarview.ui.DayBinder
 import com.kizitonwose.calendarview.ui.MonthHeaderFooterBinder
 import com.kizitonwose.calendarview.ui.ViewContainer
-import kotlinx.android.synthetic.main.calendar_day_legend.*
 import kotlinx.android.synthetic.main.calendar_day_legend.view.*
-
-
 import kotlinx.android.synthetic.main.calendar_header.view.*
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
-
-
 import org.threeten.bp.LocalDate
 import org.threeten.bp.YearMonth
-import org.threeten.bp.ZoneId
-import org.threeten.bp.format.DateTimeFormatter
 import ru.brainstorm.android.womenscalendar.App
 import ru.brainstorm.android.womenscalendar.R
-import ru.brainstorm.android.womenscalendar.data.quiz.QuizAnswers
+import ru.brainstorm.android.womenscalendar.data.database.entities.Cycle
 import ru.brainstorm.android.womenscalendar.presentation.quiz.presenter.CalendarPickerForQuizPresenter
 import ru.brainstorm.android.womenscalendar.presentation.quiz.view.CalendarPickerForQuizView
-import java.text.DateFormat
 
 class CalendarPickerForQuizFragment : AbstractQuizFragment(), CalendarPickerForQuizView{
 
@@ -183,8 +171,8 @@ class CalendarPickerForQuizFragment : AbstractQuizFragment(), CalendarPickerForQ
         return null
     }
 
-    override fun setQuizAns(ans: QuizAnswers) {
+    override fun setQuizAns(cycle: Cycle) {
         selectedDate ?: return
-        ans.lastMenstruation = selectedDate!!
+        cycle.startOfCycle = selectedDate!!.toString()
     }
 }

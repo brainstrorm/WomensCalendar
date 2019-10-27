@@ -5,8 +5,9 @@ import android.content.Context
 import android.content.SharedPreferences
 import dagger.Module
 import dagger.Provides
-import ru.brainstorm.android.womenscalendar.data.repository.SaveQuizAnswersRepository
-import ru.brainstorm.android.womenscalendar.domain.repository.ReadQuizAnswersRepositoryImpl
+import ru.brainstorm.android.womenscalendar.App
+import ru.brainstorm.android.womenscalendar.data.database.dao.CycleDao
+import ru.brainstorm.android.womenscalendar.domain.repository.ReadUserInfoRepositoryImpl
 import ru.brainstorm.android.womenscalendar.domain.repository.SaveQuizAnswersRepositoryImpl
 import javax.inject.Singleton
 
@@ -32,9 +33,13 @@ class QuizModule(private val application: Application) {
 
     @Provides
     fun provideReadQuizAnswerRepository(sharedPreferences: SharedPreferences)
-            : ReadQuizAnswersRepositoryImpl = ReadQuizAnswersRepositoryImpl(sharedPreferences)
+            : ReadUserInfoRepositoryImpl = ReadUserInfoRepositoryImpl(sharedPreferences)
 
     @Provides
-    fun provideSaveQuizAnswerRepository(sharedPreferences: SharedPreferences)
-            : SaveQuizAnswersRepositoryImpl = SaveQuizAnswersRepositoryImpl(sharedPreferences)
+    fun provideSaveQuizAnswerRepository(sharedPreferences: SharedPreferences, cycleDao: CycleDao)
+            : SaveQuizAnswersRepositoryImpl = SaveQuizAnswersRepositoryImpl(sharedPreferences, cycleDao)
+
+    @Provides
+    @Singleton
+    fun provideCycleDao(): CycleDao = App.appDatabase.cycleDao()
 }
