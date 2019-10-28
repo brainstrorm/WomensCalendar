@@ -1,6 +1,7 @@
 package ru.brainstorm.android.womenscalendar.presentation.menu.fragment
 
 import android.content.Context
+import android.content.res.Resources
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.LayoutInflater
@@ -278,76 +279,56 @@ class WeekModeCalendarFragment : Fragment() {
     ) {
         when(indicator){
             PartOfCycle.EMPTY_MENSTRUATION -> {
-                TVToday.text = "${dayFormatterRound.format(day.date).capitalize()}, ${dateFormatter.format(day.date)} ${monthFormatter.format(day.date)}"
-
-                TVForecastNumberPred.isVisible = true
-                TVForecastNumberPost.isVisible = false
-
-                TVPartOfCycle.text = "Менструация через"
-                TVPartOfCycle.setTextColorRes(R.color.colorPartOfCycleInRoundBlue)
-
-                TVForecastNumberPred.text = "$numberOfDays"
-                TVForecastNumberPred.setTextColorRes(R.color.colorForecastNumberBlue)
-
-                TVForecastText.text = numberOfDays.getDayAddition()
-                TVForecastText.setTextColorRes(R.color.colorForecastTextBlue)
-
-                TVAdditionalInfo.text = "Малая вероятность \n забеременить"
-                TVAdditionalInfo.setTextColorRes(R.color.colorPartOfCycleInRoundBlue)
+                setTextViews(
+                    day,
+                    numberOfDays,
+                    true,
+                    false,
+                    R.string.menstruation_after,
+                    R.color.colorPartOfCycleInRoundBlue,
+                    R.color.colorForecastNumberBlue,
+                    R.color.colorForecastTextBlue,
+                    R.string.unlikely_to_get_pregnant,
+                    R.color.colorPartOfCycleInRoundBlue)
             }
             PartOfCycle.EMPTY_OVULATION -> {
-                TVToday.text = "${dayFormatterRound.format(day.date).capitalize()}, ${dateFormatter.format(day.date)} ${monthFormatter.format(day.date)}"
-
-                TVForecastNumberPred.isVisible = true
-                TVForecastNumberPost.isVisible = false
-
-                TVPartOfCycle.text = "Овуляция через"
-                TVPartOfCycle.setTextColorRes(R.color.colorPartOfCycleInRoundBlue)
-
-                TVForecastNumberPred.text = "$numberOfDays"
-                TVForecastNumberPred.setTextColorRes(R.color.colorForecastNumberBlue)
-
-                TVForecastText.text = numberOfDays.getDayAddition()
-                TVForecastText.setTextColorRes(R.color.colorForecastTextBlue)
-
-                TVAdditionalInfo.text = "Малая вероятность \n забеременить"
-                TVAdditionalInfo.setTextColorRes(R.color.colorPartOfCycleInRoundBlue)
+                setTextViews(
+                    day,
+                    numberOfDays,
+                    true,
+                    false,
+                    R.string.ovulation_after,
+                    R.color.colorPartOfCycleInRoundBlue,
+                    R.color.colorForecastNumberBlue,
+                    R.color.colorForecastTextBlue,
+                    R.string.unlikely_to_get_pregnant,
+                    R.color.colorPartOfCycleInRoundBlue)
             }
             PartOfCycle.PRED_MENSTRUATION -> {
-                TVToday.text = "${dayFormatterRound.format(day.date).capitalize()}, ${dateFormatter.format(day.date)} ${monthFormatter.format(day.date)}"
-
-                TVForecastNumberPred.isVisible = true
-                TVForecastNumberPost.isVisible = false
-
-                TVPartOfCycle.text = "Менструация через"
-                TVPartOfCycle.setTextColorRes(R.color.colorPartOfCycleInRoundBlue)
-
-                TVForecastNumberPred.text = "$numberOfDays"
-                TVForecastNumberPred.setTextColorRes(R.color.colorForecastNumberBlue)
-
-                TVForecastText.text = numberOfDays.getDayAddition()
-                TVForecastText.setTextColorRes(R.color.colorForecastTextBlue)
-
-                TVAdditionalInfo.text = "Малая вероятность \n забеременить"
-                TVAdditionalInfo.setTextColorRes(R.color.colorPartOfCycleInRoundBlue)
+                setTextViews(
+                    day,
+                    numberOfDays,
+                    true,
+                    false,
+                    R.string.menstruation_after,
+                    R.color.colorPartOfCycleInRoundBlue,
+                    R.color.colorForecastNumberBlue,
+                    R.color.colorForecastTextBlue,
+                    R.string.unlikely_to_get_pregnant,
+                    R.color.colorPartOfCycleInRoundBlue)
             }
             PartOfCycle.PRED_OVULATION -> {
-                TVToday.text = "${dayFormatterRound.format(day.date).capitalize()}, ${dateFormatter.format(day.date)} ${monthFormatter.format(day.date)}"
-
-                TVForecastNumberPred.isVisible = true
-                TVForecastNumberPost.isVisible = false
-
-                TVPartOfCycle.text = "Овуляция через"
-                TVPartOfCycle.setTextColorRes(R.color.colorPartOfCycleInRoundBlue)
-
-                TVForecastNumberPred.text = "$numberOfDays"
-                TVForecastNumberPred.setTextColorRes(R.color.colorForecastNumberBlue)
-
-                TVForecastText.text = numberOfDays.getDayAddition()
-                TVForecastText.setTextColorRes(R.color.colorForecastTextBlue)
-
-                TVAdditionalInfo.text = "Средняя вероятность \n забеременить"
-                TVAdditionalInfo.setTextColorRes(R.color.colorPartOfCycleInRoundBlue)
+                setTextViews(
+                    day,
+                    numberOfDays,
+                    true,
+                    false,
+                    R.string.ovulation_after,
+                    R.color.colorPartOfCycleInRoundBlue,
+                    R.color.colorForecastNumberBlue,
+                    R.color.colorForecastTextBlue,
+                    R.string.average_probability_of_getting_pregnant,
+                    R.color.colorPartOfCycleInRoundBlue)
             }
             PartOfCycle.MENSTRUATION -> {
                 TVToday.text = "${dayFormatterRound.format(day.date).capitalize()}, ${dateFormatter.format(day.date)} ${monthFormatter.format(day.date)}"
@@ -355,16 +336,16 @@ class WeekModeCalendarFragment : Fragment() {
                 TVForecastNumberPred.isVisible = false
                 TVForecastNumberPost.isVisible = true
 
-                TVPartOfCycle.text = "Менструация"
+                TVPartOfCycle.setText(R.string.menstruation)
                 TVPartOfCycle.setTextColorRes(R.color.colorPartOfCycleInRoundPink)
 
-                TVForecastText.text = "день"
+                TVForecastText.setText(R.string.day)
                 TVForecastText.setTextColorRes(R.color.colorForecastTextPink)
 
                 TVForecastNumberPost.text = "$numberOfDays"
                 TVForecastNumberPost.setTextColorRes(R.color.colorForecastNumberPink)
 
-                TVAdditionalInfo.text = "Цикл длился \n 30 дней"
+                TVAdditionalInfo.text = "${context!!.getText(R.string.the_cycle_lasted)} \n 30 ${30.getDayAddition()}"
                 TVAdditionalInfo.setTextColorRes(R.color.colorPartOfCycleInRoundPink)
             }
             PartOfCycle.OVULATION -> {
@@ -373,34 +354,62 @@ class WeekModeCalendarFragment : Fragment() {
                 TVForecastNumberPred.isVisible = false
                 TVForecastNumberPost.isVisible = false
 
-                TVPartOfCycle.text = "Прогноз: день"
+                TVPartOfCycle.setText(R.string.forecast_day)
                 TVPartOfCycle.setTextColorRes(R.color.colorPartOfCycleInRoundYellow)
 
-                TVForecastText.text = "овуляции"
+                TVForecastText.setText(R.string.ovulation)
                 TVForecastText.setTextColorRes(R.color.colorForecastTextYellow)
 
-                TVAdditionalInfo.text = "Высокая вероятность \n забеременить"
+                TVAdditionalInfo.setText(R.string.high_probability_of_getting_pregnant)
                 TVAdditionalInfo.setTextColorRes(R.color.colorPartOfCycleInRoundYellow)
             }
             PartOfCycle.POST_OVULATION -> {
-                TVToday.text = "${dayFormatterRound.format(day.date).capitalize()}, ${dateFormatter.format(day.date)} ${monthFormatter.format(day.date)}"
-
-                TVForecastNumberPred.isVisible = true
-                TVForecastNumberPost.isVisible = false
-
-                TVPartOfCycle.text = "Менструация через"
-                TVPartOfCycle.setTextColorRes(R.color.colorPartOfCycleInRoundYellow)
-
-                TVForecastNumberPred.text = "$numberOfDays"
-                TVForecastNumberPred.setTextColorRes(R.color.colorForecastNumberBlue)
-
-                TVForecastText.text = numberOfDays.getDayAddition()
-                TVForecastText.setTextColorRes(R.color.colorForecastTextBlue)
-
-                TVAdditionalInfo.text = "Высокая вероятность \n забеременить"
-                TVAdditionalInfo.setTextColorRes(R.color.colorPartOfCycleInRoundBlue)
+                setTextViews(
+                    day,
+                    numberOfDays,
+                    true,
+                    false,
+                    R.string.menstruation_after,
+                    R.color.colorPartOfCycleInRoundYellow,
+                    R.color.colorForecastNumberBlue,
+                    R.color.colorForecastTextBlue,
+                    R.string.high_probability_of_getting_pregnant,
+                    R.color.colorPartOfCycleInRoundBlue)
             }
         }
+    }
+
+    private fun setTextViews(
+        day: CalendarDay,
+        numberOfDays: Int,
+        predNumber : Boolean,
+        postNumber : Boolean,
+        partOfCycleTextId : Int,
+        partOfCycleColor : Int,
+        forecastNumberColor : Int,
+        forecastTextColor : Int,
+        additionalInfoTextId : Int,
+        additionalInfoColor: Int
+    ) {
+        TVToday.text =
+            "${dayFormatterRound.format(day.date).capitalize()}, ${dateFormatter.format(day.date)} ${monthFormatter.format(
+                day.date
+            )}"
+
+        TVForecastNumberPred.isVisible = predNumber
+        TVForecastNumberPost.isVisible = postNumber
+
+        TVPartOfCycle.setText(partOfCycleTextId)
+        TVPartOfCycle.setTextColorRes(partOfCycleColor)
+
+        TVForecastNumberPred.text = "$numberOfDays"
+        TVForecastNumberPred.setTextColorRes(forecastNumberColor)
+
+        TVForecastText.text = numberOfDays.getDayAddition()
+        TVForecastText.setTextColorRes(forecastTextColor)
+
+        TVAdditionalInfo.setText(additionalInfoTextId)
+        TVAdditionalInfo.setTextColorRes(additionalInfoColor)
     }
 
     fun changeCalendar(

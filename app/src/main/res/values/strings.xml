@@ -60,4 +60,15 @@
     <string name="clear">Clear</string>
     <string name="week_mode">Week mode</string>
 
+    //for WeekModeCalendarFragment
+    <string name="menstruation_after">Менструация через</string>
+    <string name="unlikely_to_get_pregnant">Малая вероятность \n забеременить</string>
+    <string name="average_probability_of_getting_pregnant">Средняя вероятность \n забеременить</string>
+    <string name="high_probability_of_getting_pregnant">Высокая вероятность \n забеременить</string>
+    <string name="ovulation_after">Овуляция через</string>
+    <string name="menstruation">Менструация</string>
+    <string name="ovulation">овуляции</string>
+    <string name="day">день</string>
+    <string name="the_cycle_lasted">Цикл длился</string>
+    <string name="forecast_day">Прогноз: день</string>
 </resources>
