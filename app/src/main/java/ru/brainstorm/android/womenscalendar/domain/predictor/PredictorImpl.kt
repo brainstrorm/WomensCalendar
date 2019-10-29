@@ -22,6 +22,8 @@ class PredictorImpl
         val set_inject: List<Cycle> = cycleDao.getAll()
         val setLengthofmenstruation: MutableList<Int> = mutableListOf()
         val setLengthofcycle: MutableList<Int> = mutableListOf()
+        val setOvulations: MutableList<String> = mutableListOf()
+
 
         if(set_inject.size == 1) {
 
@@ -33,21 +35,29 @@ class PredictorImpl
                     set_inject[0].lengthOfMenstruation = 5
                 }
 
+                  set_inject[0].ovulation = LocalDate.parse(set_inject.last().startOfCycle).plusDays(set_inject[0].lengthOfCycle-14.toLong()).toString()
             }
 
         for (cycle in set_inject) {
             setLengthofmenstruation.add(cycle.lengthOfMenstruation)
             setLengthofcycle.add(cycle.lengthOfCycle)
+            setOvulations.add(cycle.ovulation)
         }
 
         val avgSetLengthofmenstruation = setLengthofcycle.average().toLong()
         val avgSetLengthofcycle = setLengthofmenstruation.average().toLong()
 
-        var firstDayOfNewCycle: String = LocalDate.parse(set_inject.last().startOfCycle).plusDays(avgSetLengthofcycle).toString()
-
+       var set_update =  set_inject.toMutableList()
 
         for(i in 1..count){
-            val newCycle:Cycle = Cycle(firstDayOfNewCycle,avgSetLengthofcycle.toInt(),avgSetLengthofmenstruation.toInt())
+
+            var firstDayOfNewCycle: String = LocalDate.parse(set_update.last().startOfCycle).plusDays(avgSetLengthofcycle).toString()
+
+            val ovulation = LocalDate.parse(firstDayOfNewCycle).plusDays(avgSetLengthofcycle-14.toLong()).toString()
+
+            val newCycle = Cycle(firstDayOfNewCycle,ovulation,avgSetLengthofcycle.toInt(),avgSetLengthofmenstruation.toInt())
+
+            set_update.add(newCycle)
             cycleDao.insert(newCycle)
         }
     }

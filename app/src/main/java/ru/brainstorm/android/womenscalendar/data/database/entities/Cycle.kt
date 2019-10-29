@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
  * @author Ilia Ilmenskii created on 26.10.2019
  */
 @Entity
-class Cycle(startOfCycle: String = "1.10.2019",lengthOfCycle: Int = 24,lengthOfMenstruation: Int = 5) {
+class Cycle(startOfCycle: String = "1.10.2019",ovulation: String = "15.10.2019",lengthOfCycle: Int = 24,lengthOfMenstruation: Int = 5) {
 
 
 
@@ -17,6 +17,7 @@ class Cycle(startOfCycle: String = "1.10.2019",lengthOfCycle: Int = 24,lengthOfM
 
     lateinit var startOfCycle: String
 
+    lateinit var ovulation: String
 
     var lengthOfCycle: Int = 0
 
