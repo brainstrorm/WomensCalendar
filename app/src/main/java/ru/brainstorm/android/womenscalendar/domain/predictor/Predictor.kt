@@ -13,4 +13,5 @@ interface Predictor {
      * @return Job - launch return, to callback, that computation is completed
      */
     suspend fun predict(count: Int): Job
+
 }

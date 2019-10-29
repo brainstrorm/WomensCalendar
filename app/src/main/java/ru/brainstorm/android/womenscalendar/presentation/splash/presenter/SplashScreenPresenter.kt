@@ -13,12 +13,14 @@ import javax.inject.Inject
  * @project WomensCalendar
  * @author Ilia Ilmenskii created on 15.10.2019
  */
+
 @InjectViewState
 class SplashScreenPresenter
     @Inject constructor(
         private val readUserInfoRepository: ReadUserInfoRepositoryImpl,
         private val cycleDao: CycleDao)
         : MvpPresenter<SplashScreenView>() {
+
 
     fun checkFirstLaunch() {
         GlobalScope.launch(Dispatchers.IO) {
