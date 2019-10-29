@@ -100,6 +100,7 @@ class CalendarPickerFragment :  CalendarPickerView_, AbstractQuizFragment(){
         months.put("July", "Июль")
         months.put("August", "Август")
         months.put("September", "Сентябрь")
+
         val daysOfWeek = daysOfWeekFromLocale()
 
         val currentMonth = YearMonth.now()
