@@ -3,18 +3,15 @@ package ru.brainstorm.android.womenscalendar.presentation.menu.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.room.Dao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import moxy.InjectViewState
 import moxy.MvpAppCompatActivity
 import ru.brainstorm.android.womenscalendar.App
 import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.data.database.dao.CycleDao
 import ru.brainstorm.android.womenscalendar.data.database.entities.Cycle
-import ru.brainstorm.android.womenscalendar.presentation.menu.fragment.WeekModeCalendarFragment
-import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.CalendarPickerFragment
+import ru.brainstorm.android.womenscalendar.presentation.menu.fragment.CalendarPickerFragment
 import javax.inject.Inject
 
 class MenuActivity : MvpAppCompatActivity() {
@@ -44,8 +41,8 @@ class MenuActivity : MvpAppCompatActivity() {
         cycle2.lengthOfMenstruation = 6
         cycle2.predicted = false
         GlobalScope.launch(Dispatchers.IO) {
-            cycleDao.insert(cycle1)
-            cycleDao.insert(cycle2)
+            //cycleDao.insert(cycle1)
+            //cycleDao.insert(cycle2)
         }
         supportFragmentManager.beginTransaction()
             .add(R.id.for_fragment, CalendarPickerFragment())

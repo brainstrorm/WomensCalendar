@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape android:shape="rectangle"
     xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="@color/colorGradient2" />
+    <solid android:color="@color/colorGradient1" />
 
     <!--We update these values dynamically-->
     <corners
