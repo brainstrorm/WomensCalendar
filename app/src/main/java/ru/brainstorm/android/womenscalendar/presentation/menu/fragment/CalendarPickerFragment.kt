@@ -134,6 +134,7 @@ class CalendarPickerFragment :   MvpAppCompatFragment(){
             val roundBgView = view.findViewById<View>(R.id.exFourRoundBgView)
             val blobeStart = view.findViewById<ImageView>(R.id.blobeStart)
             val blobeEnd = view.findViewById<ImageView>(R.id.blobeEnd)
+            val todayRound = view.findViewById<ImageView>(R.id.todayRound)
 
             //обработчик нажатий
             /*init {
@@ -164,11 +165,13 @@ class CalendarPickerFragment :   MvpAppCompatFragment(){
                 val roundBgView = container.roundBgView
                 val startBlobe = container.blobeStart
                 val endBlobe = container.blobeEnd
+                val todayRound = container.todayRound
                 textView.text = null
                 textView.background = null
                 roundBgView.makeInVisible()
                 startBlobe.makeInVisible()
                 endBlobe.makeInVisible()
+                todayRound.makeInVisible()
                 if (day.owner == DayOwner.THIS_MONTH) {
                     textView.text = day.day.toString()
                     textView.setTextColorRes(R.color.example_4_grey)
@@ -216,6 +219,8 @@ class CalendarPickerFragment :   MvpAppCompatFragment(){
                             }
                         }
                     }
+                    if(day.date == today)
+                        todayRound.isVisible = true
                     //выделение по нажатию
                     /*if (day.date.isBefore(today)) {
                         textView.setTextColorRes(R.color.colorPrimaryDark)
