@@ -9,7 +9,7 @@
     <com.shawnlin.numberpicker.NumberPicker
         android:id="@+id/averageMenstruationPicker"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:width="100dp"
         android:orientation="vertical"
         android:theme="@style/averageMenstruationPickerTheme"

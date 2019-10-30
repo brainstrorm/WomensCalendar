@@ -25,7 +25,7 @@ class SplashScreenActivity : MvpAppCompatActivity(), SplashScreenView {
     }
 
     override fun goToCalendar() {
-        startActivity(InitializationActivity.provideIntent(this@SplashScreenActivity))
+        startActivity(MenuActivity.provideIntent(this@SplashScreenActivity))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
