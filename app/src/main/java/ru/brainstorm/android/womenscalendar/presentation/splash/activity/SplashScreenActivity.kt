@@ -6,6 +6,7 @@ import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import ru.brainstorm.android.womenscalendar.App
 import ru.brainstorm.android.womenscalendar.R
+import ru.brainstorm.android.womenscalendar.presentation.initialization.activity.InitializationActivity
 import ru.brainstorm.android.womenscalendar.presentation.quiz.activity.QuizActivity
 import ru.brainstorm.android.womenscalendar.presentation.splash.presenter.SplashScreenPresenter
 import ru.brainstorm.android.womenscalendar.presentation.splash.view.SplashScreenView
