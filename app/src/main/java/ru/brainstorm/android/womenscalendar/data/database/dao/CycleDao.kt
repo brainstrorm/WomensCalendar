@@ -18,6 +18,9 @@ interface CycleDao {
     @Query("SELECT * FROM cycle WHERE id = :id")
     suspend fun getById(id: Long): Cycle
 
+    @Query("SELECT * FROM cycle ORDER BY startOfCycle DESC")
+    suspend fun getLatest(): Cycle
+
     @Insert
     suspend fun insert(cycle: Cycle)
 
