@@ -3,8 +3,11 @@ package ru.brainstorm.android.womenscalendar.presentation.splash.presenter
 import kotlinx.coroutines.*
 import moxy.InjectViewState
 import moxy.MvpPresenter
+import org.threeten.bp.LocalDate
 import ru.brainstorm.android.womenscalendar.data.User
 import ru.brainstorm.android.womenscalendar.data.database.dao.CycleDao
+import ru.brainstorm.android.womenscalendar.domain.predictor.Predictor
+import ru.brainstorm.android.womenscalendar.domain.predictor.PredictorImpl
 import ru.brainstorm.android.womenscalendar.domain.repository.ReadUserInfoRepositoryImpl
 import ru.brainstorm.android.womenscalendar.presentation.splash.view.SplashScreenView
 import javax.inject.Inject

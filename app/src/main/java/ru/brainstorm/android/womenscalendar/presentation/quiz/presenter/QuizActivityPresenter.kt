@@ -27,6 +27,7 @@ class QuizActivityPresenter
 
     private val cycle = Cycle().apply {
         startOfCycle = ""
+        ovulation = ""
     }
 
     fun provideStep(step: Int) = viewState.setStep(step)

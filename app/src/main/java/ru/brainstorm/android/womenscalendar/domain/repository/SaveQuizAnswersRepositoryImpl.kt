@@ -4,6 +4,7 @@ import android.content.SharedPreferences
 import androidx.core.content.edit
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import ru.brainstorm.android.womenscalendar.data.User
 import ru.brainstorm.android.womenscalendar.data.database.dao.CycleDao
