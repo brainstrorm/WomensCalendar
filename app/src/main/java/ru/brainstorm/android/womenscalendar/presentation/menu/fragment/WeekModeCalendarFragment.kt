@@ -14,25 +14,34 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.kizitonwose.calendarview.model.CalendarDay
+import com.kizitonwose.calendarview.model.DayOwner
 import com.kizitonwose.calendarview.ui.DayBinder
 import com.kizitonwose.calendarview.ui.ViewContainer
 import kotlinx.android.synthetic.main.calendar_day_week_mode.view.*
 import kotlinx.android.synthetic.main.fragment_week_mode_calendar.*
 import kotlinx.android.synthetic.main.fragment_week_mode_calendar.view.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
 import kotlinx.coroutines.selects.select
 import org.threeten.bp.DayOfWeek
 import org.threeten.bp.LocalDate
 import org.threeten.bp.YearMonth
 import org.threeten.bp.format.DateTimeFormatter
+import ru.brainstorm.android.womenscalendar.App
 import ru.brainstorm.android.womenscalendar.R
+import ru.brainstorm.android.womenscalendar.data.database.dao.CycleDao
+import ru.brainstorm.android.womenscalendar.data.database.entities.Cycle
 import ru.brainstorm.android.womenscalendar.presentation.menu.extra.getDayAddition
 import ru.brainstorm.android.womenscalendar.presentation.menu.extra.PartOfCycle
 import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.getColorCompat
 import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.setTextColorRes
+import javax.inject.Inject
 
 class WeekModeCalendarFragment : Fragment() {
 
-
+    @Inject
+    lateinit var cycleDao: CycleDao
 
     private lateinit var TVScreen : ConstraintLayout
     private lateinit var TVIndicatorRound : ImageView
@@ -48,9 +57,9 @@ class WeekModeCalendarFragment : Fragment() {
     private val today = LocalDate.now()
     private var menstruationStartDate  = LocalDate.parse("2019-10-27")
     private var menstruationEndDate  = LocalDate.parse("2019-10-29")
-    private var ovulationStartDate  = LocalDate.parse("2019-11-01")
-    private var ovulationEndDate  = LocalDate.parse("2019-11-10")
-    private var ovulationDate = LocalDate.parse("2019-11-07")
+    private var ovulationStartDate  = LocalDate.parse("2019-11-10")
+    private var ovulationEndDate  = LocalDate.parse("2019-11-20")
+    private var ovulationDate = LocalDate.parse("2019-11-15")
 
     private val dateFormatter = DateTimeFormatter.ofPattern("dd")
     private val dayFormatter = DateTimeFormatter.ofPattern("EEE")
@@ -105,6 +114,12 @@ class WeekModeCalendarFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        App.appComponent.inject(this)
+        var menstruationDays = listOf<Cycle>()
+        GlobalScope.async(Dispatchers.IO){
+            menstruationDays = cycleDao.getAll()
+            return@async menstruationDays
+        }
 
         val dm = DisplayMetrics()
         val wm = requireContext().getSystemService(Context.WINDOW_SERVICE) as WindowManager
@@ -114,6 +129,10 @@ class WeekModeCalendarFragment : Fragment() {
         calendarView.dayWidth = dm.widthPixels / 7
 
         calendarView.dayHeight = (calendarView.dayWidth * 1.25).toInt()
+        val currentMonth = YearMonth.now()
+        // Value for firstDayOfWeek does not matter since inDates and outDates are not generated.
+        calendarView.setup(currentMonth, currentMonth.plusMonths(3), DayOfWeek.values().random())
+        calendarView.scrollToDate(LocalDate.now())
 
         class DayViewContainer(view: View) : ViewContainer(view) {
             val dayText = view.exSevenDayText
@@ -155,120 +174,118 @@ class WeekModeCalendarFragment : Fragment() {
                 this.day = day
                 dateText.text = dateFormatter.format(day.date)
                 dayText.text = dayFormatter.format(day.date)
+                dateText.setTextColor(view.context.getColorCompat(R.color.colorDays))
+                selectedView.isVisible = false
                 if (day.date == selectedDate)
                     monthText.text = months[monthFormatter.format(day.date)]!!.capitalize()
-                //dateText.setTextColor(view.context.getColorCompat(if (day.date == selectedDate) R.color.color_White else R.color.colorDays))
-                when(day.date){
-                    selectedDate -> {
-                        dateText.setTextColor(view.context.getColorCompat(R.color.color_White))
-                        if(selectedDate < menstruationStartDate){
-                            selectedView.setBackgroundResource(R.drawable.week_mode_single_selected_day)
-                            if(menstruationStartDate.dayOfYear - selectedDate.dayOfYear > 5){
-                                changeInformationInRound(
-                                    PartOfCycle.EMPTY_MENSTRUATION,
-                                    menstruationStartDate.dayOfYear - selectedDate.dayOfYear,
-                                    day
-                                )
-                                changeColors(PartOfCycle.EMPTY_MENSTRUATION)
-                            }else{
-                                changeInformationInRound(
-                                    PartOfCycle.PRED_MENSTRUATION,
-                                    menstruationStartDate.dayOfYear - selectedDate.dayOfYear,
-                                    day
-                                )
-                                changeColors(PartOfCycle.PRED_MENSTRUATION)
-                            }
-                        }
-                        when(selectedDate){
-                            in menstruationStartDate..menstruationEndDate -> {
-                                selectedView.setBackgroundResource(R.drawable.blob_field_selected)
-                                changeInformationInRound(PartOfCycle.MENSTRUATION,
-                                    selectedDate.dayOfYear - menstruationStartDate.dayOfYear + 1,
-                                    day
-                                )
-                                changeColors(PartOfCycle.MENSTRUATION)
-                            }
-                            in ovulationStartDate..ovulationEndDate-> {
-                                if(selectedDate < ovulationDate) {
-                                    selectedView.setBackgroundResource(R.drawable.orange_field_selected)
+                for (days in menstruationDays) {
+                    val menstruationStartDate = LocalDate.parse(days.startOfCycle)
+                    val menstruationEndDate = LocalDate.parse(days.startOfCycle)
+                        .plusDays(days.lengthOfMenstruation.toLong())
+                    val endOfCycle = LocalDate.parse(days.startOfCycle)
+                        .plusDays(days.lengthOfCycle.toLong())
+                    val ovulationDate = menstruationEndDate.plusDays(10)
+                    val ovulationStartDate = ovulationDate.minusDays(4)
+                    val ovulationEndDate = ovulationDate.plusDays(4)
+                    when (day.date) {
+                        selectedDate -> {
+                            dateText.setTextColor(view.context.getColorCompat(R.color.color_White))
+                            selectedView.isVisible = true
+                            when (selectedDate) {
+                                in menstruationStartDate..menstruationEndDate -> {
+                                    selectedView.setBackgroundResource(R.drawable.blob_field_selected)
                                     changeInformationInRound(
-                                        PartOfCycle.PRED_OVULATION,
+                                        PartOfCycle.MENSTRUATION,
+                                        selectedDate.dayOfYear - menstruationStartDate.dayOfYear + 1,
+                                        day
+                                    )
+                                    changeColors(PartOfCycle.MENSTRUATION)
+                                }
+                                in ovulationStartDate..ovulationEndDate -> {
+                                    if (selectedDate < ovulationDate) {
+                                        selectedView.setBackgroundResource(R.drawable.orange_field_selected)
+                                        changeInformationInRound(
+                                            PartOfCycle.PRED_OVULATION,
+                                            ovulationDate.dayOfYear - selectedDate.dayOfYear,
+                                            day
+                                        )
+                                        changeColors(PartOfCycle.PRED_OVULATION)
+                                    }
+                                    if (selectedDate == ovulationDate) {
+                                        selectedView.setBackgroundResource(R.drawable.ovulation_round_selected)
+                                        changeInformationInRound(
+                                            PartOfCycle.OVULATION,
+                                            0,
+                                            day
+                                        )
+                                        changeColors(PartOfCycle.OVULATION)
+                                    }
+                                    if ((selectedDate > ovulationDate) && (selectedDate <= ovulationEndDate)) {
+                                        selectedView.setBackgroundResource(R.drawable.orange_field_selected)
+                                        changeInformationInRound(
+                                            PartOfCycle.POST_OVULATION,
+                                            endOfCycle.dayOfYear - selectedDate.dayOfYear,
+                                            day
+                                        )
+                                        changeColors(PartOfCycle.POST_OVULATION)
+                                    }
+                                }
+                                in ovulationEndDate..endOfCycle -> {
+                                    selectedView.setBackgroundResource(R.drawable.week_mode_single_selected_day)
+                                    if (endOfCycle.dayOfYear - selectedDate.dayOfYear > 5) {
+                                        changeInformationInRound(
+                                            PartOfCycle.EMPTY_MENSTRUATION,
+                                            endOfCycle.dayOfYear - selectedDate.dayOfYear,
+                                            day
+                                        )
+                                        changeColors(PartOfCycle.EMPTY_MENSTRUATION)
+                                    } else {
+                                        changeInformationInRound(
+                                            PartOfCycle.PRED_MENSTRUATION,
+                                            endOfCycle.dayOfYear - selectedDate.dayOfYear,
+                                            day
+                                        )
+                                        changeColors(PartOfCycle.PRED_MENSTRUATION)
+                                    }
+                                }
+                                in menstruationEndDate..ovulationStartDate -> {
+                                    selectedView.setBackgroundResource(R.drawable.week_mode_single_selected_day)
+                                    changeInformationInRound(
+                                        PartOfCycle.EMPTY_OVULATION,
                                         ovulationDate.dayOfYear - selectedDate.dayOfYear,
                                         day
                                     )
-                                    changeColors(PartOfCycle.PRED_OVULATION)
+                                    changeColors(PartOfCycle.EMPTY_OVULATION)
                                 }
-                                if (selectedDate == ovulationDate){
-                                    selectedView.setBackgroundResource(R.drawable.ovulation_round_selected)
-                                    changeInformationInRound(
-                                        PartOfCycle.OVULATION,
-                                        0,
-                                        day
-                                    )
-                                    changeColors(PartOfCycle.OVULATION)
-                                }
-                                if ((selectedDate > ovulationDate) && (selectedDate <= ovulationEndDate)){
-                                    selectedView.setBackgroundResource(R.drawable.orange_field_selected)
-                                    changeInformationInRound(
-                                        PartOfCycle.POST_OVULATION,
-                                        menstruationStartDate.dayOfYear - selectedDate.dayOfYear,
-                                        day
-                                    )
-                                    changeColors(PartOfCycle.POST_OVULATION)
-                                }
-                            }
-                            in ovulationEndDate..menstruationStartDate -> {
-                                selectedView.setBackgroundResource(R.drawable.week_mode_single_selected_day)
-                                if(menstruationStartDate.dayOfYear - selectedDate.dayOfYear > 5){
-                                    changeInformationInRound(
-                                        PartOfCycle.EMPTY_MENSTRUATION,
-                                        menstruationStartDate.dayOfYear - selectedDate.dayOfYear,
-                                        day
-                                    )
-                                    changeColors(PartOfCycle.EMPTY_MENSTRUATION)
-                                }else{
-                                    changeInformationInRound(
-                                        PartOfCycle.PRED_MENSTRUATION,
-                                        menstruationStartDate.dayOfYear - selectedDate.dayOfYear,
-                                        day
-                                    )
-                                    changeColors(PartOfCycle.PRED_MENSTRUATION)
-                                }
-                            }
-                            in menstruationEndDate..ovulationStartDate -> {
-                                selectedView.setBackgroundResource(R.drawable.week_mode_single_selected_day)
-                                changeInformationInRound(
-                                    PartOfCycle.EMPTY_OVULATION,
-                                    ovulationDate.dayOfYear - selectedDate.dayOfYear,
-                                    day
-                                )
-                                changeColors(PartOfCycle.EMPTY_OVULATION)
                             }
                         }
+                        in menstruationStartDate..menstruationEndDate -> dateText.setTextColor(
+                            view.context.getColorCompat(
+                                R.color.colorOfChosenNumber
+                            )
+                        )
+                        ovulationDate -> {
+                            selectedView.isVisible = true
+                            selectedView.setBackgroundResource(R.drawable.ovulation_round_not_selected)
+                            dateText.setTextColor(view.context.getColorCompat(R.color.colorOfChosenNumberOrange))
+                        }
+                        in ovulationStartDate..ovulationEndDate -> dateText.setTextColor(
+                            view.context.getColorCompat(
+                                R.color.colorOfChosenNumberOrange
+                            )
+                        )
                     }
-                    in menstruationStartDate..menstruationEndDate -> dateText.setTextColor(view.context.getColorCompat(R.color.colorOfChosenNumber))
-                    ovulationDate -> {
-                        selectedView.setBackgroundResource(R.drawable.ovulation_round_not_selected)
-                        dateText.setTextColor(view.context.getColorCompat(R.color.colorOfChosenNumberOrange))
-                    }
-                    in ovulationStartDate..ovulationEndDate -> dateText.setTextColor(view.context.getColorCompat(R.color.colorOfChosenNumberOrange))
-                    else -> dateText.setTextColor(view.context.getColorCompat(R.color.colorDays))
                 }
-                selectedView.isVisible = (day.date == selectedDate) || (day.date == ovulationDate)
             }
         }
 
         calendarView.dayBinder = object : DayBinder<DayViewContainer> {
             override fun create(view: View) = DayViewContainer(view)
             override fun bind(container: DayViewContainer, day: CalendarDay) = container.bind(day)
+
         }
 
-        val currentMonth = YearMonth.now()
-        // Value for firstDayOfWeek does not matter since inDates and outDates are not generated.
-        calendarView.setup(currentMonth, currentMonth.plusMonths(3), DayOfWeek.values().random())
-        calendarView.scrollToDate(LocalDate.now())
 
-        //changeCalendar(LocalDate.parse("2019-10-28"), LocalDate.parse("2019-10-30"), LocalDate.parse("2019-11-03"), LocalDate.parse("2019-11-09"))
     }
 
 
