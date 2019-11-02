@@ -65,6 +65,8 @@ class PredictorImpl
     fun updateOvulation() = GlobalScope.launch(Dispatchers.IO) {
         val cycles = cycleDao.getAll()
         cycles.forEach {
+            if (it.ovulation.isNotEmpty())
+                return@forEach
             it.ovulation = LocalDate.parse(it.startOfCycle).plusDays((it.lengthOfMenstruation + 7).toLong()).toString()
             cycleDao.update(it)
         }
