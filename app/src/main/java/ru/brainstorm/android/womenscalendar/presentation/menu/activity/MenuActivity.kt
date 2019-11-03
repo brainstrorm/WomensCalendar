@@ -22,7 +22,7 @@ class MenuActivity : MvpAppCompatActivity() {
         setContentView(R.layout.activity_menu)
         supportActionBar?.hide()
         supportFragmentManager.beginTransaction()
-            .add(R.id.for_fragment, WeekModeCalendarFragment())
+            .add(R.id.for_fragment, WeekModeCalendarFragment())//
             .commit()
     }
 }
