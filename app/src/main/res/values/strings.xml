@@ -10,6 +10,9 @@
     <string name="new_date_text_menu">Изменить даты месячных</string>
     <string name="text_press_last_menstruation">Добавьте даты прошлых месячных</string>
     <string name="text_duration_of_menstruation">Продолжительность цикла и месячных</string>
+    <string name="text_avg_length_of_menstruation">Средняя длительность месячных</string>
+    <string name="text_avg_length_of_cycle">Средняя длительность цикла</string>
+
 
 
 
