@@ -23,7 +23,7 @@ class PredictorImpl
         val setLengthofmenstruation: MutableList<Int> = mutableListOf()
         val setLengthofcycle: MutableList<Int> = mutableListOf()
         val setOvulations: MutableList<String> = mutableListOf()
-
+ 
 
         if(set_inject.size == 1) {
 

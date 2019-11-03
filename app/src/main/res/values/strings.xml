@@ -8,6 +8,10 @@
     <string name="information">Информация</string>
     <string name="more">Еще</string>
     <string name="new_date_text_menu">Изменить даты месячных</string>
+    <string name="text_press_last_menstruation">Добавьте даты прошлых месячных</string>
+    <string name="text_duration_of_menstruation">Продолжительность цикла и месячных</string>
+
+
 
 
     <string-array name="poll_texts">
