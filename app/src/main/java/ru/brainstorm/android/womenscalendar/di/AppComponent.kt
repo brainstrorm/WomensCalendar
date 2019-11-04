@@ -6,6 +6,7 @@ import ru.brainstorm.android.womenscalendar.di.modules.QuizModule
 import ru.brainstorm.android.womenscalendar.presentation.quiz.presenter.*
 import ru.brainstorm.android.womenscalendar.presentation.splash.activity.SplashScreenActivity
 import ru.brainstorm.android.womenscalendar.presentation.splash.presenter.SplashScreenPresenter
+import ru.brainstorm.android.womenscalendar.presentation.statistics.activity.StatisticsActivity
 import javax.inject.Singleton
 
 /**
@@ -21,6 +22,8 @@ interface AppComponent {
      * all activities\fragments and contexts
      */
     fun inject(activity: SplashScreenActivity)
+
+    fun inject(statistics: StatisticsActivity)
 
     fun presenter(): PresenterComponent
 

@@ -74,4 +74,10 @@
     <string name="day">день</string>
     <string name="the_cycle_lasted">Цикл длился</string>
     <string name="forecast_day">Прогноз: день</string>
+
+    //for statistics
+    <string name="current_cycle">"Текущий цикл: %1$s - %2$s"</string>
+    <string name="cycle">"%1$s - %2$s"</string>
+    <string name="length_of_menstruation">"%1$d %1$d.getDayAddition()"</string>
+    <string name="length_of_cycle">"%1$d %1$d.getDayAddition()"</string>
 </resources>
