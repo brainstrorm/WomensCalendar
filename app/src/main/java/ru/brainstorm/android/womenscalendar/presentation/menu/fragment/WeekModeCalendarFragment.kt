@@ -32,6 +32,7 @@ import ru.brainstorm.android.womenscalendar.App
 import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.data.database.dao.CycleDao
 import ru.brainstorm.android.womenscalendar.data.database.entities.Cycle
+import ru.brainstorm.android.womenscalendar.domain.predictor.PredictorImpl
 import ru.brainstorm.android.womenscalendar.presentation.menu.extra.getDayAddition
 import ru.brainstorm.android.womenscalendar.presentation.menu.extra.PartOfCycle
 import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.getColorCompat
@@ -42,6 +43,9 @@ class WeekModeCalendarFragment : Fragment() {
 
     @Inject
     lateinit var cycleDao: CycleDao
+
+    @Inject
+    lateinit var predictorImpl : PredictorImpl
 
     private lateinit var TVScreen : ConstraintLayout
     private lateinit var TVIndicatorRound : ImageView
@@ -113,10 +117,12 @@ class WeekModeCalendarFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        //var PredictorImpl = PredictorImpl(cycleDao)
         App.appComponent.inject(this)
         var menstruationDays = listOf<Cycle>()
         GlobalScope.async(Dispatchers.IO){
+            //predictorImpl.predict(5)
+            //predictorImpl.updateOvulation()
             menstruationDays = cycleDao.getAll()
             return@async menstruationDays
         }

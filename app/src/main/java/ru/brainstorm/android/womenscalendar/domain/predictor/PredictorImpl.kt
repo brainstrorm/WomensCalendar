@@ -55,7 +55,12 @@ class PredictorImpl
 
             val ovulation = LocalDate.parse(firstDayOfNewCycle).plusDays(avgSetLengthofcycle-14.toLong()).toString()
 
-            val newCycle = Cycle(firstDayOfNewCycle,ovulation,avgSetLengthofcycle.toInt(),avgSetLengthofmenstruation.toInt())
+            var newCycle = Cycle()
+            newCycle.startOfCycle = firstDayOfNewCycle
+            newCycle.ovulation = ovulation
+            newCycle.lengthOfCycle = avgSetLengthofcycle.toInt()
+            newCycle.lengthOfMenstruation = avgSetLengthofmenstruation.toInt()
+            newCycle.predicted = true
 
             set_update.add(newCycle)
             cycleDao.insert(newCycle)
