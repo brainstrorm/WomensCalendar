@@ -52,7 +52,7 @@ class MenuActivity : MvpAppCompatActivity() {
             //cycleDao.insert(cycle3)
         }
         supportFragmentManager.beginTransaction()
-            .add(R.id.for_fragment, WeekModeCalendarFragment())
+            .add(R.id.for_fragment, WeekModeCalendarFragment())//
             .commit()
     }
 }

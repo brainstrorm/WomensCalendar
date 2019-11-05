@@ -8,6 +8,11 @@
     <string name="information">Информация</string>
     <string name="more">Еще</string>
     <string name="new_date_text_menu">Изменить даты месячных</string>
+    <string name="text_press_last_menstruation">Добавьте даты прошлых месячных</string>
+    <string name="text_duration_of_menstruation">Продолжительность цикла и месячных</string>
+    <string name="text_avg_length_of_menstruation">Средняя длительность месячных</string>
+    <string name="text_avg_length_of_cycle">Средняя длительность цикла</string>
+
 
 
     <string-array name="poll_texts">
@@ -69,4 +74,10 @@
     <string name="day">день</string>
     <string name="the_cycle_lasted">Цикл длился</string>
     <string name="forecast_day">Прогноз: день</string>
+
+    //for statistics
+    <string name="current_cycle">"Текущий цикл: %1$s - %2$s"</string>
+    <string name="cycle">"%1$s - %2$s"</string>
+    <string name="length_of_menstruation">"%1$d %1$d.getDayAddition()"</string>
+    <string name="length_of_cycle">"%1$d %1$d.getDayAddition()"</string>
 </resources>

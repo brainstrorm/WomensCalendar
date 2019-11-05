@@ -3,9 +3,6 @@ package ru.brainstorm.android.womenscalendar.di
 import dagger.Component
 import dagger.Subcomponent
 import ru.brainstorm.android.womenscalendar.di.modules.QuizModule
-import ru.brainstorm.android.womenscalendar.presentation.menu.activity.MenuActivity
-import ru.brainstorm.android.womenscalendar.presentation.menu.fragment.CalendarPickerFragment
-import ru.brainstorm.android.womenscalendar.presentation.menu.fragment.WeekModeCalendarFragment
 import ru.brainstorm.android.womenscalendar.presentation.quiz.presenter.*
 import ru.brainstorm.android.womenscalendar.presentation.splash.activity.SplashScreenActivity
 import ru.brainstorm.android.womenscalendar.presentation.splash.presenter.SplashScreenPresenter
@@ -30,8 +27,9 @@ interface AppComponent {
     fun inject(calendarPicker : CalendarPickerFragment)
 
     fun inject(weekModeCalendar : WeekModeCalendarFragment)
-    fun presenter(): PresenterComponent
+    fun inject(statistics: StatisticsActivity)
 
+    fun presenter(): PresenterComponent
 
     @Subcomponent
     interface PresenterComponent {
