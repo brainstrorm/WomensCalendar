@@ -121,7 +121,7 @@ class WeekModeCalendarFragment : Fragment() {
         App.appComponent.inject(this)
         var menstruationDays = listOf<Cycle>()
         GlobalScope.async(Dispatchers.IO){
-            //predictorImpl.predict(5)
+            predictorImpl.predict(5)
             //predictorImpl.updateOvulation()
             menstruationDays = cycleDao.getAll()
             return@async menstruationDays

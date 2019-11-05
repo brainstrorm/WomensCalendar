@@ -44,8 +44,8 @@ class PredictorImpl
             setOvulations.add(cycle.ovulation)
         }
 
-        val avgSetLengthofmenstruation = setLengthofcycle.average().toLong()
-        val avgSetLengthofcycle = setLengthofmenstruation.average().toLong()
+        val avgSetLengthofmenstruation = setLengthofmenstruation.average().toLong()
+        val avgSetLengthofcycle = setLengthofcycle.average().toLong()
 
        var set_update =  set_inject.toMutableList()
 
