@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -45,17 +46,19 @@ class StatisticsActivity : AppCompatActivity() {
                 R.string.length_of_menstruation, currentCycle.lengthOfMenstruation)
             holder?.lengthOfCycle?.text = Resources.getSystem().getString(R.string.length_of_cycle,
                 currentCycle.lengthOfCycle)
-
+            holder?.progressBar?.progress = currentCycle.lengthOfMenstruation/currentCycle.lengthOfCycle
         }
 
         class ViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView!!){
             var daysOfCycle: TextView? = null
             var daysOfMenstruation: TextView? = null
             var lengthOfCycle: TextView? = null
+            var progressBar: ProgressBar? = null
             init{
                 daysOfCycle = itemView?.findViewById(R.id.days_of_cycle)
                 daysOfMenstruation = itemView?.findViewById(R.id.days_of_menstruation)
                 lengthOfCycle = itemView?.findViewById(R.id.length_of_cycle)
+                progressBar = itemView?.findViewById(R.id.progressBar)
             }
         }
     }
