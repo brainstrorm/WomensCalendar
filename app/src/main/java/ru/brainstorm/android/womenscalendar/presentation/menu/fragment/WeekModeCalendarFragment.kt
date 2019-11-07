@@ -23,6 +23,7 @@ import kotlinx.android.synthetic.main.fragment_week_mode_calendar.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.selects.select
 import org.threeten.bp.DayOfWeek
 import org.threeten.bp.LocalDate
@@ -117,14 +118,14 @@ class WeekModeCalendarFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //var PredictorImpl = PredictorImpl(cycleDao)
         App.appComponent.inject(this)
         var menstruationDays = listOf<Cycle>()
-        GlobalScope.async(Dispatchers.IO){
-            predictorImpl.predict(5)
-            //predictorImpl.updateOvulation()
+        GlobalScope.launch(Dispatchers.IO){
+            if(cycleDao.getAll()[0].predicted == false) {
+                predictorImpl.predict(5).join()
+                predictorImpl.updateOvulation().join()
+            }
             menstruationDays = cycleDao.getAll()
-            return@async menstruationDays
         }
 
         val dm = DisplayMetrics()
@@ -190,7 +191,7 @@ class WeekModeCalendarFragment : Fragment() {
                         .plusDays(days.lengthOfMenstruation.toLong())
                     val endOfCycle = LocalDate.parse(days.startOfCycle)
                         .plusDays(days.lengthOfCycle.toLong())
-                    val ovulationDate = menstruationEndDate.plusDays(10)
+                    val ovulationDate = LocalDate.parse(days.ovulation)
                     val ovulationStartDate = ovulationDate.minusDays(4)
                     val ovulationEndDate = ovulationDate.plusDays(4)
                     when (day.date) {
