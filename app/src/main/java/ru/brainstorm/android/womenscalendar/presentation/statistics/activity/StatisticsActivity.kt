@@ -1,5 +1,7 @@
 package ru.brainstorm.android.womenscalendar.presentation.statistics.activity
 
+import android.content.Context
+import android.content.Intent
 import android.content.res.Resources
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -17,10 +19,20 @@ import ru.brainstorm.android.womenscalendar.App
 import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.data.database.dao.CycleDao
 import ru.brainstorm.android.womenscalendar.data.database.entities.Cycle
+import ru.brainstorm.android.womenscalendar.presentation.menu.activity.MenuActivity
 import java.time.LocalDate
 import javax.inject.Inject
 
 class StatisticsActivity : AppCompatActivity() {
+
+    companion object {
+
+        const val TAG = "Statistics"
+
+        fun provideIntent(packageContext: Context) = Intent(packageContext, StatisticsActivity::class.java)
+    }
+
+
     @Inject
     lateinit var cycleDao: CycleDao
 

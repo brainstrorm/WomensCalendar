@@ -1,5 +1,6 @@
 package ru.brainstorm.android.womenscalendar.di
 
+import androidx.appcompat.view.menu.MenuPresenter
 import dagger.Component
 import dagger.Subcomponent
 import ru.brainstorm.android.womenscalendar.di.modules.QuizModule
@@ -38,6 +39,7 @@ interface AppComponent {
     @Subcomponent
     interface PresenterComponent {
         fun splashPresenter(): SplashScreenPresenter
+
 
         fun quizActivityPresenter(): QuizActivityPresenter
 

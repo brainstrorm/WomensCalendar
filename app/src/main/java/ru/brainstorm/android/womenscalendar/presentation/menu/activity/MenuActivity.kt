@@ -3,6 +3,8 @@ package ru.brainstorm.android.womenscalendar.presentation.menu.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -14,9 +16,14 @@ import ru.brainstorm.android.womenscalendar.data.database.dao.CycleDao
 import ru.brainstorm.android.womenscalendar.data.database.entities.Cycle
 import ru.brainstorm.android.womenscalendar.presentation.menu.fragment.CalendarPickerFragment
 import ru.brainstorm.android.womenscalendar.presentation.menu.fragment.WeekModeCalendarFragment
+import ru.brainstorm.android.womenscalendar.presentation.menu.view.MenuView
+import ru.brainstorm.android.womenscalendar.presentation.statistics.activity.StatisticsActivity
 import javax.inject.Inject
 
-class MenuActivity : MvpAppCompatActivity() {
+class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
+
+
+    lateinit var btnStatics: ImageView
 
     @Inject
     lateinit var cycleDao: CycleDao
@@ -55,6 +62,23 @@ class MenuActivity : MvpAppCompatActivity() {
         supportFragmentManager.beginTransaction()
             .add(R.id.for_fragment, WeekModeCalendarFragment())//
             .commit()
+
+        btnStatics = findViewById<ImageView>(R.id.btn_statistics).apply { setOnClickListener(this@MenuActivity) }
+
+
+    }
+
+    override fun goToStatistic() {
+        startActivity(StatisticsActivity.provideIntent(this@MenuActivity))
+    }
+
+    override fun onClick(v: View?) {
+        v ?: return
+        when(v.id) {
+            R.id.btn_statistics -> {
+                goToStatistic()
+            }
+        }
 
     }
 }
