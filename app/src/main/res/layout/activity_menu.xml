@@ -146,12 +146,13 @@
 
         <FrameLayout
             android:id="@+id/for_fragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"></FrameLayout>
+            app:layout_constraintTop_toBottomOf="@+id/imageView"></FrameLayout>
 
         <ImageButton
             android:id="@+id/btn_new_date_menu"
@@ -182,6 +183,39 @@
             app:layout_constraintStart_toStartOf="@+id/btn_new_date_menu"
             app:layout_constraintTop_toTopOf="@+id/btn_new_date_menu"
             app:layout_constraintVertical_bias="0.578" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@drawable/ic_app_header"
+          />
+
+        <ImageView
+            android:id="@+id/btn_month_or_year"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/for_fragment"
+            app:layout_constraintEnd_toEndOf="@+id/imageView"
+            app:layout_constraintStart_toStartOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="@+id/imageView"
+            app:srcCompat="@drawable/ic_toggle_button" />
+
+        <ImageView
+            android:id="@+id/btn_statistics"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/for_fragment"
+            app:layout_constraintEnd_toEndOf="@+id/imageView"
+            app:layout_constraintHorizontal_bias="0.836"
+            app:layout_constraintStart_toEndOf="@+id/btn_month_or_year"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_btn_statistic" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageButton

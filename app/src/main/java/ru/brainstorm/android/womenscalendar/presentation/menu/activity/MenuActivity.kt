@@ -3,6 +3,7 @@ package ru.brainstorm.android.womenscalendar.presentation.menu.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.TextView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -54,5 +55,6 @@ class MenuActivity : MvpAppCompatActivity() {
         supportFragmentManager.beginTransaction()
             .add(R.id.for_fragment, WeekModeCalendarFragment())//
             .commit()
+
     }
 }
