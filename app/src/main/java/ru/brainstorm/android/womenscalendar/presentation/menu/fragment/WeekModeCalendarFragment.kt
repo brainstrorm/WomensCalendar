@@ -126,9 +126,6 @@ class WeekModeCalendarFragment : Fragment() {
             if(!cycleDao.getAll()[0].predicted) {
                 predictorImpl.predict(5).join()
                 predictorImpl.updateOvulation().join()
-                var cycle = cycleDao.getAll()[0]
-                cycle.predicted = true
-                cycleDao.update(cycle)
             }
             menstruationDays = cycleDao.getAll()
         }

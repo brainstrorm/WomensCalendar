@@ -65,6 +65,9 @@ class PredictorImpl
             set_update.add(newCycle)
             cycleDao.insert(newCycle)
         }
+
+        set_inject[0].predicted = true
+        cycleDao.update(set_inject[0])
     }
 
     fun updateOvulation() = GlobalScope.launch(Dispatchers.IO) {
