@@ -39,6 +39,7 @@ import ru.brainstorm.android.womenscalendar.presentation.menu.extra.PartOfCycle
 import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.getColorCompat
 import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.setTextColorRes
 import javax.inject.Inject
+import kotlin.time.days
 
 class WeekModeCalendarFragment : Fragment() {
 
@@ -118,12 +119,16 @@ class WeekModeCalendarFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         App.appComponent.inject(this)
         var menstruationDays = listOf<Cycle>()
         GlobalScope.launch(Dispatchers.IO){
-            if(cycleDao.getAll()[0].predicted == false) {
+            if(!cycleDao.getAll()[0].predicted) {
                 predictorImpl.predict(5).join()
                 predictorImpl.updateOvulation().join()
+                var cycle = cycleDao.getAll()[0]
+                cycle.predicted = true
+                cycleDao.update(cycle)
             }
             menstruationDays = cycleDao.getAll()
         }
@@ -203,7 +208,9 @@ class WeekModeCalendarFragment : Fragment() {
                                     selectedView.setBackgroundResource(R.drawable.blob_field_selected)
                                     changeInformationInRound(
                                         PartOfCycle.MENSTRUATION,
-                                        selectedDate.dayOfYear - menstruationStartDate.dayOfYear + 1,
+                                        if (menstruationStartDate.year == selectedDate.year)
+                                            selectedDate.dayOfYear - menstruationStartDate.dayOfYear + 1
+                                        else 365 - menstruationStartDate.dayOfYear + selectedDate.dayOfYear + 1,
                                         day
                                     )
                                     changeColors(PartOfCycle.MENSTRUATION)
@@ -213,7 +220,9 @@ class WeekModeCalendarFragment : Fragment() {
                                         selectedView.setBackgroundResource(R.drawable.orange_field_selected)
                                         changeInformationInRound(
                                             PartOfCycle.PRED_OVULATION,
-                                            ovulationDate.dayOfYear - selectedDate.dayOfYear,
+                                            if (ovulationDate.year == selectedDate.year)
+                                                ovulationDate.dayOfYear - selectedDate.dayOfYear
+                                            else 365 - selectedDate.dayOfYear + ovulationDate.dayOfYear,
                                             day
                                         )
                                         changeColors(PartOfCycle.PRED_OVULATION)
@@ -231,7 +240,9 @@ class WeekModeCalendarFragment : Fragment() {
                                         selectedView.setBackgroundResource(R.drawable.orange_field_selected)
                                         changeInformationInRound(
                                             PartOfCycle.POST_OVULATION,
-                                            endOfCycle.dayOfYear - selectedDate.dayOfYear,
+                                            if (endOfCycle.year == selectedDate.year)
+                                                endOfCycle.dayOfYear - selectedDate.dayOfYear
+                                            else 365 - selectedDate.dayOfYear + endOfCycle.dayOfYear,
                                             day
                                         )
                                         changeColors(PartOfCycle.POST_OVULATION)
@@ -239,17 +250,20 @@ class WeekModeCalendarFragment : Fragment() {
                                 }
                                 in ovulationEndDate..endOfCycle -> {
                                     selectedView.setBackgroundResource(R.drawable.week_mode_single_selected_day)
-                                    if (endOfCycle.dayOfYear - selectedDate.dayOfYear > 5) {
+                                    val delta = if (endOfCycle.year == selectedDate.year)
+                                        endOfCycle.dayOfYear - selectedDate.dayOfYear
+                                    else 365 - selectedDate.dayOfYear + endOfCycle.dayOfYear
+                                    if (delta > 5) {
                                         changeInformationInRound(
                                             PartOfCycle.EMPTY_MENSTRUATION,
-                                            endOfCycle.dayOfYear - selectedDate.dayOfYear,
+                                            delta,
                                             day
                                         )
                                         changeColors(PartOfCycle.EMPTY_MENSTRUATION)
                                     } else {
                                         changeInformationInRound(
                                             PartOfCycle.PRED_MENSTRUATION,
-                                            endOfCycle.dayOfYear - selectedDate.dayOfYear,
+                                            delta,
                                             day
                                         )
                                         changeColors(PartOfCycle.PRED_MENSTRUATION)
@@ -259,7 +273,9 @@ class WeekModeCalendarFragment : Fragment() {
                                     selectedView.setBackgroundResource(R.drawable.week_mode_single_selected_day)
                                     changeInformationInRound(
                                         PartOfCycle.EMPTY_OVULATION,
-                                        ovulationDate.dayOfYear - selectedDate.dayOfYear,
+                                        if (ovulationDate.year == selectedDate.year)
+                                            ovulationDate.dayOfYear - selectedDate.dayOfYear
+                                        else 365 - selectedDate.dayOfYear + ovulationDate.dayOfYear,
                                         day
                                     )
                                     changeColors(PartOfCycle.EMPTY_OVULATION)
