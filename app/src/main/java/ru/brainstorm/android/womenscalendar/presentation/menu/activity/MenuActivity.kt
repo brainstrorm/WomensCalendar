@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
-import android.widget.TextView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -60,7 +59,7 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
             //cycleDao.insert(cycle3)
         }
         supportFragmentManager.beginTransaction()
-            .add(R.id.for_fragment, WeekModeCalendarFragment())//
+            .add(R.id.for_fragment, WeekModeCalendarFragment())
             .commit()
 
         btnStatics = findViewById<ImageView>(R.id.btn_statistics).apply { setOnClickListener(this@MenuActivity) }
