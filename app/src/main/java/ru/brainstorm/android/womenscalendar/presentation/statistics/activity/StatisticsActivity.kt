@@ -12,15 +12,14 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
+import kotlinx.coroutines.*
 import ru.brainstorm.android.womenscalendar.App
 import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.data.database.dao.CycleDao
 import ru.brainstorm.android.womenscalendar.data.database.entities.Cycle
 import ru.brainstorm.android.womenscalendar.presentation.menu.activity.MenuActivity
 import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 class StatisticsActivity : AppCompatActivity() {
@@ -37,6 +36,8 @@ class StatisticsActivity : AppCompatActivity() {
     lateinit var cycleDao: CycleDao
 
     class Adapter(private val cycles: List<Cycle>): RecyclerView.Adapter<Adapter.ViewHolder>(){
+        private val dateFormatter = DateTimeFormatter.ofPattern("dd")
+        private val monthFormatter = DateTimeFormatter.ofPattern("MMMM")
         override fun getItemCount() = cycles.size
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             val itemView = LayoutInflater.from(parent?.context).inflate(R.layout.list_item_view, parent, false)
@@ -45,19 +46,20 @@ class StatisticsActivity : AppCompatActivity() {
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val currentCycle = cycles[position]
+            var startOfCycle = LocalDate.parse(currentCycle.startOfCycle)
+            var endOfCycle = LocalDate.parse(currentCycle.startOfCycle).
+                plusDays(currentCycle.lengthOfCycle.toLong())
             if(position == 0) {
-                holder?.daysOfCycle?.text = Resources.getSystem().getString(R.string.current_cycle,
-                    currentCycle.startOfCycle, LocalDate.parse(currentCycle.startOfCycle).
-                        plusDays(currentCycle.lengthOfCycle.toLong()))
+                holder?.daysOfCycle?.setText("Текущий цикл: ${dateFormatter.format(startOfCycle)} " +
+                        "${monthFormatter.format(startOfCycle)} - ${dateFormatter.format(endOfCycle)}" +
+                        " ${monthFormatter.format(endOfCycle)}")
             }else{
-                holder?.daysOfCycle?.text = Resources.getSystem().getString(R.string.cycle,
-                    currentCycle.startOfCycle, LocalDate.parse(currentCycle.startOfCycle).
-                        plusDays(currentCycle.lengthOfCycle.toLong()))
+                holder?.daysOfCycle?.setText("${dateFormatter.format(startOfCycle)} " +
+                        "${monthFormatter.format(startOfCycle)} - ${dateFormatter.format(endOfCycle)}" +
+                        " ${monthFormatter.format(endOfCycle)}")
             }
-            holder?.daysOfMenstruation?.text = Resources.getSystem().getString(
-                R.string.length_of_menstruation, currentCycle.lengthOfMenstruation)
-            holder?.lengthOfCycle?.text = Resources.getSystem().getString(R.string.length_of_cycle,
-                currentCycle.lengthOfCycle)
+            holder?.daysOfMenstruation?.setText("${currentCycle.lengthOfMenstruation}")
+            holder?.lengthOfCycle?.setText("${currentCycle.lengthOfCycle}")
             holder?.progressBar?.progress = currentCycle.lengthOfMenstruation/currentCycle.lengthOfCycle
         }
 
@@ -80,18 +82,23 @@ class StatisticsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_statistic)
+        supportActionBar?.hide()
 
         //get data from db
         App.appComponent.inject(this)
         var cycles = listOf<Cycle>()
         GlobalScope.async(Dispatchers.IO){
             cycles = cycleDao.getAll()
+            val text = cycles[0].startOfCycle
+            recyclerView = findViewById(R.id.setOfStatictics)
+            recyclerView.layoutManager = LinearLayoutManager(this@StatisticsActivity)
+            recyclerView.adapter = Adapter(cycles)
             return@async cycles
         }
-
+        /*val text = cycles[0].startOfCycle
         recyclerView = findViewById(R.id.setOfStatictics)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = Adapter(cycles)
+        recyclerView.adapter = Adapter(cycles)*/
 
     }
 
