@@ -95,10 +95,6 @@ class StatisticsActivity : AppCompatActivity() {
             recyclerView.adapter = Adapter(cycles)
             return@async cycles
         }
-        /*val text = cycles[0].startOfCycle
-        recyclerView = findViewById(R.id.setOfStatictics)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = Adapter(cycles)*/
 
     }
 

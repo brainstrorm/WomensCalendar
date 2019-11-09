@@ -59,7 +59,7 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
             //cycleDao.insert(cycle3)
         }
         supportFragmentManager.beginTransaction()
-            .add(R.id.for_fragment, WeekModeCalendarFragment())
+            .add(R.id.for_fragment, CalendarPickerFragment())
             .commit()
 
         btnStatics = findViewById<ImageView>(R.id.btn_statistics).apply { setOnClickListener(this@MenuActivity) }
