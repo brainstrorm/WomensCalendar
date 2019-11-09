@@ -13,7 +13,9 @@ import ru.brainstorm.android.womenscalendar.data.database.entities.Note
  */
 @Database(entities = [Note::class, Cycle::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
+
     abstract fun noteDao(): NoteDao
 
     abstract fun cycleDao(): CycleDao
+
 }

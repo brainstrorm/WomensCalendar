@@ -23,7 +23,7 @@ class PredictorImpl
         val setLengthofmenstruation: MutableList<Int> = mutableListOf()
         val setLengthofcycle: MutableList<Int> = mutableListOf()
         val setOvulations: MutableList<String> = mutableListOf()
-
+ 
 
         if(set_inject.size == 1) {
 
@@ -44,8 +44,8 @@ class PredictorImpl
             setOvulations.add(cycle.ovulation)
         }
 
-        val avgSetLengthofmenstruation = setLengthofcycle.average().toLong()
-        val avgSetLengthofcycle = setLengthofmenstruation.average().toLong()
+        val avgSetLengthofmenstruation = setLengthofmenstruation.average().toLong()
+        val avgSetLengthofcycle = setLengthofcycle.average().toLong()
 
        var set_update =  set_inject.toMutableList()
 
@@ -55,11 +55,30 @@ class PredictorImpl
 
             val ovulation = LocalDate.parse(firstDayOfNewCycle).plusDays(avgSetLengthofcycle-14.toLong()).toString()
 
-            val newCycle = Cycle(firstDayOfNewCycle,ovulation,avgSetLengthofcycle.toInt(),avgSetLengthofmenstruation.toInt())
+            var newCycle = Cycle()
+            newCycle.startOfCycle = firstDayOfNewCycle
+            newCycle.ovulation = ovulation
+            newCycle.lengthOfCycle = avgSetLengthofcycle.toInt()
+            newCycle.lengthOfMenstruation = avgSetLengthofmenstruation.toInt()
+            newCycle.predicted = true
 
             set_update.add(newCycle)
             cycleDao.insert(newCycle)
         }
+
+        set_inject[0].predicted = true
+        cycleDao.update(set_inject[0])
+    }
+
+    fun updateOvulation() = GlobalScope.launch(Dispatchers.IO) {
+        val cycles = cycleDao.getAll()
+        cycles.forEach {
+            if (it.ovulation.isNotEmpty())
+                return@forEach
+            it.ovulation = LocalDate.parse(it.startOfCycle).plusDays((it.lengthOfMenstruation + 7).toLong()).toString()
+            cycleDao.update(it)
+        }
     }
 }
 
+//count -> что делать ? добавляем ?

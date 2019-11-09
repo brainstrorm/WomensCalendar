@@ -8,10 +8,7 @@ import ru.brainstorm.android.womenscalendar.di.AppComponent
 import ru.brainstorm.android.womenscalendar.di.DaggerAppComponent
 import ru.brainstorm.android.womenscalendar.di.modules.QuizModule
 
-/**
- * @project WomensCalendar
- * @author Ilia Ilmenskii created on 14.10.2019
- */
+
 class App : Application() {
     companion object {
         lateinit var appComponent: AppComponent

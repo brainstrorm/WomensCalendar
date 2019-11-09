@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.view.isVisible
 import com.shawnlin.numberpicker.NumberPicker
+import kotlinx.android.synthetic.main.fragment_average_cycle.*
 import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.data.database.entities.Cycle
 import ru.brainstorm.android.womenscalendar.presentation.quiz.activity.QuizActivity
@@ -17,7 +18,7 @@ class AverageCycleFragment : AbstractQuizFragment() {
 
     private lateinit var choose: TextView
     private lateinit var days: TextView
-    private lateinit var averageMenstruationPicker: NumberPicker
+    private lateinit var averageCyclePicker: NumberPicker
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,17 +31,17 @@ class AverageCycleFragment : AbstractQuizFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        averageMenstruationPicker = view.findViewById<NumberPicker>(R.id.averageCyclePicker)
+        averageCyclePicker = view.findViewById<NumberPicker>(R.id.averageCyclePicker)
         choose = view.findViewById(R.id.choose)
         days = view.findViewById(R.id.days)
-        averageMenstruationPicker.minValue = 0
-        averageMenstruationPicker.maxValue = 40
-        averageMenstruationPicker.setDividerColorResource(android.R.color.transparent)
-        averageMenstruationPicker.setTextColorResource(R.color.colorGreyFont)
-        averageMenstruationPicker.setTextSize(R.dimen.text_size_picker)
-        averageMenstruationPicker.setSelectedTextColorResource(R.color.colorOfChosenNumber)
-        averageMenstruationPicker.setSelectedTextSize(R.dimen.text_size_picker)
-        averageMenstruationPicker.setOnValueChangedListener { _, _, _ ->
+        averageCyclePicker.minValue = 0
+        averageCyclePicker.maxValue = 40
+        averageCyclePicker.setDividerColorResource(android.R.color.transparent)
+        averageCyclePicker.setTextColorResource(R.color.colorGreyFont)
+        averageCyclePicker.setTextSize(R.dimen.text_size_picker)
+        averageCyclePicker.setSelectedTextColorResource(R.color.colorOfChosenNumber)
+        averageCyclePicker.setSelectedTextSize(R.dimen.text_size_picker)
+        averageCyclePicker.setOnValueChangedListener { _, _, _ ->
             choose.isVisible = false
             days.isVisible = true
         }
@@ -59,7 +60,7 @@ class AverageCycleFragment : AbstractQuizFragment() {
 
     override fun setQuizAns(cycle: Cycle) {
         if (!choose.isVisible) {
-            cycle.lengthOfCycle = averageMenstruationPicker.value
+            cycle.lengthOfCycle = averageCyclePicker.value
             Log.d(QuizActivity.TAG, "Saving cycle length: ${cycle.lengthOfCycle}")
         }
     }

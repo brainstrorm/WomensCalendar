@@ -178,6 +178,9 @@ class CalendarPickerFragment :   MvpAppCompatFragment(){
                     for (days in menstruationDays){
                         val startMenstruation = LocalDate.parse(days.startOfCycle)
                         val endMenstruation = LocalDate.parse(days.startOfCycle).plusDays(days.lengthOfMenstruation.toLong())
+                        val ovulationDate = LocalDate.parse(days.ovulation)
+                        val startOvulation = LocalDate.parse(days.ovulation).minusDays(4)
+                        val endOvulation = LocalDate.parse(days.ovulation).plusDays(4)
                         when(day.date){
                             in startMenstruation..endMenstruation -> {
                                 //textView.setTextColorRes(R.color.colorPinkSelected)
@@ -192,6 +195,14 @@ class CalendarPickerFragment :   MvpAppCompatFragment(){
                                 }
                                 if(startMenstruation < day.date && day.date < endMenstruation){
                                     textView.setBackgroundResource(R.drawable.example_4_continuous_selected_bg_middle)
+                                }
+                            }
+                            in startOvulation..endOvulation -> {
+                                if(day.date == ovulationDate){
+                                    textView.setBackgroundResource(R.drawable.ovulation_round_selected)
+                                    textView.setTextColorRes(R.color.color_White)
+                                }else {
+                                    textView.setTextColorRes(R.color.colorOfChosenNumberOrange)
                                 }
                             }
                         }

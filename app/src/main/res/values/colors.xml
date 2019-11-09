@@ -27,6 +27,7 @@
     <color name="colorForecastTextBlue">#3D6594</color>
     <color name="colorForecastNumberBlue">#3D6594</color>
     <color name="colorForecastTextPink">#D5537F</color>
+    <color name="colorForBtnDurationMenstruationPink">#D4517D</color>
     <color name="colorForecastNumberPink">#D5537F</color>
     <color name="colorForecastTextYellow">#838383</color>
     <color name="colorForecastNumberYellow">#838383</color>
@@ -39,4 +40,5 @@
     <color name="example_4_grey">#474747</color>
     <color name="example_4_green">#008489</color>
     <color name="example_4_grey_past">#BEBEBE</color>
+    <color name="colorBlack">#000000</color>
 </resources>
