@@ -49,7 +49,7 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
         topBar.isVisible = false
         btnMonthOrYear.isVisible = false
         btnStatics.isVisible = false
-
+        //
         App.appComponent.inject(this)
         supportFragmentManager.beginTransaction()
             .add(R.id.for_fragment, WeekModeCalendarFragment())
