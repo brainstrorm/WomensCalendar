@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
+import androidx.core.view.isVisible
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -23,6 +24,9 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
 
 
     lateinit var btnStatics: ImageView
+    lateinit var topBar : ImageView
+    lateinit var btnMonthOrYear : ImageView
+    lateinit var btnStatistics : ImageView
 
     @Inject
     lateinit var cycleDao: CycleDao
@@ -37,29 +41,18 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu)
         supportActionBar?.hide()
+
+        topBar = findViewById(R.id.topBar)
+        btnMonthOrYear = findViewById(R.id.btn_month_or_year)
+        btnStatics = findViewById(R.id.btn_statistics)
+
+        topBar.isVisible = false
+        btnMonthOrYear.isVisible = false
+        btnStatics.isVisible = false
+
         App.appComponent.inject(this)
-        var cycle1 = Cycle()
-        cycle1.startOfCycle = "2019-10-27"
-        cycle1.lengthOfCycle = 30
-        cycle1.lengthOfMenstruation = 7
-        cycle1.predicted = false
-        var cycle2 = Cycle()
-        cycle2.startOfCycle = "2019-11-26"
-        cycle2.lengthOfCycle = 30
-        cycle2.lengthOfMenstruation = 7
-        cycle2.predicted = false
-        //var cycle3 = Cycle()
-        //cycle3.startOfCycle = "2019-12-26"
-        //cycle3.lengthOfCycle = 30
-        //cycle3.lengthOfMenstruation = 7
-        //cycle3.predicted = false
-        GlobalScope.launch(Dispatchers.IO) {
-            //cycleDao.insert(cycle1)
-            //cycleDao.insert(cycle2)
-            //cycleDao.insert(cycle3)
-        }
         supportFragmentManager.beginTransaction()
-            .add(R.id.for_fragment, CalendarPickerFragment())
+            .add(R.id.for_fragment, WeekModeCalendarFragment())
             .commit()
 
         btnStatics = findViewById<ImageView>(R.id.btn_statistics).apply { setOnClickListener(this@MenuActivity) }
