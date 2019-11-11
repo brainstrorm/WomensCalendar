@@ -3,6 +3,7 @@ package ru.brainstorm.android.womenscalendar.presentation.statistics.activity
 import android.content.Context
 import android.content.Intent
 import android.content.res.Resources
+import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,8 +11,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.core.graphics.drawable.toDrawable
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.skydoves.progressview.ProgressView
 import kotlinx.coroutines.*
 import ru.brainstorm.android.womenscalendar.App
 import ru.brainstorm.android.womenscalendar.R
@@ -60,14 +63,15 @@ class StatisticsActivity : AppCompatActivity() {
             }
             holder?.daysOfMenstruation?.setText("${currentCycle.lengthOfMenstruation}")
             holder?.lengthOfCycle?.setText("${currentCycle.lengthOfCycle}")
-            holder?.progressBar?.progress = currentCycle.lengthOfMenstruation/currentCycle.lengthOfCycle
+            holder?.progressBar?.progress=currentCycle.lengthOfMenstruation.toFloat()/currentCycle.lengthOfCycle.toFloat()*100
         }
 
         class ViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView!!){
             var daysOfCycle: TextView? = null
             var daysOfMenstruation: TextView? = null
             var lengthOfCycle: TextView? = null
-            var progressBar: ProgressBar? = null
+            var progressBar: ProgressView? = null
+
             init{
                 daysOfCycle = itemView?.findViewById(R.id.days_of_cycle)
                 daysOfMenstruation = itemView?.findViewById(R.id.days_of_menstruation)
