@@ -14,7 +14,6 @@
     <string name="text_avg_length_of_cycle">Средняя длительность цикла</string>
 
 
-
     <string-array name="poll_texts">
 
         <item name="when_start_days0">Когда начались ваши последние \n месячные?</item>
