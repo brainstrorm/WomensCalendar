@@ -2,6 +2,7 @@
 
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:orientation="vertical"
@@ -21,7 +22,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="23dp"
         android:orientation="horizontal"
         android:layout_gravity="center"
         android:layout_marginTop="8dp"
@@ -29,25 +30,33 @@
 
         >
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:max="100"
-            android:progress="20"
-            android:layout_width="280dp"
-            android:layout_height="20dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginRight="10dp"/>
+        <com.skydoves.progressview.ProgressView
+            android:id= "@+id/progressBar"
+            android:layout_width= "290dp"
+            android:layout_height= "23dp"
+            app:progressView_colorBackground="@color/colorBackForProgressBarStatistic"
+        app:progressView_colorProgress="@color/colorFrontForProgressBarStatistic"
+        app:progressView_progress="40"
+        app:progressView_max="100"
+        app:progressView_autoAnimate="true"
+        app:progressView_radius="10dp"
+        app:progressView_padding="2dp"
+        app:progressView_labelColorInner= "@color/colorFrontForProgressBarStatistic"
+        app:progressView_labelColorOuter= "@color/colorBackForProgressBarStatistic"
+        app:progressView_labelSize= "13sp"
+        app:progressView_labelSpace= "10dp"
+        app:progressView_labelText="achieve 65%"
+        app:progressView_labelTypeface="bold"
+        />
 
         <TextView
             android:id="@+id/length_of_cycle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="23dp"
+            android:gravity="right|center_vertical"
             android:text=""
             android:textColor="@color/colorBlack"
-            android:textSize="17sp"
-            android:layout_marginBottom="6dp"
-            android:layout_marginTop="4dp" />
+            android:textSize="17sp" />
 
     </LinearLayout>
 
@@ -57,6 +66,6 @@
         android:layout_height="20dp"
         android:text="Text"
         android:layout_marginTop="4dp"
-        android:textColor="@color/colorPink"
+        android:textColor="@color/colorFrontForProgressBarStatistic"
         android:textSize="17sp"/>
     </LinearLayout>

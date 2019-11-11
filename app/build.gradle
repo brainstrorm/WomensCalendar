@@ -44,6 +44,9 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.google.android.material:material:1.2.0-alpha01'
 
+        //for ProgressBar
+     implementation "com.github.skydoves:progressview:1.0.3"
+
     /**
      * Moxy for MVP Android
      */

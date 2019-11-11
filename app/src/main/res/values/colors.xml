@@ -32,6 +32,9 @@
     <color name="colorForecastTextYellow">#838383</color>
     <color name="colorForecastNumberYellow">#838383</color>
     <color name="colorWeekModeSingleSelectedDay">#B7C3CC</color>
+    <color name="colorBackForProgressBarStatistic">#FFE6EE</color>
+
+    <color name="colorFrontForProgressBarStatistic">#D13D6F</color>
     //colors of parts of cycle
     <color name="colorEmpty">#E9F6FF</color>
     <color name="colorMenstruation">#FFE6EE</color>
