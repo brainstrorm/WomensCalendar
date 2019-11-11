@@ -11,6 +11,7 @@ import ru.brainstorm.android.womenscalendar.App
 import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.data.database.dao.CycleDao
 import ru.brainstorm.android.womenscalendar.presentation.menu.fragment.CalendarPickerFragment
+import ru.brainstorm.android.womenscalendar.presentation.menu.fragment.ListOfNotesFragment
 import ru.brainstorm.android.womenscalendar.presentation.menu.fragment.WeekModeCalendarFragment
 import ru.brainstorm.android.womenscalendar.presentation.menu.view.MenuView
 import ru.brainstorm.android.womenscalendar.presentation.statistics.activity.StatisticsActivity
@@ -48,7 +49,7 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
         //
         App.appComponent.inject(this)
         supportFragmentManager.beginTransaction()
-            .add(R.id.for_fragment, WeekModeCalendarFragment())
+            .add(R.id.for_fragment, ListOfNotesFragment())
             .commit()
 
         btnStatics = findViewById<ImageView>(R.id.btn_statistics).apply { setOnClickListener(this@MenuActivity) }

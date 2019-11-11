@@ -7,6 +7,7 @@ import dagger.Module
 import dagger.Provides
 import ru.brainstorm.android.womenscalendar.App
 import ru.brainstorm.android.womenscalendar.data.database.dao.CycleDao
+import ru.brainstorm.android.womenscalendar.data.database.dao.NoteDao
 import ru.brainstorm.android.womenscalendar.domain.predictor.PredictorImpl
 import ru.brainstorm.android.womenscalendar.domain.repository.ReadUserInfoRepositoryImpl
 import ru.brainstorm.android.womenscalendar.domain.repository.SaveQuizAnswersRepositoryImpl
@@ -43,6 +44,10 @@ class QuizModule(private val application: Application) {
     @Provides
     @Singleton
     fun provideCycleDao(): CycleDao = App.appDatabase.cycleDao()
+
+    @Provides
+    @Singleton
+    fun provideNoteDao(): NoteDao = App.appDatabase.noteDao()
 
     @Provides
     @Singleton
