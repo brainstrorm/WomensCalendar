@@ -6,14 +6,10 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import androidx.core.view.isVisible
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import moxy.MvpAppCompatActivity
 import ru.brainstorm.android.womenscalendar.App
 import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.data.database.dao.CycleDao
-import ru.brainstorm.android.womenscalendar.data.database.entities.Cycle
 import ru.brainstorm.android.womenscalendar.presentation.menu.fragment.CalendarPickerFragment
 import ru.brainstorm.android.womenscalendar.presentation.menu.fragment.WeekModeCalendarFragment
 import ru.brainstorm.android.womenscalendar.presentation.menu.view.MenuView
@@ -46,9 +42,9 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
         btnMonthOrYear = findViewById(R.id.btn_month_or_year)
         btnStatics = findViewById(R.id.btn_statistics)
 
-        topBar.isVisible = false
-        btnMonthOrYear.isVisible = false
-        btnStatics.isVisible = false
+        //topBar.isVisible = false
+        //btnMonthOrYear.isVisible = false
+        //btnStatics.isVisible = false
         //
         App.appComponent.inject(this)
         supportFragmentManager.beginTransaction()
