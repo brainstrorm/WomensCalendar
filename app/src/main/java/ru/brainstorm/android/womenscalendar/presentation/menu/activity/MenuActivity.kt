@@ -33,13 +33,13 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
     lateinit var topBar : ImageView
     lateinit var btnMonthOrYear : ImageView
     private lateinit var btnToday : ImageButton
-    private lateinit var btnTodayText : TextView
+    //private lateinit var btnTodayText : TextView
     private lateinit var btnCalendar : ImageButton
-    private lateinit var btnCalendarText : TextView
+    //private lateinit var btnCalendarText : TextView
     private lateinit var btnInfo : ImageButton
-    private lateinit var btnInfoText : TextView
+    //private lateinit var btnInfoText : TextView
     private lateinit var btnMore : ImageButton
-    private lateinit var btnMoreText : TextView
+    //private lateinit var btnMoreText : TextView
 
     @Inject
     lateinit var cycleDao: CycleDao
@@ -59,13 +59,13 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
         btnMonthOrYear = findViewById(R.id.btn_month_or_year)
         btnStatistics = findViewById<ImageView>(R.id.btn_statistics).apply { setOnClickListener(this@MenuActivity) }
         btnToday = findViewById<ImageButton>(R.id.today).apply{setOnClickListener(this@MenuActivity)}
-        btnTodayText = findViewById<TextView>(R.id.today_text).apply{setOnClickListener(this@MenuActivity)}
+        //btnTodayText = findViewById<TextView>(R.id.today_text).apply{setOnClickListener(this@MenuActivity)}
         btnCalendar = findViewById<ImageButton>(R.id.calendar).apply{setOnClickListener(this@MenuActivity)}
-        btnCalendarText = findViewById<TextView>(R.id.calendar_text).apply{setOnClickListener(this@MenuActivity)}
+        //btnCalendarText = findViewById<TextView>(R.id.calendar_text).apply{setOnClickListener(this@MenuActivity)}
         btnInfo = findViewById<ImageButton>(R.id.info).apply{setOnClickListener(this@MenuActivity)}
-        btnInfoText = findViewById<TextView>(R.id.info_text).apply{setOnClickListener(this@MenuActivity)}
+        //btnInfoText = findViewById<TextView>(R.id.info_text).apply{setOnClickListener(this@MenuActivity)}
         btnMore = findViewById<ImageButton>(R.id.more_text).apply{setOnClickListener(this@MenuActivity)}
-        btnMoreText = findViewById<TextView>(R.id.more).apply{setOnClickListener(this@MenuActivity)}
+        //btnMoreText = findViewById<TextView>(R.id.more).apply{setOnClickListener(this@MenuActivity)}
 
         App.appComponent.inject(this)
         supportFragmentManager.beginTransaction()
@@ -106,16 +106,16 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
             R.id.btn_statistics -> {
                 goToStatistic()
             }
-            R.id.today, R.id.today_text -> {
+            R.id.today -> {
                menuPresenter.setFragment(supportFragmentManager, "today")
             }
-            R.id.calendar, R.id.calendar_text -> {
+            R.id.calendar -> {
                 menuPresenter.setFragment(supportFragmentManager, "calendar")
             }
-            R.id.info, R.id.info_text -> {
+            R.id.info -> {
                 menuPresenter.setFragment(supportFragmentManager, "notes")
             }
-            R.id.more, R.id.more_text -> {
+            R.id.more_text -> {
                 //TODO
             }
         }
