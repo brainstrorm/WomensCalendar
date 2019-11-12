@@ -38,6 +38,7 @@ class ListOfNotesFragment : AbstractMenuFragment(), ListOfNotesView {
 
     private lateinit var recyclerView : RecyclerView
     private lateinit var notes : List<Note>
+
     inner class Adapter(private val notes: List<Note>): RecyclerView.Adapter<Adapter.ViewHolder>(){
         override fun getItemCount() = notes.size
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -47,10 +48,13 @@ class ListOfNotesFragment : AbstractMenuFragment(), ListOfNotesView {
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val note = notes[position]
-            val noteText = note.noteText
+            var noteText = note.noteText
+            if(noteText.length > 15){
+                noteText = noteText.substring(15)
+            }
             val noteDate = note.noteDate
 
-            holder.textOfNote?.setText(noteText.substring(15))
+            holder.textOfNote?.setText(noteText)
             holder.dateOfNote?.setText(noteDate)
 
 
