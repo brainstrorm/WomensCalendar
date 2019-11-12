@@ -14,16 +14,27 @@ import com.skydoves.progressview.ProgressView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
+import moxy.presenter.InjectPresenter
+import moxy.presenter.ProvidePresenter
 import ru.brainstorm.android.womenscalendar.App
 import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.data.database.dao.NoteDao
 import ru.brainstorm.android.womenscalendar.data.database.entities.Note
+import ru.brainstorm.android.womenscalendar.presentation.menu.presenter.ListOfNotesPresenter
+import ru.brainstorm.android.womenscalendar.presentation.menu.view.ListOfNotesView
+import ru.brainstorm.android.womenscalendar.presentation.quiz.presenter.CalendarPickerForQuizPresenter
 import javax.inject.Inject
 
-class ListOfNotesFragment : Fragment() {
+class ListOfNotesFragment : AbstractMenuFragment(), ListOfNotesView {
 
     @Inject
     lateinit var noteDao: NoteDao
+
+    @InjectPresenter
+    lateinit var fragmentPresenter: ListOfNotesPresenter
+
+    @ProvidePresenter
+    fun providePresenter() = App.appComponent.presenter().listOfNotesPresenter()
 
     private lateinit var recyclerView : RecyclerView
     private lateinit var notes : List<Note>
@@ -93,4 +104,6 @@ class ListOfNotesFragment : Fragment() {
     override fun onDetach() {
         super.onDetach()
     }
+
+    override fun getPart(): String = "notes"
 }

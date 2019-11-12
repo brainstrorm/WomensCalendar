@@ -41,7 +41,7 @@ import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.setTextCo
 import javax.inject.Inject
 import kotlin.time.days
 
-class WeekModeCalendarFragment : Fragment() {
+class WeekModeCalendarFragment : AbstractMenuFragment() {
 
     @Inject
     lateinit var cycleDao: CycleDao
@@ -485,5 +485,7 @@ class WeekModeCalendarFragment : Fragment() {
         }
 
     }
+
+    override fun getPart(): String = "today"
 
 }

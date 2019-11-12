@@ -40,7 +40,7 @@ import ru.brainstorm.android.womenscalendar.presentation.quiz.view.CalendarPicke
 import javax.inject.Inject
 
 
-class CalendarPickerFragment :   MvpAppCompatFragment(){
+class CalendarPickerFragment : AbstractMenuFragment(){
 
     @Inject
     lateinit var cycleDao: CycleDao
@@ -364,6 +364,8 @@ class CalendarPickerFragment :   MvpAppCompatFragment(){
             decorView.systemUiVisibility = 0
         }
     }
+
+    override fun getPart(): String = "calendar"
 
 
 }

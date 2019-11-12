@@ -5,10 +5,6 @@ import moxy.viewstate.strategy.OneExecutionStateStrategy
 import moxy.viewstate.strategy.StateStrategyType
 
 @StateStrategyType(OneExecutionStateStrategy::class)
-interface MenuView : MvpView {
-    @StateStrategyType(OneExecutionStateStrategy::class)
-    fun goToStatistic()
+interface ListOfNotesView : MvpView{
 
-    @StateStrategyType(OneExecutionStateStrategy::class)
-    fun setPart(part: String)
 }
