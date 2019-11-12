@@ -50,8 +50,9 @@ class ListOfNotesFragment : AbstractMenuFragment(), ListOfNotesView {
             val noteText = note.noteText
             val noteDate = note.noteDate
 
-            holder.textOfNote?.setText(noteText)
+            holder.textOfNote?.setText(noteText.substring(15))
             holder.dateOfNote?.setText(noteDate)
+
 
             holder.itemView.setOnClickListener(){
                 //TODO
