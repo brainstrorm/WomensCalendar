@@ -50,8 +50,9 @@ class CalendarPickerFragment : AbstractMenuFragment(){
     private var weekDays = HashMap<String, String>()
     private var months = HashMap<String, String>()
 
-    private var startDate: LocalDate? = null
-    private var endDate: LocalDate? = null
+    //private var startDate: LocalDate? = null
+    //private var endDate: LocalDate? = null
+    private var selectedDate: LocalDate? = null
 
     private val headerDateFormatter = DateTimeFormatter.ofPattern("EEE'\n'd MMM")
 
@@ -137,24 +138,11 @@ class CalendarPickerFragment : AbstractMenuFragment(){
             val todayRound = view.findViewById<ImageView>(R.id.todayRound)
 
             //обработчик нажатий
-            /*init {
+            init {
                 view.setOnClickListener {
-                    if (day.owner == DayOwner.THIS_MONTH && (day.date == today || day.date.isAfter(today))) {
-                        val date = day.date
-                        if (startDate != null) {
-                            if (date < startDate || endDate != null) {
-                                startDate = date
-                                endDate = null
-                            } else if (date != startDate) {
-                                endDate = date
-                            }
-                        } else {
-                            startDate = date
-                        }
-                        calendarView.notifyCalendarChanged()
-                    }
+                    selectedDate = day.date
                 }
-            }*/
+            }
         }
         calendarView.dayBinder = object : DayBinder<DayViewContainer> {
             override fun create(view: View) = DayViewContainer(view)
