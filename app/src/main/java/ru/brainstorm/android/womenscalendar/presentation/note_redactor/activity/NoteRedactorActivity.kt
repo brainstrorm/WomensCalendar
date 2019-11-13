@@ -18,7 +18,7 @@ class NoteRedactorActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_note_redactor)
+        setContentView(R.layout.activity_notes_redactor)
 
         supportActionBar?.hide()
     }
