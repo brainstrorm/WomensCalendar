@@ -14,19 +14,19 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
 import androidx.core.view.isVisible
-import androidx.recyclerview.widget.RecyclerView
-import com.kizitonwose.calendarview.model.*
+import com.kizitonwose.calendarview.model.CalendarDay
+import com.kizitonwose.calendarview.model.CalendarMonth
+import com.kizitonwose.calendarview.model.DayOwner
 import com.kizitonwose.calendarview.ui.DayBinder
 import com.kizitonwose.calendarview.ui.MonthHeaderFooterBinder
 import com.kizitonwose.calendarview.ui.ViewContainer
-import kotlinx.android.synthetic.main.calendar_day_layout_for_direcly_calendar.*
-import kotlinx.android.synthetic.main.calendar_day_legend.*
 import kotlinx.android.synthetic.main.calendar_day_legend.view.*
 import kotlinx.android.synthetic.main.calendar_header.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
-import moxy.MvpAppCompatFragment
+import moxy.presenter.InjectPresenter
+import moxy.presenter.ProvidePresenter
 import org.threeten.bp.LocalDate
 import org.threeten.bp.YearMonth
 import org.threeten.bp.format.DateTimeFormatter
@@ -34,13 +34,19 @@ import ru.brainstorm.android.womenscalendar.App
 import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.data.database.dao.CycleDao
 import ru.brainstorm.android.womenscalendar.data.database.entities.Cycle
+import ru.brainstorm.android.womenscalendar.presentation.menu.presenter.CalendarPickerPresenter
+import ru.brainstorm.android.womenscalendar.presentation.menu.view.CalendarPickerView
 import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.*
-import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.getDrawableCompat
-import ru.brainstorm.android.womenscalendar.presentation.quiz.view.CalendarPickerView_
 import javax.inject.Inject
 
 
-class CalendarPickerFragment : AbstractMenuFragment(){
+class CalendarPickerFragment : AbstractMenuFragment(), CalendarPickerView{
+
+    @InjectPresenter
+    lateinit var calendarPickerPresenter: CalendarPickerPresenter
+
+    @ProvidePresenter
+    fun providePresenter() = App.appComponent.presenter().calendarPickerPresenter()
 
     @Inject
     lateinit var cycleDao: CycleDao
@@ -141,6 +147,8 @@ class CalendarPickerFragment : AbstractMenuFragment(){
             init {
                 view.setOnClickListener {
                     selectedDate = day.date
+                    calendarPickerPresenter.addNote(fragmentManager!!)
+                    calendarView.notifyCalendarChanged()
                 }
             }
         }
@@ -162,6 +170,7 @@ class CalendarPickerFragment : AbstractMenuFragment(){
                 todayRound.makeInVisible()
                 if (day.owner == DayOwner.THIS_MONTH) {
                     textView.text = day.day.toString()
+                    textView.setTextSize(16F)
                     textView.setTextColorRes(R.color.example_4_grey)
                     for (days in menstruationDays){
                         val startMenstruation = LocalDate.parse(days.startOfCycle)
@@ -220,6 +229,8 @@ class CalendarPickerFragment : AbstractMenuFragment(){
                     }
                     if(day.date == today)
                         todayRound.isVisible = true
+                    if(day.date == selectedDate)
+                        textView.setTextSize(25F)
                     //выделение по нажатию
                     /*if (day.date.isBefore(today)) {
                         textView.setTextColorRes(R.color.colorPrimaryDark)

@@ -11,6 +11,7 @@ import android.widget.TextView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
+import ru.brainstorm.android.womenscalendar.App
 
 import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.data.database.dao.NoteDao
@@ -18,7 +19,7 @@ import ru.brainstorm.android.womenscalendar.data.database.entities.Cycle
 import ru.brainstorm.android.womenscalendar.data.database.entities.Note
 import javax.inject.Inject
 
-class SelectedDayNoteFragment : Fragment() {
+class SelectedDayNoteFragment : AbstractMenuFragment() {
 
 
     @Inject
@@ -38,8 +39,11 @@ class SelectedDayNoteFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_selected_day_note, container, false)
 
+        App.appComponent.inject(this)
+        lateinit var setNote : List<Note>
         GlobalScope.async(Dispatchers.IO) {
-            val set_inject: List<Note> = noteDao.getAll()
+            setNote = noteDao.getAll()
+            return@async setNote
         }
 
 
@@ -51,5 +55,8 @@ class SelectedDayNoteFragment : Fragment() {
 
     }
 
+    override fun getPart(): String {
+        return "selected_day_note"
+    }
 
 }
