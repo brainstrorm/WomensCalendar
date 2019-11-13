@@ -52,7 +52,7 @@
                 app:layout_constraintStart_toStartOf="@+id/drop_up"
                 app:layout_constraintTop_toTopOf="@+id/drop_up"
                 app:layout_constraintVertical_bias="0.0"
-                app:srcCompat="@drawable/ic_vector_3"
+                app:srcCompat="@drawable/ic_vector_12"
                 tools:ignore="VectorDrawableCompat" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
