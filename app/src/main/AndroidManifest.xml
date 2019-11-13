@@ -9,7 +9,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".presentation.NoteRedactorActivity"></activity>
+        <activity android:name=".presentation.note_redactor.activity.NoteRedactorActivity"></activity>
         <activity android:name=".presentation.statistics.activity.StatisticsActivity" />
         <activity android:name=".presentation.initialization.activity.InitializationActivity" />
         <activity android:name=".presentation.menu.activity.MenuActivity" />

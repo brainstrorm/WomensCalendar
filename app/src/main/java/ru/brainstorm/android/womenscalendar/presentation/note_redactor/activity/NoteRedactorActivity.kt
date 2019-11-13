@@ -1,4 +1,4 @@
-package ru.brainstorm.android.womenscalendar.presentation
+package ru.brainstorm.android.womenscalendar.presentation.note_redactor.activity
 
 import android.content.Context
 import android.content.Intent

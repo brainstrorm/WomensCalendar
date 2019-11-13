@@ -17,7 +17,6 @@ import ru.brainstorm.android.womenscalendar.App
 import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.data.database.dao.NoteDao
 import ru.brainstorm.android.womenscalendar.data.database.entities.Note
-import ru.brainstorm.android.womenscalendar.presentation.NoteRedactorActivity
 import ru.brainstorm.android.womenscalendar.presentation.menu.presenter.ListOfNotesPresenter
 import ru.brainstorm.android.womenscalendar.presentation.menu.view.ListOfNotesView
 import javax.inject.Inject
