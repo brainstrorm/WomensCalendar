@@ -1,7 +1,10 @@
 package ru.brainstorm.android.womenscalendar.presentation.menu.presenter
 
+import android.content.Context
+import android.content.Intent
 import moxy.InjectViewState
 import moxy.MvpPresenter
+import ru.brainstorm.android.womenscalendar.presentation.NoteRedactorActivity
 import ru.brainstorm.android.womenscalendar.presentation.menu.view.ListOfNotesView
 import javax.inject.Inject
 
@@ -10,7 +13,7 @@ class ListOfNotesPresenter
 @Inject constructor()
     : MvpPresenter<ListOfNotesView>(){
 
-    fun goToChosenNote(){
-        //TODO
+    fun goToChosenNote(context: Context) : Intent {
+        return NoteRedactorActivity.provideIntent(context)
     }
 }

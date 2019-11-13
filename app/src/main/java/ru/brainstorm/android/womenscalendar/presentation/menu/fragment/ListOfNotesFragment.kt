@@ -1,16 +1,13 @@
 package ru.brainstorm.android.womenscalendar.presentation.menu.fragment
 
 import android.content.Context
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.skydoves.progressview.ProgressView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
@@ -20,9 +17,9 @@ import ru.brainstorm.android.womenscalendar.App
 import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.data.database.dao.NoteDao
 import ru.brainstorm.android.womenscalendar.data.database.entities.Note
+import ru.brainstorm.android.womenscalendar.presentation.NoteRedactorActivity
 import ru.brainstorm.android.womenscalendar.presentation.menu.presenter.ListOfNotesPresenter
 import ru.brainstorm.android.womenscalendar.presentation.menu.view.ListOfNotesView
-import ru.brainstorm.android.womenscalendar.presentation.quiz.presenter.CalendarPickerForQuizPresenter
 import javax.inject.Inject
 
 class ListOfNotesFragment : AbstractMenuFragment(), ListOfNotesView {
@@ -58,15 +55,14 @@ class ListOfNotesFragment : AbstractMenuFragment(), ListOfNotesView {
             holder.dateOfNote?.setText(noteDate)
 
 
-            holder.itemView.setOnClickListener(){
-                //TODO
+            holder.itemView.setOnClickListener{
+                startActivity(fragmentPresenter.goToChosenNote(context!!))
             }
         }
 
         inner class ViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView!!){
             var textOfNote: TextView? = null
             var dateOfNote: TextView? = null
-
             init{
                 textOfNote = itemView?.findViewById(R.id.text_of_note)
                 dateOfNote = itemView?.findViewById(R.id.date_of_note)
