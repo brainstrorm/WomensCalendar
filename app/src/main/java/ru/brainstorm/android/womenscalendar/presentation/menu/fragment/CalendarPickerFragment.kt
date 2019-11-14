@@ -147,7 +147,7 @@ class CalendarPickerFragment : AbstractMenuFragment(), CalendarPickerView{
             init {
                 view.setOnClickListener {
                     selectedDate = day.date
-                    calendarPickerPresenter.addNote(fragmentManager!!)
+                    calendarPickerPresenter.addNoteFragment(fragmentManager!!, day.date)
                     calendarView.notifyCalendarChanged()
                 }
             }

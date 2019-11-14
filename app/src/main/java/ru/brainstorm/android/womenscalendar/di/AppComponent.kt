@@ -11,6 +11,7 @@ import ru.brainstorm.android.womenscalendar.presentation.menu.fragment.SelectedD
 import ru.brainstorm.android.womenscalendar.presentation.menu.fragment.WeekModeCalendarFragment
 import ru.brainstorm.android.womenscalendar.presentation.menu.presenter.CalendarPickerPresenter
 import ru.brainstorm.android.womenscalendar.presentation.menu.presenter.ListOfNotesPresenter
+import ru.brainstorm.android.womenscalendar.presentation.menu.presenter.SelectedDayNotePresenter
 import ru.brainstorm.android.womenscalendar.presentation.quiz.presenter.*
 import ru.brainstorm.android.womenscalendar.presentation.splash.activity.SplashScreenActivity
 import ru.brainstorm.android.womenscalendar.presentation.splash.presenter.SplashScreenPresenter
@@ -42,6 +43,7 @@ interface AppComponent {
     fun inject(listOfNotes: ListOfNotesFragment)
 
     fun inject(selectedDayNote: SelectedDayNoteFragment)
+
     fun presenter(): PresenterComponent
 
     @Subcomponent
@@ -58,5 +60,7 @@ interface AppComponent {
         fun menuPresenter() : ru.brainstorm.android.womenscalendar.presentation.menu.presenter.MenuPresenter
 
         fun calendarPickerPresenter() : CalendarPickerPresenter
+
+        fun selectedDayNotePresenter() : SelectedDayNotePresenter
     }
 }

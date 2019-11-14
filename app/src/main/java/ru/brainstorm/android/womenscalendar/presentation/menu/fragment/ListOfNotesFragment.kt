@@ -75,7 +75,7 @@ class ListOfNotesFragment : AbstractMenuFragment(), ListOfNotesView {
         App.appComponent.inject(this)
         var note = Note()
         note.noteText = "text"
-        note.noteDate = "11/11/2019"
+        note.noteDate = "2019-11-17"
         GlobalScope.async(Dispatchers.IO){
             noteDao.insert(note)
             notes = noteDao.getAll()
