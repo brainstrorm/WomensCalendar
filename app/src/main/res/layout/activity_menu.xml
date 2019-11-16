@@ -241,6 +241,33 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintVertical_bias="0.999"
             app:layout_constraintTop_toBottomOf="@+id/btn_new_date_menu_text"></FrameLayout>
+
+        <ImageView
+            android:id="@+id/btn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/topBar"
+            app:layout_constraintStart_toStartOf="@+id/topBar"
+            app:layout_constraintTop_toTopOf="@+id/topBar"
+            app:layout_constraintVertical_bias="0.419"
+            app:srcCompat="@drawable/ic_shape"
+            tools:ignore="VectorDrawableCompat" />
+
+        <TextView
+            android:id="@+id/done"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/done_notes"
+            android:textColor="@color/colorBlueNotesRedactor"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/topBar"
+            app:layout_constraintEnd_toEndOf="@+id/topBar"
+            app:layout_constraintHorizontal_bias="0.950"
+            app:layout_constraintStart_toStartOf="@+id/topBar"
+            app:layout_constraintTop_toTopOf="@+id/topBar"
+            app:layout_constraintVertical_bias="0.4" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageButton

@@ -15,6 +15,7 @@ import ru.brainstorm.android.womenscalendar.App
 import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.data.database.dao.NoteDao
 import ru.brainstorm.android.womenscalendar.data.database.entities.Note
+import ru.brainstorm.android.womenscalendar.presentation.menu.activity.MenuActivity
 import ru.brainstorm.android.womenscalendar.presentation.menu.presenter.ListOfNotesPresenter
 import ru.brainstorm.android.womenscalendar.presentation.menu.view.ListOfNotesView
 import javax.inject.Inject
@@ -56,7 +57,8 @@ class ListOfNotesFragment : AbstractMenuFragment(), ListOfNotesView {
 
 
             holder.itemView.setOnClickListener{
-                startActivity(fragmentPresenter.goToChosenNote(context!!))
+                val menuActivity = activity as MenuActivity
+                menuActivity.menuPresenter.setFragment(menuActivity.supportFragmentManager, "note_redactor")
             }
         }
 

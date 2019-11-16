@@ -45,6 +45,8 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
     private lateinit var btnNewDates : ImageButton
     private lateinit var txtvwNewDates : TextView
     private lateinit var layoutForNotes : FrameLayout
+    private lateinit var btnBack : ImageView
+    private lateinit var btnDone : TextView
     @Inject
     lateinit var cycleDao: CycleDao
 
@@ -72,11 +74,11 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
         btnNewDates = findViewById<ImageButton>(R.id.btn_new_date_menu).apply { setOnClickListener(this@MenuActivity) }
         txtvwNewDates = findViewById<TextView>(R.id.btn_new_date_menu_text)
         layoutForNotes = findViewById<FrameLayout>(R.id.for_notes).apply { setOnClickListener(this@MenuActivity) }
+        btnBack = findViewById<ImageView>(R.id.btn_back).apply { setOnClickListener(this@MenuActivity) }
+        btnDone = findViewById<TextView>(R.id.done).apply { setOnClickListener(this@MenuActivity) }
 
         App.appComponent.inject(this)
-        supportFragmentManager.beginTransaction()
-            .add(R.id.for_fragment, WeekModeCalendarFragment(), WeekModeCalendarFragment.TAG)
-            .commit()
+        menuPresenter.setFragment(supportFragmentManager, "today")
         initFragments()
 
 
@@ -93,23 +95,28 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
         when(part){
             "today" ->{
                 setVisibility(View.GONE, View.GONE, View.GONE,
-                    View.VISIBLE, View.VISIBLE, View.VISIBLE, View.VISIBLE)
+                    View.VISIBLE, View.VISIBLE, View.VISIBLE, View.VISIBLE,
+                    View.GONE, View.GONE)
             }
             "calendar" ->{
                 setVisibility(View.VISIBLE, View.VISIBLE, View.VISIBLE,
-                    View.VISIBLE, View.VISIBLE, View.VISIBLE, View.VISIBLE)
+                    View.VISIBLE, View.VISIBLE, View.VISIBLE, View.VISIBLE,
+                    View.GONE, View.GONE)
             }
             "notes" ->{
                 setVisibility(View.VISIBLE, View.GONE, View.GONE,
-                    View.GONE, View.VISIBLE, View.VISIBLE, View.VISIBLE)
+                    View.GONE, View.VISIBLE, View.VISIBLE, View.VISIBLE,
+                    View.GONE, View.GONE)
             }
             "note_redactor" ->{
                 setVisibility(View.VISIBLE, View.GONE, View.GONE,
-                    View.GONE, View.GONE, View.GONE, View.GONE)
+                    View.GONE, View.GONE, View.GONE, View.GONE,
+                    View.VISIBLE, View.VISIBLE)
             }
             "more" ->{
                 setVisibility(View.VISIBLE, View.GONE, View.GONE,
-                    View.GONE, View.VISIBLE, View.VISIBLE, View.VISIBLE)
+                    View.GONE, View.VISIBLE, View.VISIBLE, View.VISIBLE,
+                    View.GONE, View.GONE)
             }
         }
     }
@@ -140,7 +147,8 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
     }
 
     fun setVisibility(topBarVisibility : Int, btnMonthOrYearVisibility : Int, btnStatisticsVisibility : Int,
-                      btnNewDatesVisibility : Int, layoutLeftVisibility : Int, layoutRightVisibility : Int, btnPlusNoteVisibility : Int){
+                      btnNewDatesVisibility : Int, layoutLeftVisibility : Int, layoutRightVisibility : Int, btnPlusNoteVisibility : Int,
+                      btnBackVisibility : Int, btnDoneVisibility: Int){
         topBar.visibility = topBarVisibility
         btnMonthOrYear.visibility = btnMonthOrYearVisibility
         btnStatistics.visibility = btnStatisticsVisibility
@@ -149,5 +157,7 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
         layoutLeft.visibility = layoutLeftVisibility
         layoutRight.visibility = layoutRightVisibility
         btnPlusNote.visibility = btnPlusNoteVisibility
+        btnBack.visibility = btnBackVisibility
+        btnDone.visibility = btnDoneVisibility
     }
 }
