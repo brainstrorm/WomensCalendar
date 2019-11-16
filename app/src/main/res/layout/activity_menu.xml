@@ -18,7 +18,7 @@
             android:id="@+id/calendar_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
+            android:layout_marginStart="16dp"
             android:layout_marginBottom="8dp"
             android:text="@string/calendar"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -28,19 +28,15 @@
             android:id="@+id/today"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="26dp"
+            android:layout_marginStart="35dp"
             android:layout_marginTop="12dp"
             android:layout_marginBottom="6dp"
             android:background="@null"
-            android:paddingLeft="10dp"
-            android:paddingTop="3dp"
-            android:paddingRight="10dp"
-            android:paddingBottom="5dp"
+            android:padding="10dp"
             app:layout_constraintBottom_toTopOf="@+id/today_text"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.65999997"
-            app:srcCompat="@drawable/ic_btn_today_menu_blue"
             tools:ignore="VectorDrawableCompat" />
 
         <TextView
@@ -50,7 +46,6 @@
             android:layout_marginStart="16dp"
             android:layout_marginBottom="8dp"
             android:text="@string/today"
-            android:textColor="@color/color_Blue"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -58,20 +53,15 @@
             android:id="@+id/calendar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="38dp"
+            android:layout_marginStart="59dp"
             android:layout_marginTop="12dp"
             android:layout_marginBottom="6dp"
-
             android:background="@null"
-            android:paddingLeft="10dp"
-            android:paddingTop="3dp"
-            android:paddingRight="10dp"
-            android:paddingBottom="5dp"
+            android:padding="10dp"
             app:layout_constraintBottom_toTopOf="@+id/calendar_text"
             app:layout_constraintStart_toEndOf="@+id/today"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.666"
-            app:srcCompat="@drawable/ic_btn_calendar_menu_grey"
             tools:ignore="VectorDrawableCompat" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -93,23 +83,18 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <ImageButton
+        <ImageView
             android:id="@+id/info"
-            android:layout_width="39dp"
-            android:layout_height="37dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:layout_marginEnd="38dp"
+            android:layout_marginEnd="58dp"
             android:layout_marginBottom="6dp"
-            android:background="@null"
-            android:paddingLeft="10dp"
-            android:paddingTop="3dp"
-            android:paddingRight="10dp"
-            android:paddingBottom="5dp"
+            android:padding="10dp"
             app:layout_constraintBottom_toTopOf="@+id/info_text"
             app:layout_constraintEnd_toStartOf="@+id/more_text"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.65999997"
-            app:srcCompat="@drawable/ic_btn_notes_for_menu_grey"
             tools:ignore="VectorDrawableCompat" />
 
         <TextView
@@ -127,19 +112,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginEnd="32dp"
             android:layout_marginBottom="6dp"
             android:background="@null"
             android:padding="10dp"
-            android:paddingLeft="10dp"
-            android:paddingTop="3dp"
-            android:paddingRight="10dp"
-            android:paddingBottom="5dp"
             app:layout_constraintBottom_toTopOf="@+id/more"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.647"
-            app:srcCompat="@drawable/ic_btn_more_menu_grey"
             tools:ignore="VectorDrawableCompat" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -201,14 +181,14 @@
 
         <ImageView
             android:id="@+id/topBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
             android:background="@drawable/ic_app_header"
-            app:layout_constraintVertical_bias="0"
             app:layout_constraintBottom_toTopOf="@+id/btn_new_date_menu_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0" />
         <ImageView
             android:id="@+id/btn_month_or_year"
             android:layout_width="wrap_content"

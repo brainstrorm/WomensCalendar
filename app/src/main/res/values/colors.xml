@@ -46,4 +46,5 @@
     <color name="example_4_green">#008489</color>
     <color name="example_4_grey_past">#BEBEBE</color>
     <color name="colorBlack">#000000</color>
+    <color name="colorGrey">#C2C2C2</color>
 </resources>
