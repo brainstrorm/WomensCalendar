@@ -42,6 +42,9 @@ import javax.inject.Inject
 
 class CalendarPickerFragment : AbstractMenuFragment(), CalendarPickerView{
 
+    companion object{
+        val TAG = "CalendarPicker"
+    }
     @InjectPresenter
     lateinit var calendarPickerPresenter: CalendarPickerPresenter
 
@@ -146,9 +149,11 @@ class CalendarPickerFragment : AbstractMenuFragment(), CalendarPickerView{
             //обработчик нажатий
             init {
                 view.setOnClickListener {
-                    selectedDate = day.date
-                    calendarPickerPresenter.addNoteFragment(fragmentManager!!, day.date)
-                    calendarView.notifyCalendarChanged()
+                    if(day.owner == DayOwner.THIS_MONTH) {
+                        selectedDate = day.date
+                        calendarPickerPresenter.addNoteFragment(fragmentManager!!, day.date)
+                        calendarView.notifyCalendarChanged()
+                    }
                 }
             }
         }

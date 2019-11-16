@@ -4,12 +4,15 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import moxy.MvpAppCompatActivity
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
+import org.w3c.dom.Text
 import ru.brainstorm.android.womenscalendar.App
 import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.data.database.dao.CycleDao
@@ -29,18 +32,19 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
     fun providePresenter() = App.appComponent.presenter().menuPresenter()
 
 
-    lateinit var btnStatistics: ImageView
-    lateinit var topBar : ImageView
-    lateinit var btnMonthOrYear : ImageView
+    private lateinit var btnStatistics: ImageView
+    private lateinit var topBar : ImageView
+    private lateinit var btnMonthOrYear : ImageView
     private lateinit var btnToday : ImageButton
-    //private lateinit var btnTodayText : TextView
     private lateinit var btnCalendar : ImageButton
-    //private lateinit var btnCalendarText : TextView
     private lateinit var btnInfo : ImageButton
-    //private lateinit var btnInfoText : TextView
     private lateinit var btnMore : ImageButton
-    //private lateinit var btnMoreText : TextView
-
+    private lateinit var layoutLeft : ConstraintLayout
+    private lateinit var layoutRight : ConstraintLayout
+    private lateinit var btnPlusNote : ImageButton
+    private lateinit var btnNewDates : ImageButton
+    private lateinit var txtvwNewDates : TextView
+    private lateinit var layoutForNotes : FrameLayout
     @Inject
     lateinit var cycleDao: CycleDao
 
@@ -57,19 +61,21 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
 
         topBar = findViewById(R.id.topBar)
         btnMonthOrYear = findViewById(R.id.btn_month_or_year)
+        layoutLeft = findViewById<ConstraintLayout>(R.id.constraintLayout)
+        layoutRight = findViewById<ConstraintLayout>(R.id.constraintLayout2)
         btnStatistics = findViewById<ImageView>(R.id.btn_statistics).apply { setOnClickListener(this@MenuActivity) }
         btnToday = findViewById<ImageButton>(R.id.today).apply{setOnClickListener(this@MenuActivity)}
-        //btnTodayText = findViewById<TextView>(R.id.today_text).apply{setOnClickListener(this@MenuActivity)}
         btnCalendar = findViewById<ImageButton>(R.id.calendar).apply{setOnClickListener(this@MenuActivity)}
-        //btnCalendarText = findViewById<TextView>(R.id.calendar_text).apply{setOnClickListener(this@MenuActivity)}
         btnInfo = findViewById<ImageButton>(R.id.info).apply{setOnClickListener(this@MenuActivity)}
-        //btnInfoText = findViewById<TextView>(R.id.info_text).apply{setOnClickListener(this@MenuActivity)}
         btnMore = findViewById<ImageButton>(R.id.more_text).apply{setOnClickListener(this@MenuActivity)}
-        //btnMoreText = findViewById<TextView>(R.id.more).apply{setOnClickListener(this@MenuActivity)}
+        btnPlusNote = findViewById<ImageButton>(R.id.btn_plus_menu).apply { setOnClickListener(this@MenuActivity) }
+        btnNewDates = findViewById<ImageButton>(R.id.btn_new_date_menu).apply { setOnClickListener(this@MenuActivity) }
+        txtvwNewDates = findViewById<TextView>(R.id.btn_new_date_menu_text)
+        layoutForNotes = findViewById<FrameLayout>(R.id.for_notes).apply { setOnClickListener(this@MenuActivity) }
 
         App.appComponent.inject(this)
         supportFragmentManager.beginTransaction()
-            .add(R.id.for_fragment, WeekModeCalendarFragment())
+            .add(R.id.for_fragment, WeekModeCalendarFragment(), WeekModeCalendarFragment.TAG)
             .commit()
         initFragments()
 
@@ -86,16 +92,24 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
     override fun setPart(part: String) {
         when(part){
             "today" ->{
-                setVisibility(View.GONE, View.GONE, View.GONE)
+                setVisibility(View.GONE, View.GONE, View.GONE,
+                    View.VISIBLE, View.VISIBLE, View.VISIBLE, View.VISIBLE)
             }
             "calendar" ->{
-                setVisibility(View.VISIBLE, View.VISIBLE, View.VISIBLE)
+                setVisibility(View.VISIBLE, View.VISIBLE, View.VISIBLE,
+                    View.VISIBLE, View.VISIBLE, View.VISIBLE, View.VISIBLE)
             }
             "notes" ->{
-                setVisibility(View.VISIBLE, View.GONE, View.GONE)
+                setVisibility(View.VISIBLE, View.GONE, View.GONE,
+                    View.GONE, View.VISIBLE, View.VISIBLE, View.VISIBLE)
+            }
+            "note_redactor" ->{
+                setVisibility(View.VISIBLE, View.GONE, View.GONE,
+                    View.GONE, View.GONE, View.GONE, View.GONE)
             }
             "more" ->{
-                setVisibility(View.VISIBLE, View.GONE, View.GONE)
+                setVisibility(View.VISIBLE, View.GONE, View.GONE,
+                    View.GONE, View.VISIBLE, View.VISIBLE, View.VISIBLE)
             }
         }
     }
@@ -118,13 +132,22 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
             R.id.more_text -> {
                 //TODO
             }
+            R.id.btn_plus_menu, R.id.for_notes -> {
+                menuPresenter.setFragment(supportFragmentManager, "note_redactor")
+            }
         }
 
     }
 
-    fun setVisibility(topBarVisibility : Int, btnMonthOrYearVisibility : Int, btnStatisticsVisibility : Int){
+    fun setVisibility(topBarVisibility : Int, btnMonthOrYearVisibility : Int, btnStatisticsVisibility : Int,
+                      btnNewDatesVisibility : Int, layoutLeftVisibility : Int, layoutRightVisibility : Int, btnPlusNoteVisibility : Int){
         topBar.visibility = topBarVisibility
         btnMonthOrYear.visibility = btnMonthOrYearVisibility
         btnStatistics.visibility = btnStatisticsVisibility
+        btnNewDates.visibility = btnNewDatesVisibility
+        txtvwNewDates.visibility = btnNewDatesVisibility
+        layoutLeft.visibility = layoutLeftVisibility
+        layoutRight.visibility = layoutRightVisibility
+        btnPlusNote.visibility = btnPlusNoteVisibility
     }
 }

@@ -39,9 +39,11 @@ class SelectedDayNoteFragment : AbstractMenuFragment(), SelectedDayNoteView {
     private lateinit var date : String
     private lateinit var textForNote : TextView
     private lateinit var dateForNote : TextView
+
     companion object{
         val TAG = "SelectedDayNote"
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -55,11 +57,6 @@ class SelectedDayNoteFragment : AbstractMenuFragment(), SelectedDayNoteView {
         val view = inflater.inflate(R.layout.fragment_selected_day_note, container, false)
 
         App.appComponent.inject(this)
-        /*lateinit var setNote : List<Note>
-        GlobalScope.async(Dispatchers.IO) {
-            setNote = noteDao.getAll()
-            return@async setNote
-        }*/
 
 
         textForNote = view.findViewById<TextView>(R.id.text_selected_day_note)

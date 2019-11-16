@@ -8,9 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
+import kotlinx.coroutines.*
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import ru.brainstorm.android.womenscalendar.App
@@ -23,6 +21,9 @@ import javax.inject.Inject
 
 class ListOfNotesFragment : AbstractMenuFragment(), ListOfNotesView {
 
+    companion object{
+        val TAG = "ListOfNotes"
+    }
     @Inject
     lateinit var noteDao: NoteDao
 
@@ -72,15 +73,6 @@ class ListOfNotesFragment : AbstractMenuFragment(), ListOfNotesView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        App.appComponent.inject(this)
-        var note = Note()
-        note.noteText = "text"
-        note.noteDate = "2019-11-17"
-        GlobalScope.async(Dispatchers.IO){
-            noteDao.insert(note)
-            notes = noteDao.getAll()
-            return@async notes
-        }
     }
 
     override fun onCreateView(
@@ -89,6 +81,18 @@ class ListOfNotesFragment : AbstractMenuFragment(), ListOfNotesView {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_list_of_notes, container, false)
+
+        App.appComponent.inject(this)
+        var note = Note()
+        note.noteText = "text"
+        note.noteDate = "2019-11-17"
+        runBlocking {
+            val job = GlobalScope.launch(Dispatchers.IO) {
+                noteDao.insert(note)
+                notes = noteDao.getAll()
+            }
+            job.join()
+        }
 
         recyclerView = view.findViewById(R.id.notes)
         recyclerView.layoutManager = LinearLayoutManager(context)

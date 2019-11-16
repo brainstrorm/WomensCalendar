@@ -43,6 +43,9 @@ import kotlin.time.days
 
 class WeekModeCalendarFragment : AbstractMenuFragment() {
 
+    companion object{
+        val TAG = "WeekModeCalendar"
+    }
     @Inject
     lateinit var cycleDao: CycleDao
 

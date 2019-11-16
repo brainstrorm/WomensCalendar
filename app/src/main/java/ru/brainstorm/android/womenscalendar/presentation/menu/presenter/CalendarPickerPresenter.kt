@@ -35,6 +35,9 @@ class CalendarPickerPresenter
                 val fragment = fm.findFragmentByTag(SelectedDayNoteFragment.TAG) as SelectedDayNoteFragment
                 fragment.apply {
                     selectedDayNotePresenter.setInformationFromCalendar(date.toString())
+                    fm.beginTransaction()
+                        .show(fm.findFragmentByTag(SelectedDayNoteFragment.TAG)!!)
+                        .commit()
                 }
             }
         }
