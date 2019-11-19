@@ -102,23 +102,23 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
     override fun setPart(part: String) {
 
         btnToday?.setBackgroundResource(R.drawable.ic_btn_today_menu_grey)
-        btnToday?.layoutParams.width = 21
-        btnToday?.layoutParams.height = 21
+        btnToday?.layoutParams.width = 51
+        btnToday?.layoutParams.height = 51
         txtvwToday.setTextColor(resources.getColor(R.color.colorGrey))
 
         btnCalendar?.setBackgroundResource(R.drawable.ic_btn_calendar_menu_grey)
-        btnCalendar?.layoutParams.width = 21
-        btnCalendar?.layoutParams.height = 21
+        btnCalendar?.layoutParams.width = 51
+        btnCalendar?.layoutParams.height = 51
         txtvwCalendar.setTextColor(resources.getColor(R.color.colorGrey))
 
         btnInfo?.setBackgroundResource(R.drawable.ic_btn_notes_for_menu_grey)
-        btnInfo?.layoutParams.width = 18
-        btnInfo?.layoutParams.height = 18
+        btnInfo?.layoutParams.width = 48
+        btnInfo?.layoutParams.height = 48
         txtvwNotes.setTextColor(resources.getColor(R.color.colorGrey))
 
         btnMore?.setBackgroundResource(R.drawable.ic_btn_more_menu_grey)
-        btnMore?.layoutParams.width = 18
-        btnMore?.layoutParams.height = 18
+        btnMore?.layoutParams.width = 48
+        btnMore?.layoutParams.height = 48
         txtvwMore.setTextColor(resources.getColor(R.color.colorGrey))
 
         when(part){
@@ -127,8 +127,8 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
                     View.VISIBLE, View.VISIBLE, View.VISIBLE, View.VISIBLE,
                     View.GONE, View.GONE)
                 btnToday?.setBackgroundResource(R.drawable.ic_btn_today_menu_blue)
-                btnToday?.layoutParams.width = 21
-                btnToday?.layoutParams.height = 21
+                btnToday?.layoutParams.width = 51
+                btnToday?.layoutParams.height = 51
                 txtvwToday.setTextColor(resources.getColor(R.color.colorBlueNotesRedactor))
 
 
