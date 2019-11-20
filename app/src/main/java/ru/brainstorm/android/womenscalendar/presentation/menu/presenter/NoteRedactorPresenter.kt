@@ -22,11 +22,16 @@ class NoteRedactorPresenter
     lateinit var noteDao: NoteDao
 
     fun saveNote(fragment : NoteRedactorFragment){
-            var note = Note()
-            note.noteDate = fragment.getDate()
-            note.noteText = fragment.getText()
             runBlocking {
                 val job = GlobalScope.launch(Dispatchers.IO) {
+                    var note = Note()
+                    note.noteText = ""
+                    note.noteDate = ""
+                    if(noteDao.getByDate(fragment.getDate()) != null){
+                        noteDao.delete(noteDao.getByDate(fragment.getDate()))
+                    }
+                    note.noteDate = fragment.getDate()
+                    note.noteText = fragment.getText()
                     noteDao.insert(note)
                 }
                 job.join()
