@@ -28,7 +28,7 @@ class NoteRedactorPresenter
                     note.noteText = ""
                     note.noteDate = ""
                     if(noteDao.getByDate(fragment.getDate()) != null){
-                        noteDao.delete(noteDao.getByDate(fragment.getDate()))
+                        noteDao.delete(noteDao.getByDate(fragment.getDate())!!)
                     }
                     note.noteDate = fragment.getDate()
                     note.noteText = fragment.getText()

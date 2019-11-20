@@ -13,7 +13,7 @@ interface NoteDao {
     suspend fun getAll(): List<Note>
 
     @Query("SELECT * FROM note WHERE noteDate = :noteDate")
-    suspend fun getByDate(noteDate: String): Note
+    suspend fun getByDate(noteDate: String): Note?
 
     @Query("SELECT * FROM note WHERE id = :id")
     suspend fun getById(id: Long): Note
