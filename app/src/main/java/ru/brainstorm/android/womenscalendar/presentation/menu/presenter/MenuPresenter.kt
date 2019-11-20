@@ -42,7 +42,9 @@ class MenuPresenter
                         fm.beginTransaction()
                             .show(this)
                             .commit()
-                        if(fm.findFragmentByTag(SelectedDayNoteFragment.TAG) != null) {
+                        var fr = fm.findFragmentByTag(SelectedDayNoteFragment.TAG) as SelectedDayNoteFragment
+                        if(fr != null) {
+                                fr.selectedDayNotePresenter.setInformationFromCalendar(fr.getDate())
                             fm.beginTransaction()
                                 .show(fm.findFragmentByTag(SelectedDayNoteFragment.TAG)!!)
                                 .commit()
@@ -90,8 +92,10 @@ class MenuPresenter
                 }
             }
             "note_redactor" -> {
+                val selectedDayNoteFragment = fm.findFragmentByTag(SelectedDayNoteFragment.TAG) as SelectedDayNoteFragment
                 if(fm.findFragmentByTag(NoteRedactorFragment.TAG) == null) {
                     fragment = NoteRedactorFragment()
+                    fragment.provideInformation(selectedDayNoteFragment.getDate(), selectedDayNoteFragment.getText())
                     fragment.apply {
                         fm.beginTransaction()
                             .add(R.id.for_fragment, this, NoteRedactorFragment.TAG)
@@ -99,7 +103,9 @@ class MenuPresenter
                         viewState.setPart(this.getPart())
                     }
                 }else{
-                    fragment = fm.findFragmentByTag(NoteRedactorFragment.TAG) as AbstractMenuFragment
+                    fragment = fm.findFragmentByTag(NoteRedactorFragment.TAG) as NoteRedactorFragment
+                    fragment.provideInformation(selectedDayNoteFragment.getDate(), selectedDayNoteFragment.getText())
+                    fragment.noteRedactorPresenter.viewState.setInformation()
                     fragment.apply {
                         fm.beginTransaction()
                             .show(this)

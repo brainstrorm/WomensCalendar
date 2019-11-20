@@ -85,19 +85,19 @@ class ListOfNotesFragment : AbstractMenuFragment(), ListOfNotesView {
         val view = inflater.inflate(R.layout.fragment_list_of_notes, container, false)
 
         App.appComponent.inject(this)
-        var note = Note()
-        note.noteText = "text"
-        note.noteDate = "2019-11-17"
+        //var note = Note()
+        //note.noteText = "text"
+        //note.noteDate = "2019-11-17"
         runBlocking {
             val job = GlobalScope.launch(Dispatchers.IO) {
-                noteDao.insert(note)
+                //noteDao.insert(note)
                 notes = noteDao.getAll()
             }
             job.join()
         }
 
         recyclerView = view.findViewById(R.id.notes)
-        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.layoutManager = LinearLayoutManager(context!!)
         recyclerView.adapter = Adapter(notes)
 
         return view

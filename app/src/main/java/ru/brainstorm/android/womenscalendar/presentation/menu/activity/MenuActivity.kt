@@ -17,6 +17,7 @@ import ru.brainstorm.android.womenscalendar.App
 import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.data.database.dao.CycleDao
 import ru.brainstorm.android.womenscalendar.presentation.menu.fragment.ListOfNotesFragment
+import ru.brainstorm.android.womenscalendar.presentation.menu.fragment.NoteRedactorFragment
 import ru.brainstorm.android.womenscalendar.presentation.menu.fragment.WeekModeCalendarFragment
 import ru.brainstorm.android.womenscalendar.presentation.menu.presenter.MenuPresenter
 import ru.brainstorm.android.womenscalendar.presentation.menu.view.MenuView
@@ -198,6 +199,18 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
             }
             R.id.btn_plus_menu, R.id.for_notes -> {
                 menuPresenter.setFragment(supportFragmentManager, "note_redactor")
+            }
+            R.id.done -> {
+                if(supportFragmentManager.findFragmentByTag(ListOfNotesFragment.TAG) != null) {
+                    supportFragmentManager.beginTransaction()
+                        .remove(supportFragmentManager.findFragmentByTag(ListOfNotesFragment.TAG)!!)
+                        .commit()
+                }
+                (supportFragmentManager.findFragmentByTag(NoteRedactorFragment.TAG) as NoteRedactorFragment)
+                    .apply {
+                        noteRedactorPresenter.saveNote(this)
+                    }
+                menuPresenter.setFragment(supportFragmentManager, "calendar")
             }
         }
 

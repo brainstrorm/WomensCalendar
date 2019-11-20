@@ -33,15 +33,4 @@ class SelectedDayNotePresenter
             return@async note
         }
     }
-
-    fun checkForNoteByDay(date : LocalDate) : Note {
-        var note = Note()
-        note.noteDate = ""
-        note.noteText = ""
-        GlobalScope.async(Dispatchers.IO) {
-            note = noteDao.getByDate(date.toString())
-            return@async note
-        }
-        return note
-    }
 }

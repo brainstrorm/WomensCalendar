@@ -5,12 +5,10 @@ import dagger.Component
 import dagger.Subcomponent
 import ru.brainstorm.android.womenscalendar.di.modules.QuizModule
 import ru.brainstorm.android.womenscalendar.presentation.menu.activity.MenuActivity
-import ru.brainstorm.android.womenscalendar.presentation.menu.fragment.CalendarPickerFragment
-import ru.brainstorm.android.womenscalendar.presentation.menu.fragment.ListOfNotesFragment
-import ru.brainstorm.android.womenscalendar.presentation.menu.fragment.SelectedDayNoteFragment
-import ru.brainstorm.android.womenscalendar.presentation.menu.fragment.WeekModeCalendarFragment
+import ru.brainstorm.android.womenscalendar.presentation.menu.fragment.*
 import ru.brainstorm.android.womenscalendar.presentation.menu.presenter.CalendarPickerPresenter
 import ru.brainstorm.android.womenscalendar.presentation.menu.presenter.ListOfNotesPresenter
+import ru.brainstorm.android.womenscalendar.presentation.menu.presenter.NoteRedactorPresenter
 import ru.brainstorm.android.womenscalendar.presentation.menu.presenter.SelectedDayNotePresenter
 import ru.brainstorm.android.womenscalendar.presentation.quiz.presenter.*
 import ru.brainstorm.android.womenscalendar.presentation.splash.activity.SplashScreenActivity
@@ -44,6 +42,8 @@ interface AppComponent {
 
     fun inject(selectedDayNote: SelectedDayNoteFragment)
 
+    fun inject(noteRedactor: NoteRedactorFragment)
+
     fun presenter(): PresenterComponent
 
     @Subcomponent
@@ -62,5 +62,7 @@ interface AppComponent {
         fun calendarPickerPresenter() : CalendarPickerPresenter
 
         fun selectedDayNotePresenter() : SelectedDayNotePresenter
+
+        fun noteRedactorPresenter() : NoteRedactorPresenter
     }
 }

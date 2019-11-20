@@ -68,6 +68,13 @@ class SelectedDayNoteFragment : AbstractMenuFragment(), SelectedDayNoteView {
 
     }
 
+    fun getDate() : String{
+        return date
+    }
+
+    fun getText() : String{
+        return textForNote.text.toString()
+    }
     override fun getPart(): String {
         return "selected_day_note"
     }
