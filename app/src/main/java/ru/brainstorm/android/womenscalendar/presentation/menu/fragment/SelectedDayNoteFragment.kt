@@ -14,6 +14,7 @@ import kotlinx.coroutines.async
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import org.threeten.bp.LocalDate
+import org.threeten.bp.format.DateTimeFormatter
 import ru.brainstorm.android.womenscalendar.App
 
 import ru.brainstorm.android.womenscalendar.R
@@ -26,6 +27,10 @@ import ru.brainstorm.android.womenscalendar.presentation.menu.view.SelectedDayNo
 import javax.inject.Inject
 
 class SelectedDayNoteFragment : AbstractMenuFragment(), SelectedDayNoteView {
+
+    private val dateFormatter = DateTimeFormatter.ofPattern("dd")
+    private val monthFormatter = DateTimeFormatter.ofPattern("MMMM")
+    private val dayOfWeekFormatter = DateTimeFormatter.ofPattern("EEEE")
 
     @InjectPresenter
     lateinit var selectedDayNotePresenter: SelectedDayNotePresenter
@@ -80,7 +85,8 @@ class SelectedDayNoteFragment : AbstractMenuFragment(), SelectedDayNoteView {
     }
 
     override fun setInformation(date: String, text: String) {
-        dateForNote.setText(date)
+        val localDate = LocalDate.parse(date)
+        dateForNote.setText("${dateFormatter.format(localDate)} ${monthFormatter.format(localDate)}")
         textForNote.setText(text)
     }
 

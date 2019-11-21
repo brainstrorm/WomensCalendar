@@ -23,7 +23,6 @@ class NoteRedactorFragment : AbstractMenuFragment(), NoteRedactorView {
     private lateinit var dateNoteRedactor : TextView
 
     private val dateFormatter = DateTimeFormatter.ofPattern("dd")
-    private val dayFormatter = DateTimeFormatter.ofPattern("EEE")
     private val monthFormatter = DateTimeFormatter.ofPattern("MMMM")
     private val dayOfWeekFormatter = DateTimeFormatter.ofPattern("EEEE")
     private lateinit var date: String
