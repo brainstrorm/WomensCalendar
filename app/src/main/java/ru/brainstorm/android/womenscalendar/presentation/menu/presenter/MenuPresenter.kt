@@ -5,8 +5,10 @@ import androidx.fragment.app.FragmentManager
 import moxy.InjectViewState
 import moxy.MvpPresenter
 import ru.brainstorm.android.womenscalendar.R
+import ru.brainstorm.android.womenscalendar.presentation.menu.activity.MenuActivity
 import ru.brainstorm.android.womenscalendar.presentation.menu.fragment.*
 import ru.brainstorm.android.womenscalendar.presentation.menu.view.MenuView
+import java.util.*
 import javax.inject.Inject
 
 @InjectViewState
@@ -14,11 +16,23 @@ class MenuPresenter
 @Inject constructor()
     : MvpPresenter<MenuView>() {
 
+    private var stackOfFragments =  Stack<String>()
+    internal var date = ""
+    internal var text = ""
 
     fun providePart(part : String){
         viewState.setPart(part)
     }
 
+    fun addFragmentToBackStack(fragment: AbstractMenuFragment){
+        stackOfFragments.push(fragment.getPart())
+    }
+
+    fun popBackStack(fm : FragmentManager){
+        if(!stackOfFragments.isEmpty()){
+            setFragment(fm, stackOfFragments.pop())
+        }
+    }
     fun setFragment(fm: FragmentManager, part : String){
         lateinit var fragment : AbstractMenuFragment
         for (fr in fm.fragments) {
@@ -42,9 +56,9 @@ class MenuPresenter
                         fm.beginTransaction()
                             .show(this)
                             .commit()
-                        var fr = fm.findFragmentByTag(SelectedDayNoteFragment.TAG) as SelectedDayNoteFragment
+                        var fr = fm.findFragmentByTag(SelectedDayNoteFragment.TAG)
                         if(fr != null) {
-                                fr.selectedDayNotePresenter.setInformationFromCalendar(fr.getDate())
+                            (fr as SelectedDayNoteFragment).selectedDayNotePresenter.setInformationFromCalendar(fr.getDate())
                             fm.beginTransaction()
                                 .show(fm.findFragmentByTag(SelectedDayNoteFragment.TAG)!!)
                                 .commit()
@@ -92,10 +106,20 @@ class MenuPresenter
                 }
             }
             "note_redactor" -> {
-                val selectedDayNoteFragment = fm.findFragmentByTag(SelectedDayNoteFragment.TAG) as SelectedDayNoteFragment
+                if(fm.findFragmentByTag(ListOfNotesFragment.TAG) != null) {
+                    fm.beginTransaction()
+                        .remove(fm.findFragmentByTag(ListOfNotesFragment.TAG)!!)
+                        .commit()
+                }
+                if(stackOfFragments.peek() == "calendar") {
+                    val fragment_ =
+                        fm.findFragmentByTag(SelectedDayNoteFragment.TAG) as SelectedDayNoteFragment
+                    date = fragment_.getDate()
+                    text = fragment_.getText()
+                }
                 if(fm.findFragmentByTag(NoteRedactorFragment.TAG) == null) {
                     fragment = NoteRedactorFragment()
-                    fragment.provideInformation(selectedDayNoteFragment.getDate(), selectedDayNoteFragment.getText())
+                    fragment.provideInformation(date, text)
                     fragment.apply {
                         fm.beginTransaction()
                             .add(R.id.for_fragment, this, NoteRedactorFragment.TAG)
@@ -104,7 +128,7 @@ class MenuPresenter
                     }
                 }else{
                     fragment = fm.findFragmentByTag(NoteRedactorFragment.TAG) as NoteRedactorFragment
-                    fragment.provideInformation(selectedDayNoteFragment.getDate(), selectedDayNoteFragment.getText())
+                    fragment.provideInformation(date, text)
                     fragment.noteRedactorPresenter.viewState.setInformation()
                     fragment.apply {
                         fm.beginTransaction()

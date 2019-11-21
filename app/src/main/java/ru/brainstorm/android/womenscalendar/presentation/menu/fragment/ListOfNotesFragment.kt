@@ -58,6 +58,9 @@ class ListOfNotesFragment : AbstractMenuFragment(), ListOfNotesView {
 
             holder.itemView.setOnClickListener{
                 val menuActivity = activity as MenuActivity
+                menuActivity.menuPresenter.addFragmentToBackStack(this@ListOfNotesFragment)
+                menuActivity.menuPresenter.date = holder.dateOfNote!!.text.toString()
+                menuActivity.menuPresenter.text = holder.textOfNote!!.text.toString()
                 menuActivity.menuPresenter.setFragment(menuActivity.supportFragmentManager, "note_redactor")
             }
         }
@@ -112,4 +115,5 @@ class ListOfNotesFragment : AbstractMenuFragment(), ListOfNotesView {
     }
 
     override fun getPart(): String = "notes"
+
 }

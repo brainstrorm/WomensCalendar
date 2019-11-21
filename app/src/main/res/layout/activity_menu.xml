@@ -200,6 +200,18 @@
             app:layout_constraintBottom_toBottomOf="@id/topBar"
             app:srcCompat="@drawable/ic_toggle_button" />
 
+        <TextView
+            android:id="@+id/notes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/notes"
+            android:textColor="@color/colorForBtnDurationMenstruationPink"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/topBar"
+            app:layout_constraintEnd_toEndOf="@+id/topBar"
+            app:layout_constraintStart_toStartOf="@+id/topBar"
+            app:layout_constraintTop_toTopOf="@+id/topBar"></TextView>
+
         <ImageView
             android:id="@+id/btn_statistics"
             android:layout_width="wrap_content"
