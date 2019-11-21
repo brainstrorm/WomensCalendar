@@ -21,7 +21,6 @@ class SelectedDayNotePresenter
     lateinit var noteDao: NoteDao
 
     fun setInformationFromCalendar(date : String){
-        //val note = checkForNoteByDay(LocalDate.parse(date))
         var note : Note
         GlobalScope.async(Dispatchers.IO) {
             note = noteDao.getByDate(date.toString())

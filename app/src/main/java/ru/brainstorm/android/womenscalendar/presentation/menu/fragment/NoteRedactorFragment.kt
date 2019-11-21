@@ -8,6 +8,8 @@ import android.widget.EditText
 import android.widget.TextView
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
+import org.threeten.bp.LocalDate
+import org.threeten.bp.format.DateTimeFormatter
 import org.w3c.dom.Text
 import ru.brainstorm.android.womenscalendar.App
 import ru.brainstorm.android.womenscalendar.R
@@ -20,6 +22,10 @@ class NoteRedactorFragment : AbstractMenuFragment(), NoteRedactorView {
     private lateinit var textNoteRedactor : EditText
     private lateinit var dateNoteRedactor : TextView
 
+    private val dateFormatter = DateTimeFormatter.ofPattern("dd")
+    private val dayFormatter = DateTimeFormatter.ofPattern("EEE")
+    private val monthFormatter = DateTimeFormatter.ofPattern("MMMM")
+    private val dayOfWeekFormatter = DateTimeFormatter.ofPattern("EEEE")
     private lateinit var date: String
     private lateinit var text: String
     @InjectPresenter
@@ -66,8 +72,10 @@ class NoteRedactorFragment : AbstractMenuFragment(), NoteRedactorView {
     override fun getPart(): String = "note_redactor"
 
     override fun setInformation() {
+        val localDate = LocalDate.parse(date)
         textNoteRedactor.setText(text)
-        dateNoteRedactor.setText(date)
+        view!!.findViewById<TextView>(R.id.date_notes_redactor).setText("${dayOfWeekFormatter.format(localDate)}," +
+                " ${dateFormatter.format(localDate)} ${monthFormatter.format(localDate)} ${localDate.year} г.")
     }
 }
 

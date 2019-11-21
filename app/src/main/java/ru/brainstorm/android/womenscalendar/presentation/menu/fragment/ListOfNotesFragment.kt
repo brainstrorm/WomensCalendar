@@ -18,6 +18,7 @@ import ru.brainstorm.android.womenscalendar.data.database.entities.Note
 import ru.brainstorm.android.womenscalendar.presentation.menu.activity.MenuActivity
 import ru.brainstorm.android.womenscalendar.presentation.menu.presenter.ListOfNotesPresenter
 import ru.brainstorm.android.womenscalendar.presentation.menu.view.ListOfNotesView
+import java.time.LocalDate
 import javax.inject.Inject
 
 class ListOfNotesFragment : AbstractMenuFragment(), ListOfNotesView {
@@ -50,17 +51,17 @@ class ListOfNotesFragment : AbstractMenuFragment(), ListOfNotesView {
             if(noteText.length > 15){
                 noteText = noteText.substring(15)
             }
-            val noteDate = note.noteDate
+            val noteDate = org.threeten.bp.LocalDate.parse(note.noteDate)
 
             holder.textOfNote?.setText(noteText)
-            holder.dateOfNote?.setText(noteDate)
+            holder.dateOfNote?.setText("${noteDate.dayOfMonth}/${noteDate.monthValue}/${noteDate.year}")
 
 
             holder.itemView.setOnClickListener{
                 val menuActivity = activity as MenuActivity
                 menuActivity.menuPresenter.addFragmentToBackStack(this@ListOfNotesFragment)
-                menuActivity.menuPresenter.date = holder.dateOfNote!!.text.toString()
-                menuActivity.menuPresenter.text = holder.textOfNote!!.text.toString()
+                menuActivity.menuPresenter.date = note.noteDate
+                menuActivity.menuPresenter.text = note.noteText
                 menuActivity.menuPresenter.setFragment(menuActivity.supportFragmentManager, "note_redactor")
             }
         }
@@ -88,12 +89,9 @@ class ListOfNotesFragment : AbstractMenuFragment(), ListOfNotesView {
         val view = inflater.inflate(R.layout.fragment_list_of_notes, container, false)
 
         App.appComponent.inject(this)
-        //var note = Note()
-        //note.noteText = "text"
-        //note.noteDate = "2019-11-17"
+
         runBlocking {
             val job = GlobalScope.launch(Dispatchers.IO) {
-                //noteDao.insert(note)
                 notes = noteDao.getAll()
             }
             job.join()
