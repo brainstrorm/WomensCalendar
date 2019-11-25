@@ -214,6 +214,9 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
             R.id.btn_back -> {
                 menuPresenter.popBackStack(supportFragmentManager)
             }
+            R.id.btn_new_date_menu -> {
+                menuPresenter.setFragment(supportFragmentManager, "change_menstruation_dates")
+            }
         }
 
     }

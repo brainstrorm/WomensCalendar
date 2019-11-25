@@ -6,10 +6,7 @@ import dagger.Subcomponent
 import ru.brainstorm.android.womenscalendar.di.modules.QuizModule
 import ru.brainstorm.android.womenscalendar.presentation.menu.activity.MenuActivity
 import ru.brainstorm.android.womenscalendar.presentation.menu.fragment.*
-import ru.brainstorm.android.womenscalendar.presentation.menu.presenter.CalendarPickerPresenter
-import ru.brainstorm.android.womenscalendar.presentation.menu.presenter.ListOfNotesPresenter
-import ru.brainstorm.android.womenscalendar.presentation.menu.presenter.NoteRedactorPresenter
-import ru.brainstorm.android.womenscalendar.presentation.menu.presenter.SelectedDayNotePresenter
+import ru.brainstorm.android.womenscalendar.presentation.menu.presenter.*
 import ru.brainstorm.android.womenscalendar.presentation.quiz.presenter.*
 import ru.brainstorm.android.womenscalendar.presentation.splash.activity.SplashScreenActivity
 import ru.brainstorm.android.womenscalendar.presentation.splash.presenter.SplashScreenPresenter
@@ -44,6 +41,8 @@ interface AppComponent {
 
     fun inject(noteRedactor: NoteRedactorFragment)
 
+    fun inject(changeMenstruationDates : ChangeMenstruationDatesFragment)
+
     fun presenter(): PresenterComponent
 
     @Subcomponent
@@ -64,5 +63,7 @@ interface AppComponent {
         fun selectedDayNotePresenter() : SelectedDayNotePresenter
 
         fun noteRedactorPresenter() : NoteRedactorPresenter
+
+        fun changeMenstruationDatesPresenter() : ChangeMenstruationDatesPresenter
     }
 }
