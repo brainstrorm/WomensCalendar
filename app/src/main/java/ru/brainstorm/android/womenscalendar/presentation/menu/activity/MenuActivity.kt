@@ -140,8 +140,8 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
                     View.VISIBLE, View.VISIBLE, View.VISIBLE, View.VISIBLE,
                     View.GONE, View.GONE, View.GONE)
                 btnCalendar?.setBackgroundResource(R.drawable.ic_btn_calendar_menu_blue)
-                btnCalendar?.layoutParams.width = 21
-                btnCalendar?.layoutParams.height = 21
+                btnCalendar?.layoutParams.width = 51
+                btnCalendar?.layoutParams.height = 51
                 txtvwCalendar.setTextColor(resources.getColor(R.color.colorBlueNotesRedactor))
 
 
@@ -151,8 +151,8 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
                     View.GONE, View.VISIBLE, View.VISIBLE, View.VISIBLE,
                     View.GONE, View.GONE, View.VISIBLE)
                 btnInfo?.setBackgroundResource(R.drawable.ic_btn_notes_for_menu_blue)
-                btnInfo?.layoutParams.width = 18
-                btnInfo?.layoutParams.height = 18
+                btnInfo?.layoutParams.width = 48
+                btnInfo?.layoutParams.height = 48
                 txtvwNotes.setTextColor(resources.getColor(R.color.colorBlueNotesRedactor))
 
 
@@ -167,8 +167,8 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
                     View.GONE, View.VISIBLE, View.VISIBLE, View.VISIBLE,
                     View.GONE, View.GONE, View.GONE)
                 btnMore?.setBackgroundResource(R.drawable.ic_btn_more_menu_blue)
-                btnMore?.layoutParams.width = 18
-                btnMore?.layoutParams.height = 18
+                btnMore?.layoutParams.width = 48
+                btnMore?.layoutParams.height = 48
                 txtvwMore.setTextColor(resources.getColor(R.color.colorBlueNotesRedactor))
 
 
