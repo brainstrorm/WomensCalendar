@@ -122,22 +122,6 @@
             app:layout_constraintVertical_bias="0.647"
             tools:ignore="VectorDrawableCompat" />
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:background="@null"
-            android:padding="7dp"
-            android:visibility="invisible"
-            android:text="@string/btn_save_menu"
-            android:textColor="@color/color_White"
-            android:textSize="17dp"
-            app:layout_constraintHorizontal_bias="0.489"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.39" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -312,7 +296,24 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/button_bg" />
+        app:srcCompat="@drawable/button_bg" >
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@null"
+            android:padding="7dp"
+            android:visibility="invisible"
+            android:text="@string/btn_save_menu"
+            android:textColor="@color/color_White"
+            android:textSize="17dp"
+            app:layout_constraintHorizontal_bias="0.489"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.39" />
 
     <TextView
         android:id="@+id/btn_save"
@@ -347,5 +348,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/down_blue_bar"
         app:layout_constraintTop_toTopOf="@+id/down_blue_bar"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="1.0" />    </ImageView>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
