@@ -80,5 +80,7 @@
     <string name="length_of_cycle">"%1$d %1$d.getDayAddition()"</string>
     <string name="notes">Заметки</string>
     <string name="done_notes">Готово</string>
+    <string name="btn_canceled_menu">Отмена</string>
+    <string name="btn_save_menu">Сохранить</string>
 
 </resources>

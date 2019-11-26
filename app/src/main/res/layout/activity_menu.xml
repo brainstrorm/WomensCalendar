@@ -122,6 +122,23 @@
             app:layout_constraintVertical_bias="0.647"
             tools:ignore="VectorDrawableCompat" />
 
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@null"
+            android:padding="7dp"
+            android:visibility="invisible"
+            android:text="@string/btn_save_menu"
+            android:textColor="@color/color_White"
+            android:textSize="17dp"
+            app:layout_constraintHorizontal_bias="0.489"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.39" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -260,6 +277,18 @@
             app:layout_constraintStart_toStartOf="@+id/topBar"
             app:layout_constraintTop_toTopOf="@+id/topBar"
             app:layout_constraintVertical_bias="0.4" />
+
+        <ImageView
+            android:id="@+id/cross"
+            android:layout_width="16dp"
+            android:layout_height="15dp"
+            android:visibility="invisible"
+            android:layout_marginStart="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/for_fragment"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/topBar"
+            app:layout_constraintVertical_bias="0.444"
+            app:srcCompat="@drawable/ic_cross" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageButton
@@ -274,4 +303,32 @@
         app:layout_constraintStart_toEndOf="@+id/constraintLayout"
         app:srcCompat="@drawable/btn_plus_menu"
         tools:ignore="VectorDrawableCompat" />
+
+    <ImageView
+        android:id="@+id/down_blue_bar"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/button_bg" />
+
+    <TextView
+        android:id="@+id/btn_canceled"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="168dp"
+        android:background="@null"
+        android:visibility="invisible"
+        android:padding="7dp"
+        android:text="@string/btn_canceled_menu"
+        android:textColor="@color/color_Grey"
+        android:textSize="17dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_plus_menu"
+        app:layout_constraintEnd_toEndOf="@+id/constraintLayout2"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/down_blue_bar"
+        app:layout_constraintTop_toTopOf="@+id/down_blue_bar"
+        app:layout_constraintVertical_bias="1.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>
