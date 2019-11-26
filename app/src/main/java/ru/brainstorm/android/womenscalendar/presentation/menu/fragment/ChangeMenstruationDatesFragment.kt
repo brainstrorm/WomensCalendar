@@ -29,6 +29,7 @@ import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.daysOfWee
 import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.makeInVisible
 import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.makeVisible
 import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.setTextColorRes
+import kotlin.math.round
 
 
 class ChangeMenstruationDatesFragment : AbstractMenuFragment(), ChangeMenstruationDatesView {
@@ -42,6 +43,9 @@ class ChangeMenstruationDatesFragment : AbstractMenuFragment(), ChangeMenstruati
     companion object{
         val TAG = "ChangeMenstruationDates"
     }
+
+    private var startDate : LocalDate? = null
+    private var endDate : LocalDate? = null
 
     override fun getPart(): String = "change_menstruation_dates"
 
@@ -106,15 +110,18 @@ class ChangeMenstruationDatesFragment : AbstractMenuFragment(), ChangeMenstruati
             init {
                 view.setOnClickListener {
                     if (day.owner == DayOwner.THIS_MONTH) {
-                        if (selectedDate == day.date) {
-                            selectedDate = null
-                            calendarView.notifyDayChanged(day)
+                        val date = day.date
+                        if (startDate != null) {
+                            if (date < startDate || endDate != null) {
+                                startDate = date
+                                endDate = null
+                            } else if (date != startDate) {
+                                endDate = date
+                            }
                         } else {
-                            val oldDate = selectedDate
-                            selectedDate = day.date
-                            calendarView.notifyDateChanged(day.date)
-                            oldDate?.let { calendarView.notifyDateChanged(oldDate) }
+                            startDate = date
                         }
+                        calendarView.notifyCalendarChanged()
                         //menuItem.isVisible = selectedDate != null
                     }
                 }
@@ -127,16 +134,28 @@ class ChangeMenstruationDatesFragment : AbstractMenuFragment(), ChangeMenstruati
                 container.day = day
                 val textView = container.textView
                 val roundField = container.roundField
-                textView.text = day.date.dayOfMonth.toString()
 
                 if (day.owner == DayOwner.THIS_MONTH) {
-                    textView.makeVisible()
-                    roundField.makeVisible()
-                    when (day.date) {
-                        selectedDate -> {
+                    textView.text = day.date.dayOfMonth.toString()
+                    when{
+                        startDate == day.date && endDate == null -> {
+                            textView.setTextColorRes(R.color.colorPrimaryDark)
+                            roundField.makeVisible()
                             roundField.setBackgroundResource(R.drawable.round_field_selected)
                         }
-                        today -> {
+                        day.date == startDate -> {
+                            textView.setTextColorRes(R.color.colorPrimaryDark)
+                            roundField.setBackgroundResource(R.drawable.round_field_selected)
+                        }
+                        startDate != null && endDate != null && (day.date > startDate && day.date < endDate) -> {
+                            textView.setTextColorRes(R.color.colorPrimaryDark)
+                            roundField.setBackgroundResource(R.drawable.round_field_selected)
+                        }
+                        day.date == endDate -> {
+                            textView.setTextColorRes(R.color.colorPrimaryDark)
+                            roundField.setBackgroundResource(R.drawable.round_field_selected)
+                        }
+                        day.date == today -> {
                             textView.setTextColorRes(R.color.color_red)
                             roundField.setBackgroundResource(R.drawable.round_field_not_selected)
                         }
@@ -146,8 +165,35 @@ class ChangeMenstruationDatesFragment : AbstractMenuFragment(), ChangeMenstruati
                         }
                     }
                 } else {
-                    textView.makeInVisible()
+                    // This part is to make the coloured selection background continuous
+                    // on the blank in and out dates across various months and also on dates(months)
+                    // between the start and end dates if the selection spans across multiple months.
                     roundField.makeInVisible()
+                    val startDate = startDate
+                    val endDate = endDate
+                    if (startDate != null && endDate != null) {
+                        // Mimic selection of inDates that are less than the startDate.
+                        // Example: When 26 Feb 2019 is startDate and 5 Mar 2019 is endDate,
+                        // this makes the inDates in Mar 2019 for 24 & 25 Feb 2019 look selected.
+                        if ((day.owner == DayOwner.PREVIOUS_MONTH
+                                    && startDate.monthValue == day.date.monthValue
+                                    && endDate.monthValue != day.date.monthValue) ||
+                            // Mimic selection of outDates that are greater than the endDate.
+                            // Example: When 25 Apr 2019 is startDate and 2 May 2019 is endDate,
+                            // this makes the outDates in Apr 2019 for 3 & 4 May 2019 look selected.
+                            (day.owner == DayOwner.NEXT_MONTH
+                                    && startDate.monthValue != day.date.monthValue
+                                    && endDate.monthValue == day.date.monthValue) ||
+
+                            // Mimic selection of in and out dates of intermediate
+                            // months if the selection spans across multiple months.
+                            (startDate < day.date && endDate > day.date
+                                    && startDate.monthValue != day.date.monthValue
+                                    && endDate.monthValue != day.date.monthValue)
+                        ) {
+                            roundField.setBackgroundResource(R.drawable.round_field_selected)
+                        }
+                    }
                 }
             }
         }

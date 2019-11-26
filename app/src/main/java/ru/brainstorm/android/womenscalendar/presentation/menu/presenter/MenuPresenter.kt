@@ -140,6 +140,7 @@ class MenuPresenter
             }
             "change_menstruation_dates" -> {
                 fragment = ChangeMenstruationDatesFragment();
+                viewState.setPart("change_menstruation_dates")
                 fragment.apply {
                     fm.beginTransaction()
                         .add(R.id.for_fragment, this, ChangeMenstruationDatesFragment.TAG)

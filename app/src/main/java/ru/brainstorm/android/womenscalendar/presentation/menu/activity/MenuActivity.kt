@@ -2,6 +2,7 @@ package ru.brainstorm.android.womenscalendar.presentation.menu.activity
 
 import android.content.Context
 import android.content.Intent
+import android.media.Image
 import android.os.Bundle
 import android.view.View
 import android.widget.FrameLayout
@@ -52,6 +53,10 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
     private lateinit var btnBack : ImageView
     private lateinit var btnDone : TextView
     private lateinit var txtvwNotesHeader : TextView
+    private lateinit var btnCross : ImageView
+    private lateinit var txtvwCanceled : TextView
+    private lateinit var txtvwSave : TextView
+    private lateinit var downBlueBar : ImageView
     @Inject
     lateinit var cycleDao: CycleDao
 
@@ -86,6 +91,10 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
         txtvwNotes = findViewById<TextView>(R.id.info_text)
         txtvwMore = findViewById<TextView>(R.id.more)
         txtvwNotesHeader = findViewById<TextView>(R.id.notes)
+        btnCross = findViewById<ImageView>(R.id.btn_cross).apply { setOnClickListener(this@MenuActivity) }
+        txtvwCanceled = findViewById<TextView>(R.id.btn_canceled).apply { setOnClickListener(this@MenuActivity) }
+        txtvwSave = findViewById<TextView>(R.id.btn_save).apply { setOnClickListener(this@MenuActivity) }
+        downBlueBar = findViewById<ImageView>(R.id.down_blue_bar)
 
         App.appComponent.inject(this)
         menuPresenter.setFragment(supportFragmentManager, "today")
@@ -127,7 +136,8 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
             "today" ->{
                 setVisibility(View.GONE, View.GONE, View.GONE,
                     View.VISIBLE, View.VISIBLE, View.VISIBLE, View.VISIBLE,
-                    View.GONE, View.GONE, View.GONE)
+                    View.GONE, View.GONE, View.GONE,
+                    View.GONE, View.GONE, View.GONE, View.GONE)
                 btnToday?.setBackgroundResource(R.drawable.ic_btn_today_menu_blue)
                 btnToday?.layoutParams.width = 51
                 btnToday?.layoutParams.height = 51
@@ -138,7 +148,8 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
             "calendar" ->{
                 setVisibility(View.VISIBLE, View.VISIBLE, View.VISIBLE,
                     View.VISIBLE, View.VISIBLE, View.VISIBLE, View.VISIBLE,
-                    View.GONE, View.GONE, View.GONE)
+                    View.GONE, View.GONE, View.GONE,
+                    View.GONE, View.GONE, View.GONE, View.GONE)
                 btnCalendar?.setBackgroundResource(R.drawable.ic_btn_calendar_menu_blue)
                 btnCalendar?.layoutParams.width = 51
                 btnCalendar?.layoutParams.height = 51
@@ -149,7 +160,8 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
             "notes" ->{
                 setVisibility(View.VISIBLE, View.GONE, View.GONE,
                     View.GONE, View.VISIBLE, View.VISIBLE, View.VISIBLE,
-                    View.GONE, View.GONE, View.VISIBLE)
+                    View.GONE, View.GONE, View.VISIBLE,
+                    View.GONE, View.GONE, View.GONE, View.GONE)
                 btnInfo?.setBackgroundResource(R.drawable.ic_btn_notes_for_menu_blue)
                 btnInfo?.layoutParams.width = 48
                 btnInfo?.layoutParams.height = 48
@@ -160,18 +172,24 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
             "note_redactor" ->{
                 setVisibility(View.VISIBLE, View.GONE, View.GONE,
                     View.GONE, View.GONE, View.GONE, View.GONE,
-                    View.VISIBLE, View.VISIBLE, View.VISIBLE)
+                    View.VISIBLE, View.VISIBLE, View.VISIBLE,
+                    View.GONE, View.GONE, View.GONE, View.GONE)
             }
             "more" ->{
                 setVisibility(View.VISIBLE, View.GONE, View.GONE,
                     View.GONE, View.VISIBLE, View.VISIBLE, View.VISIBLE,
-                    View.GONE, View.GONE, View.GONE)
+                    View.GONE, View.GONE, View.GONE,
+                    View.GONE, View.GONE, View.GONE, View.GONE)
                 btnMore?.setBackgroundResource(R.drawable.ic_btn_more_menu_blue)
                 btnMore?.layoutParams.width = 48
                 btnMore?.layoutParams.height = 48
                 txtvwMore.setTextColor(resources.getColor(R.color.colorBlueNotesRedactor))
-
-
+            }
+            "change_menstruation_dates" -> {
+                setVisibility(View.VISIBLE, View.GONE, View.GONE,
+                    View.GONE, View.GONE, View.GONE, View.GONE,
+                    View.GONE, View.GONE, View.GONE,
+                    View.VISIBLE, View.VISIBLE, View.VISIBLE, View.VISIBLE)
             }
         }
     }
@@ -216,6 +234,7 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
             }
             R.id.btn_new_date_menu -> {
                 menuPresenter.setFragment(supportFragmentManager, "change_menstruation_dates")
+
             }
         }
 
@@ -223,7 +242,9 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
 
     fun setVisibility(topBarVisibility : Int, btnMonthOrYearVisibility : Int, btnStatisticsVisibility : Int,
                       btnNewDatesVisibility : Int, layoutLeftVisibility : Int, layoutRightVisibility : Int, btnPlusNoteVisibility : Int,
-                      btnBackVisibility : Int, btnDoneVisibility: Int, txtvwNotesHeaderVisibility : Int){
+                      btnBackVisibility : Int, btnDoneVisibility: Int, txtvwNotesHeaderVisibility : Int,
+                      btnCrossVisibility : Int, downBlueBarVisibility : Int, txtvwCanceledVisibility : Int,
+                      txtvwSaveVisibility : Int){
         topBar.visibility = topBarVisibility
         btnMonthOrYear.visibility = btnMonthOrYearVisibility
         btnStatistics.visibility = btnStatisticsVisibility
@@ -235,5 +256,9 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
         btnBack.visibility = btnBackVisibility
         btnDone.visibility = btnDoneVisibility
         txtvwNotesHeader.visibility = txtvwNotesHeaderVisibility
+        btnCross.visibility = btnCrossVisibility
+        downBlueBar.visibility = downBlueBarVisibility
+        txtvwCanceled.visibility = txtvwCanceledVisibility
+        txtvwSave.visibility = txtvwSaveVisibility
     }
 }
