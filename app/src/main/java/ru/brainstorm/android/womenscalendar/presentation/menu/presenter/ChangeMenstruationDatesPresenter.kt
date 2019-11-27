@@ -8,12 +8,12 @@ import kotlinx.coroutines.runBlocking
 import moxy.InjectViewState
 import moxy.MvpPresenter
 import moxy.MvpView
+import org.threeten.bp.LocalDate
 import ru.brainstorm.android.womenscalendar.data.database.dao.CycleDao
 import ru.brainstorm.android.womenscalendar.presentation.menu.extra.differenceBetweenDates
 import ru.brainstorm.android.womenscalendar.presentation.menu.fragment.CalendarPickerFragment
 import ru.brainstorm.android.womenscalendar.presentation.menu.fragment.WeekModeCalendarFragment
 import ru.brainstorm.android.womenscalendar.presentation.menu.view.ChangeMenstruationDatesView
-import java.time.LocalDate
 import javax.inject.Inject
 
 @InjectViewState
@@ -25,7 +25,7 @@ constructor()
     @Inject
     lateinit var cycleDao: CycleDao
 
-    fun save(startDate : LocalDate, endDate : LocalDate, fm : FragmentManager){
+    fun save(startDate : LocalDate?, endDate : LocalDate?, fm : FragmentManager){
         if (startDate != null && endDate != null) {
             runBlocking {
                 val job = GlobalScope.launch(Dispatchers.IO) {

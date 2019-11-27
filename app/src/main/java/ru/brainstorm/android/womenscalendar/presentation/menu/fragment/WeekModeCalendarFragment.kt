@@ -20,10 +20,7 @@ import com.kizitonwose.calendarview.ui.ViewContainer
 import kotlinx.android.synthetic.main.calendar_day_week_mode.view.*
 import kotlinx.android.synthetic.main.fragment_week_mode_calendar.*
 import kotlinx.android.synthetic.main.fragment_week_mode_calendar.view.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import kotlinx.coroutines.selects.select
 import org.threeten.bp.DayOfWeek
 import org.threeten.bp.LocalDate
@@ -125,12 +122,15 @@ class WeekModeCalendarFragment : AbstractMenuFragment() {
 
         App.appComponent.inject(this)
         var menstruationDays = listOf<Cycle>()
-        GlobalScope.launch(Dispatchers.IO){
-            if(!cycleDao.getAll()[0].predicted) {
-                predictorImpl.predict(5).join()
-                predictorImpl.updateOvulation().join()
+        runBlocking {
+            val job = GlobalScope.launch(Dispatchers.IO) {
+                if (!cycleDao.getAll()[0].predicted) {
+                    predictorImpl.predict(5)
+                    predictorImpl.updateOvulation()
+                }
+                menstruationDays = cycleDao.getAll()
             }
-            menstruationDays = cycleDao.getAll()
+            job.join()
         }
 
         val dm = DisplayMetrics()

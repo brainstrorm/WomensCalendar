@@ -217,4 +217,12 @@ class ChangeMenstruationDatesFragment : AbstractMenuFragment(), ChangeMenstruati
         }
     }
 
+    fun getStartDate() : LocalDate?{
+        return startDate
+    }
+
+    fun getEndDate() : LocalDate? {
+        return endDate
+    }
+
 }

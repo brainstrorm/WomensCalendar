@@ -4,7 +4,9 @@ import android.content.Context
 import android.content.Intent
 import android.media.Image
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.ImageView
@@ -21,6 +23,7 @@ import ru.brainstorm.android.womenscalendar.presentation.menu.fragment.*
 import ru.brainstorm.android.womenscalendar.presentation.menu.presenter.MenuPresenter
 import ru.brainstorm.android.womenscalendar.presentation.menu.view.MenuView
 import ru.brainstorm.android.womenscalendar.presentation.statistics.activity.StatisticsActivity
+import java.security.AccessController.getContext
 import java.util.*
 import javax.inject.Inject
 
@@ -234,7 +237,27 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
             }
             R.id.btn_new_date_menu -> {
                 menuPresenter.setFragment(supportFragmentManager, "change_menstruation_dates")
+                var calendarPickerFragment : AbstractMenuFragment? = supportFragmentManager.findFragmentByTag(CalendarPickerFragment.TAG)
+                    as AbstractMenuFragment?
+                var weekModeCalendarFragment : AbstractMenuFragment? = supportFragmentManager.findFragmentByTag(WeekModeCalendarFragment.TAG)
+                    as AbstractMenuFragment?
+                if(calendarPickerFragment != null && calendarPickerFragment.isHidden == false)
+                    menuPresenter.addFragmentToBackStack(calendarPickerFragment)
+                if(weekModeCalendarFragment != null && weekModeCalendarFragment.isHidden == false)
+                    menuPresenter.addFragmentToBackStack(weekModeCalendarFragment)
 
+            }
+            R.id.btn_cross, R.id.btn_canceled-> {
+                menuPresenter.popBackStack(supportFragmentManager)
+            }
+            R.id.btn_save -> {
+                val changeMenstruationDatesFragment = supportFragmentManager.findFragmentByTag(
+                    ChangeMenstruationDatesFragment.TAG
+                ) as ChangeMenstruationDatesFragment
+                changeMenstruationDatesFragment.apply {
+                    changeMenstruationDatesPresenter.save(getStartDate(), getEndDate(), supportFragmentManager)
+                }
+                menuPresenter.popBackStack(supportFragmentManager)
             }
         }
 
