@@ -139,13 +139,23 @@ class MenuPresenter
                 }
             }
             "change_menstruation_dates" -> {
-                fragment = ChangeMenstruationDatesFragment();
-                viewState.setPart("change_menstruation_dates")
-                fragment.apply {
-                    fm.beginTransaction()
-                        .add(R.id.for_fragment, this, ChangeMenstruationDatesFragment.TAG)
-                        .commit()
+                if(fm.findFragmentByTag(ChangeMenstruationDatesFragment.TAG) == null){
+                    fragment = ChangeMenstruationDatesFragment()
+                    fragment.apply {
+                        fm.beginTransaction()
+                            .add(R.id.for_fragment, this, ChangeMenstruationDatesFragment.TAG)
+                            .commit()
+                    }
+                }else{
+                    fragment = fm.findFragmentByTag(ChangeMenstruationDatesFragment.TAG)
+                            as ChangeMenstruationDatesFragment
+                    fragment.apply {
+                        fm.beginTransaction()
+                            .show(this)
+                            .commit()
+                    }
                 }
+                viewState.setPart("change_menstruation_dates")
             }
         }
     }
