@@ -79,8 +79,8 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
         layoutLeft = findViewById<ConstraintLayout>(R.id.constraintLayout)
         layoutRight = findViewById<ConstraintLayout>(R.id.constraintLayout2)
         btnStatistics = findViewById<ImageView>(R.id.btn_statistics).apply { setOnClickListener(this@MenuActivity) }
-        btnToday = findViewById<ImageButton>(R.id.today).apply{setOnClickListener(this@MenuActivity)}
-        btnCalendar = findViewById<ImageButton>(R.id.calendar).apply{setOnClickListener(this@MenuActivity)}
+        btnToday = findViewById<ImageButton>(R.id.btn_today).apply{setOnClickListener(this@MenuActivity)}
+        btnCalendar = findViewById<ImageButton>(R.id.btn_calendar).apply{setOnClickListener(this@MenuActivity)}
         btnInfo = findViewById<ImageView>(R.id.info).apply{setOnClickListener(this@MenuActivity)}
         btnMore = findViewById<ImageButton>(R.id.more_text).apply{setOnClickListener(this@MenuActivity)}
         btnPlusNote = findViewById<ImageButton>(R.id.btn_plus_menu).apply { setOnClickListener(this@MenuActivity) }
