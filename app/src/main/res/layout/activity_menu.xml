@@ -316,14 +316,14 @@
             app:layout_constraintEnd_toEndOf="@+id/down_blue_bar"
             app:layout_constraintHorizontal_bias="0.9"
             app:layout_constraintStart_toStartOf="@+id/down_blue_bar"
-            app:layout_constraintTop_toTopOf="@+id/down_blue_bar"
-            app:layout_constraintVertical_bias="0.55" />
+            app:layout_constraintTop_toTopOf="@+id/down_blue_bar" />
 
         <TextView
             android:id="@+id/btn_canceled"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="168dp"
+            android:layout_marginStart="80dp"
+            android:layout_marginEnd="80dp"
             android:background="@null"
             android:padding="7dp"
             android:text="@string/btn_canceled_menu"
@@ -332,7 +332,6 @@
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@+id/down_blue_bar"
             app:layout_constraintEnd_toEndOf="@+id/down_blue_bar"
-            app:layout_constraintHorizontal_bias="0.1"
             app:layout_constraintStart_toStartOf="@+id/down_blue_bar"
             app:layout_constraintTop_toTopOf="@+id/btn_save"
             app:layout_constraintVertical_bias="0.0" />
