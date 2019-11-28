@@ -145,6 +145,7 @@ class CalendarPickerFragment : AbstractMenuFragment(), CalendarPickerView{
             val blobeStart = view.findViewById<ImageView>(R.id.blobeStart)
             val blobeEnd = view.findViewById<ImageView>(R.id.blobeEnd)
             val todayRound = view.findViewById<ImageView>(R.id.todayRound)
+            //val todayRing = view.findViewById<View>(R.id.for_circle)
 
             //обработчик нажатий
             init {
@@ -167,6 +168,7 @@ class CalendarPickerFragment : AbstractMenuFragment(), CalendarPickerView{
                 val startBlobe = container.blobeStart
                 val endBlobe = container.blobeEnd
                 val todayRound = container.todayRound
+                //val todayRing = container.todayRing
                 textView.text = null
                 textView.background = null
                 roundBgView.makeInVisible()

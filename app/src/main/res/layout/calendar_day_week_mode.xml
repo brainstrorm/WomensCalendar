@@ -48,7 +48,7 @@
                 android:layout_height="match_parent"
                 android:fontFamily="sans-serif-medium"
                 android:gravity="top|center"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="4dp"
                 android:textColor="@color/colorDays"
                 android:textSize="16sp"
                 tools:text="24" />

@@ -17,6 +17,7 @@ import com.kizitonwose.calendarview.model.CalendarDay
 import com.kizitonwose.calendarview.model.DayOwner
 import com.kizitonwose.calendarview.ui.DayBinder
 import com.kizitonwose.calendarview.ui.ViewContainer
+import kotlinx.android.synthetic.main.calendar_day_layout_for_direcly_calendar.view.*
 import kotlinx.android.synthetic.main.calendar_day_week_mode.view.*
 import kotlinx.android.synthetic.main.fragment_week_mode_calendar.*
 import kotlinx.android.synthetic.main.fragment_week_mode_calendar.view.*
@@ -150,6 +151,7 @@ class WeekModeCalendarFragment : AbstractMenuFragment() {
             val dayText = view.exSevenDayText
             val dateText = view.exSevenDateText
             val selectedView = view.exSevenSelectedView
+            val circleView = view.for_circle
 
             lateinit var day: CalendarDay
 
@@ -188,8 +190,8 @@ class WeekModeCalendarFragment : AbstractMenuFragment() {
                 dayText.text = dayFormatter.format(day.date)
                 dateText.setTextColor(view.context.getColorCompat(R.color.colorDays))
                 selectedView.isVisible = false
-       //         if (day.date == selectedDate)
-         //          monthText.text = months[monthFormatter.format(day.date)]!!.capitalize()
+                //if (day.date == selectedDate)
+                //   monthText.text = months[monthFormatter.format(day.date)]!!.capitalize()
                 for (days in menstruationDays) {
                     val menstruationStartDate = LocalDate.parse(days.startOfCycle)
                     val menstruationEndDate = LocalDate.parse(days.startOfCycle)
@@ -206,8 +208,8 @@ class WeekModeCalendarFragment : AbstractMenuFragment() {
                             when (selectedDate) {
                                 in menstruationStartDate..menstruationEndDate -> {
                                     selectedView.setBackgroundResource(R.drawable.blob_field_selected)
-                                    selectedView?.layoutParams?.width = 25
-                                    selectedView?.layoutParams?.height = 31
+                                    selectedView?.layoutParams?.width = 70
+                                    selectedView?.layoutParams?.height = 85
 
                                     changeInformationInRound(
                                         PartOfCycle.MENSTRUATION,
