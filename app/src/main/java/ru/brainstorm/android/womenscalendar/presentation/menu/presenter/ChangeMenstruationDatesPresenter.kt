@@ -29,9 +29,10 @@ constructor()
         if (startDate != null && endDate != null) {
             runBlocking {
                 val job = GlobalScope.launch(Dispatchers.IO) {
-                    val cycle = cycleDao.getById(1)
+                    val cycle = cycleDao.getAll()[0]
                     cycle.startOfCycle = startDate.toString()
                     cycle.lengthOfMenstruation = differenceBetweenDates(startDate, endDate)
+                    cycle.predicted = false
                     for(cycle in cycleDao.getAll()){
                         cycleDao.delete(cycle)
                     }

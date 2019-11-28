@@ -125,8 +125,8 @@ class WeekModeCalendarFragment : AbstractMenuFragment() {
         runBlocking {
             val job = GlobalScope.launch(Dispatchers.IO) {
                 if (!cycleDao.getAll()[0].predicted) {
-                    predictorImpl.predict(5)
-                    predictorImpl.updateOvulation()
+                    predictorImpl.predict(5).join()
+                    predictorImpl.updateOvulation().join()
                 }
                 menstruationDays = cycleDao.getAll()
             }
@@ -188,15 +188,15 @@ class WeekModeCalendarFragment : AbstractMenuFragment() {
                 dayText.text = dayFormatter.format(day.date)
                 dateText.setTextColor(view.context.getColorCompat(R.color.colorDays))
                 selectedView.isVisible = false
-//                if (day.date == selectedDate)
-  //                  monthText.text = months[monthFormatter.format(day.date)]!!.capitalize()
+                if (day.date == selectedDate)
+                   monthText.text = months[monthFormatter.format(day.date)]!!.capitalize()
                 for (days in menstruationDays) {
                     val menstruationStartDate = LocalDate.parse(days.startOfCycle)
                     val menstruationEndDate = LocalDate.parse(days.startOfCycle)
                         .plusDays(days.lengthOfMenstruation.toLong())
                     val endOfCycle = LocalDate.parse(days.startOfCycle)
                         .plusDays(days.lengthOfCycle.toLong())
-//                    val ovulationDate = LocalDate.parse(days.ovulation)
+                    val ovulationDate = LocalDate.parse(days.ovulation)
                     val ovulationStartDate = ovulationDate.minusDays(4)
                     val ovulationEndDate = ovulationDate.plusDays(4)
                     when (day.date) {
