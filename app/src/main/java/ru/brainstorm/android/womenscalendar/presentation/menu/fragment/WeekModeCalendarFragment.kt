@@ -196,7 +196,7 @@ class WeekModeCalendarFragment : AbstractMenuFragment() {
                         .plusDays(days.lengthOfMenstruation.toLong())
                     val endOfCycle = LocalDate.parse(days.startOfCycle)
                         .plusDays(days.lengthOfCycle.toLong())
-                    val ovulationDate = LocalDate.parse(days.ovulation)
+//                    val ovulationDate = LocalDate.parse(days.ovulation)
                     val ovulationStartDate = ovulationDate.minusDays(4)
                     val ovulationEndDate = ovulationDate.plusDays(4)
                     when (day.date) {

@@ -59,7 +59,7 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
     private lateinit var btnCross : ImageView
     private lateinit var txtvwCanceled : TextView
     private lateinit var txtvwSave : TextView
-    private lateinit var downBlueBar : ImageView
+    private lateinit var downBlueBar : ConstraintLayout
     @Inject
     lateinit var cycleDao: CycleDao
 
@@ -97,7 +97,7 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
         btnCross = findViewById<ImageView>(R.id.btn_cross).apply { setOnClickListener(this@MenuActivity) }
         txtvwCanceled = findViewById<TextView>(R.id.btn_canceled).apply { setOnClickListener(this@MenuActivity) }
         txtvwSave = findViewById<TextView>(R.id.btn_save).apply { setOnClickListener(this@MenuActivity) }
-        downBlueBar = findViewById<ImageView>(R.id.down_blue_bar)
+        downBlueBar = findViewById<ConstraintLayout>(R.id.down_blue_bar)
 
         App.appComponent.inject(this)
         menuPresenter.setFragment(supportFragmentManager, "today")
