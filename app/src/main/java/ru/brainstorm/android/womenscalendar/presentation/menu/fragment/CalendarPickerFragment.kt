@@ -201,9 +201,17 @@ class CalendarPickerFragment : AbstractMenuFragment(), CalendarPickerView{
                             }
                             in startOvulation..endOvulation -> {
                                 if(day.date == ovulationDate){
-                                    textView.setBackgroundResource(R.drawable.ovulation_round_selected)
-                                    textView.setTextColorRes(R.color.color_White)
+                                    if(day.date == today) {
+                                        textView.setBackgroundResource(R.drawable.ovulation_round_selected)
+                                        textView.setTextColorRes(R.color.color_White)
+                                    }else {
+                                        textView.setBackgroundResource(R.drawable.orange_round)
+                                        textView.setTextColorRes(R.color.color_White)
+                                    }
                                 }else {
+                                    if(day.date == today) {
+                                        textView.setBackgroundResource(R.drawable.orange_circle)
+                                    }
                                     textView.setTextColorRes(R.color.colorOfChosenNumberOrange)
                                 }
                             }

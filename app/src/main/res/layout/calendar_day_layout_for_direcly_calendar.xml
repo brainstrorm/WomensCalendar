@@ -21,6 +21,16 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <View
+            android:id="@+id/for_circle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/calendarDayText"
+            app:layout_constraintStart_toStartOf="@+id/calendarDayText"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <View
             android:id="@+id/exFourRoundBgView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

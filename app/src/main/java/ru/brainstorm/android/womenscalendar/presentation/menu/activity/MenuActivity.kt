@@ -42,7 +42,7 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
     private lateinit var btnToday : ImageButton
     private lateinit var btnCalendar : ImageButton
     private lateinit var btnInfo : ImageView
-    private lateinit var btnMore : ImageButton
+    private lateinit var btnMore : ImageView
     private lateinit var layoutLeft : ConstraintLayout
     private lateinit var layoutRight : ConstraintLayout
     private lateinit var btnPlusNote : ImageButton
@@ -60,6 +60,10 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
     private lateinit var txtvwCanceled : TextView
     private lateinit var txtvwSave : TextView
     private lateinit var downBlueBar : ConstraintLayout
+    private lateinit var buttonToday : ImageButton
+    private lateinit var  buttonCalendar : ImageButton
+    private lateinit var buttonInfo : ImageButton
+    private lateinit var buttonMore : ImageButton
     @Inject
     lateinit var cycleDao: CycleDao
 
@@ -79,10 +83,10 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
         layoutLeft = findViewById<ConstraintLayout>(R.id.constraintLayout)
         layoutRight = findViewById<ConstraintLayout>(R.id.constraintLayout2)
         btnStatistics = findViewById<ImageView>(R.id.btn_statistics).apply { setOnClickListener(this@MenuActivity) }
-        btnToday = findViewById<ImageButton>(R.id.today).apply{setOnClickListener(this@MenuActivity)}
-        btnCalendar = findViewById<ImageButton>(R.id.calendar).apply{setOnClickListener(this@MenuActivity)}
+        btnToday = findViewById<ImageButton>(R.id.btn_today).apply{setOnClickListener(this@MenuActivity)}
+        btnCalendar = findViewById<ImageButton>(R.id.btn_calendar).apply{setOnClickListener(this@MenuActivity)}
         btnInfo = findViewById<ImageView>(R.id.btn_info).apply{setOnClickListener(this@MenuActivity)}
-        btnMore = findViewById<ImageButton>(R.id.btn_more).apply{setOnClickListener(this@MenuActivity)}
+        btnMore = findViewById<ImageView>(R.id.btn_more).apply{setOnClickListener(this@MenuActivity)}
         btnPlusNote = findViewById<ImageButton>(R.id.btn_plus_menu).apply { setOnClickListener(this@MenuActivity) }
         btnNewDates = findViewById<ImageButton>(R.id.btn_new_date_menu).apply { setOnClickListener(this@MenuActivity) }
         txtvwNewDates = findViewById<TextView>(R.id.btn_new_date_menu_text)
@@ -92,12 +96,16 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
         txtvwCalendar = findViewById<TextView>(R.id.calendar_text)
         txtvwToday = findViewById<TextView>(R.id.today_text)
         txtvwNotes = findViewById<TextView>(R.id.info_text)
-        txtvwMore = findViewById<TextView>(R.id.more)
+        txtvwMore = findViewById<TextView>(R.id.more_text)
         txtvwNotesHeader = findViewById<TextView>(R.id.notes)
         btnCross = findViewById<ImageView>(R.id.btn_cross).apply { setOnClickListener(this@MenuActivity) }
         txtvwCanceled = findViewById<TextView>(R.id.btn_canceled).apply { setOnClickListener(this@MenuActivity) }
         txtvwSave = findViewById<TextView>(R.id.btn_save).apply { setOnClickListener(this@MenuActivity) }
         downBlueBar = findViewById<ConstraintLayout>(R.id.down_blue_bar)
+        buttonToday = findViewById<ImageButton>(R.id.today).apply { setOnClickListener(this@MenuActivity) }
+        buttonCalendar = findViewById<ImageButton>(R.id.calendar).apply { setOnClickListener(this@MenuActivity) }
+        buttonInfo = findViewById<ImageButton>(R.id.info).apply { setOnClickListener(this@MenuActivity) }
+        buttonMore = findViewById<ImageButton>(R.id.more).apply { setOnClickListener(this@MenuActivity) }
 
         App.appComponent.inject(this)
         menuPresenter.setFragment(supportFragmentManager, "today")
@@ -215,7 +223,7 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
 
                 menuPresenter.setFragment(supportFragmentManager, "notes")
             }
-            R.id.more_text -> {
+            R.id.more -> {
 
                 //TODO
             }
