@@ -206,6 +206,9 @@ class WeekModeCalendarFragment : AbstractMenuFragment() {
                             when (selectedDate) {
                                 in menstruationStartDate..menstruationEndDate -> {
                                     selectedView.setBackgroundResource(R.drawable.blob_field_selected)
+                                    selectedView?.layoutParams?.width = 25
+                                    selectedView?.layoutParams?.height = 31
+
                                     changeInformationInRound(
                                         PartOfCycle.MENSTRUATION,
                                         if (menstruationStartDate.year == selectedDate.year)
