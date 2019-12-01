@@ -145,7 +145,7 @@ class CalendarPickerFragment : AbstractMenuFragment(), CalendarPickerView{
             val blobeStart = view.findViewById<ImageView>(R.id.blobeStart)
             val blobeEnd = view.findViewById<ImageView>(R.id.blobeEnd)
             val todayRound = view.findViewById<ImageView>(R.id.todayRound)
-            //val todayRing = view.findViewById<View>(R.id.for_circle)
+            val todayRing = view.findViewById<ImageView>(R.id.for_circle)
 
             //обработчик нажатий
             init {
@@ -168,13 +168,14 @@ class CalendarPickerFragment : AbstractMenuFragment(), CalendarPickerView{
                 val startBlobe = container.blobeStart
                 val endBlobe = container.blobeEnd
                 val todayRound = container.todayRound
-                //val todayRing = container.todayRing
+                val todayRing = container.todayRing
                 textView.text = null
                 textView.background = null
                 roundBgView.makeInVisible()
                 startBlobe.makeInVisible()
                 endBlobe.makeInVisible()
                 todayRound.makeInVisible()
+                todayRing.makeInVisible()
                 if (day.owner == DayOwner.THIS_MONTH) {
                     textView.text = day.day.toString()
                     textView.setTextSize(16F)
@@ -200,6 +201,8 @@ class CalendarPickerFragment : AbstractMenuFragment(), CalendarPickerView{
                                 if(startMenstruation < day.date && day.date < endMenstruation){
                                     textView.setBackgroundResource(R.drawable.example_4_continuous_selected_bg_middle)
                                 }
+                                if(day.date == today)
+                                    todayRing.setBackgroundResource(R.drawable.red_circle)
                             }
                             in startOvulation..endOvulation -> {
                                 if(day.date == ovulationDate){
@@ -216,6 +219,10 @@ class CalendarPickerFragment : AbstractMenuFragment(), CalendarPickerView{
                                     }
                                     textView.setTextColorRes(R.color.colorOfChosenNumberOrange)
                                 }
+                            }
+                            else -> {
+                                if(day.date == today && todayRing.background != null)
+                                    todayRing.setBackgroundResource(R.drawable.black_circle)
                             }
                         }
                         if (startMenstruation != null && endMenstruation != null) {
@@ -238,12 +245,13 @@ class CalendarPickerFragment : AbstractMenuFragment(), CalendarPickerView{
                                         && startMenstruation.monthValue != day.date.monthValue
                                         && endMenstruation.monthValue != day.date.monthValue)
                             ) {
-                                textView.background = null
+                                    textView.background = null
                             }
                         }
                     }
-                    if(day.date == today)
+                    if(day.date == today) {
                         todayRound.isVisible = true
+                    }
                     if(day.date == selectedDate)
                         textView.setTextSize(25F)
                     //выделение по нажатию
