@@ -33,6 +33,7 @@ import org.threeten.bp.format.DateTimeFormatter
 import ru.brainstorm.android.womenscalendar.App
 import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.data.database.dao.CycleDao
+import ru.brainstorm.android.womenscalendar.data.database.dao.NoteDao
 import ru.brainstorm.android.womenscalendar.data.database.entities.Cycle
 import ru.brainstorm.android.womenscalendar.presentation.menu.presenter.CalendarPickerPresenter
 import ru.brainstorm.android.womenscalendar.presentation.menu.view.CalendarPickerView
@@ -53,6 +54,9 @@ class CalendarPickerFragment : AbstractMenuFragment(), CalendarPickerView{
 
     @Inject
     lateinit var cycleDao: CycleDao
+
+    @Inject
+    lateinit var noteDao: NoteDao
 
     private val today = LocalDate.now()
 
@@ -186,43 +190,45 @@ class CalendarPickerFragment : AbstractMenuFragment(), CalendarPickerView{
                         val ovulationDate = LocalDate.parse(days.ovulation)
                         val startOvulation = LocalDate.parse(days.ovulation).minusDays(4)
                         val endOvulation = LocalDate.parse(days.ovulation).plusDays(4)
-                        when(day.date){
-                            in startMenstruation..endMenstruation -> {
-                                //textView.setTextColorRes(R.color.colorPinkSelected)
-                                if(day.date == startMenstruation){
-                                    textView.background = startBackground
-                                    startBlobe.isVisible = true
+                        if(day.date >= startMenstruation && day.date <= startMenstruation.plusDays(days.lengthOfCycle.toLong())) {
+                            when (day.date) {
+                                in startMenstruation..endMenstruation -> {
+                                    //textView.setTextColorRes(R.color.colorPinkSelected)
+                                    if (day.date == startMenstruation) {
+                                        textView.background = startBackground
+                                        startBlobe.isVisible = true
 
-                                }
-                                if(day.date == endMenstruation){
-                                    textView.background = endBackground
-                                    endBlobe.isVisible = true
-                                }
-                                if(startMenstruation < day.date && day.date < endMenstruation){
-                                    textView.setBackgroundResource(R.drawable.example_4_continuous_selected_bg_middle)
-                                }
-                                if(day.date == today)
-                                    todayRing.setBackgroundResource(R.drawable.red_circle)
-                            }
-                            in startOvulation..endOvulation -> {
-                                if(day.date == ovulationDate){
-                                    if(day.date == today) {
-                                        textView.setBackgroundResource(R.drawable.ovulation_round_selected)
-                                        textView.setTextColorRes(R.color.color_White)
-                                    }else {
-                                        textView.setBackgroundResource(R.drawable.orange_round)
-                                        textView.setTextColorRes(R.color.color_White)
                                     }
-                                }else {
-                                    if(day.date == today) {
-                                        textView.setBackgroundResource(R.drawable.orange_circle)
+                                    if (day.date == endMenstruation) {
+                                        textView.background = endBackground
+                                        endBlobe.isVisible = true
                                     }
-                                    textView.setTextColorRes(R.color.colorOfChosenNumberOrange)
+                                    if (startMenstruation < day.date && day.date < endMenstruation) {
+                                        textView.setBackgroundResource(R.drawable.example_4_continuous_selected_bg_middle)
+                                    }
+                                    if (day.date == today)
+                                        todayRing.setBackgroundResource(R.drawable.red_circle)
                                 }
-                            }
-                            else -> {
-                                if(day.date == today && todayRing.background != null)
-                                    todayRing.setBackgroundResource(R.drawable.black_circle)
+                                in startOvulation..endOvulation -> {
+                                    if (day.date == ovulationDate) {
+                                        if (day.date == today) {
+                                            textView.setBackgroundResource(R.drawable.ovulation_round_selected)
+                                            textView.setTextColorRes(R.color.color_White)
+                                        } else {
+                                            textView.setBackgroundResource(R.drawable.orange_round)
+                                            textView.setTextColorRes(R.color.color_White)
+                                        }
+                                    } else {
+                                        if (day.date == today) {
+                                            textView.setBackgroundResource(R.drawable.orange_circle)
+                                        }
+                                        textView.setTextColorRes(R.color.colorOfChosenNumberOrange)
+                                    }
+                                }
+                                else -> {
+                                    if (day.date == today)
+                                        todayRing.setBackgroundResource(R.drawable.black_circle)
+                                }
                             }
                         }
                         if (startMenstruation != null && endMenstruation != null) {
@@ -251,75 +257,11 @@ class CalendarPickerFragment : AbstractMenuFragment(), CalendarPickerView{
                     }
                     if(day.date == today) {
                         todayRound.isVisible = true
+                        todayRing.isVisible = true
                     }
                     if(day.date == selectedDate)
                         textView.setTextSize(25F)
-                    //выделение по нажатию
-                    /*if (day.date.isBefore(today)) {
-                        textView.setTextColorRes(R.color.colorPrimaryDark)
-                    } else {
-                        when {
-                            startDate == day.date && endDate == null -> {
-                                textView.setTextColorRes(R.color.colorPrimaryDark)
-                                roundBgView.makeVisible()
-                                roundBgView.setBackgroundResource(R.drawable.example_4_single_selected_bg)
-                            }
-                            day.date == startDate -> {
-                                textView.setTextColorRes(R.color.colorPrimaryDark)
-                                updateDrawableRadius(textView)
-                                textView.background = startBackground
-                            }
-                            startDate != null && endDate != null && (day.date > startDate && day.date < endDate) -> {
-                                textView.setTextColorRes(R.color.colorPrimaryDark)
-                                textView.setBackgroundResource(R.drawable.example_4_continuous_selected_bg_middle)
-                            }
-                            day.date == endDate -> {
-                                textView.setTextColorRes(R.color.colorPrimaryDark)
-                                updateDrawableRadius(textView)
-                                textView.background = endBackground
-                            }
-                            day.date == today -> {
-                                textView.setTextColorRes(R.color.example_4_grey)
-                                roundBgView.makeVisible()
-                                roundBgView.setBackgroundResource(R.drawable.example_4_today_bg)
-                            }
-                            else -> {
-                                textView.setTextColorRes(R.color.example_4_grey)
-                            }
-                        }
-                    }*/
-                } /*else {
-
-                    // This part is to make the coloured selection background continuous
-                    // on the blank in and out dates across various months and also on dates(months)
-                    // between the start and end dates if the selection spans across multiple months.
-
-                    val startDate = startDate
-                    val endDate = endDate
-                    if (startDate != null && endDate != null) {
-                        // Mimic selection of inDates that are less than the startDate.
-                        // Example: When 26 Feb 2019 is startDate and 5 Mar 2019 is endDate,
-                        // this makes the inDates in Mar 2019 for 24 & 25 Feb 2019 look selected.
-                        if ((day.owner == DayOwner.PREVIOUS_MONTH
-                                    && startDate.monthValue == day.date.monthValue
-                                    && endDate.monthValue != day.date.monthValue) ||
-                            // Mimic selection of outDates that are greater than the endDate.
-                            // Example: When 25 Apr 2019 is startDate and 2 May 2019 is endDate,
-                            // this makes the outDates in Apr 2019 for 3 & 4 May 2019 look selected.
-                            (day.owner == DayOwner.NEXT_MONTH
-                                    && startDate.monthValue != day.date.monthValue
-                                    && endDate.monthValue == day.date.monthValue) ||
-
-                            // Mimic selection of in and out dates of intermediate
-                            // months if the selection spans across multiple months.
-                            (startDate < day.date && endDate > day.date
-                                    && startDate.monthValue != day.date.monthValue
-                                    && endDate.monthValue != day.date.monthValue)
-                        ) {
-                            textView.setBackgroundResource(R.drawable.example_4_continuous_selected_bg_middle)
-                        }
-                    }
-                }*/
+                }
             }
         }
 
@@ -340,21 +282,6 @@ class CalendarPickerFragment : AbstractMenuFragment(), CalendarPickerView{
                 container.textView.text = monthTitle
             }
         }
-
-        //For save button!!! or ContinueButton
-        /*exFourSaveButton.setOnClickListener click@{
-            val startDate = startDate
-            val endDate = endDate
-            if (startDate != null && endDate != null) {
-                val formatter = DateTimeFormatter.ofPattern("d MMMM yyyy")
-                val text = "Selected: ${formatter.format(startDate)} - ${formatter.format(endDate)}"
-                Snackbar.make(requireView(), text, Snackbar.LENGTH_LONG).show()
-            } else {
-                Snackbar.make(requireView(), "No selection. Searching all Airbnb listings.", Snackbar.LENGTH_LONG)
-                    .show()
-            }
-            fragmentManager?.popBackStack()
-        }*/
 
 
     }
