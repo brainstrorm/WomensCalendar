@@ -22,9 +22,7 @@ import com.kizitonwose.calendarview.ui.MonthHeaderFooterBinder
 import com.kizitonwose.calendarview.ui.ViewContainer
 import kotlinx.android.synthetic.main.calendar_day_legend.view.*
 import kotlinx.android.synthetic.main.calendar_header.view.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
+import kotlinx.coroutines.*
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import org.threeten.bp.LocalDate
@@ -35,6 +33,7 @@ import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.data.database.dao.CycleDao
 import ru.brainstorm.android.womenscalendar.data.database.dao.NoteDao
 import ru.brainstorm.android.womenscalendar.data.database.entities.Cycle
+import ru.brainstorm.android.womenscalendar.data.database.entities.Note
 import ru.brainstorm.android.womenscalendar.presentation.menu.presenter.CalendarPickerPresenter
 import ru.brainstorm.android.womenscalendar.presentation.menu.view.CalendarPickerView
 import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.*
@@ -108,10 +107,21 @@ class CalendarPickerFragment : AbstractMenuFragment(), CalendarPickerView{
 
         App.appComponent.inject(this)
         var menstruationDays = listOf<Cycle>()
-        GlobalScope.async(Dispatchers.IO){
-            menstruationDays = cycleDao.getAll()
-            return@async menstruationDays
+        var notes = listOf<Note>()
+        runBlocking {
+            val job = GlobalScope.launch(Dispatchers.IO) {
+                menstruationDays = cycleDao.getAll()
+                notes = noteDao.getAll()
+            }
+            job.join()
         }
+
+        var noteDates = HashMap<String, String>()
+
+        for(note in notes){
+            noteDates.put(note.noteDate, note.noteDate)
+        }
+
 
         var calendarView = view.findViewById<com.kizitonwose.calendarview.CalendarView>(R.id.calendarView)
         weekDays.put("Mon", "Пн")
@@ -256,11 +266,13 @@ class CalendarPickerFragment : AbstractMenuFragment(), CalendarPickerView{
                         }
                     }
                     if(day.date == today) {
-                        todayRound.isVisible = true
                         todayRing.isVisible = true
                     }
                     if(day.date == selectedDate)
                         textView.setTextSize(25F)
+
+                    if(noteDates.containsKey(day.date.toString()))
+                        todayRound.makeVisible()
                 }
             }
         }
