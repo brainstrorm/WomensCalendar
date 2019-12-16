@@ -157,6 +157,25 @@ class MenuPresenter
                 }
                 viewState.setPart("change_menstruation_dates")
             }
+            "calendar_year_mode" -> {
+                if(fm.findFragmentByTag(CalendarYearModeFragment.TAG) == null){
+                    fragment = CalendarYearModeFragment()
+                    fragment.apply {
+                        fm.beginTransaction()
+                            .add(R.id.for_fragment, this, CalendarYearModeFragment.TAG)
+                            .commit()
+                    }
+                }else{
+                    fragment = fm.findFragmentByTag(CalendarYearModeFragment.TAG)
+                            as CalendarYearModeFragment
+                    fragment.apply {
+                        fm.beginTransaction()
+                            .show(this)
+                            .commit()
+                    }
+                    viewState.setPart("calendar_year_mode")
+                }
+            }
         }
     }
 }

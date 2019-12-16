@@ -39,6 +39,7 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
     private lateinit var btnStatistics: ImageView
     private lateinit var topBar : ImageView
     private lateinit var btnMonthOrYear : ImageView
+    private  var btnMonthOrYearChecked = 1
     private lateinit var btnToday : ImageButton
     private lateinit var btnCalendar : ImageButton
     private lateinit var btnInfo : ImageView
@@ -79,7 +80,7 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
         supportActionBar?.hide()
 
         topBar = findViewById(R.id.topBar)
-        btnMonthOrYear = findViewById(R.id.btn_month_or_year)
+        btnMonthOrYear = findViewById<ImageView>(R.id.btn_month_or_year).apply{ setOnClickListener(this@MenuActivity)}
         layoutLeft = findViewById<ConstraintLayout>(R.id.constraintLayout)
         layoutRight = findViewById<ConstraintLayout>(R.id.constraintLayout2)
         btnStatistics = findViewById<ImageView>(R.id.btn_statistics).apply { setOnClickListener(this@MenuActivity) }
@@ -108,6 +109,9 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
         buttonMore = findViewById<ImageButton>(R.id.more).apply { setOnClickListener(this@MenuActivity) }
 
         App.appComponent.inject(this)
+        /*supportFragmentManager.beginTransaction()
+            .add(R.id.for_fragment, CalendarYearModeFragment(), CalendarYearModeFragment.TAG)
+            .commit()*/
         menuPresenter.setFragment(supportFragmentManager, "today")
         initFragments()
 
@@ -202,6 +206,16 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
                     View.GONE, View.GONE, View.GONE,
                     View.VISIBLE, View.VISIBLE, View.VISIBLE, View.VISIBLE)
             }
+            "calendar_year_mode" -> {
+                setVisibility(View.VISIBLE, View.VISIBLE, View.VISIBLE,
+                    View.VISIBLE, View.VISIBLE, View.VISIBLE, View.VISIBLE,
+                    View.GONE, View.GONE, View.GONE,
+                    View.GONE, View.GONE, View.GONE, View.GONE)
+                btnCalendar?.setBackgroundResource(R.drawable.ic_btn_calendar_menu_blue)
+                btnCalendar?.layoutParams.width = 51
+                btnCalendar?.layoutParams.height = 51
+                txtvwCalendar.setTextColor(resources.getColor(R.color.colorBlueNotesRedactor))
+            }
         }
     }
 
@@ -266,6 +280,17 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
                     changeMenstruationDatesPresenter.save(getStartDate(), getEndDate(), supportFragmentManager)
                 }
                 menuPresenter.popBackStack(supportFragmentManager)
+            }
+            R.id.btn_month_or_year -> {
+                if(btnMonthOrYearChecked == 1) {
+                    btnMonthOrYear.setImageResource(R.drawable.ic_toggle_button_second)
+                    menuPresenter.setFragment(supportFragmentManager, "calendar_year_mode")
+                    btnMonthOrYearChecked = 2
+                }else{
+                    btnMonthOrYear.setImageResource(R.drawable.ic_toggle_button)
+                    menuPresenter.setFragment(supportFragmentManager, "calendar")
+                    btnMonthOrYearChecked = 1
+                }
             }
         }
 
