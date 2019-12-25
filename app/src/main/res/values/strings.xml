@@ -69,4 +69,16 @@
     <string name="day">день</string>
     <string name="the_cycle_lasted">Цикл длился</string>
     <string name="forecast_day">Прогноз: день</string>
+
+<!--  Settings strings  -->
+    <string name="settings_len_of_cycle">Продолжительность месячных</string>
+    <string name="cancel">Отмена</string>
+    <string name="ru_save">Сохранить</string>
+    <string name="remind">Напоминания</string>
+    <string name="graphs">Графики и отчеты</string>
+    <string name="settings">Настройки</string>
+    <string name="rate_us">Оцените нас</string>
+    <string name="help_feedback">Помощь и обратная связь</string>
+    <string name="delete_all_notes">Удалить все записи</string>
+    <string name="about_us">О приложении</string>
 </resources>

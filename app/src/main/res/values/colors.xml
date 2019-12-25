@@ -31,6 +31,10 @@
     <color name="colorForecastTextYellow">#838383</color>
     <color name="colorForecastNumberYellow">#838383</color>
     <color name="colorWeekModeSingleSelectedDay">#B7C3CC</color>
+    <color name="settings_orange_btn">#FF9574</color>
+    <color name="settings_pink_btn">#D4517D</color>
+    <color name="settings_background">#FFF4F8</color>
+    <color name="white">#FFFFFF</color>
     //colors of parts of cycle
     <color name="colorEmpty">#E9F6FF</color>
     <color name="colorMenstruation">#FFE6EE</color>
