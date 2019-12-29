@@ -37,7 +37,10 @@
     <color name="colorFrontForProgressBarStatistic">#D13D6F</color>
     <color name="colorPinkNotesRedactor">#D4517D</color>
     <color name="colorBlueNotesRedactor">#457798</color>
-    //colors of parts of cycle
+    <color name="settings_orange_btn">#FF9574</color>
+    <color name="settings_pink_btn">#D4517D</color>
+    <color name="settings_background">#FFF4F8</color>
+    <color name="white">#FFFFFF</color>
     <color name="colorEmpty">#E9F6FF</color>
     <color name="colorMenstruation">#FFE6EE</color>
     <color name="colorOvulation">#FFECD2</color>

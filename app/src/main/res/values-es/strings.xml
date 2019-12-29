@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">WomensCalendar</string>
+    <string name="init_rus">Sincronización…</string>
+    <string name="btn_poll_next">A continuación</string>
+    <string name="btn_poll_dnt_remember">No recuerdo</string>
+    <string name="today">Hoy</string>
+    <string name="calendar">Calendario</string>
+    <string name="information">Notas</string>
+    <string name="more">Todavía</string>
+    <string name="new_date_text_menu">Cambiar las fechas mensuales</string>
+    <string name="text_press_last_menstruation">Agregue las fechas de los últimos meses</string>
+    <string name="text_duration_of_menstruation">Duración del ciclo y mensual</string>
+    <string name="text_avg_length_of_menstruation">Duración media mensual</string>
+    <string name="text_avg_length_of_cycle">Duración media del ciclo</string>
+
+    <string-array name="poll_texts">
+
+        <item name="when_start_days0">¿Cuándo comenzaron tus últimos \n períodos?</item>
+        <item name="when_start_days1">¿Cuándo comenzaron sus últimos \n períodos?</item>
+        <item name="how_long_days">¿Cuánto promedio tienes \n mensualmente?</item>
+        <item name="year_of_birth">Las predicciones serán si especifica su \ n año de nacimiento?</item>
+            
+    </string-array>
+
+    <string name="step_poll">Paso %1$d de 4</string>
+    <string name="poll_init">Hacer predicciones \ n ciclos…</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="quiz_questions">
+        <item>¿Cuándo comenzaron tus últimos \n períodos?</item>
+        <item>¿Cuándo comenzaron sus últimos \n períodos?</item>
+        <item>¿Cuánto promedio tienes \n mensualmente?</item>
+        <item>Las predicciones serán si especifica su \ n año de nacimiento?</item>
+    </string-array>
+
+    <string name="example_1_title">Example 1</string>
+    <string name="example_1_subtitle">Multiple selection, horizontal scrolling, shows usage of \"maxRowCount\" property to switch between week and month modes. Also shows usage of OutDateStyle \"endOfRow\".</string>
+    <string name="example_2_title">Example 2</string>
+    <string name="example_2_subtitle">Month header view, single selection, vertical scrolling, hides in and out dates.</string>
+    <string name="example_3_title">Example 3</string>
+    <string name="example_3_subtitle">Event style implementation, day labels as header view, single selection, month scroll listener. Similar to what is in the Google Calendar app.</string>
+    <string name="example_4_title">Example 4</string>
+    <string name="example_4_subtitle">Continuous selection within one month and across multiple months, dates older than the current day are disabled. Similar to what is in the Airbnb app.</string>
+    <string name="example_5_title">Example 5</string>
+    <string name="example_5_subtitle">Single selection, programmatic calendar scrolling, generates six rows for all months showing \"endOfGrid\" implementation of \"outDateStyle\" option. A flight schedule calender.</string>
+    <string name="example_6_title">Example 6</string>
+    <string name="example_6_subtitle">Custom date width and height, custom month view, item decoration on the CalendarView, continuous horizontal scrolling style.</string>
+    <string name="example_7_title">Example 7</string>
+    <string name="example_7_subtitle">Week mode calendar with single selection. Shows usage of \"hasBoundaries\" and  \"maxRowCount\" properties.</string>
+    <string name="save">Save</string>
+    <string name="close">Close</string>
+    <string name="example_3_input_dialog_title">Enter event title</string>
+    <string name="example_3_empty_input_text">Text is empty</string>
+    <string name="example_3_dialog_delete_confirmation">Delete this event?</string>
+    <string name="delete">Delete</string>
+    <string name="start_date">Start date</string>
+    <string name="end_date">End date</string>
+    <string name="clear">Clear</string>
+    <string name="week_mode">Week mode</string>
+
+    //for WeekModeCalendarFragment
+    <string name="menstruation_after">Menstruación a través de</string>
+    <string name="unlikely_to_get_pregnant">Baja probabilidad \n de quedar embarazada</string>
+    <string name="average_probability_of_getting_pregnant">Probabilidad promedio \n de quedar embarazada</string>
+    <string name="high_probability_of_getting_pregnant">Alta probabilidad \n de quedar embarazada</string>
+    <string name="ovulation_after">Ovulación a través de</string>
+    <string name="menstruation">Menstruación</string>
+    <string name="ovulation">ovulación</string>
+    <string name="day">día</string>
+    <string name="the_cycle_lasted">El ciclo duró</string>
+    <string name="forecast_day">Pronóstico: día</string>
+    //for statistics
+    <string name="current_cycle">"Ciclo actual: %1$s - %2$s"</string>
+    <string name="cycle">"%1$s - %2$s"</string>
+    <string name="length_of_menstruation">"%1$d %1$d.getDayAddition()"</string>
+    <string name="length_of_cycle">"%1$d %1$d.getDayAddition()"</string>
+    <string name="notes">Notas</string>
+    <string name="done_notes">Listo</string>
+    <string name="btn_canceled_menu">Cancelación</string>
+    <string name="btn_save_menu">Guardar</string>
+
+    <!--  Settings strings  -->
+    <string name="settings_len_of_cycle">Duración del ciclo</string>
+    <string name="settings_len_of_menstr">Duración mensual</string>
+    <plurals name="days">
+        <item quantity="one">%1$d día</item>
+        <item quantity="other">%1$d día</item>
+    </plurals>
+    <string name="deleting_all_notes">Eliminar todas las notas</string>
+    <string name="cancel">Cancelación</string>
+    <string name="ru_save">Guardar</string>
+    <string name="remind">Recordatorios</string>
+    <string name="graphs">Gráficos e informes</string>
+    <string name="settings">Ajustes</string>
+    <string name="rate_us">Califícanos</string>
+    <string name="help_feedback">Ayuda y comentarios</string>
+    <string name="delete_all_notes">Eliminar todos los registros</string>
+    <string name="about_us">Eliminar todos los registros</string>
+    <string name="language">Español</string>
+    <string name="change_language">Cambiar idioma</string>
+</resources>

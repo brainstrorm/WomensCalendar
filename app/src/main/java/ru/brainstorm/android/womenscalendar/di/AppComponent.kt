@@ -25,6 +25,9 @@ interface AppComponent {
      * This component is the main DI component of application - it will inject
      * all activities\fragments and contexts
      */
+
+    fun inject(fragment: SettingsFragment)
+
     fun inject(activity: SplashScreenActivity)
 
     fun inject(menu: MenuActivity)

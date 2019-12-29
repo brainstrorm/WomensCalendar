@@ -176,6 +176,18 @@ class MenuPresenter
                     viewState.setPart("calendar_year_mode")
                 }
             }
+            "more" -> {
+                if (fm.findFragmentById(R.id.for_fragment) == null) {
+                    fm.beginTransaction()
+                        .add(R.id.for_fragment, SettingsFragment())
+                        .commitNow()
+                } else {
+                    fm.beginTransaction()
+                        .replace(R.id.for_fragment, SettingsFragment())
+                        .commitNow()
+                }
+                viewState.setPart("more")
+            }
         }
     }
 }

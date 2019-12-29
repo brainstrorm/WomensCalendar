@@ -238,7 +238,7 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
                 menuPresenter.setFragment(supportFragmentManager, "notes")
             }
             R.id.more -> {
-
+                menuPresenter.setFragment(supportFragmentManager, "more")
                 //TODO
             }
             R.id.btn_plus_menu, R.id.for_notes -> {

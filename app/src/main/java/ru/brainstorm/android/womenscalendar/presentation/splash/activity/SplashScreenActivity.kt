@@ -1,5 +1,6 @@
 package ru.brainstorm.android.womenscalendar.presentation.splash.activity
 
+import android.graphics.Canvas
 import android.os.Bundle
 import moxy.MvpAppCompatActivity
 import moxy.presenter.InjectPresenter
@@ -11,6 +12,7 @@ import ru.brainstorm.android.womenscalendar.presentation.quiz.activity.QuizActiv
 import ru.brainstorm.android.womenscalendar.presentation.splash.presenter.SplashScreenPresenter
 import ru.brainstorm.android.womenscalendar.presentation.splash.view.SplashScreenView
 import ru.brainstorm.android.womenscalendar.presentation.menu.activity.MenuActivity
+import java.util.*
 
 class SplashScreenActivity : MvpAppCompatActivity(), SplashScreenView {
 
