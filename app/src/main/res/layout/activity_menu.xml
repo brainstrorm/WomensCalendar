@@ -202,7 +202,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/topBar">
+            app:layout_constraintTop_toBottomOf="@id/topBar"
+            app:layout_constraintVertical_bias="0.0">
 
 
         </FrameLayout>
@@ -211,7 +212,7 @@
             android:id="@+id/btn_new_date_menu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@null"
+            android:background="@drawable/ic_menstruation_date"
             android:gravity="center_vertical|center"
             app:layout_constraintBottom_toTopOf="@id/for_notes"
             app:layout_constraintEnd_toEndOf="parent"
@@ -219,7 +220,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.900"
-            app:srcCompat="@drawable/ic_button_bar_new_date"
             tools:ignore="VectorDrawableCompat" />
 
         <TextView
@@ -233,19 +233,20 @@
             app:layout_constraintBottom_toBottomOf="@+id/btn_new_date_menu"
             app:layout_constraintEnd_toEndOf="@+id/btn_new_date_menu"
             app:layout_constraintStart_toStartOf="@+id/btn_new_date_menu"
-            app:layout_constraintTop_toTopOf="@+id/btn_new_date_menu"
-            app:layout_constraintVertical_bias="0.578" />
+            app:layout_constraintTop_toTopOf="@+id/btn_new_date_menu" />
 
         <ImageView
             android:id="@+id/topBar"
             android:layout_width="0dp"
             android:layout_height="60dp"
-            android:background="@drawable/ic_app_header"
+            android:background="@drawable/ic_header_menu"
             app:layout_constraintBottom_toTopOf="@+id/btn_new_date_menu_text"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0" />
+            app:layout_constraintVertical_bias="0.0" />
+
         <ImageView
             android:id="@+id/btn_month_or_year"
             android:layout_width="wrap_content"
@@ -273,12 +274,12 @@
             android:id="@+id/btn_statistics"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintVertical_bias="0.4"
-            app:layout_constraintHorizontal_bias="0.8"
             app:layout_constraintBottom_toBottomOf="@id/topBar"
             app:layout_constraintEnd_toEndOf="@id/topBar"
+            app:layout_constraintHorizontal_bias="0.8"
             app:layout_constraintStart_toEndOf="@+id/btn_month_or_year"
             app:layout_constraintTop_toTopOf="@id/topBar"
+            app:layout_constraintVertical_bias="0.4"
             app:srcCompat="@drawable/ic_btn_statistic" />
 
         <FrameLayout
@@ -331,29 +332,45 @@
             app:srcCompat="@drawable/ic_cross" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <ImageButton
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/btn_plus_menu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:background="@null"
+        android:layout_width="67dp"
+        android:layout_height="70dp"
+        android:layout_marginBottom="22dp"
+        android:background="@drawable/menu_btn_plus_circle"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/constraintLayout2"
-        app:layout_constraintHorizontal_bias="0.523"
-        app:layout_constraintStart_toEndOf="@+id/constraintLayout"
-        app:srcCompat="@drawable/btn_plus_menu"
-        tools:ignore="VectorDrawableCompat" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        tools:ignore="VectorDrawableCompat">
+
+        <ImageButton
+
+            android:id="@+id/btn_plus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/btn_plus_menu"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/down_blue_bar"
         android:layout_width="0dp"
         android:layout_height="65dp"
-        android:visibility="invisible"
         android:background="@drawable/button_bg"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-         >
+        app:layout_constraintStart_toStartOf="parent">
 
 
         <TextView
