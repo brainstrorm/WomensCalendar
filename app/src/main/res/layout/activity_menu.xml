@@ -247,16 +247,46 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
 
-        <ImageView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/btn_month_or_year"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintVertical_bias="0.3"
-            app:layout_constraintEnd_toEndOf="@id/topBar"
-            app:layout_constraintStart_toStartOf="@id/topBar"
-            app:layout_constraintTop_toTopOf="@id/topBar"
-            app:layout_constraintBottom_toBottomOf="@id/topBar"
-            app:srcCompat="@drawable/ic_toggle_button" />
+            android:layout_width="240dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="3dp"
+            android:background="@drawable/ic_toggle_button"
+            app:layout_constraintBottom_toTopOf="@+id/for_fragment"
+            app:layout_constraintEnd_toEndOf="@+id/topBar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/topBar">
+
+            <TextView
+                android:id="@+id/btn_month"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="35dp"
+                android:layout_marginBottom="3dp"
+                android:text="@string/btn_month"
+                android:textColor="@color/white"
+                android:textSize="17dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"></TextView>
+
+            <TextView
+                android:id="@+id/btn_year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="45dp"
+                android:layout_marginBottom="3dp"
+                android:text="@string/btn_year"
+                android:textColor="@color/grey_for_year"
+                android:textSize="17dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.521"></TextView>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:id="@+id/notes"
@@ -349,8 +379,8 @@
         <ImageButton
 
             android:id="@+id/btn_plus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
             android:layout_marginStart="15dp"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="15dp"

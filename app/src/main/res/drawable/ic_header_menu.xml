@@ -17,7 +17,7 @@
     <item>
         <shape android:shape="rectangle">
             <padding
-                android:bottom="1.5dp"
+                android:bottom="1dp"
                />
 
             <solid android:color="#4D878787" />
@@ -30,7 +30,7 @@
     <item>
         <shape android:shape="rectangle">
             <padding
-                android:bottom="1.5dp"
+                android:bottom="1dp"
                  />
 
 
@@ -40,10 +40,10 @@
     <item>
         <shape android:shape="rectangle">
             <padding
-                android:bottom="1.5dp"
+                android:bottom="1dp"
                 />
 
-            <solid android:color="#41737373" />
+            <solid android:color="#407D7D7D" />
             <size android:height="64dp"
                 android:width="300dp"></size>
 
@@ -52,12 +52,10 @@
     <item>
         <shape android:shape="oval">
             <padding
-                android:bottom="1.5dp"
-                android:left="1.5dp"
-                android:right="1.5dp"
-                android:top="1.5dp" />
+                android:bottom="1dp"
+               />
 
-            <solid android:color="#41696969" />
+            <solid android:color="#40737373" />
             <size android:height="66dp"
                 android:width="300dp"></size>
 

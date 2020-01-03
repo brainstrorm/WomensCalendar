@@ -82,5 +82,9 @@
     <string name="done_notes">Готово</string>
     <string name="btn_canceled_menu">Отмена</string>
     <string name="btn_save_menu">Сохранить</string>
+    <string name="btn_month">МЕСЯЦ</string>
+    <string name="btn_year">ГОД</string>
+
+
 
 </resources>
