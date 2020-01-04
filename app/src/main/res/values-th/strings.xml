@@ -1,0 +1,61 @@
+<resources>
+    <string name="app_name">WomensCalendar</string>
+    <string name="init_rus">การประสาน…</string>
+    <string name="btn_poll_next">ต่อไป</string>
+    <string name="btn_poll_dnt_remember">ฉันจำไม่ได้</string>
+    <string name="today">ในวันนี้</string>
+    <string name="calendar">ปฏิทิน</string>
+    <string name="information">ข้อคิดเห็น</string>
+    <string name="more">ขึ้น</string>
+    <string name="new_date_text_menu">เปลี่ยนวันที่มีประจำเดือน</string>
+    <string name="text_press_last_menstruation">เพิ่มวันที่มีประจำเดือนครั้งล่าสุด</string>
+    <string name="text_duration_of_menstruation">รอบระยะเวลาและรอบเดือน</string>
+    <string name="text_avg_length_of_menstruation">ระยะเวลาเฉลี่ยของการมีประจำเดือน</string>
+    <string name="text_avg_length_of_cycle">รอบเวลาเฉลี่ย</string>
+
+    <string-array name="poll_texts">
+
+        <item name="when_start_days0">การมีประจำเดือนครั้งสุดท้ายของคุณเริ่มเมื่อไหร่</item>
+        <item name="when_start_days1">การมีประจำเดือนครั้งสุดท้ายของคุณเริ่มเมื่อไหร่</item>
+        <item name="how_long_days">ระยะเวลาเฉลี่ยรายเดือนของคุณคืออะไร</item>
+        <item name="year_of_birth">การคาดการณ์จะเป็นอย่างไรถ้าคุณระบุปีเกิดของคุณ?</item>
+            
+    </string-array>
+
+    <string name="step_poll">ขั้นตอนที่ %1$d จาก 4 </string>
+    <string name="poll_init">กำลังพยากรณ์วัฏจักร ...</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="quiz_questions">
+        <item>การมีประจำเดือนครั้งสุดท้ายของคุณเริ่มเมื่อไหร่</item>
+        <item>ระยะเวลาเฉลี่ยรายเดือนของคุณคืออะไร</item>
+        <item>รอบการเฉลี่ยของคุณใช้เวลานานเท่าใด</item>
+        <item>การคาดการณ์จะเกิดขึ้นหากคุณระบุปีเกิดของคุณ</item>
+    </string-array>
+
+    //for WeekModeCalendarFragment
+    <string name="menstruation_after">ประจำเดือนหลังจาก</string>
+    <string name="unlikely_to_get_pregnant">มีโอกาสน้อยที่จะตั้งครรภ์</string>
+    <string name="average_probability_of_getting_pregnant">ความน่าจะเป็นโดยเฉลี่ยของการตั้งครรภ์</string>
+    <string name="high_probability_of_getting_pregnant">มีโอกาสสูงที่จะตั้งครรภ์</string>
+    <string name="ovulation_after">การตกไข่หลังจาก</string>
+    <string name="menstruation">การมีประจำเดือน</string>
+    <string name="ovulation">การตกไข่</string>
+    <string name="day">วัน</string>
+    <string name="the_cycle_lasted">วัฏจักรคงอยู่</string>
+    <string name="forecast_day">พยากรณ์: วัน</string>
+
+    //for statistics
+    <string name="current_cycle">"วงจรปัจจุบัน: %1$s - %2$s"</string>
+    <string name="cycle">"%1$s - %2$s"</string>
+    <string name="length_of_menstruation">"%1$d %1$d.getDayAddition()"</string>
+    <string name="length_of_cycle">"%1$d %1$d.getDayAddition()"</string>
+    <string name="notes">ข้อคิดเห็น</string>
+    <string name="done_notes">เสร็จสิ้น</string>
+    <string name="btn_canceled_menu">การยกเลิก</string>
+    <string name="btn_save_menu">รักษา</string>
+
+</resources>
