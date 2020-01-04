@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Drop Shadow -->
+    <item>
+        <shape android:shape="rectangle">
+            <padding
+                android:bottom="1.5dp"
+                />
+
+            <solid android:color="#00CCCCCC" />
+            <size android:height="35dp"
+                android:width="220dp"></size>
+            <corners android:radius="20dp" />
+
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <padding
+                android:bottom="1.5dp"
+                />
+
+            <solid android:color="#4D878787" />
+            <size android:height="37dp"
+                android:width="220dp"></size>
+            <corners android:radius="30dp" />
+
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <padding
+                android:bottom="2.5dp"
+                />
+
+            <solid android:color="#41B4B4B4" />
+            <corners android:radius="30dp" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <padding
+                android:bottom="1.5dp"
+                />
+
+            <solid android:color="#41737373" />
+            <size android:height="39dp"
+                android:width="220dp"></size>
+
+            <corners android:radius="30dp" />
+
+
+        </shape>
+    </item>
+
+    <!-- Background Color (white) -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#F28FB0" />
+            <corners android:radius="35dp" />
+            <size android:height="39dp"
+                android:width="220dp"></size>
+
+        </shape>
+    </item>
+
+
+</layer-list>
