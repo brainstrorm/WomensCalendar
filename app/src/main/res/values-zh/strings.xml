@@ -1,0 +1,61 @@
+<resources>
+    <string name="app_name">WomensCalendar</string>
+    <string name="init_rus">同步處理…</string>
+    <string name="btn_poll_next">下一個</string>
+    <string name="btn_poll_dnt_remember">我不記得了</string>
+    <string name="today">今天</string>
+    <string name="calendar">行事歷</string>
+    <string name="information">注意事項</string>
+    <string name="more">更多</string>
+    <string name="new_date_text_menu">改變月經日期</string>
+    <string name="text_press_last_menstruation">添加過去一個月的日期</string>
+    <string name="text_duration_of_menstruation">週期持續時間和月經</string>
+    <string name="text_avg_length_of_menstruation">平均月經時間</string>
+    <string name="text_avg_length_of_cycle">平均循環時間</string>
+
+    <string-array name="poll_texts">
+
+        <item name="when_start_days0">您上一次月經是什麼時候開始的？</item>
+        <item name="when_start_days1">您上一次月經是什麼時候開始的？</item>
+        <item name="how_long_days">您的平均每月時間是多少？</item>
+        <item name="year_of_birth">如果您指出自己的出生年份，將會做出預測嗎？</item>
+            
+    </string-array>
+
+    <string name="step_poll">第 %1$d 步，共 4 步</string>
+    <string name="poll_init">進行週期預測...</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="quiz_questions">
+        <item>您上一次月經是什麼時候開始的？</item>
+        <item>您的平均每月時間是多少？</item>
+        <item>您的平均週期能持續多久？</item>
+        <item>預測將是如果您指出您的出生年份</item>
+    </string-array>
+
+    //for WeekModeCalendarFragment
+    <string name="menstruation_after">經期</string>
+    <string name="unlikely_to_get_pregnant">懷孕的可能性低</string>
+    <string name="average_probability_of_getting_pregnant">懷孕的平均概率</string>
+    <string name="high_probability_of_getting_pregnant">懷孕的可能性很高</string>
+    <string name="ovulation_after">通過排卵</string>
+    <string name="menstruation">月經</string>
+    <string name="ovulation">排卵</string>
+    <string name="day">日</string>
+    <string name="the_cycle_lasted">週期持續了</string>
+    <string name="forecast_day">預測：天</string>
+
+    //for statistics
+    <string name="current_cycle">"當前週期: %1$s - %2$s"</string>
+    <string name="cycle">"%1$s - %2$s"</string>
+    <string name="length_of_menstruation">"%1$d %1$d.getDayAddition()"</string>
+    <string name="length_of_cycle">"%1$d %1$d.getDayAddition()"</string>
+    <string name="notes">注意事項</string>
+    <string name="done_notes">完成了</string>
+    <string name="btn_canceled_menu">取消</string>
+    <string name="btn_save_menu">保存到</string>
+
+</resources>

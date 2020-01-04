@@ -1,0 +1,61 @@
+<resources>
+    <string name="app_name">WomensCalendar</string>
+    <string name="init_rus">Sincronizar…</string>
+    <string name="btn_poll_next">Seguinte</string>
+    <string name="btn_poll_dnt_remember">Não lembro</string>
+    <string name="today">Hoje</string>
+    <string name="calendar">Calendário</string>
+    <string name="information">Anotações</string>
+    <string name="more">Mais</string>
+    <string name="new_date_text_menu">Alterar datas menstruais</string>
+    <string name="text_press_last_menstruation">Adicionar datas da última menstruação</string>
+    <string name="text_duration_of_menstruation">Duração do ciclo e menstruação</string>
+    <string name="text_avg_length_of_menstruation">A duração média da menstruação</string>
+    <string name="text_avg_length_of_cycle">Tempo médio do ciclo</string>
+
+    <string-array name="poll_texts">
+
+        <item name="when_start_days0">Quando começou sua \n última menstruação?</item>
+        <item name="when_start_days1">Quando começou sua \n última menstruação?</item>
+        <item name="how_long_days">Qual é o seu período \n mensal médio?</item>
+        <item name="year_of_birth">As previsões serão se você \n indicar seu ano de nascimento?</item>
+            
+    </string-array>
+
+    <string name="step_poll">Etapa %1$d de 4 </string>
+    <string name="poll_init">Fazendo previsões \n de ciclo ...</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="quiz_questions">
+        <item>Quando começou sua \n última menstruação?</item>
+        <item>Qual é o seu período \n mensal médio?</item>
+        <item>Quanto tempo dura \n o seu ciclo médio?</item>
+        <item>As previsões serão se você indicar seu ano de nascimento</item>
+    </string-array>
+
+    //for WeekModeCalendarFragment
+    <string name="menstruation_after">Menstruação após</string>
+    <string name="unlikely_to_get_pregnant">Baixa probabilidade \n de engravidar</string>
+    <string name="average_probability_of_getting_pregnant">A probabilidade média \n de engravidar</string>
+    <string name="high_probability_of_getting_pregnant">Alta probabilidade \n de engravidar</string>
+    <string name="ovulation_after">Ovulação após</string>
+    <string name="menstruation">Menstruação</string>
+    <string name="ovulation">ovulação</string>
+    <string name="day">dia</string>
+    <string name="the_cycle_lasted">O ciclo durou</string>
+    <string name="forecast_day">Previsão: dia</string>
+
+    //for statistics
+    <string name="current_cycle">"Ciclo atual: %1$s - %2$s"</string>
+    <string name="cycle">"%1$s - %2$s"</string>
+    <string name="length_of_menstruation">"%1$d %1$d.getDayAddition()"</string>
+    <string name="length_of_cycle">"%1$d %1$d.getDayAddition()"</string>
+    <string name="notes">Anotações</string>
+    <string name="done_notes">Concluído</string>
+    <string name="btn_canceled_menu">Cancelar</string>
+    <string name="btn_save_menu">Salvar</string>
+
+</resources>

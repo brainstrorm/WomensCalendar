@@ -1,105 +1,61 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">WomensCalendar</string>
     <string name="init_rus">Synchronization…</string>
     <string name="btn_poll_next">Next</string>
-    <string name="btn_poll_dnt_remember">Don\'t remember</string>
+    <string name="btn_poll_dnt_remember">I don\'t remember</string>
     <string name="today">Today</string>
     <string name="calendar">Calendar</string>
     <string name="information">Notes</string>
     <string name="more">More</string>
-    <string name="new_date_text_menu">Change the dates of the monthly</string>
-    <string name="text_press_last_menstruation">Add date of previous month</string>
-    <string name="text_duration_of_menstruation">Duration of the cycle and monthly</string>
-    <string name="text_avg_length_of_menstruation">The average duration of the period</string>
-    <string name="text_avg_length_of_cycle">The average duration of the cycle</string>
+    <string name="new_date_text_menu">Change menstrual dates</string>
+    <string name="text_press_last_menstruation">Add past menstrual dates</string>
+    <string name="text_duration_of_menstruation">Cycle duration and duration of menstruation</string>
+    <string name="text_avg_length_of_menstruation">The average duration of menstruation</string>
+    <string name="text_avg_length_of_cycle">Average cycle time</string>
 
     <string-array name="poll_texts">
 
-        <item name="when_start_days0">When did your last \n period start?</item>
-        <item name="when_start_days1">When did your last \n period start?</item>
-        <item name="how_long_days">How much on average do you go \n monthly?</item>
-        <item name="year_of_birth">Predictions will be made if you specify your \ n year of birth?</item>
+        <item name="when_start_days0">When did your last menstruation \n begin?</item>
+        <item name="when_start_days1">When did your last menstruation \n begin?</item>
+        <item name="how_long_days">What is your average monthly \n period?</item>
+        <item name="year_of_birth">Forecasts will be if you indicate \n your year of birth</item>
             
     </string-array>
 
-    <string name="step_poll">Step %1$d of 4</string>
-    <string name="poll_init">Making predictions \n cycles…</string>
+    <string name="step_poll">Step %1$d of 4 </string>
+    <string name="poll_init">Making cycle \n forecasts ...</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string-array name="quiz_questions">
-        <item>When did your last \n period start?</item>
-        <item>When did your last \n period start?</item>
-        <item>How much on average do you go \n monthly?</item>
-        <item>Predictions will be made if you specify your \ n year of birth?</item>
+        <item>When did your last menstruation \n begin?</item>
+        <item>When did your last menstruation \n begin?</item>
+        <item>What is your average monthly \n period?</item>
+        <item>Forecasts will be if you indicate \n your year of birth</item>
     </string-array>
 
-    <string name="example_1_title">Example 1</string>
-    <string name="example_1_subtitle">Multiple selection, horizontal scrolling, shows usage of \"maxRowCount\" property to switch between week and month modes. Also shows usage of OutDateStyle \"endOfRow\".</string>
-    <string name="example_2_title">Example 2</string>
-    <string name="example_2_subtitle">Month header view, single selection, vertical scrolling, hides in and out dates.</string>
-    <string name="example_3_title">Example 3</string>
-    <string name="example_3_subtitle">Event style implementation, day labels as header view, single selection, month scroll listener. Similar to what is in the Google Calendar app.</string>
-    <string name="example_4_title">Example 4</string>
-    <string name="example_4_subtitle">Continuous selection within one month and across multiple months, dates older than the current day are disabled. Similar to what is in the Airbnb app.</string>
-    <string name="example_5_title">Example 5</string>
-    <string name="example_5_subtitle">Single selection, programmatic calendar scrolling, generates six rows for all months showing \"endOfGrid\" implementation of \"outDateStyle\" option. A flight schedule calender.</string>
-    <string name="example_6_title">Example 6</string>
-    <string name="example_6_subtitle">Custom date width and height, custom month view, item decoration on the CalendarView, continuous horizontal scrolling style.</string>
-    <string name="example_7_title">Example 7</string>
-    <string name="example_7_subtitle">Week mode calendar with single selection. Shows usage of \"hasBoundaries\" and  \"maxRowCount\" properties.</string>
-    <string name="save">Save</string>
-    <string name="close">Close</string>
-    <string name="example_3_input_dialog_title">Enter event title</string>
-    <string name="example_3_empty_input_text">Text is empty</string>
-    <string name="example_3_dialog_delete_confirmation">Delete this event?</string>
-    <string name="delete">Delete</string>
-    <string name="start_date">Start date</string>
-    <string name="end_date">End date</string>
-    <string name="clear">Clear</string>
-    <string name="week_mode">Week mode</string>
-
     //for WeekModeCalendarFragment
-    <string name="menstruation_after">Menstruation through</string>
-    <string name="unlikely_to_get_pregnant">Low probability \n to get pregnant</string>
-    <string name="average_probability_of_getting_pregnant">Medium probability of \n to get pregnant</string>
-    <string name="high_probability_of_getting_pregnant">High probability of getting pregnant</string>
-    <string name="ovulation_after">Ovulation through</string>
+    <string name="menstruation_after">Menstruation after</string>
+    <string name="unlikely_to_get_pregnant">Low probability of \n becoming pregnant</string>
+    <string name="average_probability_of_getting_pregnant">The average probability \n of becoming pregnant</string>
+    <string name="high_probability_of_getting_pregnant">High probability of \n getting pregnant</string>
+    <string name="ovulation_after">Ovulation after</string>
     <string name="menstruation">Menstruation</string>
     <string name="ovulation">ovulations</string>
     <string name="day">day</string>
     <string name="the_cycle_lasted">The cycle lasted</string>
     <string name="forecast_day">Forecast: day</string>
+
     //for statistics
     <string name="current_cycle">"Current cycle: %1$s - %2$s"</string>
     <string name="cycle">"%1$s - %2$s"</string>
     <string name="length_of_menstruation">"%1$d %1$d.getDayAddition()"</string>
     <string name="length_of_cycle">"%1$d %1$d.getDayAddition()"</string>
     <string name="notes">Notes</string>
-    <string name="done_notes">Ready</string>
+    <string name="done_notes">Done</string>
     <string name="btn_canceled_menu">Cancel</string>
     <string name="btn_save_menu">Save</string>
 
-    <!--  Settings strings  -->
-    <string name="settings_len_of_cycle">Cycle duration</string>
-    <string name="settings_len_of_menstr">Menstruation duration</string>
-    <plurals name="days">
-        <item quantity="one">%1$d day</item>
-        <item quantity="other">%1$d days</item>
-    </plurals>
-    <string name="deleting_all_notes">Deleting all notes</string>
-    <string name="cancel">Cancel</string>
-    <string name="ru_save">Save</string>
-    <string name="remind">Reminders</string>
-    <string name="graphs">Graphs</string>
-    <string name="settings">Settings</string>
-    <string name="rate_us">Rate us</string>
-    <string name="help_feedback">Provide feedback</string>
-    <string name="delete_all_notes">Delete all notes</string>
-    <string name="about_us">About us</string>
-    <string name="language">English</string>
-    <string name="change_language">Change language</string>
 </resources>
