@@ -248,16 +248,25 @@
             app:layout_constraintVertical_bias="0.0" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/btn_month_or_year"
+            android:id="@+id/btn_month_or_year_"
             android:layout_width="200dp"
             android:layout_height="45dp"
             android:layout_marginBottom="3dp"
-            android:background="@drawable/ic_toggle_button"
             app:layout_constraintBottom_toTopOf="@+id/for_fragment"
             app:layout_constraintEnd_toEndOf="@+id/topBar"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/topBar">
 
+            <ImageButton
+                android:id="@+id/btn_month_or_year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_toggle_button"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="VectorDrawableCompat"></ImageButton>
             <TextView
                 android:id="@+id/text_month"
                 android:layout_width="wrap_content"
@@ -307,7 +316,7 @@
             app:layout_constraintBottom_toBottomOf="@id/topBar"
             app:layout_constraintEnd_toEndOf="@id/topBar"
             app:layout_constraintHorizontal_bias="0.8"
-            app:layout_constraintStart_toEndOf="@+id/btn_month_or_year"
+            app:layout_constraintStart_toEndOf="@+id/btn_month_or_year_"
             app:layout_constraintTop_toTopOf="@id/topBar"
             app:layout_constraintVertical_bias="0.4"
             app:srcCompat="@drawable/ic_btn_statistic" />
@@ -364,11 +373,9 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/btn_plus_menu"
         android:layout_width="67dp"
         android:layout_height="70dp"
         android:layout_marginBottom="22dp"
-        android:background="@drawable/menu_btn_plus_circle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -377,12 +384,18 @@
         tools:ignore="VectorDrawableCompat">
 
         <ImageButton
-
+            android:background="@drawable/menu_btn_plus_circle"
+            android:id="@+id/btn_plus_menu"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:ignore="VectorDrawableCompat">
+        </ImageButton>
+        <ImageView
             android:id="@+id/btn_plus"
             android:layout_width="15dp"
             android:layout_height="15dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="15dp"
             android:layout_marginBottom="15dp"
             android:background="@drawable/btn_plus_menu"

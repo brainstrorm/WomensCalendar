@@ -22,6 +22,7 @@ import ru.brainstorm.android.womenscalendar.data.database.dao.CycleDao
 import ru.brainstorm.android.womenscalendar.presentation.menu.fragment.*
 import ru.brainstorm.android.womenscalendar.presentation.menu.presenter.MenuPresenter
 import ru.brainstorm.android.womenscalendar.presentation.menu.view.MenuView
+import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.setTextColorRes
 import ru.brainstorm.android.womenscalendar.presentation.statistics.activity.StatisticsActivity
 import java.security.AccessController.getContext
 import java.util.*
@@ -62,9 +63,12 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
     private lateinit var txtvwSave : TextView
     private lateinit var downBlueBar : ConstraintLayout
     private lateinit var buttonToday : ImageButton
-    private lateinit var  buttonCalendar : ImageButton
+    private lateinit var buttonCalendar : ImageButton
     private lateinit var buttonInfo : ImageButton
     private lateinit var buttonMore : ImageButton
+    private lateinit var btnMonthOrYearLayout : ConstraintLayout
+    private lateinit var txtvwMonth : TextView
+    private lateinit var txtvwYear : TextView
     @Inject
     lateinit var cycleDao: CycleDao
 
@@ -107,6 +111,9 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
         buttonCalendar = findViewById<ImageButton>(R.id.calendar).apply { setOnClickListener(this@MenuActivity) }
         buttonInfo = findViewById<ImageButton>(R.id.info).apply { setOnClickListener(this@MenuActivity) }
         buttonMore = findViewById<ImageButton>(R.id.more).apply { setOnClickListener(this@MenuActivity) }
+        btnMonthOrYearLayout = findViewById(R.id.btn_month_or_year_)
+        txtvwYear = findViewById<TextView>(R.id.text_month)
+        txtvwMonth = findViewById<TextView>(R.id.text_year)
 
         App.appComponent.inject(this)
         /*supportFragmentManager.beginTransaction()
@@ -175,7 +182,7 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
             "notes" ->{
                 setVisibility(View.VISIBLE, View.GONE, View.GONE,
                     View.GONE, View.VISIBLE, View.VISIBLE, View.VISIBLE,
-                    View.GONE, View.GONE, View.VISIBLE,
+                    View.VISIBLE, View.GONE, View.VISIBLE,
                     View.GONE, View.GONE, View.GONE, View.GONE)
                 btnInfo?.setBackgroundResource(R.drawable.ic_btn_notes_for_menu_blue)
                 btnInfo?.layoutParams.width = 48
@@ -193,7 +200,7 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
             "more" ->{
                 setVisibility(View.VISIBLE, View.GONE, View.GONE,
                     View.GONE, View.VISIBLE, View.VISIBLE, View.VISIBLE,
-                    View.GONE, View.GONE, View.GONE,
+                    View.VISIBLE, View.GONE, View.GONE,
                     View.GONE, View.GONE, View.GONE, View.GONE)
                 btnMore?.setBackgroundResource(R.drawable.ic_btn_more_menu_blue)
                 btnMore?.layoutParams.width = 48
@@ -284,10 +291,14 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
             R.id.btn_month_or_year -> {
                 if(btnMonthOrYearChecked == 1) {
                     btnMonthOrYear.setImageResource(R.drawable.ic_toggle_button_second)
+                    txtvwMonth.setTextColorRes(R.color.white)
+                    txtvwYear.setTextColorRes(R.color.grey_for_year)
                     menuPresenter.setFragment(supportFragmentManager, "calendar_year_mode")
                     btnMonthOrYearChecked = 2
                 }else{
                     btnMonthOrYear.setImageResource(R.drawable.ic_toggle_button)
+                    txtvwMonth.setTextColorRes(R.color.grey_for_year)
+                    txtvwYear.setTextColorRes(R.color.white)
                     menuPresenter.setFragment(supportFragmentManager, "calendar")
                     btnMonthOrYearChecked = 1
                 }
@@ -302,7 +313,7 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
                       btnCrossVisibility : Int, downBlueBarVisibility : Int, txtvwCanceledVisibility : Int,
                       txtvwSaveVisibility : Int){
         topBar.visibility = topBarVisibility
-        btnMonthOrYear.visibility = btnMonthOrYearVisibility
+        btnMonthOrYearLayout.visibility = btnMonthOrYearVisibility
         btnStatistics.visibility = btnStatisticsVisibility
         btnNewDates.visibility = btnNewDatesVisibility
         txtvwNewDates.visibility = btnNewDatesVisibility
