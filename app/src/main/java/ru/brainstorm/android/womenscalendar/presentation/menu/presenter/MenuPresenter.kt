@@ -212,6 +212,19 @@ class MenuPresenter
                 }
                 viewState.setPart("change_language")
             }
+
+            "notifications" -> {
+                if (fm.findFragmentById(R.id.for_fragment) == null) {
+                    fm.beginTransaction()
+                        .add(R.id.for_fragment, NotificationsFragment())
+                        .commitNow()
+                } else {
+                    fm.beginTransaction()
+                        .replace(R.id.for_fragment, NotificationsFragment())
+                        .commitNow()
+                }
+                viewState.setPart("notifications")
+            }
         }
     }
 }

@@ -246,6 +246,13 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
                     View.GONE, View.GONE, View.GONE, View.GONE,
                     View.VISIBLE)
             }
+            "notifications" -> {
+                setVisibility(View.VISIBLE, View.GONE, View.GONE,
+                    View.GONE, View.VISIBLE, View.VISIBLE, View.VISIBLE,
+                    View.VISIBLE, View.GONE, View.GONE,
+                    View.GONE, View.GONE, View.GONE, View.GONE,
+                    View.GONE)
+            }
         }
     }
 
@@ -297,7 +304,6 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
                     menuPresenter.addFragmentToBackStack(calendarPickerFragment)
                 if(weekModeCalendarFragment != null && weekModeCalendarFragment.isHidden == false)
                     menuPresenter.addFragmentToBackStack(weekModeCalendarFragment)
-
             }
             R.id.btn_cross, R.id.btn_canceled-> {
                 menuPresenter.popBackStack(supportFragmentManager)
