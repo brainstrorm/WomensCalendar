@@ -48,6 +48,7 @@ class SettingsFragment
     private lateinit var deleteAllNotes: LinearLayout
     private lateinit var statistics: LinearLayout
     private lateinit var settingsLayout : LinearLayout
+    private lateinit var notificationsLayout : LinearLayout
 
     override fun getPart(): String = "more"
 
@@ -106,6 +107,14 @@ class SettingsFragment
                 menuPresenter.addFragmentToBackStack(this@SettingsFragment)
                 menuPresenter.setFragment(supportFragmentManager, "languages") }
         } }
+        notificationsLayout = mainView.findViewById<LinearLayout>(R.id.reminders).apply {
+            setOnClickListener { view ->
+                (activity as MenuActivity).apply{
+                    menuPresenter.addFragmentToBackStack(this@SettingsFragment)
+                    menuPresenter.setFragment(supportFragmentManager, "notifications")
+                }
+            }
+        }
         cyclePicker.minValue = 0
         cyclePicker.maxValue = 30
         menstPicker.minValue = 0
