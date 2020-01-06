@@ -104,6 +104,9 @@
     <string name="ovulation_will_stsrt">Предположительно, овуляция настпуит...</string>
     <string name="end_fertilnost">Закрытие окна фертильности</string>
     <string name="window_of_fertilnost_is_closing">Окно фертильности закрывается</string>
+    <string name="time">Время</string>
+    <string name="message">Сообщение</string>
+
 
 
 </resources>
