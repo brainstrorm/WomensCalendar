@@ -92,4 +92,18 @@
     <string name="vietnamese">Tiếng việt</string>
 
 
+    <!-- Notifications strings -->
+    <string name="period_notifications">Переодические напоминания</string>
+    <string name="start_of_menstruation">Начало менструации</string>
+    <string name="end_of_menstruation">Конец менструации</string>
+    <string name="menstruation_starts_today">Менструация начинается сегодня</string>
+    <string name="do_not_forget">Не забудьте отметить окончание менструации</string>
+    <string name="open_fertilnost">Открытие фертильности</string>
+    <string name="open_fertilnost_today">Сегодня открвается окно фертильности</string>
+    <string name="ovulation_notifications">Овуляция</string>
+    <string name="ovulation_will_stsrt">Предположительно, овуляция настпуит...</string>
+    <string name="end_fertilnost">Закрытие окна фертильности</string>
+    <string name="window_of_fertilnost_is_closing">Окно фертильности закрывается</string>
+
+
 </resources>
