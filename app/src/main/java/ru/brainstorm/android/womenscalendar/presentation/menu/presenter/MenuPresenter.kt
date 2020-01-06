@@ -225,6 +225,32 @@ class MenuPresenter
                 }
                 viewState.setPart("notifications")
             }
+
+            "start_of_menstruation" -> {
+                if (fm.findFragmentById(R.id.for_fragment) == null) {
+                    fm.beginTransaction()
+                        .add(R.id.for_fragment, MenstruationStartNotificationFragment())
+                        .commitNow()
+                } else {
+                    fm.beginTransaction()
+                        .replace(R.id.for_fragment, MenstruationStartNotificationFragment())
+                        .commitNow()
+                }
+                viewState.setPart("start_of_menstruation")
+            }
+
+            "end_of_menstruation" -> {
+                if (fm.findFragmentById(R.id.for_fragment) == null) {
+                    fm.beginTransaction()
+                        .add(R.id.for_fragment, MenstruationEndNotificationFragment())
+                        .commitNow()
+                } else {
+                    fm.beginTransaction()
+                        .replace(R.id.for_fragment, MenstruationEndNotificationFragment())
+                        .commitNow()
+                }
+                viewState.setPart("end_of_menstruation")
+            }
         }
     }
 }

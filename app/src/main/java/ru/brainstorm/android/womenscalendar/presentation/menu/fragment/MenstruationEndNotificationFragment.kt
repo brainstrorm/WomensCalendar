@@ -10,7 +10,7 @@ import android.view.ViewGroup
 
 import ru.brainstorm.android.womenscalendar.R
 
-class MenstruationEndNotificationFragment : Fragment() {
+class MenstruationEndNotificationFragment : AbstractMenuFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +23,8 @@ class MenstruationEndNotificationFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_menstruation_end_notification, container, false)
     }
+
+    override fun getPart(): String = "start_of_menstruation"
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

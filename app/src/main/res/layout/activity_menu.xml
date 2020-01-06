@@ -324,6 +324,63 @@
             app:layout_constraintEnd_toEndOf="@+id/topBar"
             app:layout_constraintStart_toStartOf="@+id/topBar"
             app:layout_constraintTop_toTopOf="@+id/topBar"></TextView>
+
+        <TextView
+            android:id="@+id/my_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/my_profile"
+            android:textColor="@color/colorForBtnDurationMenstruationPink"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/topBar"
+            app:layout_constraintEnd_toEndOf="@+id/topBar"
+            app:layout_constraintStart_toStartOf="@+id/topBar"
+            app:layout_constraintTop_toTopOf="@+id/topBar"></TextView>
+
+        <TextView
+            android:id="@+id/notifications"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/notifications"
+            android:textColor="@color/colorForBtnDurationMenstruationPink"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/topBar"
+            app:layout_constraintEnd_toEndOf="@+id/topBar"
+            app:layout_constraintStart_toStartOf="@+id/topBar"
+            app:layout_constraintTop_toTopOf="@+id/topBar"></TextView>
+        <TextView
+            android:id="@+id/start_of_menstruation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/start_of_menstruation"
+            android:textColor="@color/colorForBtnDurationMenstruationPink"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/topBar"
+            app:layout_constraintEnd_toEndOf="@+id/topBar"
+            app:layout_constraintStart_toStartOf="@+id/topBar"
+            app:layout_constraintTop_toTopOf="@+id/topBar"></TextView>
+        <TextView
+            android:id="@+id/end_of_menstruation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/end_of_menstruation"
+            android:textColor="@color/colorForBtnDurationMenstruationPink"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/topBar"
+            app:layout_constraintEnd_toEndOf="@+id/topBar"
+            app:layout_constraintStart_toStartOf="@+id/topBar"
+            app:layout_constraintTop_toTopOf="@+id/topBar"></TextView>
+        <TextView
+            android:id="@+id/womens_calendar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/womens_calendar"
+            android:textColor="@color/colorForBtnDurationMenstruationPink"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/topBar"
+            app:layout_constraintEnd_toEndOf="@+id/topBar"
+            app:layout_constraintStart_toStartOf="@+id/topBar"
+            app:layout_constraintTop_toTopOf="@+id/topBar"></TextView>
         <ImageView
             android:id="@+id/btn_statistics"
             android:layout_width="wrap_content"

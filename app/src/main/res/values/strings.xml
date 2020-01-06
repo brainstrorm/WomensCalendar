@@ -81,6 +81,9 @@
     <string name="about_us">О приложении</string>
     <string name="language">Русский</string>
     <string name="change_language">Сменить язык</string>
+    <string name="my_profile">Мой профиль</string>
+    <string name="notifications">Напоминания</string>
+    <string name="womens_calendar">Женский календарь</string>
 
     <!-- Languages strings -->
     <string name="english">English</string>
