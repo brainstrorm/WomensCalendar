@@ -60,8 +60,7 @@
     <string name="btn_year">ГОД</string>
 
 
-
-<!--  Settings strings  -->
+    <!--  Settings strings  -->
     <string name="settings_len_of_cycle">Продолжительность месячных</string>
     <string name="settings_len_of_menstr">Продолжительность месячных</string>
     <plurals name="days">
