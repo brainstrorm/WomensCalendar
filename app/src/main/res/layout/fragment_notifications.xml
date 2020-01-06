@@ -8,15 +8,7 @@
     tools:context=".presentation.menu.fragment.NotificationsFragment">
 
 
-    <ImageButton
-        android:id="@+id/imageButton3"
-        android:layout_width="wrap_content"
-        android:layout_height="1dp"
-        android:src="@drawable/ic_line_for_activity_statistic"
-        app:layout_constraintBottom_toTopOf="@+id/btn_ovulation_notification"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_open_fetilnost_notification" />
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -58,11 +50,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="58dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginStart="48dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="10dp"
                 android:text="@string/start_of_menstruation"
                 android:textColor="@color/black"
                 android:textSize="16dp"
+                app:layout_constraintEnd_toEndOf="@+id/btn_start_of_menstruation_notification"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/arrow_pink"
                 app:layout_constraintTop_toTopOf="parent"></TextView>
 
@@ -70,10 +65,13 @@
                 android:id="@+id/textView11"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="58dp"
+                android:layout_marginStart="48dp"
                 android:layout_marginTop="44dp"
+                android:layout_marginEnd="10dp"
                 android:text="@string/menstruation_starts_today"
                 android:textSize="11dp"
+                app:layout_constraintEnd_toEndOf="@+id/btn_start_of_menstruation_notification"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/arrow_pink"
                 app:layout_constraintTop_toTopOf="parent"></TextView>
 
@@ -81,9 +79,12 @@
                 android:id="@+id/btn_start_of_menstruation_notification"
                 android:layout_width="300dp"
                 android:layout_height="50dp"
+                android:translationZ="0.001dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
                 android:background="@null"
+                app:layout_constraintEnd_toStartOf="@+id/switch2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"></ImageButton>
 
@@ -114,21 +115,26 @@
                 android:id="@+id/textView12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="58dp"
+                android:layout_marginStart="48dp"
                 android:layout_marginTop="86dp"
+                android:layout_marginEnd="10dp"
                 android:text="@string/end_of_menstruation"
                 android:textColor="@color/black"
                 android:textSize="16dp"
+                app:layout_constraintEnd_toEndOf="@+id/btn_end_of_menstruation_notification"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/square_pink"
                 app:layout_constraintTop_toTopOf="parent"></TextView>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="58dp"
+                android:layout_marginStart="48dp"
                 android:layout_marginTop="116dp"
+                android:layout_marginEnd="6dp"
                 android:text="@string/do_not_forget"
                 android:textSize="11dp"
+                app:layout_constraintEnd_toEndOf="@+id/btn_end_of_menstruation_notification"
                 app:layout_constraintStart_toEndOf="@+id/square_pink"
                 app:layout_constraintTop_toTopOf="parent"></TextView>
 
@@ -139,7 +145,10 @@
                 android:layout_height="50dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="84dp"
+                android:layout_marginEnd="10dp"
                 android:background="@null"
+                android:translationZ="0.001dp"
+                app:layout_constraintEnd_toStartOf="@+id/switch1"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"></ImageButton>
 
@@ -194,11 +203,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="58dp"
+                android:layout_marginStart="48dp"
                 android:layout_marginTop="20dp"
+                android:layout_marginEnd="10dp"
                 android:text="@string/open_fertilnost"
                 android:textColor="@color/black"
                 android:textSize="16dp"
+                app:layout_constraintEnd_toEndOf="@+id/btn_open_fetilnost_notification"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/arrow_orange"
                 app:layout_constraintTop_toTopOf="parent"></TextView>
 
@@ -206,10 +218,13 @@
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="58dp"
+                android:layout_marginStart="48dp"
                 android:layout_marginTop="46dp"
+                android:layout_marginEnd="10dp"
                 android:text="@string/open_fertilnost_today"
                 android:textSize="11dp"
+                app:layout_constraintEnd_toEndOf="@+id/btn_open_fetilnost_notification"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/arrow_orange"
                 app:layout_constraintTop_toTopOf="parent"></TextView>
 
@@ -220,7 +235,10 @@
                 android:layout_height="50dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="10dp"
                 android:background="@null"
+                android:translationZ="0.001dp"
+                app:layout_constraintEnd_toStartOf="@+id/switch3"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"></ImageButton>
 
@@ -250,11 +268,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="54dp"
+                android:layout_marginStart="44dp"
                 android:layout_marginTop="94dp"
+                android:layout_marginEnd="10dp"
                 android:text="@string/ovulation_notifications"
                 android:textColor="@color/black"
                 android:textSize="16dp"
+                app:layout_constraintEnd_toEndOf="@+id/btn_ovulation_notification"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/heart"
                 app:layout_constraintTop_toTopOf="parent"></TextView>
 
@@ -262,10 +283,13 @@
                 android:id="@+id/textView10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="54dp"
+                android:layout_marginStart="44dp"
                 android:layout_marginTop="118dp"
+                android:layout_marginEnd="10dp"
                 android:text="@string/ovulation_will_stsrt"
                 android:textSize="11dp"
+                app:layout_constraintEnd_toEndOf="@+id/btn_ovulation_notification"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/heart"
                 app:layout_constraintTop_toTopOf="parent"></TextView>
 
@@ -276,7 +300,10 @@
                 android:layout_height="50dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="92dp"
+                android:layout_marginEnd="10dp"
+                android:translationZ="0.001dp"
                 android:background="@null"
+                app:layout_constraintEnd_toStartOf="@+id/switch4"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"></ImageButton>
 
@@ -306,11 +333,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="58dp"
+                android:layout_marginStart="48dp"
                 android:layout_marginTop="164dp"
+                android:layout_marginEnd="10dp"
                 android:text="@string/end_fertilnost"
                 android:textColor="@color/black"
                 android:textSize="16dp"
+                app:layout_constraintEnd_toEndOf="@+id/close_fetilnost_notofication"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/arrow_orange"
                 app:layout_constraintTop_toTopOf="parent"></TextView>
 
@@ -318,10 +348,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="58dp"
+                android:layout_marginStart="48dp"
                 android:layout_marginTop="190dp"
+                android:layout_marginEnd="10dp"
                 android:text="@string/window_of_fertilnost_is_closing"
                 android:textSize="11dp"
+                app:layout_constraintEnd_toEndOf="@+id/close_fetilnost_notofication"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/arrow_orange"
                 app:layout_constraintTop_toTopOf="parent"></TextView>
 
@@ -331,7 +364,10 @@
                 android:layout_height="50dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="164dp"
+                android:layout_marginEnd="10dp"
+                android:translationZ="0.001dp"
                 android:background="@null"
+                app:layout_constraintEnd_toStartOf="@+id/switch5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"></ImageButton>
 
