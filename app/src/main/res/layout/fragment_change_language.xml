@@ -251,6 +251,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/language_check_mark"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/english_button"
         app:layout_constraintEnd_toEndOf="@id/english_button"
         app:layout_constraintHorizontal_bias="0.952"
@@ -263,6 +264,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/language_check_mark"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/russian_button"
         app:layout_constraintEnd_toEndOf="@id/russian_button"
         app:layout_constraintHorizontal_bias="0.952"
@@ -275,6 +277,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/language_check_mark"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/spanish_button"
         app:layout_constraintEnd_toEndOf="@id/spanish_button"
         app:layout_constraintHorizontal_bias="0.952"
@@ -287,6 +290,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/language_check_mark"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/portuguese_button"
         app:layout_constraintEnd_toEndOf="@id/portuguese_button"
         app:layout_constraintHorizontal_bias="0.952"
@@ -299,6 +303,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/language_check_mark"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/thai_button"
         app:layout_constraintEnd_toEndOf="@id/thai_button"
         app:layout_constraintHorizontal_bias="0.952"
@@ -311,6 +316,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/language_check_mark"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/vietnamese_button"
         app:layout_constraintEnd_toEndOf="@id/vietnamese_button"
         app:layout_constraintHorizontal_bias="0.952"
@@ -323,12 +329,105 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/language_check_mark"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/chinese_button"
         app:layout_constraintEnd_toEndOf="@id/chinese_button"
         app:layout_constraintHorizontal_bias="0.952"
         app:layout_constraintStart_toEndOf="@+id/chinese_flag"
         app:layout_constraintTop_toTopOf="@+id/chinese_button"
         app:layout_constraintVertical_bias="0.5" />
+
+    <TextView
+        android:id="@+id/english_language"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/english"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/english_button"
+        app:layout_constraintEnd_toStartOf="@+id/english_check_mark"
+        app:layout_constraintHorizontal_bias="0.156"
+        app:layout_constraintStart_toEndOf="@+id/english_flag"
+        app:layout_constraintTop_toTopOf="@+id/english_button"
+        app:layout_constraintVertical_bias="0.46" />
+
+    <TextView
+        android:id="@+id/russian_language"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/russian"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/russian_button"
+        app:layout_constraintEnd_toStartOf="@+id/russian_check_mark"
+        app:layout_constraintHorizontal_bias="0.156"
+        app:layout_constraintStart_toEndOf="@+id/russian_flag"
+        app:layout_constraintTop_toTopOf="@+id/russian_button"
+        app:layout_constraintVertical_bias="0.46" />
+
+    <TextView
+        android:id="@+id/spanish_language"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/spanish"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/spanish_button"
+        app:layout_constraintEnd_toStartOf="@+id/spanish_check_mark"
+        app:layout_constraintHorizontal_bias="0.156"
+        app:layout_constraintStart_toEndOf="@+id/spanish_flag"
+        app:layout_constraintTop_toTopOf="@+id/spanish_button"
+        app:layout_constraintVertical_bias="0.46" />
+
+    <TextView
+        android:id="@+id/portuguese_language"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/portuguese"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/portuguese_button"
+        app:layout_constraintEnd_toStartOf="@+id/portugese_check_mark"
+        app:layout_constraintHorizontal_bias="0.156"
+        app:layout_constraintStart_toEndOf="@+id/portugese_flag"
+        app:layout_constraintTop_toTopOf="@+id/portuguese_button"
+        app:layout_constraintVertical_bias="0.46" />
+
+    <TextView
+        android:id="@+id/thai_language"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/thai"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/thai_button"
+        app:layout_constraintEnd_toStartOf="@+id/thai_check_mark"
+        app:layout_constraintHorizontal_bias="0.156"
+        app:layout_constraintStart_toEndOf="@+id/thai_flag"
+        app:layout_constraintTop_toTopOf="@+id/thai_button"
+        app:layout_constraintVertical_bias="0.46" />
+
+    <TextView
+        android:id="@+id/vietnamese_language"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/vietnamese"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/vietnamese_button"
+        app:layout_constraintEnd_toStartOf="@+id/vietnamese_check_mark"
+        app:layout_constraintHorizontal_bias="0.156"
+        app:layout_constraintStart_toEndOf="@+id/vietnamese_flag"
+        app:layout_constraintTop_toTopOf="@+id/vietnamese_button"
+        app:layout_constraintVertical_bias="0.46" />
+
+    <TextView
+        android:id="@+id/chinese_language"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/chinese"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/chinese_button"
+        app:layout_constraintEnd_toStartOf="@+id/chinese_check_mark"
+        app:layout_constraintHorizontal_bias="0.156"
+        app:layout_constraintStart_toEndOf="@+id/chinese_flag"
+        app:layout_constraintTop_toTopOf="@+id/chinese_button"
+        app:layout_constraintVertical_bias="0.46" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

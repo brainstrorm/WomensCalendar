@@ -309,6 +309,17 @@
             app:layout_constraintStart_toStartOf="@+id/topBar"
             app:layout_constraintTop_toTopOf="@+id/topBar"></TextView>
 
+        <TextView
+            android:id="@+id/change_language"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/change_language"
+            android:textColor="@color/colorForBtnDurationMenstruationPink"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/topBar"
+            app:layout_constraintEnd_toEndOf="@+id/topBar"
+            app:layout_constraintStart_toStartOf="@+id/topBar"
+            app:layout_constraintTop_toTopOf="@+id/topBar"></TextView>
         <ImageView
             android:id="@+id/btn_statistics"
             android:layout_width="wrap_content"

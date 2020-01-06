@@ -31,7 +31,7 @@ import javax.inject.Inject
  * @author Ilia Ilmenskii created on 06.11.2019
  */
 class SettingsFragment
-    : Fragment() {
+    : AbstractMenuFragment() {
 
     @Inject
     lateinit var cycleDao: CycleDao
@@ -47,6 +47,9 @@ class SettingsFragment
     private lateinit var cycleTextView: TextView
     private lateinit var deleteAllNotes: LinearLayout
     private lateinit var statistics: LinearLayout
+    private lateinit var settingsLayout : LinearLayout
+
+    override fun getPart(): String = "more"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -98,6 +101,11 @@ class SettingsFragment
         menstPicker = menstLayout.findViewById(R.id.pick_menstruation)
         cycleLayout = mainView.findViewById(R.id.settingsPickCycle)
         cyclePicker = cycleLayout.findViewById(R.id.pick_cycle)
+        settingsLayout = mainView.findViewById<LinearLayout>(R.id.settings).apply { setOnClickListener{view ->
+            (activity as MenuActivity).apply {
+                menuPresenter.addFragmentToBackStack(this@SettingsFragment)
+                menuPresenter.setFragment(supportFragmentManager, "languages") }
+        } }
         cyclePicker.minValue = 0
         cyclePicker.maxValue = 30
         menstPicker.minValue = 0

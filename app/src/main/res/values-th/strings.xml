@@ -57,5 +57,18 @@
     <string name="done_notes">เสร็จสิ้น</string>
     <string name="btn_canceled_menu">การยกเลิก</string>
     <string name="btn_save_menu">รักษา</string>
+    <string name="btn_month">เดือน</string>
+    <string name="btn_year">ปี</string>
 
+    <!-- Languages strings -->
+    <string name="english">English</string>
+    <string name="russian">Русский</string>
+    <string name="spanish">Espanol</string>
+    <string name="portuguese">Portugues</string>
+    <string name="chinese">中国</string>
+    <string name="thai">ไทย</string>
+    <string name="vietnamese">Tiếng việt</string>
+
+
+    <string name="change_language">เปลี่ยนภาษา</string>
 </resources>

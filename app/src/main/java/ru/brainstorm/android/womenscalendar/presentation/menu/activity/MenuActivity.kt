@@ -69,6 +69,7 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
     private lateinit var btnMonthOrYearLayout : ConstraintLayout
     private lateinit var txtvwMonth : TextView
     private lateinit var txtvwYear : TextView
+    private lateinit var txtvwChangeLanguage : TextView
     @Inject
     lateinit var cycleDao: CycleDao
 
@@ -114,6 +115,7 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
         btnMonthOrYearLayout = findViewById(R.id.btn_month_or_year_)
         txtvwYear = findViewById<TextView>(R.id.text_month)
         txtvwMonth = findViewById<TextView>(R.id.text_year)
+        txtvwChangeLanguage = findViewById(R.id.change_language)
 
         App.appComponent.inject(this)
         /*supportFragmentManager.beginTransaction()
@@ -159,7 +161,8 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
                 setVisibility(View.GONE, View.GONE, View.GONE,
                     View.VISIBLE, View.VISIBLE, View.VISIBLE, View.VISIBLE,
                     View.GONE, View.GONE, View.GONE,
-                    View.GONE, View.GONE, View.GONE, View.GONE)
+                    View.GONE, View.GONE, View.GONE, View.GONE,
+                    View.GONE)
                 btnToday?.setBackgroundResource(R.drawable.ic_btn_today_menu_blue)
                 btnToday?.layoutParams.width = 51
                 btnToday?.layoutParams.height = 51
@@ -171,7 +174,8 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
                 setVisibility(View.VISIBLE, View.VISIBLE, View.VISIBLE,
                     View.VISIBLE, View.VISIBLE, View.VISIBLE, View.VISIBLE,
                     View.GONE, View.GONE, View.GONE,
-                    View.GONE, View.GONE, View.GONE, View.GONE)
+                    View.GONE, View.GONE, View.GONE, View.GONE,
+                    View.GONE)
                 btnCalendar?.setBackgroundResource(R.drawable.ic_btn_calendar_menu_blue)
                 btnCalendar?.layoutParams.width = 51
                 btnCalendar?.layoutParams.height = 51
@@ -183,7 +187,8 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
                 setVisibility(View.VISIBLE, View.GONE, View.GONE,
                     View.GONE, View.VISIBLE, View.VISIBLE, View.VISIBLE,
                     View.VISIBLE, View.GONE, View.VISIBLE,
-                    View.GONE, View.GONE, View.GONE, View.GONE)
+                    View.GONE, View.GONE, View.GONE, View.GONE,
+                    View.GONE)
                 btnInfo?.setBackgroundResource(R.drawable.ic_btn_notes_for_menu_blue)
                 btnInfo?.layoutParams.width = 48
                 btnInfo?.layoutParams.height = 48
@@ -195,13 +200,15 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
                 setVisibility(View.VISIBLE, View.GONE, View.GONE,
                     View.GONE, View.GONE, View.GONE, View.GONE,
                     View.VISIBLE, View.VISIBLE, View.VISIBLE,
-                    View.GONE, View.GONE, View.GONE, View.GONE)
+                    View.GONE, View.GONE, View.GONE, View.GONE,
+                    View.GONE)
             }
             "more" ->{
                 setVisibility(View.VISIBLE, View.GONE, View.GONE,
                     View.GONE, View.VISIBLE, View.VISIBLE, View.VISIBLE,
                     View.VISIBLE, View.GONE, View.GONE,
-                    View.GONE, View.GONE, View.GONE, View.GONE)
+                    View.GONE, View.GONE, View.GONE, View.GONE,
+                    View.GONE)
                 btnMore?.setBackgroundResource(R.drawable.ic_btn_more_menu_blue)
                 btnMore?.layoutParams.width = 48
                 btnMore?.layoutParams.height = 48
@@ -211,17 +218,33 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
                 setVisibility(View.VISIBLE, View.GONE, View.GONE,
                     View.GONE, View.GONE, View.GONE, View.GONE,
                     View.GONE, View.GONE, View.GONE,
-                    View.VISIBLE, View.VISIBLE, View.VISIBLE, View.VISIBLE)
+                    View.VISIBLE, View.VISIBLE, View.VISIBLE, View.VISIBLE,
+                    View.GONE)
             }
             "calendar_year_mode" -> {
                 setVisibility(View.VISIBLE, View.VISIBLE, View.VISIBLE,
                     View.VISIBLE, View.VISIBLE, View.VISIBLE, View.VISIBLE,
                     View.GONE, View.GONE, View.GONE,
-                    View.GONE, View.GONE, View.GONE, View.GONE)
+                    View.GONE, View.GONE, View.GONE, View.GONE,
+                    View.GONE)
                 btnCalendar?.setBackgroundResource(R.drawable.ic_btn_calendar_menu_blue)
                 btnCalendar?.layoutParams.width = 51
                 btnCalendar?.layoutParams.height = 51
                 txtvwCalendar.setTextColor(resources.getColor(R.color.colorBlueNotesRedactor))
+            }
+            "languages" -> {
+                setVisibility(View.VISIBLE, View.GONE, View.GONE,
+                    View.GONE, View.VISIBLE, View.VISIBLE, View.VISIBLE,
+                    View.VISIBLE, View.GONE, View.GONE,
+                    View.GONE, View.GONE, View.GONE, View.GONE,
+                    View.GONE)
+            }
+            "change_language" -> {
+                setVisibility(View.VISIBLE, View.GONE, View.GONE,
+                    View.GONE, View.VISIBLE, View.VISIBLE, View.VISIBLE,
+                    View.VISIBLE, View.GONE, View.GONE,
+                    View.GONE, View.GONE, View.GONE, View.GONE,
+                    View.VISIBLE)
             }
         }
     }
@@ -311,7 +334,7 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
                       btnNewDatesVisibility : Int, layoutLeftVisibility : Int, layoutRightVisibility : Int, btnPlusNoteVisibility : Int,
                       btnBackVisibility : Int, btnDoneVisibility: Int, txtvwNotesHeaderVisibility : Int,
                       btnCrossVisibility : Int, downBlueBarVisibility : Int, txtvwCanceledVisibility : Int,
-                      txtvwSaveVisibility : Int){
+                      txtvwSaveVisibility : Int, txtvwChangeLanguageVisibility : Int){
         topBar.visibility = topBarVisibility
         btnMonthOrYearLayout.visibility = btnMonthOrYearVisibility
         btnStatistics.visibility = btnStatisticsVisibility
@@ -327,5 +350,6 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
         downBlueBar.visibility = downBlueBarVisibility
         txtvwCanceled.visibility = txtvwCanceledVisibility
         txtvwSave.visibility = txtvwSaveVisibility
+        txtvwChangeLanguage.visibility = txtvwChangeLanguageVisibility
     }
 }

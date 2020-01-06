@@ -57,5 +57,17 @@
     <string name="done_notes">完成了</string>
     <string name="btn_canceled_menu">取消</string>
     <string name="btn_save_menu">保存到</string>
+    <string name="btn_month">月份</string>
+    <string name="btn_year">年份</string>
 
+    <!-- Languages strings -->
+    <string name="english">English</string>
+    <string name="russian">Русский</string>
+    <string name="spanish">Espanol</string>
+    <string name="portuguese">Portugues</string>
+    <string name="chinese">中国</string>
+    <string name="thai">ไทย</string>
+    <string name="vietnamese">Tiếng việt</string>
+
+    <string name="change_language">变更语言</string>
 </resources>

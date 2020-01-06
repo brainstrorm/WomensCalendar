@@ -82,4 +82,15 @@
     <string name="about_us">О приложении</string>
     <string name="language">Русский</string>
     <string name="change_language">Сменить язык</string>
+
+    <!-- Languages strings -->
+    <string name="english">English</string>
+    <string name="russian">Русский</string>
+    <string name="spanish">Espanol</string>
+    <string name="portuguese">Portugues</string>
+    <string name="chinese">中国</string>
+    <string name="thai">ไทย</string>
+    <string name="vietnamese">Tiếng việt</string>
+
+
 </resources>

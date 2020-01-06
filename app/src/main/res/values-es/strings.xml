@@ -82,6 +82,8 @@
     <string name="done_notes">Listo</string>
     <string name="btn_canceled_menu">Cancelación</string>
     <string name="btn_save_menu">Guardar</string>
+    <string name="btn_month">MES</string>
+    <string name="btn_year">AÑO</string>
 
     <!--  Settings strings  -->
     <string name="settings_len_of_cycle">Duración del ciclo</string>
@@ -102,4 +104,14 @@
     <string name="about_us">Eliminar todos los registros</string>
     <string name="language">Español</string>
     <string name="change_language">Cambiar idioma</string>
+
+    <!-- Languages strings -->
+    <string name="english">English</string>
+    <string name="russian">Русский</string>
+    <string name="spanish">Espanol</string>
+    <string name="portuguese">Portugues</string>
+    <string name="chinese">中国</string>
+    <string name="thai">ไทย</string>
+    <string name="vietnamese">Tiếng việt</string>
+
 </resources>

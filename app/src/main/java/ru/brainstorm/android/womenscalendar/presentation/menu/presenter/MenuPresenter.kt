@@ -188,6 +188,30 @@ class MenuPresenter
                 }
                 viewState.setPart("more")
             }
+            "languages" -> {
+                if (fm.findFragmentById(R.id.for_fragment) == null) {
+                    fm.beginTransaction()
+                        .add(R.id.for_fragment, LanguagesFragment())
+                        .commitNow()
+                } else {
+                    fm.beginTransaction()
+                        .replace(R.id.for_fragment, LanguagesFragment())
+                        .commitNow()
+                }
+                viewState.setPart("languages")
+            }
+            "change_language" -> {
+                if (fm.findFragmentById(R.id.for_fragment) == null) {
+                    fm.beginTransaction()
+                        .add(R.id.for_fragment, ChangeLanguageFragment())
+                        .commitNow()
+                } else {
+                    fm.beginTransaction()
+                        .replace(R.id.for_fragment, ChangeLanguageFragment())
+                        .commitNow()
+                }
+                viewState.setPart("change_language")
+            }
         }
     }
 }
