@@ -84,12 +84,12 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:background="@null"
-                app:layout_constraintEnd_toStartOf="@+id/switch2"
+                app:layout_constraintEnd_toStartOf="@+id/switch_start_of_menstruation"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"></ImageButton>
 
             <Switch
-                android:id="@+id/switch1"
+                android:id="@+id/switch_end_of_menstruation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="90dp"
@@ -149,12 +149,12 @@
                 android:layout_marginEnd="10dp"
                 android:background="@null"
                 android:translationZ="0.001dp"
-                app:layout_constraintEnd_toStartOf="@+id/switch1"
+                app:layout_constraintEnd_toStartOf="@+id/switch_end_of_menstruation"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"></ImageButton>
 
             <Switch
-                android:id="@+id/switch2"
+                android:id="@+id/switch_start_of_menstruation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -240,12 +240,12 @@
                 android:layout_marginEnd="10dp"
                 android:background="@null"
                 android:translationZ="0.001dp"
-                app:layout_constraintEnd_toStartOf="@+id/switch3"
+                app:layout_constraintEnd_toStartOf="@+id/switch_open_fetilnost"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"></ImageButton>
 
             <Switch
-                android:id="@+id/switch4"
+                android:id="@+id/switch_ovulation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="100dp"
@@ -306,12 +306,12 @@
                 android:layout_marginEnd="10dp"
                 android:translationZ="0.001dp"
                 android:background="@null"
-                app:layout_constraintEnd_toStartOf="@+id/switch4"
+                app:layout_constraintEnd_toStartOf="@+id/switch_ovulation"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"></ImageButton>
 
             <Switch
-                android:id="@+id/switch3"
+                android:id="@+id/switch_open_fetilnost"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -371,12 +371,12 @@
                 android:layout_marginEnd="10dp"
                 android:translationZ="0.001dp"
                 android:background="@null"
-                app:layout_constraintEnd_toStartOf="@+id/switch5"
+                app:layout_constraintEnd_toStartOf="@+id/switch_closing_ftilnost"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"></ImageButton>
 
             <Switch
-                android:id="@+id/switch5"
+                android:id="@+id/switch_closing_ftilnost"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="174dp"
