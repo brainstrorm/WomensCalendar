@@ -1,10 +1,13 @@
 package ru.brainstorm.android.womenscalendar.presentation.menu.fragment
 
+import android.content.SharedPreferences
+import android.content.res.Configuration
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -37,10 +40,14 @@ import ru.brainstorm.android.womenscalendar.data.database.entities.Note
 import ru.brainstorm.android.womenscalendar.presentation.menu.presenter.CalendarPickerPresenter
 import ru.brainstorm.android.womenscalendar.presentation.menu.view.CalendarPickerView
 import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.*
+import java.util.*
 import javax.inject.Inject
+import kotlin.collections.HashMap
 
 
 class CalendarPickerFragment : AbstractMenuFragment(), CalendarPickerView{
+
+    private lateinit var pref : SharedPreferences
 
     companion object{
         val TAG = "CalendarPicker"
@@ -97,6 +104,7 @@ class CalendarPickerFragment : AbstractMenuFragment(), CalendarPickerView{
     ): View? {
         // Inflate the layout for this fragment
         setHasOptionsMenu(true)
+
         return inflater.inflate(R.layout.fragment_calendar_picker, container, false)
     }
 
@@ -104,6 +112,8 @@ class CalendarPickerFragment : AbstractMenuFragment(), CalendarPickerView{
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        pref = PreferenceManager.getDefaultSharedPreferences(context)
 
         App.appComponent.inject(this)
         var menstruationDays = listOf<Cycle>()
@@ -132,18 +142,7 @@ class CalendarPickerFragment : AbstractMenuFragment(), CalendarPickerView{
         weekDays.put("Sat", "Сб")
         weekDays.put("Sun", "Вс")
 
-        months.put("October", "Октябрь")
-        months.put("November", "Ноябрь")
-        months.put("December", "Декабрь")
-        months.put("January", "Январь")
-        months.put("February", "Февраль")
-        months.put("March", "Март")
-        months.put("April", "Апрель")
-        months.put("May", "Май")
-        months.put("June", "Июнь")
-        months.put("July", "Июль")
-        months.put("August", "Август")
-        months.put("September", "Сентябрь")
+        updateLocale()
 
         val daysOfWeek = daysOfWeekFromLocale()
 
@@ -328,5 +327,27 @@ class CalendarPickerFragment : AbstractMenuFragment(), CalendarPickerView{
 
     override fun getPart(): String = "calendar"
 
+
+    fun updateLocale(){
+        val language = pref.getString("language", "en")
+        val locale = Locale(language)
+        Locale.setDefault(locale)
+        val configuration = Configuration()
+        configuration.locale = locale
+        getResources().updateConfiguration(configuration, null)
+
+        months.put("October", resources.getString(R.string.october))
+        months.put("November", resources.getString(R.string.november))
+        months.put("December", resources.getString(R.string.december))
+        months.put("January", resources.getString(R.string.january))
+        months.put("February", resources.getString(R.string.february))
+        months.put("March", resources.getString(R.string.march))
+        months.put("April", resources.getString(R.string.april))
+        months.put("May", resources.getString(R.string.may))
+        months.put("June", resources.getString(R.string.june))
+        months.put("July", resources.getString(R.string.july))
+        months.put("August", resources.getString(R.string.august))
+        months.put("September", resources.getString(R.string.september))
+    }
 
 }

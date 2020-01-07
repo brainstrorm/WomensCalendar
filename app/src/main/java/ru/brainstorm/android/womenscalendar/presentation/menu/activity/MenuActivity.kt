@@ -2,8 +2,11 @@ package ru.brainstorm.android.womenscalendar.presentation.menu.activity
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
+import android.content.res.Configuration
 import android.media.Image
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,9 +15,11 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import kotlinx.android.synthetic.main.fragment_languages.*
 import moxy.MvpAppCompatActivity
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
+import org.intellij.lang.annotations.Language
 import org.w3c.dom.Text
 import ru.brainstorm.android.womenscalendar.App
 import ru.brainstorm.android.womenscalendar.R
@@ -75,6 +80,11 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
     private lateinit var txtvwStartOfMenstruation : TextView
     private lateinit var txtvwEndOfMenstruation : TextView
     private lateinit var txtvwWomensCalendar : TextView
+    private lateinit var txtvwNewDateMenu : TextView
+
+    //private lateinit var txtvwLanguages : TextView
+
+    private lateinit var pref : SharedPreferences
 
     @Inject
     lateinit var cycleDao: CycleDao
@@ -89,6 +99,9 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu)
         supportActionBar?.hide()
+
+        pref = PreferenceManager.getDefaultSharedPreferences(this)
+        changeLocale(pref.getString("language", "en")!!)
 
         topBar = findViewById(R.id.topBar)
         btnMonthOrYear = findViewById<ImageView>(R.id.btn_month_or_year).apply{ setOnClickListener(this@MenuActivity)}
@@ -127,6 +140,7 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
         txtvwStartOfMenstruation = findViewById(R.id.start_of_menstruation)
         txtvwEndOfMenstruation = findViewById(R.id.end_of_menstruation)
         txtvwWomensCalendar = findViewById(R.id.womens_calendar)
+        txtvwNewDateMenu = findViewById(R.id.btn_new_date_menu_text)
 
         App.appComponent.inject(this)
         /*supportFragmentManager.beginTransaction()
@@ -391,5 +405,52 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
         txtvwStartOfMenstruation.visibility = txtvwStartOfMenstruationVisibility
         txtvwEndOfMenstruation.visibility = txtvwEndOfMenstruationVisibility
         txtvwWomensCalendar.visibility = txtvwWomensCalendarVisibility
+    }
+
+    fun changeLocale(language: String){
+        val APP_LANGUAGE = "language"
+        val editor = pref.edit()
+        editor.putString(APP_LANGUAGE, language)
+        editor.commit()
+        val locale = Locale(language)
+        Locale.setDefault(locale)
+        val configuration = Configuration()
+        configuration.locale = locale
+        getResources().updateConfiguration(configuration, null)
+        var txtvwToday = findViewById<TextView>(R.id.today_text)
+        var txtvwCalendar = findViewById<TextView>(R.id.calendar_text)
+        var txtvwNotes = findViewById<TextView>(R.id.info_text)
+        var txtvwMore = findViewById<TextView>(R.id.more_text)
+        var txtvwNotesHeader = findViewById<TextView>(R.id.notes)
+        var txtvwCanceled = findViewById<TextView>(R.id.btn_canceled)
+        var txtvwSave = findViewById<TextView>(R.id.btn_save)
+        var txtvwYear = findViewById<TextView>(R.id.text_month)
+        var txtvwMonth = findViewById<TextView>(R.id.text_year)
+        var txtvwChangeLanguage = findViewById<TextView>(R.id.change_language)
+        var txtvwNewDateMenu = findViewById<TextView>(R.id.btn_new_date_menu_text)
+
+        var txtvwMyProfile = findViewById<TextView>(R.id.my_profile)
+        var txtvwNotifications = findViewById<TextView>(R.id.notifications)
+        var txtvwStartOfMenstruation = findViewById<TextView>(R.id.start_of_menstruation)
+        var txtvwEndOfMenstruation = findViewById<TextView>(R.id.end_of_menstruation)
+        var txtvwWomensCalendar = findViewById<TextView>(R.id.womens_calendar)
+
+        txtvwToday.setText(R.string.today)
+        txtvwCalendar.setText(R.string.calendar)
+        txtvwNotes.setText(R.string.notes)
+        txtvwMore.setText(R.string.more)
+        txtvwNotesHeader.setText(R.string.notes)
+        txtvwCanceled.setText(R.string.cancel)
+        txtvwSave.setText(R.string.btn_save_menu)
+        txtvwYear.setText(R.string.btn_year)
+        txtvwMonth.setText(R.string.btn_month)
+        txtvwChangeLanguage.setText(R.string.change_language)
+        txtvwNewDateMenu.setText(R.string.new_date_text_menu)
+
+        txtvwMyProfile.setText(R.string.my_profile)
+        txtvwNotifications.setText(R.string.notifications)
+        txtvwStartOfMenstruation.setText(R.string.start_of_menstruation)
+        txtvwEndOfMenstruation.setText(R.string.end_of_menstruation)
+        txtvwWomensCalendar.setText(R.string.womens_calendar)
     }
 }

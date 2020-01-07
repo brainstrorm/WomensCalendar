@@ -2,10 +2,13 @@ package ru.brainstorm.android.womenscalendar.presentation.statistics.activity
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
+import android.content.res.Configuration
 import android.content.res.Resources
 import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +18,9 @@ import androidx.core.graphics.drawable.toDrawable
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.skydoves.progressview.ProgressView
+import kotlinx.android.synthetic.main.activity_statistic.*
 import kotlinx.coroutines.*
+import org.w3c.dom.Text
 import ru.brainstorm.android.womenscalendar.App
 import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.data.database.dao.CycleDao
@@ -23,6 +28,7 @@ import ru.brainstorm.android.womenscalendar.data.database.entities.Cycle
 import ru.brainstorm.android.womenscalendar.presentation.menu.activity.MenuActivity
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import java.util.*
 import javax.inject.Inject
 
 class StatisticsActivity : AppCompatActivity() {
@@ -34,6 +40,12 @@ class StatisticsActivity : AppCompatActivity() {
         fun provideIntent(packageContext: Context) = Intent(packageContext, StatisticsActivity::class.java)
     }
 
+    private lateinit var pref : SharedPreferences
+
+    private lateinit var txtvwDurationOfCycleAndMenstruation : TextView
+    private lateinit var txtvwAvgLengthOfCycle : TextView
+    private lateinit var txtvwAvgLengthOfMenstruation : TextView
+    private lateinit var txtvwPressDatesOfNewMenstruation : TextView
 
     @Inject
     lateinit var cycleDao: CycleDao
@@ -88,6 +100,15 @@ class StatisticsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_statistic)
         supportActionBar?.hide()
 
+        pref = PreferenceManager.getDefaultSharedPreferences(this)
+
+        updateLocale()
+
+        txtvwAvgLengthOfCycle = findViewById<TextView>(R.id.Avg_length_of_cycle)
+        txtvwAvgLengthOfMenstruation = findViewById(R.id.avg_length_of_menstruation)
+        txtvwDurationOfCycleAndMenstruation = findViewById(R.id.duration_of_cycle_and_menstruation)
+        txtvwPressDatesOfNewMenstruation = findViewById(R.id.press_dates_of_new_menstruation)
+
         //get data from db
         App.appComponent.inject(this)
         var cycles = listOf<Cycle>()
@@ -100,6 +121,27 @@ class StatisticsActivity : AppCompatActivity() {
             return@async cycles
         }
 
+
     }
+
+    fun updateLocale(){
+        val language = pref.getString("language", "en")
+        val locale = Locale(language)
+        Locale.setDefault(locale)
+        val configuration = Configuration()
+        configuration.locale = locale
+        getResources().updateConfiguration(configuration, null)
+
+        txtvwAvgLengthOfCycle = findViewById<TextView>(R.id.Avg_length_of_cycle)
+        txtvwAvgLengthOfMenstruation = findViewById(R.id.avg_length_of_menstruation)
+        txtvwDurationOfCycleAndMenstruation = findViewById(R.id.duration_of_cycle_and_menstruation)
+        txtvwPressDatesOfNewMenstruation = findViewById(R.id.press_dates_of_new_menstruation)
+
+        txtvwDurationOfCycleAndMenstruation.setText(R.string.text_duration_of_menstruation)
+        txtvwAvgLengthOfMenstruation.setText(R.string.text_avg_length_of_menstruation)
+        txtvwAvgLengthOfCycle.setText(R.string.text_avg_length_of_cycle)
+        txtvwPressDatesOfNewMenstruation.setText(R.string.text_press_last_menstruation)
+    }
+
 
 }

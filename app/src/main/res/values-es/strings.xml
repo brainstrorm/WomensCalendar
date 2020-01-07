@@ -106,6 +106,7 @@
     <string name="change_language">Cambiar idioma</string>
 
     <!-- Languages strings -->
+    <string name="languages">Idiomas</string>
     <string name="english">English</string>
     <string name="russian">Русский</string>
     <string name="spanish">Espanol</string>
