@@ -1,6 +1,7 @@
 package ru.brainstorm.android.womenscalendar.presentation.menu.fragment
 
 import android.app.Notification
+import android.app.NotificationManager
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
@@ -11,15 +12,11 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.Switch
+import androidx.core.content.ContextCompat.getSystemService
 
 import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.presentation.menu.activity.MenuActivity
-import android.content.Context.NOTIFICATION_SERVICE
-import androidx.core.content.ContextCompat.getSystemService
-import android.app.NotificationManager
-import androidx.media.app.NotificationCompat
-import android.content.Context.NOTIFICATION_SERVICE
-import androidx.core.content.ContextCompat.getSystemService
+
 
 
 
@@ -72,15 +69,17 @@ class NotificationsFragment : AbstractMenuFragment() {
 
 
                 var builder = Notification.Builder(context, "1")
-                    //.setSmallIcon(R.drawable.)
+                    .setSmallIcon(R.drawable.app_icon)
                     .setContentTitle("Hello!")
                     .setContentText("It's a notificatiion")
                     //.setPriority(NotificationCompat.PRIORITY_DEFAULT)
 
                 val notification = builder.build()
 
+                val notificationManager: NotificationManager =
+                    context!!.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-
+                notificationManager.notify(1,notification)
             }
 
         }
