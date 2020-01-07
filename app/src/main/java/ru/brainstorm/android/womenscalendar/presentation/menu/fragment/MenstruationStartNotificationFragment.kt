@@ -7,10 +7,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import kotlinx.android.synthetic.main.fragment_settings_change_language.*
 
 import ru.brainstorm.android.womenscalendar.R
+import ru.brainstorm.android.womenscalendar.presentation.menu.activity.MenuActivity
 
+@Suppress("UNREACHABLE_CODE")
 class MenstruationStartNotificationFragment : AbstractMenuFragment() {
+
+    private lateinit var backButton : ImageView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,7 +28,17 @@ class MenstruationStartNotificationFragment : AbstractMenuFragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_menstruation_start_notification, container, false)
+        val view = inflater.inflate(R.layout.fragment_menstruation_start_notification, container, false)
+
+
+        backButton = activity!!.findViewById<ImageView>(R.id.btn_back)
+
+        backButton.setOnClickListener{view ->
+            (activity as MenuActivity).apply {
+                menuPresenter.popBackStack(supportFragmentManager)
+            }
+        }
+            return view
     }
 
     override fun getPart(): String = "start_of_menstruation"

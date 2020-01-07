@@ -7,10 +7,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 
 import ru.brainstorm.android.womenscalendar.R
+import ru.brainstorm.android.womenscalendar.presentation.menu.activity.MenuActivity
 
 class MenstruationEndNotificationFragment : AbstractMenuFragment() {
+    private lateinit var backButton : ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,6 +24,15 @@ class MenstruationEndNotificationFragment : AbstractMenuFragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+
+        backButton = activity!!.findViewById(R.id.btn_back)
+
+        backButton.setOnClickListener { view ->
+            (activity as MenuActivity).apply {
+                menuPresenter.popBackStack(supportFragmentManager)
+            }
+        }
+
         return inflater.inflate(R.layout.fragment_menstruation_end_notification, container, false)
     }
 
