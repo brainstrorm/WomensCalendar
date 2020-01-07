@@ -3,27 +3,29 @@ package ru.brainstorm.android.womenscalendar.presentation.menu.fragment
 import android.animation.AnimatorSet
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
+import android.content.SharedPreferences
+import android.content.res.Configuration
 import android.os.Bundle
 import android.os.LocaleList
+import android.preference.PreferenceManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
-import android.widget.LinearLayout
-import android.widget.NumberPicker
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import org.w3c.dom.Text
 import ru.brainstorm.android.womenscalendar.App
 import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.data.database.dao.CycleDao
 import ru.brainstorm.android.womenscalendar.di.AppComponent
 import ru.brainstorm.android.womenscalendar.presentation.menu.activity.MenuActivity
+import java.util.*
 import javax.inject.Inject
 
 /**
@@ -45,10 +47,19 @@ class SettingsFragment
     private lateinit var cyclePicker: NumberPicker
     private lateinit var menstTextView: TextView
     private lateinit var cycleTextView: TextView
+    private lateinit var txtvwNotifications : TextView
+    private lateinit var txtvwGraphicsAndReports : TextView
+    private lateinit var txtvwSettings : TextView
+    private lateinit var txtvwRateUs : TextView
+    private lateinit var txtvwHelpAndFeedback : TextView
+    private lateinit var txtvwDeleteAllNotes : TextView
+    private lateinit var txtvwAboutApp : TextView
     private lateinit var deleteAllNotes: LinearLayout
     private lateinit var statistics: LinearLayout
     private lateinit var settingsLayout : LinearLayout
     private lateinit var notificationsLayout : LinearLayout
+
+    private lateinit var pref : SharedPreferences
 
     override fun getPart(): String = "more"
 
@@ -68,6 +79,17 @@ class SettingsFragment
         mainView = kek
         initViews()
         initAnimators()
+
+        txtvwNotifications = mainView.findViewById(R.id.notifications_text)
+        txtvwGraphicsAndReports = mainView.findViewById(R.id.graphics_and_reports_text)
+        txtvwSettings = mainView.findViewById(R.id.settings_text)
+        txtvwRateUs = mainView.findViewById(R.id.rate_us_text)
+        txtvwHelpAndFeedback = mainView.findViewById(R.id.help_and_feedback_text)
+        txtvwDeleteAllNotes = mainView.findViewById(R.id.delete_all_notes_text)
+        txtvwAboutApp = mainView.findViewById(R.id.about_app)
+
+        pref = PreferenceManager.getDefaultSharedPreferences(context)
+        updateLocale()
         return mainView
     }
 
@@ -174,5 +196,22 @@ class SettingsFragment
         set.play(heightAnimator)
         set.interpolator = AccelerateDecelerateInterpolator()
         set.start()
+    }
+
+    fun updateLocale(){
+        val language = pref.getString("language", "en")
+        val locale = Locale(language)
+        Locale.setDefault(locale)
+        val configuration = Configuration()
+        configuration.locale = locale
+        getResources().updateConfiguration(configuration, null)
+
+        txtvwNotifications.setText(R.string.remind)
+        txtvwGraphicsAndReports.setText(R.string.graphs)
+        txtvwSettings.setText(R.string.settings)
+        txtvwRateUs.setText(R.string.rate_us)
+        txtvwHelpAndFeedback.setText(R.string.help_feedback)
+        txtvwDeleteAllNotes.setText(R.string.delete_all_notes)
+        txtvwAboutApp.setText(R.string.about_us)
     }
 }

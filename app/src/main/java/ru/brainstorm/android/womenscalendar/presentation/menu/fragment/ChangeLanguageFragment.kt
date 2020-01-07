@@ -1,8 +1,10 @@
 package ru.brainstorm.android.womenscalendar.presentation.menu.fragment
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +17,7 @@ import kotlinx.android.synthetic.main.fragment_change_language.*
 import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.presentation.menu.activity.MenuActivity
 import java.util.*
+import java.util.prefs.PreferencesFactory
 import kotlin.collections.ArrayList
 
 
@@ -30,6 +33,8 @@ class ChangeLanguageFragment : Fragment() {
     private lateinit var checkMarks : ArrayList<ImageView>
     private lateinit var backButton : ImageView
 
+    private lateinit var pref : SharedPreferences
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,6 +47,10 @@ class ChangeLanguageFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_change_language, container, false)
+
+        pref = PreferenceManager.getDefaultSharedPreferences(context)
+
+
         checkMarks = ArrayList()
         checkMarks.add(view.findViewById(R.id.english_check_mark))
         checkMarks.add(view.findViewById(R.id.russian_check_mark))
@@ -59,54 +68,64 @@ class ChangeLanguageFragment : Fragment() {
         chineseButton = view.findViewById<ImageButton>(R.id.chinese_button)
         backButton = activity!!.findViewById<ImageView>(R.id.btn_back)
 
+        when(pref.getString("language", "en")){
+            "en" -> checkMarks[0].isVisible = true
+            "ru" -> checkMarks[1].isVisible = true
+            "es" -> checkMarks[2].isVisible = true
+            "pt" -> checkMarks[3].isVisible = true
+            "th" -> checkMarks[4].isVisible = true
+            "vi" -> checkMarks[5].isVisible = true
+            "zh" -> checkMarks[6].isVisible = true
+        }
+
         englishButton.setOnClickListener { view ->
             checkMarks.forEach{
                 it.isVisible = false
             }
             english_check_mark.isVisible = true
-            changeLocale("en")
+            (activity as MenuActivity).changeLocale("en")
         }
         russianButton.setOnClickListener { view ->
             checkMarks.forEach{
                 it.isVisible = false
             }
             russian_check_mark.isVisible = true
-            changeLocale("rus")
+            (activity as MenuActivity).changeLocale("rus")
         }
         spanishButton.setOnClickListener { view ->
             checkMarks.forEach{
                 it.isVisible = false
             }
             spanish_check_mark.isVisible = true
-            changeLocale("es")
+            (activity as MenuActivity).changeLocale("es")
         }
         portugueseButton.setOnClickListener { view ->
             checkMarks.forEach{
                 it.isVisible = false
             }
             portugese_check_mark.isVisible = true
-            changeLocale("pt")
+            (activity as MenuActivity).changeLocale("pt")
         }
         thaiButton.setOnClickListener { view ->
             checkMarks.forEach {
                 it.isVisible = false
             }
             thai_check_mark.isVisible = true
-            changeLocale("th")
+            (activity as MenuActivity).changeLocale("th")
         }
         vietnameseButton.setOnClickListener { view ->
             checkMarks.forEach {
                 it.isVisible = false
             }
             vietnamese_check_mark.isVisible = true
-            changeLocale("vi")
+            (activity as MenuActivity).changeLocale("vi")
         }
         chineseButton.setOnClickListener { view ->
             checkMarks.forEach {
                 it.isVisible = false
             }
             chinese_check_mark.isVisible = true
-            changeLocale("zh")
+            (activity as MenuActivity).changeLocale("zh")
         }
         backButton.setOnClickListener {view ->
             (activity as MenuActivity).apply {
@@ -124,32 +143,7 @@ class ChangeLanguageFragment : Fragment() {
         super.onDetach()
     }
 
-    fun changeLocale(language: String){
-        val locale = Locale(language)
-        Locale.setDefault(locale)
-        val configuration = Configuration()
-        configuration.locale = locale
-        context!!.getResources().updateConfiguration(configuration, null)
-        var txtvwToday =  activity!!.findViewById<TextView>(R.id.today_text)
-        var txtvwCalendar = activity!!.findViewById<TextView>(R.id.calendar_text)
-        var txtvwNotes = activity!!.findViewById<TextView>(R.id.info_text)
-        var txtvwMore = activity!!.findViewById<TextView>(R.id.more_text)
-        var txtvwNotesHeader = activity!!.findViewById<TextView>(R.id.notes)
-        var txtvwCanceled = activity!!.findViewById<TextView>(R.id.btn_canceled)
-        var txtvwSave = activity!!.findViewById<TextView>(R.id.btn_save)
-        var txtvwYear = activity!!.findViewById<TextView>(R.id.text_month)
-        var txtvwMonth = activity!!.findViewById<TextView>(R.id.text_year)
-        var txtvwChangeLanguage = activity!!.findViewById<TextView>(R.id.change_language)
-        txtvwToday.setText(R.string.today)
-        txtvwCalendar.setText(R.string.calendar)
-        txtvwNotes.setText(R.string.notes)
-        txtvwMore.setText(R.string.more)
-        txtvwNotesHeader.setText(R.string.notes)
-        txtvwCanceled.setText(R.string.cancel)
-        txtvwSave.setText(R.string.btn_save_menu)
-        txtvwYear.setText(R.string.btn_year)
-        txtvwMonth.setText(R.string.btn_month)
-        txtvwChangeLanguage.setText(R.string.change_language)
-    }
+
+
 
 }

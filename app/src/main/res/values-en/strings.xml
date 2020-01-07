@@ -61,6 +61,7 @@
     <string name="btn_year">YEAR</string>
 
     <!-- Languages strings -->
+    <string name="languages">Languages</string>
     <string name="english">English</string>
     <string name="russian">Русский</string>
     <string name="spanish">Espanol</string>
@@ -69,5 +70,42 @@
     <string name="thai">ไทย</string>
     <string name="vietnamese">Tiếng việt</string>
 
+    <!--  Settings strings  -->
+    <string name="settings_len_of_cycle">Продолжительность цикла</string>
+    <string name="settings_len_of_menstr">Продолжительность месячных</string>
+    <plurals name="days">
+        <item quantity="one">%1$d день</item>
+        <item quantity="few">%1$d дня</item>
+        <item quantity="many">%1$d дней</item>
+        <item quantity="other">%1$d дней</item>
+    </plurals>
+    <string name="deleting_all_notes">Удаляем все заметки</string>
+    <string name="cancel">Отмена</string>
+    <string name="ru_save">Сохранить</string>
+    <string name="remind">Notifications</string>
+    <string name="graphs">Графики и отчеты</string>
+    <string name="settings">Настройки</string>
+    <string name="rate_us">Оцените нас</string>
+    <string name="help_feedback">Помощь и обратная связь</string>
+    <string name="delete_all_notes">Удалить все записи</string>
+    <string name="about_us">О приложении</string>
+    <string name="language">Русский</string>
     <string name="change_language">Change language</string>
+    <string name="my_profile">Мой профиль</string>
+    <string name="notifications">Напоминания</string>
+    <string name="womens_calendar">Женский календарь</string>
+
+    <!-- months -->
+    <string name="october">Octoberь</string>
+    <string name="november">November</string>
+    <string name="december">December</string>
+    <string name="january">January</string>
+    <string name="february">February</string>
+    <string name="march">March</string>
+    <string name="april">April</string>
+    <string name="may">May</string>
+    <string name="june">June</string>
+    <string name="july">July</string>
+    <string name="august">August</string>
+    <string name="september">September</string>
 </resources>

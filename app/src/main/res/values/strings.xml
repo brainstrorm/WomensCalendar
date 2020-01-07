@@ -61,7 +61,7 @@
 
 
     <!--  Settings strings  -->
-    <string name="settings_len_of_cycle">Продолжительность месячных</string>
+    <string name="settings_len_of_cycle">Продолжительность цикла</string>
     <string name="settings_len_of_menstr">Продолжительность месячных</string>
     <plurals name="days">
         <item quantity="one">%1$d день</item>
@@ -86,6 +86,7 @@
     <string name="womens_calendar">Женский календарь</string>
 
     <!-- Languages strings -->
+    <string name="languages">Языки</string>
     <string name="english">English</string>
     <string name="russian">Русский</string>
     <string name="spanish">Espanol</string>
@@ -110,6 +111,18 @@
     <string name="time">Время</string>
     <string name="message">Сообщение</string>
 
-
+    <!-- months -->
+    <string name="october">Октябрь</string>
+    <string name="november">Ноябрь</string>
+    <string name="december">Декабрь</string>
+    <string name="january">Январь</string>
+    <string name="february">Февраль</string>
+    <string name="march">Март</string>
+    <string name="april">Апрель</string>
+    <string name="may">Май</string>
+    <string name="june">Июнь</string>
+    <string name="july">Июль</string>
+    <string name="august">Август</string>
+    <string name="september">Сентябрь</string>
 
 </resources>
