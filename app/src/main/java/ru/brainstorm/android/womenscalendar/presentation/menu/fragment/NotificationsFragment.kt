@@ -84,7 +84,7 @@ class NotificationsFragment : AbstractMenuFragment() {
 
         }
 
-        //<--------------------------------->
+        //<---------------------------------->
 
         notificationsButton.setOnClickListener{view ->
             (activity as MenuActivity).apply {
