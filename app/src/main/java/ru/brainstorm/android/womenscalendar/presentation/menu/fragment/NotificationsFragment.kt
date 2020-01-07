@@ -85,6 +85,7 @@ class NotificationsFragment : AbstractMenuFragment() {
                     val channel = NotificationChannel("1", name, importance).apply {
                         description = descriptionText
                     }
+                    channel.enableVibration(true)
                     // Register the channel with the system
                     val notificationManager: NotificationManager =
                         context!!.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
