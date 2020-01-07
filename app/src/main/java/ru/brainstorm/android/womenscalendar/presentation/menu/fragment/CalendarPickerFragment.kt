@@ -134,13 +134,6 @@ class CalendarPickerFragment : AbstractMenuFragment(), CalendarPickerView{
 
 
         var calendarView = view.findViewById<com.kizitonwose.calendarview.CalendarView>(R.id.calendarView)
-        weekDays.put("Mon", "Пн")
-        weekDays.put("Tue", "Вт")
-        weekDays.put("Wed", "Ср")
-        weekDays.put("Thu", "Чт")
-        weekDays.put("Fri", "Пт")
-        weekDays.put("Sat", "Сб")
-        weekDays.put("Sun", "Вс")
 
         updateLocale()
 
@@ -348,6 +341,14 @@ class CalendarPickerFragment : AbstractMenuFragment(), CalendarPickerView{
         months.put("July", resources.getString(R.string.july))
         months.put("August", resources.getString(R.string.august))
         months.put("September", resources.getString(R.string.september))
+
+        weekDays.put("Mon", resources.getString(R.string.monday))
+        weekDays.put("Tue", resources.getString(R.string.tuesday))
+        weekDays.put("Wed", resources.getString(R.string.wednesday))
+        weekDays.put("Thu", resources.getString(R.string.thursday))
+        weekDays.put("Fri", resources.getString(R.string.friday))
+        weekDays.put("Sat", resources.getString(R.string.saturday))
+        weekDays.put("Sun", resources.getString(R.string.sunday))
     }
 
 }

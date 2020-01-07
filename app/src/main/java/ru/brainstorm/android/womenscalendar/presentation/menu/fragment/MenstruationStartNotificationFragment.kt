@@ -13,7 +13,6 @@ import kotlinx.android.synthetic.main.fragment_settings_change_language.*
 import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.presentation.menu.activity.MenuActivity
 
-@Suppress("UNREACHABLE_CODE")
 class MenstruationStartNotificationFragment : AbstractMenuFragment() {
 
     private lateinit var backButton : ImageView
