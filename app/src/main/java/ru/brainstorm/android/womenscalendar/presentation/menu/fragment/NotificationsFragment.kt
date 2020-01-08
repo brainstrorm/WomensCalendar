@@ -6,18 +6,24 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Context.ALARM_SERVICE
 import android.content.Intent
+import android.content.SharedPreferences
+import android.content.res.Configuration
 import android.os.Bundle
 import android.os.SystemClock
+import android.preference.PreferenceManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.Switch
+import android.widget.TextView
 import androidx.core.app.NotificationCompat
+import kotlinx.android.synthetic.main.fragment_notifications.*
 import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.domain.notifications.NotificationReceiver
 import ru.brainstorm.android.womenscalendar.presentation.menu.activity.MenuActivity
+import java.time.LocalDate
 import java.util.*
 
 
@@ -34,6 +40,20 @@ public class NotificationsFragment : AbstractMenuFragment() {
     private lateinit var switchOvulationButton : Switch
     private lateinit var switchCloseFetilnostButton : Switch
 
+    private lateinit var txtvwPeriodicNotifications : TextView
+    private lateinit var txtvwStartOfMenstruation : TextView
+    private lateinit var txtvwMenstruationBeginsToday : TextView
+    private lateinit var txtvwEndOfMenstruation : TextView
+    private lateinit var txtvwNoteEndOfMenstruation : TextView
+    private lateinit var txtvwOpenOfFertility : TextView
+    private lateinit var txtvwFertilityWindow : TextView
+    private lateinit var txtvwOvulation : TextView
+    private lateinit var txtvwPredictableOvulation : TextView
+    private lateinit var txtvwClosingOfFertilityWindow : TextView
+    private lateinit var txtvwFertilityWindowCloses : TextView
+
+    private lateinit var pref : SharedPreferences
+
 
     private fun scheduleNotification(notification: Notification, delay: Int) {
         val notificationIntent = Intent(context, NotificationReceiver::class.java)
@@ -47,8 +67,9 @@ public class NotificationsFragment : AbstractMenuFragment() {
         )
         val calendar = Calendar.getInstance()
         calendar.timeInMillis = System.currentTimeMillis()
-        calendar.set(Calendar.HOUR_OF_DAY, 22)
-        calendar.set(Calendar.MINUTE, 58)
+        calendar.set(Calendar.HOUR_OF_DAY, 0)
+        calendar.set(Calendar.MINUTE, 20)
+        calendar.set(Calendar.SECOND, 0)
         //val futureInMillis = SystemClock.elapsedRealtime() + delay
         val alarmManager =
             (context!!.getSystemService(ALARM_SERVICE) as AlarmManager?)!!
@@ -76,6 +97,23 @@ public class NotificationsFragment : AbstractMenuFragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_notifications, container, false)
+
+        pref = PreferenceManager.getDefaultSharedPreferences(context)
+
+        txtvwPeriodicNotifications = view.findViewById(R.id.period_notification)
+        txtvwStartOfMenstruation = view.findViewById(R.id.start_of_menstruation)
+        txtvwMenstruationBeginsToday = view.findViewById(R.id.menstruation_begins_today)
+        txtvwEndOfMenstruation = view.findViewById(R.id.end_of_menstruation)
+        txtvwNoteEndOfMenstruation = view.findViewById(R.id.dont_forget_note_end_of_menstruation)
+        txtvwOpenOfFertility = view.findViewById(R.id.opening_of_fertility)
+        txtvwFertilityWindow = view.findViewById(R.id.fertility_window)
+        txtvwOvulation = view.findViewById(R.id.ovulation)
+        txtvwPredictableOvulation = view.findViewById(R.id.predictable_ovulation)
+        txtvwClosingOfFertilityWindow = view.findViewById(R.id.close_of_fertility_window)
+        txtvwFertilityWindowCloses = view.findViewById(R.id.closing_of_fertility_window)
+
+        updateLocale()
+
         notificationsButton = activity!!.findViewById<ImageView>(R.id.btn_back)
         notificationStartMenstruationButton = view.findViewById<ImageButton>(R.id.btn_start_of_menstruation_notification)
         notificationEndMenstruationButton = view.findViewById<ImageButton>(R.id.btn_end_of_menstruation_notification)
@@ -160,5 +198,26 @@ public class NotificationsFragment : AbstractMenuFragment() {
 
     override fun onDetach() {
         super.onDetach()
+    }
+
+    fun updateLocale(){
+        val language = pref.getString("language", "en")
+        val locale = Locale(language)
+        Locale.setDefault(locale)
+        val configuration = Configuration()
+        configuration.locale = locale
+        getResources().updateConfiguration(configuration, null)
+
+        txtvwPeriodicNotifications.setText(R.string.period_notifications)
+        txtvwStartOfMenstruation.setText(R.string.start_of_menstruation)
+        txtvwMenstruationBeginsToday.setText(R.string.menstruation_starts_today)
+        txtvwEndOfMenstruation.setText(R.string.end_of_menstruation)
+        txtvwNoteEndOfMenstruation.setText(R.string.do_not_forget)
+        txtvwOpenOfFertility.setText(R.string.open_fertilnost)
+        txtvwFertilityWindow.setText(R.string.open_fertilnost_today)
+        txtvwOvulation.setText(R.string.ovulation_notifications)
+        txtvwPredictableOvulation.setText(R.string.ovulation_will_stsrt)
+        txtvwClosingOfFertilityWindow.setText(R.string.end_fertilnost)
+        txtvwFertilityWindowCloses.setText(R.string.window_of_fertilnost_is_closing)
     }
 }
