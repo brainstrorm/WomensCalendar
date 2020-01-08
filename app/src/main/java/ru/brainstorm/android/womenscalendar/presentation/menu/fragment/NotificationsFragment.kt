@@ -1,30 +1,30 @@
 package ru.brainstorm.android.womenscalendar.presentation.menu.fragment
 
+import android.app.AlarmManager
 import android.app.Notification
-import android.app.NotificationChannel
-import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
-import android.net.Uri
-import android.os.Build
+import android.content.Context.ALARM_SERVICE
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.os.SystemClock
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.Switch
-import androidx.core.content.ContextCompat.getSystemService
-
+import androidx.core.app.NotificationCompat
 import ru.brainstorm.android.womenscalendar.R
+import ru.brainstorm.android.womenscalendar.domain.notifications.NotificationReceiver
 import ru.brainstorm.android.womenscalendar.presentation.menu.activity.MenuActivity
+import java.util.*
 
 
+public class NotificationsFragment : AbstractMenuFragment() {
 
-
-
-class NotificationsFragment : AbstractMenuFragment() {
-
+    val NOTIFICATION_CHANNEL_ID = "10001"
+    private val default_notification_channel_id = "default"
     private lateinit var notificationsButton : ImageView
     private lateinit var notificationStartMenstruationButton : ImageButton
     private lateinit var notificationEndMenstruationButton : ImageButton
@@ -35,7 +35,37 @@ class NotificationsFragment : AbstractMenuFragment() {
     private lateinit var switchCloseFetilnostButton : Switch
 
 
+    private fun scheduleNotification(notification: Notification, delay: Int) {
+        val notificationIntent = Intent(context, NotificationReceiver::class.java)
+        notificationIntent.putExtra(NotificationReceiver.NOTIFICATION_ID, 1)
+        notificationIntent.putExtra(NotificationReceiver.NOTIFICATION, notification)
+        val pendingIntent = PendingIntent.getBroadcast(
+            context,
+            0,
+            notificationIntent,
+            PendingIntent.FLAG_UPDATE_CURRENT
+        )
+        val calendar = Calendar.getInstance()
+        calendar.timeInMillis = System.currentTimeMillis()
+        calendar.set(Calendar.HOUR_OF_DAY, 22)
+        calendar.set(Calendar.MINUTE, 58)
+        //val futureInMillis = SystemClock.elapsedRealtime() + delay
+        val alarmManager =
+            (context!!.getSystemService(ALARM_SERVICE) as AlarmManager?)!!
+        //alarmManager[AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis] = pendingIntent
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, AlarmManager.INTERVAL_DAY, pendingIntent)
+    }
 
+    private fun getNotification(content: String): Notification? {
+        val builder: NotificationCompat.Builder =
+            NotificationCompat.Builder(context!!, default_notification_channel_id)
+        builder.setContentTitle("Scheduled Notification")
+        builder.setContentText(content)
+        builder.setSmallIcon(R.drawable.app_icon)
+        builder.setAutoCancel(true)
+        builder.setChannelId(NOTIFICATION_CHANNEL_ID)
+        return builder.build()
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -70,7 +100,7 @@ class NotificationsFragment : AbstractMenuFragment() {
             if(isChecked) {
 
 
-                var builder = Notification.Builder(context, "1")
+                /*var builder = Notification.Builder(context, "1")
                     .setSmallIcon(R.drawable.app_icon)
                     .setContentTitle("Hello!")
                     .setContentText("It's a notificatiion")
@@ -92,7 +122,9 @@ class NotificationsFragment : AbstractMenuFragment() {
                     notificationManager.createNotificationChannel(channel)
 
                     notificationManager.notify(1,notification)
-                }
+                }*/
+
+                scheduleNotification(getNotification("Hello World!")!!, 10000)
 
             }
 
