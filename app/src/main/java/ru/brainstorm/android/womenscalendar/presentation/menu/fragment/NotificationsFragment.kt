@@ -151,7 +151,7 @@ public class NotificationsFragment : AbstractMenuFragment() {
                     val editor = pref.edit()
                     editor.putBoolean(FLAG,true)
 
-                    scheduleNotification(getNotification(resources.getString(R.string.notification_menstruation_start))!!, CalculateDelay(FindDate(cycles).startOfCycle),CalculatePeriod(FindDate(cycles).lengthOfCycle))
+                    scheduleNotification(getNotification(resources.getString(R.string.notification_menstruation_start))!!, CalculateDelay(FindDate(cycles).startOfCycle),CalculatePeriod(FindDate(cycles).))
                 }
 
             }

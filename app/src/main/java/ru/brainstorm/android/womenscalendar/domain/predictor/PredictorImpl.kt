@@ -37,6 +37,7 @@ class PredictorImpl
                     set_inject[0].lengthOfMenstruation = 5
                 }
 
+                if (set_inject.last().startOfCycle.isNotEmpty())
                   set_inject[0].ovulation = LocalDate.parse(set_inject.last().startOfCycle).plusDays(set_inject[0].lengthOfCycle-14.toLong()).toString()
             }
 
