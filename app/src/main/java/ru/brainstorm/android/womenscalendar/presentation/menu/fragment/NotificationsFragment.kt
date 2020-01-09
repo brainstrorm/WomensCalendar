@@ -55,7 +55,7 @@ public class NotificationsFragment : AbstractMenuFragment() {
     private lateinit var pref : SharedPreferences
 
 
-    private fun scheduleNotification(notification: Notification, delay: Int) {
+    private fun scheduleNotification(notification: Notification, delay: Int, interval : Int) {
         val notificationIntent = Intent(context, NotificationReceiver::class.java)
         notificationIntent.putExtra(NotificationReceiver.NOTIFICATION_ID, 1)
         notificationIntent.putExtra(NotificationReceiver.NOTIFICATION, notification)
@@ -65,16 +65,16 @@ public class NotificationsFragment : AbstractMenuFragment() {
             notificationIntent,
             PendingIntent.FLAG_UPDATE_CURRENT
         )
-        val calendar = Calendar.getInstance()
-        calendar.timeInMillis = System.currentTimeMillis()
-        calendar.set(Calendar.HOUR_OF_DAY, 0)
-        calendar.set(Calendar.MINUTE, 20)
-        calendar.set(Calendar.SECOND, 0)
-        //val futureInMillis = SystemClock.elapsedRealtime() + delay
+        //val calendar = Calendar.getInstance()
+        //calendar.timeInMillis = System.currentTimeMillis()
+        //calendar.set(Calendar.HOUR_OF_DAY, 11)
+        //calendar.set(Calendar.MINUTE, 0)
+        //calendar.set(Calendar.SECOND, 0)
+        val futureInMillis = SystemClock.elapsedRealtime() + delay
         val alarmManager =
             (context!!.getSystemService(ALARM_SERVICE) as AlarmManager?)!!
         //alarmManager[AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis] = pendingIntent
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, AlarmManager.INTERVAL_DAY, pendingIntent)
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, futureInMillis, interval.toLong(), pendingIntent)
     }
 
     private fun getNotification(content: String): Notification? {
@@ -162,7 +162,7 @@ public class NotificationsFragment : AbstractMenuFragment() {
                     notificationManager.notify(1,notification)
                 }*/
 
-                scheduleNotification(getNotification("Hello World!")!!, 10000)
+                scheduleNotification(getNotification("Hello World!")!!, 60000, 60000)
 
             }
 
