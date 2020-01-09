@@ -19,10 +19,16 @@ import android.widget.ImageView
 import android.widget.Switch
 import android.widget.TextView
 import androidx.core.app.NotificationCompat
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import ru.brainstorm.android.womenscalendar.App
 import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.data.database.dao.CycleDao
 import ru.brainstorm.android.womenscalendar.data.database.entities.Cycle
 import ru.brainstorm.android.womenscalendar.domain.notifications.NotificationReceiver
+import ru.brainstorm.android.womenscalendar.domain.predictor.PredictorImpl
 import ru.brainstorm.android.womenscalendar.presentation.menu.activity.MenuActivity
 import java.util.*
 import javax.inject.Inject
@@ -55,6 +61,7 @@ public class NotificationsFragment : AbstractMenuFragment() {
 
     private lateinit var pref : SharedPreferences
 
+
      fun scheduleNotification(pendingIntent: PendingIntent, delay: Int, interval : Int){
         var calendar = Calendar.getInstance()
         calendar.timeInMillis = SystemClock.elapsedRealtime()
@@ -74,8 +81,14 @@ public class NotificationsFragment : AbstractMenuFragment() {
     lateinit var cycleDao: CycleDao
     var cycles = listOf<Cycle>()
 
+    @Inject
+    lateinit var predictorImpl : PredictorImpl
 
-     fun getPendingIntent(notification: Notification) : PendingIntent{
+
+
+
+
+    fun getPendingIntent(notification: Notification) : PendingIntent{
         val notificationIntent = Intent(context, NotificationReceiver::class.java)
         notificationIntent.putExtra(NotificationReceiver.NOTIFICATION_ID, 1)
         notificationIntent.putExtra(NotificationReceiver.NOTIFICATION, notification)
@@ -108,7 +121,13 @@ public class NotificationsFragment : AbstractMenuFragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_notifications, container, false)
-
+        App.appComponent.inject(this)
+        runBlocking {
+            val job = GlobalScope.launch(Dispatchers.IO) {
+                cycles = cycleDao.getAll()
+            }
+            job.join()
+        }
         pref = PreferenceManager.getDefaultSharedPreferences(context)
 
         txtvwPeriodicNotifications = view.findViewById(R.id.period_notification)
@@ -242,7 +261,7 @@ public class NotificationsFragment : AbstractMenuFragment() {
                 }
             }
         }
-        
+
         return set_update[ans]
     }
 }

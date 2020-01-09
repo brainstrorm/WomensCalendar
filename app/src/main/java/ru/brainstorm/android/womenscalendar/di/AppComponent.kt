@@ -46,6 +46,8 @@ interface AppComponent {
 
     fun inject(changeMenstruationDates : ChangeMenstruationDatesFragment)
 
+    fun inject(notificationsFragment: NotificationsFragment)
+
     fun presenter(): PresenterComponent
 
     @Subcomponent
