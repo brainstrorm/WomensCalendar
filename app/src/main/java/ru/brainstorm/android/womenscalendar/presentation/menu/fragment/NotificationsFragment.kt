@@ -242,7 +242,7 @@ public class NotificationsFragment : AbstractMenuFragment() {
                 }
             }
         }
-
+        //
         return set_update[ans]
     }
 }
