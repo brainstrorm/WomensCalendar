@@ -7,7 +7,9 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import android.util.Log
 import ru.brainstorm.android.womenscalendar.presentation.menu.fragment.NotificationsFragment
+import java.util.*
 
 
 class NotificationReceiver : BroadcastReceiver() {
@@ -28,6 +30,7 @@ class NotificationReceiver : BroadcastReceiver() {
         }
         val id = intent.getIntExtra(NOTIFICATION_ID, 0)
         assert(notificationManager != null)
+        Log.d("Notification", "Notification received at ${Date()}")
         notificationManager.notify(id, notification)
     }
 

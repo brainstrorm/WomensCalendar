@@ -1,5 +1,6 @@
 package ru.brainstorm.android.womenscalendar.domain.predictor
 
+import android.content.SharedPreferences
 import kotlinx.coroutines.Job
 
 /**
@@ -12,6 +13,6 @@ interface Predictor {
      * @param count - count of cycles Impl should predict
      * @return Job - launch return, to callback, that computation is completed
      */
-    suspend fun predict(count: Int): Job
+    suspend fun predict(count: Int, pref : SharedPreferences): Job
 
 }

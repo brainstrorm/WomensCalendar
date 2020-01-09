@@ -19,13 +19,11 @@ import android.widget.ImageView
 import android.widget.Switch
 import android.widget.TextView
 import androidx.core.app.NotificationCompat
-import kotlinx.android.synthetic.main.fragment_notifications.*
 import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.data.database.dao.CycleDao
 import ru.brainstorm.android.womenscalendar.data.database.entities.Cycle
 import ru.brainstorm.android.womenscalendar.domain.notifications.NotificationReceiver
 import ru.brainstorm.android.womenscalendar.presentation.menu.activity.MenuActivity
-import java.time.LocalDate
 import java.util.*
 import javax.inject.Inject
 
@@ -57,14 +55,27 @@ public class NotificationsFragment : AbstractMenuFragment() {
 
     private lateinit var pref : SharedPreferences
 
+     fun scheduleNotification(pendingIntent: PendingIntent, delay: Int, interval : Int){
+        var calendar = Calendar.getInstance()
+        calendar.timeInMillis = SystemClock.elapsedRealtime()
+        calendar.set(Calendar.MONTH, 1)
+        calendar.set(Calendar.DAY_OF_MONTH, 10)
+        calendar.set(Calendar.HOUR, 19)
+        calendar.set(Calendar.MINUTE, 58)
+        calendar.set(Calendar.SECOND, 0)
+        val futureInMillis = SystemClock.elapsedRealtime()
+        val alarmManager =
+            (context!!.getSystemService(ALARM_SERVICE) as AlarmManager?)!!
+        //alarmManager[AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis] = pendingIntent
+        alarmManager.cancel(pendingIntent)
+        alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, calendar.timeInMillis, 2*AlarmManager.INTERVAL_DAY, pendingIntent)
+    }
     @Inject
     lateinit var cycleDao: CycleDao
     var cycles = listOf<Cycle>()
 
 
-
-
-    public fun scheduleNotification(notification: Notification, delay: Int, interval : Int) {
+     fun getPendingIntent(notification: Notification) : PendingIntent{
         val notificationIntent = Intent(context, NotificationReceiver::class.java)
         notificationIntent.putExtra(NotificationReceiver.NOTIFICATION_ID, 1)
         notificationIntent.putExtra(NotificationReceiver.NOTIFICATION, notification)
@@ -74,19 +85,10 @@ public class NotificationsFragment : AbstractMenuFragment() {
             notificationIntent,
             PendingIntent.FLAG_UPDATE_CURRENT
         )
-        //val calendar = Calendar.getInstance()
-        //calendar.timeInMillis = System.currentTimeMillis()
-        //calendar.set(Calendar.HOUR_OF_DAY, 11)
-        //calendar.set(Calendar.MINUTE, 0)
-        //calendar.set(Calendar.SECOND, 0)
-        val futureInMillis = SystemClock.elapsedRealtime() + delay
-        val alarmManager =
-            (context!!.getSystemService(ALARM_SERVICE) as AlarmManager?)!!
-        //alarmManager[AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis] = pendingIntent
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, futureInMillis, interval.toLong(), pendingIntent)
+        return pendingIntent
     }
 
-    public fun getNotification(content: String): Notification? {
+    fun getNotification(content: String): Notification? {
         val builder: NotificationCompat.Builder =
             NotificationCompat.Builder(context!!, default_notification_channel_id)
         builder.setContentTitle("Scheduled Notification")
@@ -144,20 +146,20 @@ public class NotificationsFragment : AbstractMenuFragment() {
 
         switchStartMenstruationButton.setOnCheckedChangeListener { _, isChecked ->
 
+            val pendingIntent = getPendingIntent(getNotification("Hello World!")!!)
             val FLAG = "StartMenstruation"
             if(isChecked) {
+                scheduleNotification(pendingIntent, CalculateDelay(FindDate(cycles).startOfCycle), CalculatePeriod(FindDate(cycles).lengthOfCycle))
+                val editor = pref.edit()
+                editor.putBoolean(FLAG,true)
 
-                while(isChecked) {
-                    val editor = pref.edit()
-                    editor.putBoolean(FLAG,true)
-
-                    scheduleNotification(getNotification(resources.getString(R.string.notification_menstruation_start))!!, CalculateDelay(FindDate(cycles).startOfCycle),CalculatePeriod(FindDate(cycles).lengthOfCycle))
-                }
-
-            }
-            else {
+            }else{
+                val alarmManager =
+                    (context!!.getSystemService(ALARM_SERVICE) as AlarmManager?)!!
+                alarmManager.cancel(pendingIntent)
                 val editor = pref.edit()
                 editor.putBoolean(FLAG,false)
+
             }
 
         }
@@ -215,11 +217,10 @@ public class NotificationsFragment : AbstractMenuFragment() {
         txtvwFertilityWindowCloses.setText(R.string.window_of_fertilnost_is_closing)
     }
 
-
     fun CalculateDelay(startOfCycle: String):Int {
-        val duringDate = LocalDate.now()
-        val newDate = LocalDate.parse(startOfCycle)
-        val newDays = duringDate.dayOfYear - newDate.dayOfYear
+        val duringDate = java.time.LocalDate.now()
+        val newDate = java.time.LocalDate.parse(startOfCycle)
+        val newDays = newDate.dayOfYear - duringDate.dayOfYear
 
         return newDays*24*60*60*1000
     }
@@ -228,17 +229,15 @@ public class NotificationsFragment : AbstractMenuFragment() {
         return lengthOfCycle*24*60*60*1000
     }
 
-
-
     fun FindDate(set_update: List<Cycle>): Cycle {
-        val date = LocalDate.now()
+        val date = java.time.LocalDate.now()
 
         var ans = set_update.size-1
 
         for(i in 0..set_update.size-2) {
 
-            if (date.compareTo(LocalDate.parse(set_update[i].startOfCycle)) <= 0) {
-                if (date.compareTo(LocalDate.parse(set_update[i].startOfCycle+set_update[i].lengthOfCycle)) >= 0) {
+            if (date.compareTo(java.time.LocalDate.parse(set_update[i].startOfCycle)) <= 0) {
+                if (date.compareTo(java.time.LocalDate.parse(set_update[i].startOfCycle+set_update[i].lengthOfCycle)) >= 0) {
                     ans = i+1
                 }
             }
@@ -246,6 +245,4 @@ public class NotificationsFragment : AbstractMenuFragment() {
 
         return set_update[ans]
     }
-
-
 }

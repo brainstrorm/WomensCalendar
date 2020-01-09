@@ -3,6 +3,7 @@ package ru.brainstorm.android.womenscalendar.presentation.menu.fragment
 import android.content.Context
 import android.content.res.Resources
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
@@ -126,7 +127,7 @@ class WeekModeCalendarFragment : AbstractMenuFragment() {
         runBlocking {
             val job = GlobalScope.launch(Dispatchers.IO) {
                 if (!cycleDao.getAll()[0].predicted) {
-                    predictorImpl.predict(5).join()
+                    predictorImpl.predict(5, PreferenceManager.getDefaultSharedPreferences(context)).join()
                     predictorImpl.updateOvulation().join()
                 }
                 menstruationDays = cycleDao.getAll()

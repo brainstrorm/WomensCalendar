@@ -1,6 +1,8 @@
 package ru.brainstorm.android.womenscalendar.domain.predictor
 
 import android.content.SharedPreferences
+import android.preference.PreferenceManager
+import android.preference.PreferenceManager.getDefaultSharedPreferences
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
@@ -8,8 +10,11 @@ import kotlinx.coroutines.launch
 import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.data.database.dao.CycleDao
 import ru.brainstorm.android.womenscalendar.data.database.entities.Cycle
+import ru.brainstorm.android.womenscalendar.presentation.menu.activity.MenuActivity
 import ru.brainstorm.android.womenscalendar.presentation.menu.fragment.NotificationsFragment
+import java.security.AccessController.getContext
 import java.time.LocalDate
+import java.time.format.DateTimeParseException
 import javax.inject.Inject
 
 
@@ -18,7 +23,7 @@ class PredictorImpl
         : Predictor {
     private lateinit var pref : SharedPreferences
 
-    override suspend fun predict(count: Int): Job = GlobalScope.launch(Dispatchers.IO) {
+    override suspend fun predict(count: Int, pref: SharedPreferences): Job = GlobalScope.launch(Dispatchers.IO) {
 
 
         val set_inject: List<Cycle> = cycleDao.getAll()
@@ -36,9 +41,9 @@ class PredictorImpl
                 if((set_inject[0].lengthOfMenstruation < 2)&&(set_inject[0].lengthOfMenstruation > 8)){
                     set_inject[0].lengthOfMenstruation = 5
                 }
-
-                  set_inject[0].ovulation = LocalDate.parse(set_inject.last().startOfCycle).plusDays(set_inject[0].lengthOfCycle-14.toLong()).toString()
-            }
+                    set_inject[0].ovulation = LocalDate.parse(set_inject.last().startOfCycle)
+                        .plusDays(set_inject[0].lengthOfCycle - 14.toLong()).toString()
+                }
 
         for (cycle in set_inject) {
             setLengthofmenstruation.add(cycle.lengthOfMenstruation)
@@ -53,25 +58,27 @@ class PredictorImpl
 
         for(i in 1..count){
 
-            var firstDayOfNewCycle: String = LocalDate.parse(set_update.last().startOfCycle).plusDays(avgSetLengthOfCycle).toString()
+                var firstDayOfNewCycle: String =
+                    LocalDate.parse(set_update.last().startOfCycle).plusDays(avgSetLengthOfCycle)
+                        .toString()
+                val ovulation = LocalDate.parse(firstDayOfNewCycle).plusDays(avgSetLengthOfCycle-14.toLong()).toString()
 
-            val ovulation = LocalDate.parse(firstDayOfNewCycle).plusDays(avgSetLengthOfCycle-14.toLong()).toString()
+                var newCycle = Cycle()
+                newCycle.startOfCycle = firstDayOfNewCycle
+                newCycle.ovulation = ovulation
+                newCycle.lengthOfCycle = avgSetLengthOfCycle.toInt()
+                newCycle.lengthOfMenstruation = avgSetLengthOfMenstruation.toInt()
+                newCycle.predicted = true
 
-            var newCycle = Cycle()
-            newCycle.startOfCycle = firstDayOfNewCycle
-            newCycle.ovulation = ovulation
-            newCycle.lengthOfCycle = avgSetLengthOfCycle.toInt()
-            newCycle.lengthOfMenstruation = avgSetLengthOfMenstruation.toInt()
-            newCycle.predicted = true
+                set_update.add(newCycle)
+                cycleDao.insert(newCycle)
 
-            set_update.add(newCycle)
-            cycleDao.insert(newCycle)
         }
 
         set_inject[0].predicted = true
         cycleDao.update(set_inject[0])
 
-        if (isCheckedStartMenstruation()) {
+        if (isCheckedStartMenstruation(pref)) {
 
             //<------> init our notification
             val notificationsFragment = NotificationsFragment()
@@ -81,7 +88,7 @@ class PredictorImpl
 
             //<------> create new alarm by method
             if (notification != null)
-            notificationsFragment.scheduleNotification(notification,CalculateDelay(FindDate(set_update).startOfCycle),CalculatePeriod(FindDate(set_update).lengthOfCycle))
+            notificationsFragment.scheduleNotification(notificationsFragment.getPendingIntent(notification),CalculateDelay(FindDate(set_update).startOfCycle),CalculatePeriod(FindDate(set_update).lengthOfCycle))
 
         }
 
@@ -97,7 +104,7 @@ class PredictorImpl
         }
     }
 
-    fun isCheckedStartMenstruation():Boolean {
+    fun isCheckedStartMenstruation(pref: SharedPreferences):Boolean {
         return pref.getBoolean("StartMenstruation",false)
     }
 
