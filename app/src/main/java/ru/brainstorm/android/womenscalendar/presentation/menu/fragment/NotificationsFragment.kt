@@ -21,10 +21,13 @@ import android.widget.TextView
 import androidx.core.app.NotificationCompat
 import kotlinx.android.synthetic.main.fragment_notifications.*
 import ru.brainstorm.android.womenscalendar.R
+import ru.brainstorm.android.womenscalendar.data.database.dao.CycleDao
+import ru.brainstorm.android.womenscalendar.data.database.entities.Cycle
 import ru.brainstorm.android.womenscalendar.domain.notifications.NotificationReceiver
 import ru.brainstorm.android.womenscalendar.presentation.menu.activity.MenuActivity
 import java.time.LocalDate
 import java.util.*
+import javax.inject.Inject
 
 
 public class NotificationsFragment : AbstractMenuFragment() {
@@ -54,8 +57,14 @@ public class NotificationsFragment : AbstractMenuFragment() {
 
     private lateinit var pref : SharedPreferences
 
+    @Inject
+    lateinit var cycleDao: CycleDao
+    var cycles = listOf<Cycle>()
 
-    private fun scheduleNotification(notification: Notification, delay: Int, interval : Int) {
+
+
+
+    public fun scheduleNotification(notification: Notification, delay: Int, interval : Int) {
         val notificationIntent = Intent(context, NotificationReceiver::class.java)
         notificationIntent.putExtra(NotificationReceiver.NOTIFICATION_ID, 1)
         notificationIntent.putExtra(NotificationReceiver.NOTIFICATION, notification)
@@ -77,7 +86,7 @@ public class NotificationsFragment : AbstractMenuFragment() {
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, futureInMillis, interval.toLong(), pendingIntent)
     }
 
-    private fun getNotification(content: String): Notification? {
+    public fun getNotification(content: String): Notification? {
         val builder: NotificationCompat.Builder =
             NotificationCompat.Builder(context!!, default_notification_channel_id)
         builder.setContentTitle("Scheduled Notification")
@@ -135,35 +144,20 @@ public class NotificationsFragment : AbstractMenuFragment() {
 
         switchStartMenstruationButton.setOnCheckedChangeListener { _, isChecked ->
 
+            val FLAG = "StartMenstruation"
             if(isChecked) {
 
+                while(isChecked) {
+                    val editor = pref.edit()
+                    editor.putBoolean(FLAG,true)
 
-                /*var builder = Notification.Builder(context, "1")
-                    .setSmallIcon(R.drawable.app_icon)
-                    .setContentTitle("Hello!")
-                    .setContentText("It's a notificatiion")
-                    //.setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                    scheduleNotification(getNotification(resources.getString(R.string.notification_menstruation_start))!!, CalculateDelay(FindDate(cycles).startOfCycle),CalculatePeriod(FindDate(cycles).lengthOfCycle))
+                }
 
-                val notification = builder.build()
-
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    val name = "My channel"
-                    val descriptionText = "Womens Calendar"
-                    val importance = NotificationManager.IMPORTANCE_DEFAULT
-                    val channel = NotificationChannel("1", name, importance).apply {
-                        description = descriptionText
-                    }
-                    channel.enableVibration(true)
-                    // Register the channel with the system
-                    val notificationManager: NotificationManager =
-                        context!!.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-                    notificationManager.createNotificationChannel(channel)
-
-                    notificationManager.notify(1,notification)
-                }*/
-
-                scheduleNotification(getNotification("Hello World!")!!, 60000, 60000)
-
+            }
+            else {
+                val editor = pref.edit()
+                editor.putBoolean(FLAG,false)
             }
 
         }
@@ -220,4 +214,38 @@ public class NotificationsFragment : AbstractMenuFragment() {
         txtvwClosingOfFertilityWindow.setText(R.string.end_fertilnost)
         txtvwFertilityWindowCloses.setText(R.string.window_of_fertilnost_is_closing)
     }
+
+
+    fun CalculateDelay(startOfCycle: String):Int {
+        val duringDate = LocalDate.now()
+        val newDate = LocalDate.parse(startOfCycle)
+        val newDays = duringDate.dayOfYear - newDate.dayOfYear
+
+        return newDays*24*60*60*1000
+    }
+
+    fun CalculatePeriod(lengthOfCycle : Int):Int {
+        return lengthOfCycle*24*60*60*1000
+    }
+
+
+
+    fun FindDate(set_update: List<Cycle>): Cycle {
+        val date = LocalDate.now()
+
+        var ans = set_update.size-1
+
+        for(i in 0..set_update.size-2) {
+
+            if (date.compareTo(LocalDate.parse(set_update[i].startOfCycle)) <= 0) {
+                if (date.compareTo(LocalDate.parse(set_update[i].startOfCycle+set_update[i].lengthOfCycle)) >= 0) {
+                    ans = i+1
+                }
+            }
+        }
+
+        return set_update[ans]
+    }
+
+
 }

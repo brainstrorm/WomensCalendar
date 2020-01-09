@@ -110,6 +110,8 @@
     <string name="window_of_fertilnost_is_closing">Окно фертильности закрывается</string>
     <string name="time">Время</string>
     <string name="message">Сообщение</string>
+    <string name="notification_menstruation_start">Напоминание: \n Сегодня начнется менструаця !</string>
+
 
     <!-- months -->
     <string name="october">Октябрь</string>

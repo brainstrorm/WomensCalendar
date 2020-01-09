@@ -1,21 +1,23 @@
 package ru.brainstorm.android.womenscalendar.domain.predictor
 
+import android.content.SharedPreferences
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.data.database.dao.CycleDao
 import ru.brainstorm.android.womenscalendar.data.database.entities.Cycle
+import ru.brainstorm.android.womenscalendar.presentation.menu.fragment.NotificationsFragment
 import java.time.LocalDate
 import javax.inject.Inject
 
-/**
- * @project WomensCalendar
- * @author Ilia Ilmenskii created on 27.10.2019
- */
+
 class PredictorImpl
     @Inject constructor(val cycleDao: CycleDao)
         : Predictor {
+    private lateinit var pref : SharedPreferences
+
     override suspend fun predict(count: Int): Job = GlobalScope.launch(Dispatchers.IO) {
 
 
@@ -23,7 +25,7 @@ class PredictorImpl
         val setLengthofmenstruation: MutableList<Int> = mutableListOf()
         val setLengthofcycle: MutableList<Int> = mutableListOf()
         val setOvulations: MutableList<String> = mutableListOf()
- 
+
 
         if(set_inject.size == 1) {
 
@@ -44,22 +46,22 @@ class PredictorImpl
             setOvulations.add(cycle.ovulation)
         }
 
-        val avgSetLengthofmenstruation = setLengthofmenstruation.average().toLong()
-        val avgSetLengthofcycle = setLengthofcycle.average().toLong()
+        val avgSetLengthOfMenstruation = setLengthofmenstruation.average().toLong()
+        val avgSetLengthOfCycle = setLengthofcycle.average().toLong()
 
        var set_update =  set_inject.toMutableList()
 
         for(i in 1..count){
 
-            var firstDayOfNewCycle: String = LocalDate.parse(set_update.last().startOfCycle).plusDays(avgSetLengthofcycle).toString()
+            var firstDayOfNewCycle: String = LocalDate.parse(set_update.last().startOfCycle).plusDays(avgSetLengthOfCycle).toString()
 
-            val ovulation = LocalDate.parse(firstDayOfNewCycle).plusDays(avgSetLengthofcycle-14.toLong()).toString()
+            val ovulation = LocalDate.parse(firstDayOfNewCycle).plusDays(avgSetLengthOfCycle-14.toLong()).toString()
 
             var newCycle = Cycle()
             newCycle.startOfCycle = firstDayOfNewCycle
             newCycle.ovulation = ovulation
-            newCycle.lengthOfCycle = avgSetLengthofcycle.toInt()
-            newCycle.lengthOfMenstruation = avgSetLengthofmenstruation.toInt()
+            newCycle.lengthOfCycle = avgSetLengthOfCycle.toInt()
+            newCycle.lengthOfMenstruation = avgSetLengthOfMenstruation.toInt()
             newCycle.predicted = true
 
             set_update.add(newCycle)
@@ -68,6 +70,21 @@ class PredictorImpl
 
         set_inject[0].predicted = true
         cycleDao.update(set_inject[0])
+
+        if (isCheckedStartMenstruation()) {
+
+            //<------> init our notification
+            val notificationsFragment = NotificationsFragment()
+            var notification = notificationsFragment.getNotification(notificationsFragment.resources.getString(R.string.notification_menstruation_start))
+
+
+
+            //<------> create new alarm by method
+            if (notification != null)
+            notificationsFragment.scheduleNotification(notification,CalculateDelay(FindDate(set_update).startOfCycle),CalculatePeriod(FindDate(set_update).lengthOfCycle))
+
+        }
+
     }
 
     fun updateOvulation() = GlobalScope.launch(Dispatchers.IO) {
@@ -79,6 +96,40 @@ class PredictorImpl
             cycleDao.update(it)
         }
     }
-}
 
-//count -> что делать ? добавляем ?
+    fun isCheckedStartMenstruation():Boolean {
+        return pref.getBoolean("StartMenstruation",false)
+    }
+
+
+    fun FindDate(set_update: List<Cycle>): Cycle {
+        val date = LocalDate.now()
+
+        var ans = set_update.size-1
+
+        for(i in 0..set_update.size-2) {
+
+            if (date.compareTo(LocalDate.parse(set_update[i].startOfCycle)) <= 0) {
+                if (date.compareTo(LocalDate.parse(set_update[i].startOfCycle+set_update[i].lengthOfCycle)) >= 0) {
+                     ans = i+1
+                }
+            }
+        }
+
+        return set_update[ans]
+    }
+
+    fun CalculateDelay(startOfCycle: String):Int {
+        val duringDate = LocalDate.now()
+        val newDate = LocalDate.parse(startOfCycle)
+        val newDays = newDate.dayOfYear - duringDate.dayOfYear
+
+        return newDays*24*60*60*1000
+    }
+
+    fun CalculatePeriod(lengthOfCycle : Int):Int {
+        return lengthOfCycle*24*60*60*1000
+    }
+
+
+}
