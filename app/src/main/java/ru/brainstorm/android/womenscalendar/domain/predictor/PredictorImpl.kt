@@ -112,16 +112,18 @@ class PredictorImpl
     fun FindDate(set_update: List<Cycle>): Cycle {
         val date = LocalDate.now()
 
+
         var ans = set_update.size-1
 
         for(i in 0..set_update.size-2) {
 
             if (date.compareTo(LocalDate.parse(set_update[i].startOfCycle)) <= 0) {
-                if (date.compareTo(LocalDate.parse(set_update[i].startOfCycle+set_update[i].lengthOfCycle)) >= 0) {
+                if (date.compareTo(java.time.LocalDate.parse(set_update[i].startOfCycle).plusDays(set_update[i].lengthOfCycle.toLong())) >= 0) {
                      ans = i+1
                 }
             }
         }
+
 
         return set_update[ans]
     }
