@@ -11,6 +11,7 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.os.SystemClock
 import android.preference.PreferenceManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,18 +20,21 @@ import android.widget.ImageView
 import android.widget.Switch
 import android.widget.TextView
 import androidx.core.app.NotificationCompat
+import androidx.work.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import org.threeten.bp.LocalDate
 import ru.brainstorm.android.womenscalendar.App
 import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.data.database.dao.CycleDao
 import ru.brainstorm.android.womenscalendar.data.database.entities.Cycle
-import ru.brainstorm.android.womenscalendar.domain.notifications.NotificationReceiver
+import ru.brainstorm.android.womenscalendar.domain.notifications.NotifyWorker
 import ru.brainstorm.android.womenscalendar.domain.predictor.PredictorImpl
 import ru.brainstorm.android.womenscalendar.presentation.menu.activity.MenuActivity
 import java.util.*
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 
@@ -62,20 +66,28 @@ public class NotificationsFragment : AbstractMenuFragment() {
     private lateinit var pref : SharedPreferences
 
 
-     fun scheduleNotification(pendingIntent: PendingIntent, delay: Int, interval : Int){
-        var calendar = Calendar.getInstance()
-        calendar.timeInMillis = SystemClock.elapsedRealtime()
-        calendar.set(Calendar.MONTH, 1)
-        calendar.set(Calendar.DAY_OF_MONTH, 10)
-        calendar.set(Calendar.HOUR, 19)
-        calendar.set(Calendar.MINUTE, 58)
-        calendar.set(Calendar.SECOND, 0)
-        val futureInMillis = SystemClock.elapsedRealtime()
-        val alarmManager =
-            (context!!.getSystemService(ALARM_SERVICE) as AlarmManager?)!!
-        //alarmManager[AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis] = pendingIntent
-        alarmManager.cancel(pendingIntent)
-        alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, calendar.timeInMillis, 2*AlarmManager.INTERVAL_DAY, pendingIntent)
+     fun scheduleNotification(startLocalDate : LocalDate, interval : Int){
+         val startDate = Date( startLocalDate.year - 1900, startLocalDate.monthValue - 1,
+             startLocalDate.dayOfMonth - 1,13, 0,0)
+         val date1970 = Date(70, 0,0,0,0)
+         val startTime = startDate.time - date1970.time
+
+         //we set a tag to be able to cancel all work of this type if needed
+         val workTag = "notificationWork";
+
+         //store DBEventID to pass it to the PendingIntent and open the appropriate event page on notification click
+         val inputData = Data.Builder().putInt("startMenstruationNotification", 1).build();
+         // we then retrieve it inside the NotifyWorker with:
+         // final int DBEventID = getInputData().getInt(DBEventIDTag, ERROR_VALUE);
+
+         val notificationWork = PeriodicWorkRequest.Builder(NotifyWorker::class.java, PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS, TimeUnit.MILLISECONDS)
+             .setInitialDelay(startTime - System.currentTimeMillis(), TimeUnit.MILLISECONDS)
+             .setInputData(inputData)
+             .addTag(workTag)
+             .build()
+
+
+         WorkManager.getInstance(context!!).enqueue(notificationWork)
     }
     @Inject
     lateinit var cycleDao: CycleDao
@@ -83,23 +95,6 @@ public class NotificationsFragment : AbstractMenuFragment() {
 
     @Inject
     lateinit var predictorImpl : PredictorImpl
-
-
-
-
-
-    fun getPendingIntent(notification: Notification) : PendingIntent{
-        val notificationIntent = Intent(context, NotificationReceiver::class.java)
-        notificationIntent.putExtra(NotificationReceiver.NOTIFICATION_ID, 1)
-        notificationIntent.putExtra(NotificationReceiver.NOTIFICATION, notification)
-        val pendingIntent = PendingIntent.getBroadcast(
-            context,
-            0,
-            notificationIntent,
-            PendingIntent.FLAG_UPDATE_CURRENT
-        )
-        return pendingIntent
-    }
 
     fun getNotification(content: String): Notification? {
         val builder: NotificationCompat.Builder =
@@ -165,20 +160,17 @@ public class NotificationsFragment : AbstractMenuFragment() {
 
         switchStartMenstruationButton.setOnCheckedChangeListener { _, isChecked ->
 
-            val pendingIntent = getPendingIntent(getNotification("Hello World!")!!)
             val FLAG = "StartMenstruation"
             if(isChecked) {
-                scheduleNotification(pendingIntent, CalculateDelay(FindDate(cycles).startOfCycle), CalculatePeriod(FindDate(cycles).lengthOfCycle))
+                Log.d("Switcher", "Switcher on + ${Date()}")
+                scheduleNotification(LocalDate.parse("2020-01-11"), 2*AlarmManager.INTERVAL_DAY.toInt())
                 val editor = pref.edit()
                 editor.putBoolean(FLAG,true)
-
+                editor.commit()
             }else{
-                val alarmManager =
-                    (context!!.getSystemService(ALARM_SERVICE) as AlarmManager?)!!
-                alarmManager.cancel(pendingIntent)
                 val editor = pref.edit()
                 editor.putBoolean(FLAG,false)
-
+                editor.commit()
             }
 
         }

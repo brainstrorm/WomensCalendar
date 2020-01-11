@@ -22,7 +22,6 @@
             </intent-filter>
 
         </activity>
-        <receiver android:name = ".domain.notifications.NotificationReceiver" />
     </application>
 
 </manifest>
