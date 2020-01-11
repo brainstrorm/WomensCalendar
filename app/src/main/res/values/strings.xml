@@ -136,4 +136,10 @@
     <string name="saturday">Сб</string>
     <string name="sunday">Вс</string>
 
+    <!-- Rate us strings -->
+    <string name="rate_us_do_you_like">Вам нравится Женкий календарь?</string>
+    <string name="rate_us_by_five_stars">Если вам нравится приложение, пожалуйста, поставьте нам 5 звёзд</string>
+    <string name="cancel_rate_us">ОТМЕНА</string>
+    <string name="call_back_rate_us">ОБРАТНАЯ СВЯЗЬ</string>
+
 </resources>

@@ -175,6 +175,78 @@ public class NotificationsFragment : AbstractMenuFragment() {
 
         }
 
+        switchEndMenstruationButton.setOnCheckedChangeListener { _, isChecked ->
+
+            val FLAG = "EndMenstruation"
+            if(isChecked) {
+                Log.d("Switcher", "Switcher on + ${Date()}")
+                scheduleNotification(LocalDate.parse("2020-01-11"), 2*AlarmManager.INTERVAL_DAY.toInt())
+                val editor = pref.edit()
+                editor.putBoolean(FLAG,true)
+                editor.commit()
+            }else{
+                val editor = pref.edit()
+                editor.putBoolean(FLAG,false)
+                editor.commit()
+            }
+
+
+        }
+
+        switchOvulationButton.setOnCheckedChangeListener { _, isChecked ->
+
+            val FLAG = "Ovulation"
+            if(isChecked) {
+                Log.d("Switcher", "Switcher on + ${Date()}")
+                scheduleNotification(LocalDate.parse("2020-01-11"), 2*AlarmManager.INTERVAL_DAY.toInt())
+                val editor = pref.edit()
+                editor.putBoolean(FLAG,true)
+                editor.commit()
+            }else{
+                val editor = pref.edit()
+                editor.putBoolean(FLAG,false)
+                editor.commit()
+            }
+
+        }
+
+        switchOpenFetilnostButton.setOnCheckedChangeListener { _, isChecked ->
+
+            val FLAG = "OpenFetilnost"
+            if(isChecked) {
+                Log.d("Switcher", "Switcher on + ${Date()}")
+                scheduleNotification(LocalDate.parse("2020-01-11"), 2*AlarmManager.INTERVAL_DAY.toInt())
+                val editor = pref.edit()
+                editor.putBoolean(FLAG,true)
+                editor.commit()
+            }else{
+                val editor = pref.edit()
+                editor.putBoolean(FLAG,false)
+                editor.commit()
+            }
+
+        }
+
+        switchCloseFetilnostButton.setOnCheckedChangeListener { _, isChecked ->
+
+            val FLAG = "CloseFetilnost"
+            if (isChecked) {
+                Log.d("Switcher", "Switcher on + ${Date()}")
+                scheduleNotification(
+                    LocalDate.parse("2020-01-11"),
+                    2 * AlarmManager.INTERVAL_DAY.toInt()
+                )
+                val editor = pref.edit()
+                editor.putBoolean(FLAG, true)
+                editor.commit()
+            } else {
+                val editor = pref.edit()
+                editor.putBoolean(FLAG, false)
+                editor.commit()
+
+            }
+        }
+
         //<---------------------------------->
 
         notificationsButton.setOnClickListener{view ->

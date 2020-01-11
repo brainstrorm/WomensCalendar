@@ -108,6 +108,19 @@ class PredictorImpl
         return pref.getBoolean("StartMenstruation",false)
     }
 
+    fun isCheckedEndMenstruation(pref: SharedPreferences):Boolean {
+        return pref.getBoolean("EndMenstruation",false)
+    }
+    fun isCheckedOvulation(pref: SharedPreferences):Boolean {
+        return pref.getBoolean("Ovulation",false)
+    }
+    fun isCheckedOpenFetilnost(pref: SharedPreferences):Boolean {
+        return pref.getBoolean("OpenFetilnost",false)
+    }
+    fun isCheckedCloseFetilnost(pref: SharedPreferences):Boolean {
+        return pref.getBoolean("CloseFetilnost",false)
+    }
+
 
     fun FindDate(set_update: List<Cycle>): Cycle {
         val date = LocalDate.now()

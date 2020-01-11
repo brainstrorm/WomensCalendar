@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ru.brainstorm.android.womenscalendar">
-    <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
+
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
+
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -9,7 +11,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".presentation.note_redactor.activity.NoteRedactorActivity"></activity>
+        <activity android:name=".presentation.rate_us.activity.RateUsActivity"></activity>
+        <activity android:name=".presentation.note_redactor.activity.NoteRedactorActivity" />
         <activity android:name=".presentation.statistics.activity.StatisticsActivity" />
         <activity android:name=".presentation.initialization.activity.InitializationActivity" />
         <activity android:name=".presentation.menu.activity.MenuActivity" />
@@ -20,7 +23,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
     </application>
 
