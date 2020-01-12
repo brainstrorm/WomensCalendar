@@ -80,6 +80,8 @@ public class NotificationsFragment : AbstractMenuFragment() {
          val date1970 = Date(70, 0,0,0,0)
          val startTime = startDate.time - date1970.time - System.currentTimeMillis() - TimeZone.getDefault().getOffset(Date().time)
 
+         val cycle = FindDate(cycles)
+
          //we set a tag to be able to cancel all work of this type if needed
          val workTag = "notificationWork";
 
@@ -246,10 +248,10 @@ public class NotificationsFragment : AbstractMenuFragment() {
             val FLAG = "OpenFetilnost"
             if(isChecked) {
                 Log.d("Switcher", "Switcher on + ${Date()}")
-                scheduleNotification(pref.getString(OpeningOfFertilityWindowNotificationFragment().TextOfOpeningOfFertilityWindowNotificationTag, "This is start of your menstruation")!!,
-                    LocalDate.now(),
-                    pref.getString(OpeningOfFertilityWindowNotificationFragment().TimeOfOpeningOfFertilityWindowNotificationTag, "9:00")!!,
-                    2*AlarmManager.INTERVAL_DAY.toInt())
+                    // scheduleNotification(pref.getString(OpeningOfFertilityWindowNotificationFragment().TextOfOpeningOfFertilityWindowNotificationTag, "This is start of your menstruation")!!,
+                    //LocalDate.now(),
+                    //pref.getString(OpeningOfFertilityWindowNotificationFragment().TimeOfOpeningOfFertilityWindowNotificationTag, "9:00")!!,
+                    //2*AlarmManager.INTERVAL_DAY.toInt())
                 val editor = pref.edit()
                 editor.putBoolean(FLAG,true)
                 editor.commit()
@@ -367,13 +369,13 @@ public class NotificationsFragment : AbstractMenuFragment() {
     fun FindDate(set_update: List<Cycle>): Cycle {
         val date = java.time.LocalDate.now()
 
-        var ans = set_update.size-1
+        var ans = 0
 
-        for(i in 0..set_update.size-2) {
+        for(i in 1..set_update.size-1) {
 
             if (date.compareTo(java.time.LocalDate.parse(set_update[i].startOfCycle)) <= 0) {
                 if (date.compareTo(java.time.LocalDate.parse(set_update[i].startOfCycle).plusDays(set_update[i].lengthOfCycle.toLong())) >= 0) {
-                    ans = i+1
+                    ans = i-1
                 }
             }
         }
