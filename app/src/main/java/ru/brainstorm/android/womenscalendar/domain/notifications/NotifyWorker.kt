@@ -17,6 +17,7 @@ import androidx.work.Worker
 import androidx.work.WorkerParameters
 import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.presentation.menu.activity.MenuActivity
+import ru.brainstorm.android.womenscalendar.presentation.menu.fragment.NotificationsFragment
 import java.util.*
 
 
@@ -54,7 +55,7 @@ class NotifyWorker(@NonNull context: Context, @NonNull params: WorkerParameters)
             // Register the channel with the system
             val notificationManager =
                 applicationContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager?.createNotificationChannel(channel)
+            notificationManager.createNotificationChannel(channel)
         }
 
         //create an intent to open the event details activity
@@ -71,8 +72,8 @@ class NotifyWorker(@NonNull context: Context, @NonNull params: WorkerParameters)
 
         //get latest event details
         val notificationTitle = "Womens Calendar"
-        val notificationText: String =
-            "Hello world!"
+        val notificationText =
+            inputData.getString(NotificationsFragment().NotificationMessageTag)
 
         //build the notification
         val notificationBuilder: NotificationCompat.Builder =

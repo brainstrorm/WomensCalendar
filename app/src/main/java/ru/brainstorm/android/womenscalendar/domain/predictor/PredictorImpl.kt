@@ -88,7 +88,7 @@ class PredictorImpl
 
             //<------> create new alarm by method
             if (notification != null)
-            notificationsFragment.scheduleNotification(org.threeten.bp.LocalDate.parse(FindDate(set_update).startOfCycle),CalculatePeriod(FindDate(set_update).lengthOfCycle))
+            notificationsFragment.scheduleNotification("", org.threeten.bp.LocalDate.parse(FindDate(set_update).startOfCycle), "9:00", CalculatePeriod(FindDate(set_update).lengthOfCycle))
 
         }
 

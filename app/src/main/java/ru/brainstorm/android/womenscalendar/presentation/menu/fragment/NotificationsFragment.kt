@@ -33,6 +33,7 @@ import ru.brainstorm.android.womenscalendar.data.database.entities.Cycle
 import ru.brainstorm.android.womenscalendar.domain.notifications.NotifyWorker
 import ru.brainstorm.android.womenscalendar.domain.predictor.PredictorImpl
 import ru.brainstorm.android.womenscalendar.presentation.menu.activity.MenuActivity
+import ru.brainstorm.android.womenscalendar.presentation.menu.extra.parseDate
 import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -65,26 +66,35 @@ public class NotificationsFragment : AbstractMenuFragment() {
 
     private lateinit var pref : SharedPreferences
 
+    final val NotificationIDTag =  "START_MENSTRUATION_NOTIFICATION"
+    final val NotificationMessageTag = "START_MENSTRUATION_NOTIFICATION_MESSAGE"
+    private lateinit var requestId : UUID
 
-     fun scheduleNotification(startLocalDate : LocalDate, interval : Int){
-         val startDate = Date( startLocalDate.year - 1900, startLocalDate.monthValue - 1,
-             startLocalDate.dayOfMonth - 1,13, 0,0)
+     fun scheduleNotification(message : String, startLocalDate : LocalDate, time : String, interval : Int){
+         val time_ = time.parseDate()
+         val startDate = Date( startLocalDate.year - 1900, startLocalDate.monthValue-1,
+             startLocalDate.dayOfMonth - 1, time_.first, time_.second)
          val date1970 = Date(70, 0,0,0,0)
-         val startTime = startDate.time - date1970.time
+         val startTime = startDate.time - date1970.time - System.currentTimeMillis() - TimeZone.getDefault().getOffset(Date().time)
 
          //we set a tag to be able to cancel all work of this type if needed
          val workTag = "notificationWork";
 
          //store DBEventID to pass it to the PendingIntent and open the appropriate event page on notification click
-         val inputData = Data.Builder().putInt("startMenstruationNotification", 1).build();
+         val inputData = Data.Builder()
+             .putInt(NotificationIDTag, 1)
+             .putString(NotificationMessageTag, message)
+             .build()
          // we then retrieve it inside the NotifyWorker with:
          // final int DBEventID = getInputData().getInt(DBEventIDTag, ERROR_VALUE);
 
          val notificationWork = PeriodicWorkRequest.Builder(NotifyWorker::class.java, PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS, TimeUnit.MILLISECONDS)
-             .setInitialDelay(startTime - System.currentTimeMillis(), TimeUnit.MILLISECONDS)
+             .setInitialDelay(startTime, TimeUnit.MILLISECONDS)
              .setInputData(inputData)
              .addTag(workTag)
              .build()
+
+         requestId = notificationWork.id
 
 
          WorkManager.getInstance(context!!).enqueue(notificationWork)
@@ -163,11 +173,20 @@ public class NotificationsFragment : AbstractMenuFragment() {
             val FLAG = "StartMenstruation"
             if(isChecked) {
                 Log.d("Switcher", "Switcher on + ${Date()}")
-                scheduleNotification(LocalDate.parse("2020-01-11"), 2*AlarmManager.INTERVAL_DAY.toInt())
+                scheduleNotification(pref.getString(MenstruationStartNotificationFragment().TextOfStartOfMenstruationNotificationTag,
+                    "This is start of your menstruation")!!,
+                    LocalDate.now(),
+                    pref.getString(MenstruationStartNotificationFragment().TimeOfStartOfMenstruationNotificationTag, "9:00")!!,
+                    2*AlarmManager.INTERVAL_DAY.toInt())
+
                 val editor = pref.edit()
                 editor.putBoolean(FLAG,true)
                 editor.commit()
+
             }else{
+
+                WorkManager.getInstance(context!!).cancelWorkById(requestId)
+
                 val editor = pref.edit()
                 editor.putBoolean(FLAG,false)
                 editor.commit()
@@ -180,7 +199,7 @@ public class NotificationsFragment : AbstractMenuFragment() {
             val FLAG = "EndMenstruation"
             if(isChecked) {
                 Log.d("Switcher", "Switcher on + ${Date()}")
-                scheduleNotification(LocalDate.parse("2020-01-11"), 2*AlarmManager.INTERVAL_DAY.toInt())
+                //scheduleNotification(LocalDate.parse("2020-01-11"), 2*AlarmManager.INTERVAL_DAY.toInt())
                 val editor = pref.edit()
                 editor.putBoolean(FLAG,true)
                 editor.commit()
@@ -198,7 +217,7 @@ public class NotificationsFragment : AbstractMenuFragment() {
             val FLAG = "Ovulation"
             if(isChecked) {
                 Log.d("Switcher", "Switcher on + ${Date()}")
-                scheduleNotification(LocalDate.parse("2020-01-11"), 2*AlarmManager.INTERVAL_DAY.toInt())
+                //scheduleNotification(LocalDate.parse("2020-01-11"), 2*AlarmManager.INTERVAL_DAY.toInt())
                 val editor = pref.edit()
                 editor.putBoolean(FLAG,true)
                 editor.commit()
@@ -215,7 +234,7 @@ public class NotificationsFragment : AbstractMenuFragment() {
             val FLAG = "OpenFetilnost"
             if(isChecked) {
                 Log.d("Switcher", "Switcher on + ${Date()}")
-                scheduleNotification(LocalDate.parse("2020-01-11"), 2*AlarmManager.INTERVAL_DAY.toInt())
+                //scheduleNotification(LocalDate.parse("2020-01-11"), 2*AlarmManager.INTERVAL_DAY.toInt())
                 val editor = pref.edit()
                 editor.putBoolean(FLAG,true)
                 editor.commit()
@@ -232,10 +251,10 @@ public class NotificationsFragment : AbstractMenuFragment() {
             val FLAG = "CloseFetilnost"
             if (isChecked) {
                 Log.d("Switcher", "Switcher on + ${Date()}")
-                scheduleNotification(
+                /*scheduleNotification(
                     LocalDate.parse("2020-01-11"),
                     2 * AlarmManager.INTERVAL_DAY.toInt()
-                )
+                )*/
                 val editor = pref.edit()
                 editor.putBoolean(FLAG, true)
                 editor.commit()

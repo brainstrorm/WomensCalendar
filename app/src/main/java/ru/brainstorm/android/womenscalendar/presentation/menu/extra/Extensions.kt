@@ -24,3 +24,10 @@ fun differenceBetweenDates(startDate : LocalDate, endDate : LocalDate) : Int{
                 else 365 - startDate.dayOfYear
     }
 }
+
+fun String.parseDate() : Pair<Int, Int>{
+    lateinit var result : Pair<Int,Int>
+    var time = this.split(":")
+    result = Pair(time[0].toInt(), time[1].toInt())
+    return result
+}

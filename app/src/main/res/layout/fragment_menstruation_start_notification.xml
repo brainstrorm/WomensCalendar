@@ -8,16 +8,15 @@
     tools:context=".presentation.menu.fragment.NotificationsFragment">
 
 
-
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/notification_menstruation"
+            android:id="@+id/notification_start_menstruation_time"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="75dp"
             android:layout_marginTop="32dp"
             android:background="@drawable/bcgr_rect_settings_notifications"
             app:layout_constraintEnd_toEndOf="parent"
@@ -27,7 +26,7 @@
 
 
             <TextView
-                android:id="@+id/textView13"
+                android:id="@+id/time_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -38,22 +37,67 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"></TextView>
 
-            <EditText
+            <TextView
+                android:id="@+id/direct_time_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="22dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="25dp"
                 android:textColor="@color/colorPink"
                 android:textSize="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"></EditText>
+                app:layout_constraintTop_toTopOf="parent"></TextView>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/start_of_menstruation_pick_time"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+
+            <Button
+                android:id="@+id/start_of_menstruation_cancel_notification"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:text="@string/cancel"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/start_of_menstruation_save_notification"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:text="@string/ru_save"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TimePicker
+                android:id="@+id/timePicker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/settings_save_menstruation"
+                app:layout_constraintStart_toEndOf="@+id/settings_cancel_menstruation"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/notification_menstruation_text"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:background="@drawable/bcgr_rect_settings_notifications">
 
             <TextView
-                android:id="@+id/textView12"
+                android:id="@+id/message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="96dp"
+                android:layout_marginTop="26dp"
                 android:text="@string/message"
                 android:textColor="@color/black"
                 android:textSize="16dp"
@@ -61,20 +105,21 @@
                 app:layout_constraintTop_toTopOf="parent"></TextView>
 
             <EditText
+                android:id="@+id/message_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="25dp"
-                android:layout_marginBottom="22dp"
+                android:layout_marginBottom="25dp"
                 android:textColor="@color/colorPink"
                 android:textSize="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"></EditText>
 
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>
+
+
 
 
     <!-- TODO: Update blank fragment layout -->
