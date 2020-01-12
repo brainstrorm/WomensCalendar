@@ -251,6 +251,44 @@ class MenuPresenter
                 }
                 viewState.setPart("end_of_menstruation")
             }
+            "ovulation" -> {
+                if (fm.findFragmentById(R.id.for_fragment) == null) {
+                    fm.beginTransaction()
+                        .add(R.id.for_fragment, OvulationNotificationFragment())
+                        .commitNow()
+                } else {
+                    fm.beginTransaction()
+                        .replace(R.id.for_fragment, OvulationNotificationFragment())
+                        .commitNow()
+                }
+                viewState.setPart("ovulation")
+            }
+
+            "opening_of_fertility_window" -> {
+                if (fm.findFragmentById(R.id.for_fragment) == null) {
+                    fm.beginTransaction()
+                        .add(R.id.for_fragment, OpeningOfFertilityWindowNotificationFragment())
+                        .commitNow()
+                } else {
+                    fm.beginTransaction()
+                        .replace(R.id.for_fragment, OpeningOfFertilityWindowNotificationFragment())
+                        .commitNow()
+                }
+                viewState.setPart("opening_of_fertility_window")
+            }
+
+            "closing_of_fertility_window" -> {
+                if (fm.findFragmentById(R.id.for_fragment) == null) {
+                    fm.beginTransaction()
+                        .add(R.id.for_fragment, ClosingOfFertilityWindowNotificationFragment())
+                        .commitNow()
+                } else {
+                    fm.beginTransaction()
+                        .replace(R.id.for_fragment, ClosingOfFertilityWindowNotificationFragment())
+                        .commitNow()
+                }
+                viewState.setPart("closing_of_fertility_window")
+            }
         }
     }
 }

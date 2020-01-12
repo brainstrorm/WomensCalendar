@@ -371,6 +371,39 @@
             app:layout_constraintStart_toStartOf="@+id/topBar"
             app:layout_constraintTop_toTopOf="@+id/topBar"></TextView>
         <TextView
+            android:id="@+id/ovulation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ovulation_notification"
+            android:textColor="@color/colorForBtnDurationMenstruationPink"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/topBar"
+            app:layout_constraintEnd_toEndOf="@+id/topBar"
+            app:layout_constraintStart_toStartOf="@+id/topBar"
+            app:layout_constraintTop_toTopOf="@+id/topBar"></TextView>
+        <TextView
+            android:id="@+id/opening_of_fertility"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/opening_of_fertility_window"
+            android:textColor="@color/colorForBtnDurationMenstruationPink"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/topBar"
+            app:layout_constraintEnd_toEndOf="@+id/topBar"
+            app:layout_constraintStart_toStartOf="@+id/topBar"
+            app:layout_constraintTop_toTopOf="@+id/topBar"></TextView>
+        <TextView
+            android:id="@+id/closing_of_fertility"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/closing_of_fertility_window"
+            android:textColor="@color/colorForBtnDurationMenstruationPink"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/topBar"
+            app:layout_constraintEnd_toEndOf="@+id/topBar"
+            app:layout_constraintStart_toStartOf="@+id/topBar"
+            app:layout_constraintTop_toTopOf="@+id/topBar"></TextView>
+        <TextView
             android:id="@+id/womens_calendar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

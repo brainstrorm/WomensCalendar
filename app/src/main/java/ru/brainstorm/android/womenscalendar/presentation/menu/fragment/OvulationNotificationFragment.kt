@@ -4,22 +4,18 @@ import android.animation.AnimatorSet
 import android.animation.ValueAnimator
 import android.content.Context
 import android.content.SharedPreferences
-import android.net.Uri
 import android.os.Bundle
 import android.preference.PreferenceManager
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
-
 import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.presentation.menu.activity.MenuActivity
 
-class MenstruationEndNotificationFragment : AbstractMenuFragment() {
-
+class OvulationNotificationFragment : AbstractMenuFragment() {
     private lateinit var mainView : View
     private lateinit var backButton : ImageView
     private lateinit var timeLayout : ConstraintLayout
@@ -29,8 +25,8 @@ class MenstruationEndNotificationFragment : AbstractMenuFragment() {
     private lateinit var messageEditText: EditText
     private lateinit var pref : SharedPreferences
 
-    val TimeOfEndOfMenstruationNotificationTag = "TimeOfEndOfMenstruationNotification"
-    val TextOfEndOfMenstruationNotificationTag : String = "TextOfEndOfMenstruationNotification"
+    val TimeOfOvulationNotificationTag = "TimeOfOvulationNotification"
+    val TextOfOvulationNotificationTag : String = "TextOfOvulationNotification"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +37,7 @@ class MenstruationEndNotificationFragment : AbstractMenuFragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        mainView = inflater.inflate(R.layout.fragment_menstruation_end_notification, container, false)
+        mainView = inflater.inflate(R.layout.fragment_ovulation_notification, container, false)
 
         pref = PreferenceManager.getDefaultSharedPreferences(context)
 
@@ -52,11 +48,11 @@ class MenstruationEndNotificationFragment : AbstractMenuFragment() {
     }
 
     private fun initViews(){
-        timeLayout = mainView!!.findViewById<ConstraintLayout>(R.id.notification_end_menstruation_time)
-        timeInfoLayout = mainView!!.findViewById<ConstraintLayout>(R.id.end_of_menstruation_pick_time)
-        timeInfoLayout.findViewById<Button>(R.id.end_of_menstruation_cancel_notification)
+        timeLayout = mainView!!.findViewById<ConstraintLayout>(R.id.notification_ovulation_time)
+        timeInfoLayout = mainView!!.findViewById<ConstraintLayout>(R.id.ovulation_pick_time)
+        timeInfoLayout.findViewById<Button>(R.id.ovulation_cancel_notification)
             .setOnClickListener{rollUpTimePicker()}
-        timeInfoLayout.findViewById<Button>(R.id.end_of_menstruation_save_notification)
+        timeInfoLayout.findViewById<Button>(R.id.ovulation_save_notification)
             .setOnClickListener{rollUpTimePicker(true)}
         messageEditText = mainView.findViewById<EditText>(R.id.message_edit)
 
@@ -65,7 +61,7 @@ class MenstruationEndNotificationFragment : AbstractMenuFragment() {
             (activity as MenuActivity).apply {
                 menuPresenter.popBackStack(supportFragmentManager)
                 pref.edit()
-                    .putString(TextOfEndOfMenstruationNotificationTag, messageEditText.text.toString())
+                    .putString(TextOfOvulationNotificationTag, messageEditText.text.toString())
                     .commit()
             }
         }
@@ -95,7 +91,7 @@ class MenstruationEndNotificationFragment : AbstractMenuFragment() {
             val saved = "${timePicker.hour}:${timePicker.minute}"
             directTimeTextView.text = saved
             val editor = pref.edit()
-            editor.putString(TimeOfEndOfMenstruationNotificationTag, saved)
+            editor.putString(TimeOfOvulationNotificationTag, saved)
             editor.commit()
         }
         val heightAnimator = ValueAnimator.ofInt(timePicker.layoutParams.height, 0).setDuration(1_000)
@@ -108,7 +104,7 @@ class MenstruationEndNotificationFragment : AbstractMenuFragment() {
         set.interpolator = AccelerateDecelerateInterpolator()
         set.start()
     }
-    override fun getPart(): String = "end_of_menstruation"
+    override fun getPart(): String = "ovulation"
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

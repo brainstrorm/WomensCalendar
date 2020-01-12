@@ -46,6 +46,9 @@ public class NotificationsFragment : AbstractMenuFragment() {
     private lateinit var notificationsButton : ImageView
     private lateinit var notificationStartMenstruationButton : ImageButton
     private lateinit var notificationEndMenstruationButton : ImageButton
+    private lateinit var notificationOvulationButton : ImageButton
+    private lateinit var notificationOpeningOfFertilityWindowButton : ImageButton
+    private lateinit var notificationClosingOfFertilityWindowButton : ImageButton
     private lateinit var switchStartMenstruationButton : Switch
     private lateinit var switchEndMenstruationButton : Switch
     private lateinit var switchOpenFetilnostButton : Switch
@@ -152,6 +155,9 @@ public class NotificationsFragment : AbstractMenuFragment() {
         notificationsButton = activity!!.findViewById<ImageView>(R.id.btn_back)
         notificationStartMenstruationButton = view.findViewById<ImageButton>(R.id.btn_start_of_menstruation_notification)
         notificationEndMenstruationButton = view.findViewById<ImageButton>(R.id.btn_end_of_menstruation_notification)
+        notificationOvulationButton = view.findViewById<ImageButton>(R.id.btn_ovulation_notification)
+        notificationOpeningOfFertilityWindowButton = view.findViewById<ImageButton>(R.id.btn_open_fetilnost_notification)
+        notificationClosingOfFertilityWindowButton = view.findViewById<ImageButton>(R.id.close_fetilnost_notofication)
 
 
         //---> values for switch buttons <---
@@ -199,7 +205,10 @@ public class NotificationsFragment : AbstractMenuFragment() {
             val FLAG = "EndMenstruation"
             if(isChecked) {
                 Log.d("Switcher", "Switcher on + ${Date()}")
-                //scheduleNotification(LocalDate.parse("2020-01-11"), 2*AlarmManager.INTERVAL_DAY.toInt())
+                scheduleNotification(pref.getString(MenstruationEndNotificationFragment().TextOfEndOfMenstruationNotificationTag, "This is start of your menstruation")!!,
+                    LocalDate.now(),
+                    pref.getString(MenstruationEndNotificationFragment().TimeOfEndOfMenstruationNotificationTag, "9:00")!!,
+                    2*AlarmManager.INTERVAL_DAY.toInt())
                 val editor = pref.edit()
                 editor.putBoolean(FLAG,true)
                 editor.commit()
@@ -217,7 +226,10 @@ public class NotificationsFragment : AbstractMenuFragment() {
             val FLAG = "Ovulation"
             if(isChecked) {
                 Log.d("Switcher", "Switcher on + ${Date()}")
-                //scheduleNotification(LocalDate.parse("2020-01-11"), 2*AlarmManager.INTERVAL_DAY.toInt())
+                scheduleNotification(pref.getString(OvulationNotificationFragment().TextOfOvulationNotificationTag, "This is start of your menstruation")!!,
+                    LocalDate.now(),
+                    pref.getString(OvulationNotificationFragment().TimeOfOvulationNotificationTag, "9:00")!!,
+                    2*AlarmManager.INTERVAL_DAY.toInt())
                 val editor = pref.edit()
                 editor.putBoolean(FLAG,true)
                 editor.commit()
@@ -234,7 +246,10 @@ public class NotificationsFragment : AbstractMenuFragment() {
             val FLAG = "OpenFetilnost"
             if(isChecked) {
                 Log.d("Switcher", "Switcher on + ${Date()}")
-                //scheduleNotification(LocalDate.parse("2020-01-11"), 2*AlarmManager.INTERVAL_DAY.toInt())
+                scheduleNotification(pref.getString(OpeningOfFertilityWindowNotificationFragment().TextOfOpeningOfFertilityWindowNotificationTag, "This is start of your menstruation")!!,
+                    LocalDate.now(),
+                    pref.getString(OpeningOfFertilityWindowNotificationFragment().TimeOfOpeningOfFertilityWindowNotificationTag, "9:00")!!,
+                    2*AlarmManager.INTERVAL_DAY.toInt())
                 val editor = pref.edit()
                 editor.putBoolean(FLAG,true)
                 editor.commit()
@@ -251,10 +266,10 @@ public class NotificationsFragment : AbstractMenuFragment() {
             val FLAG = "CloseFetilnost"
             if (isChecked) {
                 Log.d("Switcher", "Switcher on + ${Date()}")
-                /*scheduleNotification(
-                    LocalDate.parse("2020-01-11"),
-                    2 * AlarmManager.INTERVAL_DAY.toInt()
-                )*/
+                scheduleNotification(pref.getString(ClosingOfFertilityWindowNotificationFragment().TextOfClosingOfFertilityWindowNotificationTag, "This is start of your menstruation")!!,
+                    LocalDate.now(),
+                    pref.getString(ClosingOfFertilityWindowNotificationFragment().TimeOfClosingOfFertilityWindowNotificationTag, "9:00")!!,
+                    2*AlarmManager.INTERVAL_DAY.toInt())
                 val editor = pref.edit()
                 editor.putBoolean(FLAG, true)
                 editor.commit()
@@ -283,6 +298,24 @@ public class NotificationsFragment : AbstractMenuFragment() {
             (activity as MenuActivity).apply {
                 menuPresenter.addFragmentToBackStack(this@NotificationsFragment)
                 menuPresenter.setFragment(supportFragmentManager, "end_of_menstruation")
+            }
+        }
+        notificationOvulationButton.setOnClickListener { view ->
+            (activity as MenuActivity).apply {
+                menuPresenter.addFragmentToBackStack(this@NotificationsFragment)
+                menuPresenter.setFragment(supportFragmentManager, "ovulation")
+            }
+        }
+        notificationOpeningOfFertilityWindowButton.setOnClickListener { view ->
+            (activity as MenuActivity).apply {
+                menuPresenter.addFragmentToBackStack(this@NotificationsFragment)
+                menuPresenter.setFragment(supportFragmentManager, "opening_of_fertility_window")
+            }
+        }
+        notificationClosingOfFertilityWindowButton.setOnClickListener { view ->
+            (activity as MenuActivity).apply {
+                menuPresenter.addFragmentToBackStack(this@NotificationsFragment)
+                menuPresenter.setFragment(supportFragmentManager, "closing_of_fertility_window")
             }
         }
         return view

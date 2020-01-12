@@ -100,6 +100,9 @@
     <string name="period_notifications">Переодические напоминания</string>
     <string name="start_of_menstruation">Начало менструации</string>
     <string name="end_of_menstruation">Конец менструации</string>
+    <string name="ovulation_notification">Овуляция</string>
+    <string name="opening_of_fertility_window">Открытие окна фертильности</string>
+    <string name="closing_of_fertility_window">Закрытие окна фертильности</string>
     <string name="menstruation_starts_today">Менструация начинается сегодня</string>
     <string name="do_not_forget">Не забудьте отметить окончание менструации</string>
     <string name="open_fertilnost">Открытие фертильности</string>

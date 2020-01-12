@@ -14,7 +14,7 @@
         android:orientation="vertical">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/notification_end_menstruation_time"
+            android:id="@+id/notification_ovulation_time"
             android:layout_width="match_parent"
             android:layout_height="75dp"
             android:layout_marginTop="32dp"
@@ -52,12 +52,12 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/end_of_menstruation_pick_time"
+            android:id="@+id/ovulation_pick_time"
             android:layout_width="match_parent"
             android:layout_height="0dp">
 
             <Button
-                android:id="@+id/end_of_menstruation_cancel_notification"
+                android:id="@+id/ovulation_cancel_notification"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@null"
@@ -66,7 +66,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
-                android:id="@+id/end_of_menstruation_save_notification"
+                android:id="@+id/ovulation_save_notification"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@null"
@@ -81,13 +81,13 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/settings_save_menstruation"
                 app:layout_constraintStart_toEndOf="@+id/settings_cancel_menstruation"
-                app:layout_constraintTop_toBottomOf="@id/end_of_menstruation_cancel_notification" />
+                app:layout_constraintTop_toBottomOf="@id/ovulation_cancel_notification" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/notification_menstruation_text"
+            android:id="@+id/notification_ovulation_text"
             android:layout_width="match_parent"
             android:layout_height="75dp"
             android:background="@drawable/bcgr_rect_settings_notifications">

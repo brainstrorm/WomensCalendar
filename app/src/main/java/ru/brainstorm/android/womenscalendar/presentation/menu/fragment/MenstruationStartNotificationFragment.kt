@@ -98,7 +98,7 @@ class MenstruationStartNotificationFragment : AbstractMenuFragment() {
             val saved = "${timePicker.hour}:${timePicker.minute}"
             directTimeTextView.text = saved
             val editor = pref.edit()
-            editor.putString("TimeOfStartOfMenstruationNotification", saved)
+            editor.putString(TimeOfStartOfMenstruationNotificationTag, saved)
             editor.commit()
         }
         val heightAnimator = ValueAnimator.ofInt(timePicker.layoutParams.height, 0).setDuration(1_000)
