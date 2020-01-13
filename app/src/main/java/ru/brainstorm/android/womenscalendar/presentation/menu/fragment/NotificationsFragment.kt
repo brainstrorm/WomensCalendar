@@ -33,6 +33,7 @@ import ru.brainstorm.android.womenscalendar.data.database.entities.Cycle
 import ru.brainstorm.android.womenscalendar.domain.notifications.NotifyWorker
 import ru.brainstorm.android.womenscalendar.domain.predictor.PredictorImpl
 import ru.brainstorm.android.womenscalendar.presentation.menu.activity.MenuActivity
+import ru.brainstorm.android.womenscalendar.presentation.menu.extra.*
 import ru.brainstorm.android.womenscalendar.presentation.menu.extra.parseDate
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -80,10 +81,21 @@ public class NotificationsFragment : AbstractMenuFragment() {
          val date1970 = Date(70, 0,0,0,0)
          val startTime = startDate.time - date1970.time - System.currentTimeMillis() - TimeZone.getDefault().getOffset(Date().time)
 
+         //< Example of methods working >
          val cycle = FindDate(cycles)
+         val firstdate = FindStartOfMenstruation(cycles)
+
+         val seconddate = FindEndOfMenstruation(cycles)
+
+         val thirddate = FindOvulation(cycles)
+
+         val fourthdate = FindOpenOfFertilnost(cycles)
+
+         val fifthdate = FindEndOfFertilnost(cycles)
+        //<---------------------->
 
          //we set a tag to be able to cancel all work of this type if needed
-         val workTag = "notificationWork";
+         val workTag = "notificationWork"
 
          //store DBEventID to pass it to the PendingIntent and open the appropriate event page on notification click
          val inputData = Data.Builder()
@@ -354,32 +366,5 @@ public class NotificationsFragment : AbstractMenuFragment() {
         txtvwFertilityWindowCloses.setText(R.string.window_of_fertilnost_is_closing)
     }
 
-    fun CalculateDelay(startOfCycle: String):Int {
-        val duringDate = java.time.LocalDate.now()
-        val newDate = java.time.LocalDate.parse(startOfCycle)
-        val newDays = newDate.dayOfYear - duringDate.dayOfYear
 
-        return newDays*24*60*60*1000
-    }
-
-    fun CalculatePeriod(lengthOfCycle : Int):Int {
-        return lengthOfCycle*24*60*60*1000
-    }
-
-    fun FindDate(set_update: List<Cycle>): Cycle {
-        val date = java.time.LocalDate.now()
-
-        var ans = 0
-
-        for(i in 1..set_update.size-1) {
-
-            if (date.compareTo(java.time.LocalDate.parse(set_update[i].startOfCycle)) <= 0) {
-                if (date.compareTo(java.time.LocalDate.parse(set_update[i].startOfCycle).plusDays(set_update[i].lengthOfCycle.toLong())) >= 0) {
-                    ans = i-1
-                }
-            }
-        }
-
-        return set_update[ans]
-    }
 }
