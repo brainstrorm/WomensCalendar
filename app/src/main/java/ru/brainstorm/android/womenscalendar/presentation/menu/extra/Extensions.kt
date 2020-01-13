@@ -4,6 +4,7 @@ import org.threeten.bp.LocalDate
 import ru.brainstorm.android.womenscalendar.data.database.entities.Cycle
 
 
+
 fun Int.getDayAddition(): String {
     val preLastDigit = this % 100 / 10
     if (preLastDigit == 1) {
@@ -32,7 +33,6 @@ fun String.parseDate() : Pair<Int, Int>{
     result = Pair(time[0].toInt(), time[1].toInt())
     return result
 }
-
 
 fun CalculateDelay(startOfCycle: String):Int {
     val duringDate = java.time.LocalDate.now()
@@ -122,3 +122,16 @@ fun FindDate(set_update: List<Cycle>): Cycle {
 
     return set_update[ans]
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
