@@ -267,12 +267,12 @@ class MenuPresenter
             "opening_of_fertility_window" -> {
                 if (fm.findFragmentById(R.id.for_fragment) == null) {
                     fm.beginTransaction()
-                      //  .add(R.id.for_fragment, OpeningOfFertilityWindowNotificationFragment())
+                        .add(R.id.for_fragment, OpeningOfFertilityWindowNotificationFragment())
                         .commitNow()
                 } else {
                     fm.beginTransaction()
-                       // .replace(R.id.for_fragment, OpeningOfFertilityWindowNotificationFragment())
-                        //.commitNow()
+                        .replace(R.id.for_fragment, OpeningOfFertilityWindowNotificationFragment())
+                        .commitNow()
                 }
                 viewState.setPart("opening_of_fertility_window")
             }
