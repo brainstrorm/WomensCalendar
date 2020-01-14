@@ -59,6 +59,9 @@ class SettingsFragment
 
     private lateinit var pref : SharedPreferences
 
+    private val MenstruationDurationTag = "MENSTRUATION_DURATION"
+    private val CycleDurationTag = "CYCLE_DURATION"
+
     override fun getPart(): String = "more"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -88,6 +91,7 @@ class SettingsFragment
 
         pref = PreferenceManager.getDefaultSharedPreferences(context)
         updateLocale()
+        updateInformation()
         return mainView
     }
 
@@ -190,6 +194,9 @@ class SettingsFragment
         if (save) {
             val saved = menstPicker.value
             menstTextView.text = resources.getQuantityString(R.plurals.days, saved, saved)
+            pref.edit()
+                .putInt(MenstruationDurationTag, saved)
+                .commit()
         }
         val heightAnimator = ValueAnimator.ofInt(400, 0).setDuration(1_000)
         heightAnimator.addUpdateListener {
@@ -203,6 +210,13 @@ class SettingsFragment
     }
 
     private fun rollUpCyclePicker(save: Boolean = false) {
+        if (save) {
+            val saved = cyclePicker.value
+            cycleTextView.text = resources.getQuantityString(R.plurals.days, saved, saved)
+            pref.edit()
+                .putInt(CycleDurationTag, saved)
+                .commit()
+        }
         val heightAnimator = ValueAnimator.ofInt(400, 0).setDuration(1_000)
         heightAnimator.addUpdateListener {
             cycleLayout.layoutParams.height = it.animatedValue as Int
@@ -229,5 +243,13 @@ class SettingsFragment
         txtvwHelpAndFeedback.setText(R.string.help_feedback)
         txtvwDeleteAllNotes.setText(R.string.delete_all_notes)
         txtvwAboutApp.setText(R.string.about_us)
+    }
+    fun updateInformation(){
+        val menstruationDuration = pref.getInt(MenstruationDurationTag, -1)
+        val cycleDuration = pref.getInt(CycleDurationTag, -1)
+        if(menstruationDuration != -1)
+            menstTextView.text = resources.getQuantityString(R.plurals.days, menstruationDuration, menstruationDuration)
+        if (cycleDuration != -1)
+            cycleTextView.text = resources.getQuantityString(R.plurals.days, cycleDuration, cycleDuration)
     }
 }
