@@ -79,6 +79,11 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
     private lateinit var txtvwWomensCalendar : TextView
     private lateinit var txtvwNewDateMenu : TextView
 
+    private var btnTodayIsChecked : Boolean = true
+    private var btnCalendarIsChecked : Boolean = false
+    private var btnInfoIsChecked : Boolean = false
+    private var btnMoreIsChecked : Boolean = false
+
     //private lateinit var txtvwLanguages : TextView
 
     private lateinit var pref : SharedPreferences
@@ -169,21 +174,25 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
         btnToday?.layoutParams.width = 51
         btnToday?.layoutParams.height = 51
         txtvwToday.setTextColor(resources.getColor(R.color.colorGrey))
+        btnTodayIsChecked = false
 
         btnCalendar?.setBackgroundResource(R.drawable.ic_btn_calendar_menu_grey)
         btnCalendar?.layoutParams.width = 51
         btnCalendar?.layoutParams.height = 51
         txtvwCalendar.setTextColor(resources.getColor(R.color.colorGrey))
+        btnCalendarIsChecked = false
 
         btnInfo?.setBackgroundResource(R.drawable.ic_btn_notes_for_menu_grey)
         btnInfo?.layoutParams.width = 48
         btnInfo?.layoutParams.height = 48
         txtvwNotes.setTextColor(resources.getColor(R.color.colorGrey))
+        btnInfoIsChecked = false
 
         btnMore?.setBackgroundResource(R.drawable.ic_btn_more_menu_grey)
         btnMore?.layoutParams.width = 48
         btnMore?.layoutParams.height = 48
         txtvwMore.setTextColor(resources.getColor(R.color.colorGrey))
+        btnMoreIsChecked = false
 
         when(part){
             "today" ->{
@@ -197,7 +206,7 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
                 btnToday?.layoutParams.width = 51
                 btnToday?.layoutParams.height = 51
                 txtvwToday.setTextColor(resources.getColor(R.color.colorBlueNotesRedactor))
-
+                btnTodayIsChecked = true
 
             }
             "calendar" ->{
@@ -211,7 +220,7 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
                 btnCalendar?.layoutParams.width = 51
                 btnCalendar?.layoutParams.height = 51
                 txtvwCalendar.setTextColor(resources.getColor(R.color.colorBlueNotesRedactor))
-
+                btnCalendarIsChecked = true
 
             }
             "notes" ->{
@@ -225,8 +234,7 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
                 btnInfo?.layoutParams.width = 48
                 btnInfo?.layoutParams.height = 48
                 txtvwNotes.setTextColor(resources.getColor(R.color.colorBlueNotesRedactor))
-
-
+                btnInfoIsChecked = true
             }
             "note_redactor" ->{
                 setVisibility(View.VISIBLE, View.GONE, View.GONE,
@@ -247,6 +255,7 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
                 btnMore?.layoutParams.width = 48
                 btnMore?.layoutParams.height = 48
                 txtvwMore.setTextColor(resources.getColor(R.color.colorBlueNotesRedactor))
+                btnMoreIsChecked = true
             }
             "change_menstruation_dates" -> {
                 setVisibility(View.VISIBLE, View.GONE, View.GONE,
@@ -344,7 +353,6 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
                 goToStatistic()
             }
             R.id.today -> {
-
                menuPresenter.setFragment(supportFragmentManager, "today")
             }
             R.id.calendar -> {
@@ -356,8 +364,30 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
                 menuPresenter.setFragment(supportFragmentManager, "notes")
             }
             R.id.more -> {
+                if (btnTodayIsChecked)
+                    menuPresenter
+                        .addFragmentToBackStack(
+                            supportFragmentManager
+                                .findFragmentByTag(
+                                    WeekModeCalendarFragment.TAG
+                                ) as AbstractMenuFragment
+                        )
+                if (btnCalendarIsChecked)
+                    menuPresenter
+                        .addFragmentToBackStack(
+                            supportFragmentManager
+                                .findFragmentByTag(
+                                    CalendarPickerFragment.TAG
+                                ) as AbstractMenuFragment
+                        )
+                if (btnInfoIsChecked)
+                    menuPresenter
+                        .addFragmentToBackStack(
+                            supportFragmentManager.findFragmentByTag(
+                                ListOfNotesFragment.TAG
+                            ) as AbstractMenuFragment
+                        )
                 menuPresenter.setFragment(supportFragmentManager, "more")
-                //TODO
             }
             R.id.btn_plus_menu, R.id.for_notes -> {
                 menuPresenter.addFragmentToBackStack(

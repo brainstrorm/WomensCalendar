@@ -55,6 +55,7 @@ class SettingsFragment
     private lateinit var statistics: LinearLayout
     private lateinit var settingsLayout : LinearLayout
     private lateinit var notificationsLayout : LinearLayout
+    private lateinit var btnBack : ImageView
 
     private lateinit var pref : SharedPreferences
 
@@ -144,6 +145,12 @@ class SettingsFragment
                     menuPresenter.addFragmentToBackStack(this@SettingsFragment)
                     menuPresenter.setFragment(supportFragmentManager, "notifications")
                 }
+            }
+        }
+        btnBack = activity!!.findViewById(R.id.btn_back)
+        btnBack.setOnClickListener { view ->
+            (activity as MenuActivity).apply {
+                menuPresenter.popBackStack(supportFragmentManager)
             }
         }
         cyclePicker.minValue = 0
