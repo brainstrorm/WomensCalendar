@@ -15,7 +15,7 @@
         android:id="@+id/drops"
         android:layout_width="336dp"
         android:layout_height="357dp"
-        android:layout_marginTop="124dp"
+        android:layout_marginTop="52dp"
         android:gravity="center_horizontal"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/circle_red"
@@ -93,11 +93,12 @@
         android:id="@+id/do_you_like_the_calendar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:text="@string/rate_us_do_you_like"
         android:textColor="@color/colorPinkForRateUsLike"
         android:textSize="15dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/drops" />
 
@@ -105,7 +106,7 @@
         android:id="@+id/rate_us_please"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="26dp"
+        android:layout_marginTop="16dp"
         android:gravity="center"
         android:text="@string/rate_us_by_five_stars"
         android:textColor="@color/colorPinkForRateUs"
@@ -118,41 +119,45 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="220dp"
+        android:layout_marginBottom="40dp"
         android:text="@string/cancel_rate_us"
         android:textColor="@color/color_Blue"
         android:textSize="15dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ratingBar"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/rate_us_please"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/call_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginStart="220dp"
         android:layout_marginEnd="60dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="40dp"
         android:text="@string/call_back_rate_us"
         android:textColor="@color/color_Blue"
         android:textSize="15dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ratingBar"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rate_us_please"
+        app:layout_constraintVertical_bias="1.0" />
 
     <RatingBar
         android:id="@+id/ratingBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="80dp"
         android:numStars="5"
         android:rating="0"
         android:stepSize="1"
@@ -160,10 +165,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rate_us_please"
-        app:layout_constraintVertical_bias="0.0" />
-
-
+        app:layout_constraintTop_toBottomOf="@+id/rate_us_please" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
