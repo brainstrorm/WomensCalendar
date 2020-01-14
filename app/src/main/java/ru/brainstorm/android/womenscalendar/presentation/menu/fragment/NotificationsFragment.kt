@@ -207,7 +207,7 @@ public class NotificationsFragment : AbstractMenuFragment() {
             }
 
         }
-
+        //
         switchEndMenstruationButton.setOnCheckedChangeListener { _, isChecked ->
 
             val FLAG = "EndMenstruation"
