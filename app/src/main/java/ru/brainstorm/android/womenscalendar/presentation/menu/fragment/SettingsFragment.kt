@@ -39,8 +39,8 @@ class SettingsFragment
     private lateinit var cycleInfoLayout: ConstraintLayout
     private lateinit var menstLayout: ConstraintLayout
     private lateinit var cycleLayout: ConstraintLayout
-    private lateinit var menstPicker: NumberPicker
-    private lateinit var cyclePicker: NumberPicker
+    private lateinit var menstPicker: com.shawnlin.numberpicker.NumberPicker
+    private lateinit var cyclePicker: com.shawnlin.numberpicker.NumberPicker
     private lateinit var menstTextView: TextView
     private lateinit var cycleTextView: TextView
     private lateinit var rate_us: TextView
@@ -125,8 +125,14 @@ class SettingsFragment
         cycleLayout.findViewById<View>(R.id.settings_cancel).setOnClickListener { rollUpCyclePicker() }
         cycleLayout.findViewById<View>(R.id.settings_save).setOnClickListener { rollUpCyclePicker(true) }
         menstPicker = menstLayout.findViewById(R.id.pick_menstruation)
+        menstPicker.setDividerColorResource(android.R.color.transparent)
+        menstPicker.setTextColorResource(R.color.colorGreyFont)
+        menstPicker.setSelectedTextColorResource(R.color.colorOfChosenNumber)
         cycleLayout = mainView.findViewById(R.id.settingsPickCycle)
         cyclePicker = cycleLayout.findViewById(R.id.pick_cycle)
+        cyclePicker.setDividerColorResource(android.R.color.transparent)
+        cyclePicker.setTextColorResource(R.color.colorGreyFont)
+        cyclePicker.setSelectedTextColorResource(R.color.colorOfChosenNumber)
         settingsLayout = mainView.findViewById<LinearLayout>(R.id.settings).apply { setOnClickListener{view ->
             (activity as MenuActivity).apply {
                 menuPresenter.addFragmentToBackStack(this@SettingsFragment)
