@@ -2,11 +2,9 @@ package ru.brainstorm.android.womenscalendar.presentation.menu.fragment
 
 import android.animation.AnimatorSet
 import android.animation.ValueAnimator
-import android.annotation.SuppressLint
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Bundle
-import android.os.LocaleList
 import android.preference.PreferenceManager
 import android.view.LayoutInflater
 import android.view.View
@@ -14,17 +12,15 @@ import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.fragment.app.Fragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import org.w3c.dom.Text
 import ru.brainstorm.android.womenscalendar.App
 import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.data.database.dao.CycleDao
-import ru.brainstorm.android.womenscalendar.di.AppComponent
 import ru.brainstorm.android.womenscalendar.presentation.menu.activity.MenuActivity
+import ru.brainstorm.android.womenscalendar.presentation.rate_us.activity.RateUsActivity
 import java.util.*
 import javax.inject.Inject
 
@@ -47,6 +43,7 @@ class SettingsFragment
     private lateinit var cyclePicker: NumberPicker
     private lateinit var menstTextView: TextView
     private lateinit var cycleTextView: TextView
+    private lateinit var rate_us: TextView
     private lateinit var txtvwNotifications : TextView
     private lateinit var txtvwGraphicsAndReports : TextView
     private lateinit var txtvwSettings : TextView
@@ -103,9 +100,15 @@ class SettingsFragment
             }
         }
         statistics = mainView.findViewById(R.id.graphs)
+        rate_us=mainView.findViewById(R.id.rate_us_text)
+
         statistics.setOnClickListener {
             (activity as MenuActivity).goToStatistic()
         }
+        rate_us.setOnClickListener{
+            (activity as MenuActivity).goToRateUs()
+        }
+
         menstInfoLayout = mainView.findViewById(R.id.expand_menstruation_picker)
         cycleInfoLayout = mainView.findViewById(R.id.expand_cycle_picker)
         menstTextView = menstInfoLayout.findViewById(R.id.valueOfMenstruation)

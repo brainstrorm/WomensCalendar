@@ -22,6 +22,7 @@ import ru.brainstorm.android.womenscalendar.presentation.menu.fragment.*
 import ru.brainstorm.android.womenscalendar.presentation.menu.presenter.MenuPresenter
 import ru.brainstorm.android.womenscalendar.presentation.menu.view.MenuView
 import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.setTextColorRes
+import ru.brainstorm.android.womenscalendar.presentation.rate_us.activity.RateUsActivity
 import ru.brainstorm.android.womenscalendar.presentation.statistics.activity.StatisticsActivity
 import java.util.*
 import javax.inject.Inject
@@ -156,6 +157,10 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
     }
     override fun goToStatistic() {
         startActivity(StatisticsActivity.provideIntent(this@MenuActivity))
+    }
+
+    override fun goToRateUs() {
+        startActivity(RateUsActivity.provideIntent(this@MenuActivity))
     }
 
     override fun setPart(part: String) {

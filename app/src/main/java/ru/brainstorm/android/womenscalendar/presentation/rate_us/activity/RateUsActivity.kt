@@ -1,22 +1,35 @@
 package ru.brainstorm.android.womenscalendar.presentation.rate_us.activity
 
+import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import ru.brainstorm.android.womenscalendar.R
 import android.widget.RatingBar
 import android.view.View
+import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_rate_us.*
+import ru.brainstorm.android.womenscalendar.presentation.statistics.activity.StatisticsActivity
 
 
 class RateUsActivity : AppCompatActivity() {
 
+    companion object {
+        const val TAG = "RateUs"
 
-    private var mRatingBar = findViewById<View>(R.id.ratingBar) as RatingBar
+        fun provideIntent(packageContext: Context) = Intent(packageContext, RateUsActivity::class.java)
+    }
+
+    private lateinit var mRatingBar: RatingBar
+    private lateinit var cancel: TextView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_rate_us)
 
+        mRatingBar = findViewById<RatingBar>(R.id.ratingBar)
+        cancel = findViewById<TextView>(R.id.cancel)
         mRatingBar.onRatingBarChangeListener =
             RatingBar.OnRatingBarChangeListener { ratingBar, v, b -> }
 
@@ -29,5 +42,10 @@ class RateUsActivity : AppCompatActivity() {
             //5 -> mRatingScale.setText("Awesome. I love it")
             //else -> mRatingScale.setText("")
         }
+
+        cancel.setOnClickListener{
+            finish()
+        }
     }
+
 }

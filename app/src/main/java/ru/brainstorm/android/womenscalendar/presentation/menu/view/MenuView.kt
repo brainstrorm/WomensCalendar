@@ -10,5 +10,8 @@ interface MenuView : MvpView {
     fun goToStatistic()
 
     @StateStrategyType(OneExecutionStateStrategy::class)
+    fun goToRateUs()
+
+    @StateStrategyType(OneExecutionStateStrategy::class)
     fun setPart(part: String)
 }
