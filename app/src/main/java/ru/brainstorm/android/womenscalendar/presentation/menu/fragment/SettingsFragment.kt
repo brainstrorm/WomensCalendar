@@ -105,7 +105,7 @@ class SettingsFragment
             }
         }
         statistics = mainView.findViewById(R.id.graphs)
-        rate_us=mainView.findViewById(R.id.rate_us_text)
+        rate_us = mainView.findViewById(R.id.rate_us_text)
 
         statistics.setOnClickListener {
             (activity as MenuActivity).goToStatistic()

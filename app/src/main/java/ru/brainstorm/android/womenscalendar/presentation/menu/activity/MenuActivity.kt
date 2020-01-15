@@ -207,7 +207,7 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
                 btnToday?.layoutParams.height = 51
                 txtvwToday.setTextColor(resources.getColor(R.color.colorBlueNotesRedactor))
                 btnTodayIsChecked = true
-
+                btnPlusNote.isEnabled = false
             }
             "calendar" ->{
                 setVisibility(View.VISIBLE, View.VISIBLE, View.VISIBLE,
@@ -221,7 +221,7 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
                 btnCalendar?.layoutParams.height = 51
                 txtvwCalendar.setTextColor(resources.getColor(R.color.colorBlueNotesRedactor))
                 btnCalendarIsChecked = true
-
+                btnPlusNote.isEnabled = true
             }
             "notes" ->{
                 setVisibility(View.VISIBLE, View.GONE, View.GONE,
@@ -235,6 +235,7 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
                 btnInfo?.layoutParams.height = 48
                 txtvwNotes.setTextColor(resources.getColor(R.color.colorBlueNotesRedactor))
                 btnInfoIsChecked = true
+                btnPlusNote.isEnabled = false
             }
             "note_redactor" ->{
                 setVisibility(View.VISIBLE, View.GONE, View.GONE,
@@ -256,6 +257,7 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
                 btnMore?.layoutParams.height = 48
                 txtvwMore.setTextColor(resources.getColor(R.color.colorBlueNotesRedactor))
                 btnMoreIsChecked = true
+                btnPlusNote.isEnabled = false
             }
             "change_menstruation_dates" -> {
                 setVisibility(View.VISIBLE, View.GONE, View.GONE,
