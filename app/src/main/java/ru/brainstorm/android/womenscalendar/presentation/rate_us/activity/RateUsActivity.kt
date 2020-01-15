@@ -33,6 +33,8 @@ class RateUsActivity : AppCompatActivity() {
         mRatingBar.onRatingBarChangeListener =
             RatingBar.OnRatingBarChangeListener { ratingBar, v, b -> }
 
+        supportActionBar?.hide()
+
 
         when (ratingBar.getRating()) {
             //1 -> mRatingScale.setText("Very bad")

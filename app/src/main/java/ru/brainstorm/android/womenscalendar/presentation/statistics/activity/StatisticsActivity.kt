@@ -12,6 +12,7 @@ import android.preference.PreferenceManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.graphics.drawable.toDrawable
@@ -51,6 +52,8 @@ class StatisticsActivity : AppCompatActivity() {
     private lateinit var txtvwPressDatesOfNewMenstruation : TextView
     private lateinit var txtvwAvgOfMenstruation : TextView
     private lateinit var txtvwAvgOfCycles : TextView
+    private lateinit var arrow : ImageView
+
 
 
 
@@ -117,6 +120,12 @@ class StatisticsActivity : AppCompatActivity() {
         txtvwPressDatesOfNewMenstruation = findViewById(R.id.press_dates_of_new_menstruation)
         txtvwAvgOfCycles = findViewById<TextView>(R.id.days_of_cycle)
         txtvwAvgOfMenstruation = findViewById<TextView>(R.id.days_of_menstruation)
+        arrow = findViewById<ImageView>(R.id.arrow)
+
+
+        arrow.setOnClickListener(){
+            finish()
+        }
 
 
 

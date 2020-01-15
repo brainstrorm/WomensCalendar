@@ -72,6 +72,7 @@
         android:layout_width="26dp"
         android:layout_height="25dp"
         android:layout_marginStart="16dp"
+        android:padding="7dp"
         android:background="@null"
         app:layout_constraintBottom_toBottomOf="@+id/back_duration_of_cycle_and_menstruation"
         app:layout_constraintStart_toStartOf="@+id/back_duration_of_cycle_and_menstruation"
