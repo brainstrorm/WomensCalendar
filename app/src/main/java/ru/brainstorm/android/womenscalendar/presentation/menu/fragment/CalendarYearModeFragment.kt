@@ -1,18 +1,16 @@
 package ru.brainstorm.android.womenscalendar.presentation.menu.fragment
 
-import android.content.Context
-import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.PopupWindow
-import com.telerik.widget.calendar.CalendarDisplayMode
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 
-import com.telerik.widget.calendar.RadCalendarView
-import java.util.*
+import ru.brainstorm.android.womenscalendar.R
+import ru.brainstorm.android.womenscalendar.library.YearView
+import java.time.Year
 
 
 class CalendarYearModeFragment : AbstractMenuFragment(){
@@ -28,18 +26,39 @@ class CalendarYearModeFragment : AbstractMenuFragment(){
         super.onCreate(savedInstanceState)
     }
 
+    private lateinit var recyclerView: RecyclerView
+
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        val view = inflater.inflate(ru.brainstorm.android.womenscalendar.R.layout.fragment_calendar_year_mode, container, false)
-        val calendarView = view.findViewById(ru.brainstorm.android.womenscalendar.R.id.calendarView) as RadCalendarView
-        calendarView.displayMode = CalendarDisplayMode.Year
-        //PopupWindow.OnDismissListener {  }
-        //val calendar = GregorianCalendar(2014, Calendar.JANUARY, 1)
-        //calendarView.displayDate = calendar.getTimeInMillis()
-        return inflater.inflate(ru.brainstorm.android.womenscalendar.R.layout.fragment_calendar_year_mode, container, false)
+        recyclerView = inflater.inflate(R.layout.year_fragment, container, false) as RecyclerView
+        recyclerView.adapter = YearAdapter()
+        recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        return recyclerView
+    }
 
+    private inner class YearViewHolder(view: View): RecyclerView.ViewHolder(view)
+
+    private inner class YearAdapter : RecyclerView.Adapter<YearViewHolder>() {
+
+        private val HARDCODED_YEAR_COUNT = 10
+        private val START_YEAR = 2019
+
+        //This count will be hardcoded
+        override fun getItemCount(): Int {
+            return HARDCODED_YEAR_COUNT
+        }
+
+        override fun onBindViewHolder(holder: YearViewHolder, position: Int) {
+            val view = holder.itemView.findViewById<YearView>(R.id.year_view)
+            view.adapter.year = Year.of(START_YEAR + position)
+        }
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): YearViewHolder {
+            val yearView = layoutInflater.inflate(R.layout.year_item, parent, false)
+            return YearViewHolder(yearView)
+        }
     }
 }
