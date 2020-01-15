@@ -44,7 +44,6 @@ android {
 
 dependencies {
 
-
     implementation "com.android.support:support-compat:29.0.0"
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -137,4 +136,5 @@ dependencies {
 
     // optional - Test helpers
     androidTestImplementation "androidx.work:work-testing:$work_version"
+    implementation 'androidx.gridlayout:gridlayout:1.0.0'
 }
