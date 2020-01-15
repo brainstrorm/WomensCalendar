@@ -25,11 +25,14 @@ import ru.brainstorm.android.womenscalendar.App
 import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.data.database.dao.CycleDao
 import ru.brainstorm.android.womenscalendar.data.database.entities.Cycle
+import ru.brainstorm.android.womenscalendar.data.database.entities.Note
 import ru.brainstorm.android.womenscalendar.presentation.menu.activity.MenuActivity
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
 import javax.inject.Inject
+import ru.brainstorm.android.womenscalendar.presentation.menu.extra.*
+
 
 class StatisticsActivity : AppCompatActivity() {
 
@@ -46,6 +49,10 @@ class StatisticsActivity : AppCompatActivity() {
     private lateinit var txtvwAvgLengthOfCycle : TextView
     private lateinit var txtvwAvgLengthOfMenstruation : TextView
     private lateinit var txtvwPressDatesOfNewMenstruation : TextView
+    private lateinit var txtvwAvgOfMenstruation : TextView
+    private lateinit var txtvwAvgOfCycles : TextView
+
+
 
     @Inject
     lateinit var cycleDao: CycleDao
@@ -108,6 +115,12 @@ class StatisticsActivity : AppCompatActivity() {
         txtvwAvgLengthOfMenstruation = findViewById(R.id.avg_length_of_menstruation)
         txtvwDurationOfCycleAndMenstruation = findViewById(R.id.duration_of_cycle_and_menstruation)
         txtvwPressDatesOfNewMenstruation = findViewById(R.id.press_dates_of_new_menstruation)
+        txtvwAvgOfCycles = findViewById<TextView>(R.id.days_of_cycle)
+        txtvwAvgOfMenstruation = findViewById<TextView>(R.id.days_of_menstruation)
+
+
+
+
 
         //get data from db
         App.appComponent.inject(this)
@@ -120,6 +133,9 @@ class StatisticsActivity : AppCompatActivity() {
             recyclerView.adapter = Adapter(cycles)
             return@async cycles
         }
+
+        txtvwAvgOfCycles.setText(findAvg(cycleDao).first.toString()+" "+findAvg(cycleDao).first.toInt().getDayAddition())
+        txtvwAvgOfMenstruation.setText(findAvg(cycleDao).first.toString()+" "+findAvg(cycleDao).second.toInt().getDayAddition())
 
 
     }
@@ -143,5 +159,28 @@ class StatisticsActivity : AppCompatActivity() {
         txtvwPressDatesOfNewMenstruation.setText(R.string.text_press_last_menstruation)
     }
 
+    fun findAvg(cycleDao: CycleDao): Pair<Long,Long> {
+
+        var menstruationDays = listOf<Cycle>()
+        val setLengthofmenstruation: MutableList<Int> = mutableListOf()
+        val setLengthofcycle: MutableList<Int> = mutableListOf()
+
+        runBlocking {
+            val job = GlobalScope.launch(Dispatchers.IO) {
+                menstruationDays = cycleDao.getAll()
+            }
+            job.join()
+        }
+
+        menstruationDays.forEach{
+            setLengthofmenstruation.add(it.lengthOfMenstruation)
+            setLengthofcycle.add(it.lengthOfCycle)
+        }
+
+        val avgSetLengthOfMenstruation = setLengthofmenstruation.average().toLong()
+        val avgSetLengthOfCycle = setLengthofcycle.average().toLong()
+
+        return Pair(avgSetLengthOfCycle,avgSetLengthOfMenstruation)
+    }
 
 }
