@@ -252,4 +252,5 @@ class SettingsFragment
         if (cycleDuration != -1)
             cycleTextView.text = resources.getQuantityString(R.plurals.days, cycleDuration, cycleDuration)
     }
+    //
 }
