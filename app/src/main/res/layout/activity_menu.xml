@@ -441,6 +441,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:padding="7dp"
             app:layout_constraintBottom_toBottomOf="@+id/topBar"
             app:layout_constraintStart_toStartOf="@+id/topBar"
             app:layout_constraintTop_toTopOf="@+id/topBar"
