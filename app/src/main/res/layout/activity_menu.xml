@@ -271,16 +271,18 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="VectorDrawableCompat"></ImageButton>
+
             <TextView
                 android:id="@+id/text_month"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
                 android:layout_marginBottom="3dp"
                 android:text="@string/btn_month"
                 android:textColor="@color/white"
                 android:textSize="15dp"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/btn_month_or_year"
+                app:layout_constraintHorizontal_bias="0.23"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"></TextView>
 
@@ -288,15 +290,15 @@
                 android:id="@+id/text_year"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="35dp"
                 android:layout_marginBottom="3dp"
                 android:text="@string/btn_year"
                 android:textColor="@color/grey_for_year"
                 android:textSize="15dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.521"></TextView>
+                app:layout_constraintHorizontal_bias="0.72"
+                app:layout_constraintStart_toStartOf="@+id/btn_month_or_year"
+                app:layout_constraintTop_toTopOf="parent"></TextView>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
