@@ -12,6 +12,7 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -23,6 +24,7 @@ import com.kizitonwose.calendarview.model.DayOwner
 import com.kizitonwose.calendarview.ui.DayBinder
 import com.kizitonwose.calendarview.ui.MonthHeaderFooterBinder
 import com.kizitonwose.calendarview.ui.ViewContainer
+import kotlinx.android.synthetic.main.activity_menu.*
 import kotlinx.android.synthetic.main.calendar_day_legend.view.*
 import kotlinx.android.synthetic.main.calendar_header.view.*
 import kotlinx.coroutines.*
@@ -159,6 +161,7 @@ class CalendarPickerFragment : AbstractMenuFragment(), CalendarPickerView{
                     if(day.owner == DayOwner.THIS_MONTH) {
                         selectedDate = day.date
                         calendarPickerPresenter.addNoteFragment(fragmentManager!!, day.date)
+                        (activity!!.btn_plus_menu as ImageButton).isEnabled = true
                         calendarView.notifyCalendarChanged()
                     }
                 }
