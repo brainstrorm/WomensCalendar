@@ -1,6 +1,7 @@
 package ru.brainstorm.android.womenscalendar.library
 
 import android.content.Context
+import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
 import android.util.Log
 import android.view.Gravity
@@ -11,6 +12,7 @@ import android.widget.TextView
 import androidx.gridlayout.widget.GridLayout
 import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.data.database.entities.Cycle
+import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.getDrawableCompat
 import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.setTextColorRes
 import java.time.LocalDate
 import java.time.Month
@@ -27,6 +29,14 @@ class MonthView(context: Context,
     private val mainView = View.inflate(context, R.layout.month_view, null)
 
     private val gridLayout = mainView.findViewById<GridLayout>(R.id.gridlayout_month)
+
+    private val startBackground: GradientDrawable by lazy {
+        return@lazy context.getDrawableCompat(R.drawable.example_4_continuous_selected_bg_start)!! as GradientDrawable
+    }
+
+    private val endBackground: GradientDrawable by lazy {
+        return@lazy context.getDrawableCompat(R.drawable.example_4_continuous_selected_bg_end)!! as GradientDrawable
+    }
 
     var adapter: MonthAdapter = DefaultMonthAdapter(YearMonth.of(1970, Month.JANUARY))
         set(value) {
@@ -112,12 +122,23 @@ class MonthView(context: Context,
             tv.text = date.toString()
             tv.textSize = 10f
             if (isMenstruationDay(date)) {
-                tv.setTextColorRes(R.color.colorOfChosenNumber)
-            } else {
-                if (isOvulationDay(date)) {
-                    tv.setTextColorRes(R.color.settings_orange_btn)
+                if(isStartOfMenstruation(date)){
+                    tv.background = startBackground
+                }else if(isEndOfMenstruation(date)){
+                    tv.background = endBackground
+                }else{
+                    tv.setBackgroundResource(R.drawable.example_4_continuous_selected_bg_middle)
                 }
             }
+            if (isOvulationDay(date)) {
+                if(isDirectOvulationDay(date)){
+                    tv.setBackgroundResource(R.drawable.orange_round_for_year)
+                    tv.setTextColorRes(R.color.color_White)
+                }else{
+                    tv.setTextColorRes(R.color.colorOfChosenNumberOrange)
+                }
+            }
+
             return tv
         }
 
@@ -127,6 +148,17 @@ class MonthView(context: Context,
                 val end = start.plusDays(8L)
                 val curDay = LocalDate.of(month.year, month.month, day)
                 if (curDay.isAfter(start) and curDay.isBefore(end) or curDay.isEqual(start) or curDay.isEqual(end))
+                    return true
+            }
+            return false
+        }
+
+        private fun isDirectOvulationDay(day: Int): Boolean {
+            cycleList.forEach {
+                val start = LocalDate.parse(it.ovulation, dateFormatter).minusDays(4L)
+                val end = start.plusDays(8L)
+                val curDay = LocalDate.of(month.year, month.month, day)
+                if (curDay.equals(LocalDate.parse(it.ovulation, dateFormatter)))
                     return true
             }
             return false
@@ -143,6 +175,27 @@ class MonthView(context: Context,
             return false
         }
 
+        private fun isStartOfMenstruation(day : Int): Boolean {
+            cycleList.forEach {
+                val start = LocalDate.parse(it.startOfCycle, dateFormatter)
+                val end = start.plusDays(it.lengthOfMenstruation.toLong())
+                val curDay = LocalDate.of(month.year, month.month, day)
+                if (curDay.equals(start))
+                    return true
+            }
+            return false
+        }
+
+        private fun isEndOfMenstruation(day : Int): Boolean {
+            cycleList.forEach {
+                val start = LocalDate.parse(it.startOfCycle, dateFormatter)
+                val end = start.plusDays(it.lengthOfMenstruation.toLong())
+                val curDay = LocalDate.of(month.year, month.month, day)
+                if (curDay.equals(end))
+                    return true
+            }
+            return false
+        }
         protected fun calculateDate(row: Int, col: Int): Int {
             val date  = (row*getColCount() + col - offset + 1)
             if (date > 0 && date <= month.lengthOfMonth()) {
