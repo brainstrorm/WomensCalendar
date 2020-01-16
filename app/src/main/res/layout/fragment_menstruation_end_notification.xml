@@ -62,8 +62,9 @@
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:text="@string/cancel"
+                android:textColor="@color/color_Blue"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/timePicker"/>
 
             <Button
                 android:id="@+id/end_of_menstruation_save_notification"
@@ -71,17 +72,18 @@
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:text="@string/ru_save"
+                android:textColor="@color/color_Blue"
+                android:paddingRight="15dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/timePicker"/>
 
             <TimePicker
                 android:id="@+id/timePicker"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/settings_save_menstruation"
                 app:layout_constraintStart_toEndOf="@+id/settings_cancel_menstruation"
-                app:layout_constraintTop_toBottomOf="@id/end_of_menstruation_cancel_notification" />
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

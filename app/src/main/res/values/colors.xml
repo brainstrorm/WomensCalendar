@@ -53,4 +53,6 @@
     <color name="colorGrey">#C2C2C2</color>
     <color name="colorPinkForRateUsLike">#8C2E4C</color>
     <color name="colorPinkForRateUs">#A83F60</color>
+
+    <color name="colorOfClock">#FF9FBF</color>
 </resources>

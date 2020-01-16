@@ -115,6 +115,7 @@ class MonthView(context: Context,
         }
 
         override fun bindDay(parent: ViewGroup?, row: Int, col: Int): View? {
+            //View.inflate(context, R.layout.calendar_day_layout_for_direcly_calendar, )
             val date = calculateDate(row, col)
             if (date < 0)
                 return null

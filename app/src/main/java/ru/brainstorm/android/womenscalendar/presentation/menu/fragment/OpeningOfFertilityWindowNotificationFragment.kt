@@ -77,6 +77,7 @@ class OpeningOfFertilityWindowNotificationFragment : AbstractMenuFragment() {
         directTimeTextView = mainView!!.findViewById<TextView>(R.id.direct_time_text)
 
         timePicker = mainView!!.findViewById<TimePicker>(R.id.timePicker)
+        timePicker.setIs24HourView(true)
     }
 
     private fun initAnimators() {
@@ -106,7 +107,9 @@ class OpeningOfFertilityWindowNotificationFragment : AbstractMenuFragment() {
             editor.putString(TimeOfOpeningOfFertilityWindowNotificationTag, saved)
             editor.commit()
         }
-        val heightAnimator = ValueAnimator.ofInt(timePicker.layoutParams.height, 0).setDuration(1_000)
+        val height = activity!!.windowManager.defaultDisplay.height
+        val time_height = (1300*height/2037)
+        val heightAnimator = ValueAnimator.ofInt(time_height, 0).setDuration(1_000)
         heightAnimator.addUpdateListener {
             timeInfoLayout.layoutParams.height = it.animatedValue as Int
             timeInfoLayout.requestLayout()

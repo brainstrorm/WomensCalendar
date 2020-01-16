@@ -5,7 +5,8 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:colorAccent">#ff9fbf</item>
+        <item name="colorControlActivated">#ff9fbf</item>
     </style>
     <style name="averageMenstruationPickerTheme" parent="Theme.AppCompat.Light">
         <item name="colorAccent">@android:color/white</item>
@@ -40,6 +41,5 @@
             <item name="colorControlNormal">@android:color/holo_green_light</item>
             <item name="colorControlActivated">@android:color/holo_orange_dark</item>
         </style>
-
 
 </resources>
