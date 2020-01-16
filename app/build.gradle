@@ -117,6 +117,11 @@ dependencies {
     compile(name: 'Common-2015.1.225-trial-release', ext: 'aar')
     compile(name: 'Input-2015.1.225-trial-release', ext: 'aar')
 
+    //Progress Bar
+    implementation 'com.pnikosis:materialish-progress:1.7'
+
+
+
     //MaterialCalendarView
     implementation 'com.github.prolificinteractive:material-calendarview:2.0'
 
