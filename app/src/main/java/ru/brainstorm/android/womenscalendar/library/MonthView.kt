@@ -8,6 +8,8 @@ import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.gridlayout.widget.GridLayout
 import ru.brainstorm.android.womenscalendar.R
@@ -115,7 +117,9 @@ class MonthView(context: Context,
         }
 
         override fun bindDay(parent: ViewGroup?, row: Int, col: Int): View? {
-            //View.inflate(context, R.layout.calendar_day_layout_for_direcly_calendar, )
+            //val view = View.inflate(context, R.layout.calendar_year_day_layout_for_directly_calendar, null)
+            //val leftBlobe = view.findViewById<ImageView>(R.id.blobeStart)
+            //val dayText = view.findViewById<TextView>(R.id.calendarDayText)
             val date = calculateDate(row, col)
             if (date < 0)
                 return null
