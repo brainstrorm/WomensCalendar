@@ -35,6 +35,7 @@ import ru.brainstorm.android.womenscalendar.data.database.entities.Cycle
 import ru.brainstorm.android.womenscalendar.domain.predictor.PredictorImpl
 import ru.brainstorm.android.womenscalendar.presentation.menu.extra.getDayAddition
 import ru.brainstorm.android.womenscalendar.presentation.menu.extra.PartOfCycle
+import ru.brainstorm.android.womenscalendar.presentation.menu.extra.differenceBetweenDates
 import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.getColorCompat
 import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.setTextColorRes
 import javax.inject.Inject
@@ -287,6 +288,28 @@ class WeekModeCalendarFragment : AbstractMenuFragment() {
                                     changeColors(PartOfCycle.EMPTY_OVULATION)
                                 }
                             }
+                            if(selectedDate.isBefore(LocalDate.parse(menstruationDays[0].startOfCycle))){
+                                val differenceBetweenDates = differenceBetweenDates(day.date, LocalDate.parse(menstruationDays[0].startOfCycle))
+                                when(differenceBetweenDates){
+                                    in 0..5 -> {
+                                        changeInformationInRound(
+                                            PartOfCycle.PRED_MENSTRUATION,
+                                            differenceBetweenDates,
+                                            day
+                                        )
+                                        changeColors(PartOfCycle.PRED_MENSTRUATION)
+                                    }
+                                    in 5..Int.MAX_VALUE -> {
+                                        changeInformationInRound(
+                                            PartOfCycle.EMPTY_MENSTRUATION,
+                                            differenceBetweenDates,
+                                            day
+                                        )
+                                        changeColors(PartOfCycle.EMPTY_MENSTRUATION)
+                                    }
+                                }
+                            }
+
                         }
                         in menstruationStartDate..menstruationEndDate -> dateText.setTextColor(
                             view.context.getColorCompat(
