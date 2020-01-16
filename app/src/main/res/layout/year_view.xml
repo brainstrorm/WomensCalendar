@@ -21,28 +21,52 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ru.brainstorm.android.womenscalendar.library.MonthView
+            android:paddingStart="@dimen/line_padding"
+            android:paddingEnd="@dimen/line_padding"
             app:layout_columnWeight="1"/>
         <ru.brainstorm.android.womenscalendar.library.MonthView
+            android:paddingStart="@dimen/line_padding"
+            android:paddingEnd="@dimen/line_padding"
             app:layout_columnWeight="1"/>
         <ru.brainstorm.android.womenscalendar.library.MonthView
+            android:paddingStart="@dimen/line_padding"
+            android:paddingEnd="@dimen/line_padding"
             app:layout_columnWeight="1"/>
         <ru.brainstorm.android.womenscalendar.library.MonthView
+            android:paddingStart="@dimen/line_padding"
+            android:paddingEnd="@dimen/line_padding"
             app:layout_columnWeight="1"/>
         <ru.brainstorm.android.womenscalendar.library.MonthView
+            android:paddingStart="@dimen/line_padding"
+            android:paddingEnd="@dimen/line_padding"
             app:layout_columnWeight="1"/>
         <ru.brainstorm.android.womenscalendar.library.MonthView
+            android:paddingStart="@dimen/line_padding"
+            android:paddingEnd="@dimen/line_padding"
             app:layout_columnWeight="1"/>
         <ru.brainstorm.android.womenscalendar.library.MonthView
+            android:paddingStart="@dimen/line_padding"
+            android:paddingEnd="@dimen/line_padding"
             app:layout_columnWeight="1"/>
         <ru.brainstorm.android.womenscalendar.library.MonthView
+            android:paddingStart="@dimen/line_padding"
+            android:paddingEnd="@dimen/line_padding"
             app:layout_columnWeight="1"/>
         <ru.brainstorm.android.womenscalendar.library.MonthView
+            android:paddingStart="@dimen/line_padding"
+            android:paddingEnd="@dimen/line_padding"
             app:layout_columnWeight="1"/>
         <ru.brainstorm.android.womenscalendar.library.MonthView
+            android:paddingStart="@dimen/line_padding"
+            android:paddingEnd="@dimen/line_padding"
             app:layout_columnWeight="1"/>
         <ru.brainstorm.android.womenscalendar.library.MonthView
+            android:paddingStart="@dimen/line_padding"
+            android:paddingEnd="@dimen/line_padding"
             app:layout_columnWeight="1"/>
         <ru.brainstorm.android.womenscalendar.library.MonthView
+            android:paddingStart="@dimen/line_padding"
+            android:paddingEnd="@dimen/line_padding"
             app:layout_columnWeight="1"/>
 
     </androidx.gridlayout.widget.GridLayout>
