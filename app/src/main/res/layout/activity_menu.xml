@@ -210,6 +210,14 @@
             app:layout_constraintVertical_bias="0.0">
 
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="67dp"
+                android:layout_height="70dp"
+                android:layout_marginBottom="22dp"
+                tools:ignore="VectorDrawableCompat">
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </FrameLayout>
 
         <ImageButton
@@ -225,6 +233,45 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.900"
             tools:ignore="VectorDrawableCompat" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="57dp"
+            android:layout_height="60dp"
+            android:layout_marginBottom="21dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.94"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.94"
+            tools:ignore="VectorDrawableCompat">
+
+            <ImageButton
+                android:id="@+id/btn_today_menu"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/menu_btn_plus_circle"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:ignore="VectorDrawableCompat"></ImageButton>
+
+            <TextView
+                android:id="@+id/today_menu"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="15dp"
+                android:gravity="center"
+                android:text="@string/text_today_menu"
+                android:textColor="@color/white"
+                android:textSize="11sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:id="@+id/btn_new_date_menu_text"

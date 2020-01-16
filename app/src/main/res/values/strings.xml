@@ -13,6 +13,8 @@
     <string name="text_duration_of_menstruation">Продолжительность цикла и месячных</string>
     <string name="text_avg_length_of_menstruation">Средняя длительность месячных</string>
     <string name="text_avg_length_of_cycle">Средняя длительность цикла</string>
+    <string name="text_today_menu">Сегодня</string>
+
 
     <string-array name="poll_texts">
 
@@ -145,5 +147,7 @@
     <string name="rate_us_by_five_stars">Если вам нравится приложение, пожалуйста, поставьте нам 5 звёзд</string>
     <string name="cancel_rate_us">ОТМЕНА</string>
     <string name="call_back_rate_us">ОБРАТНАЯ СВЯЗЬ</string>
+
+
 
 </resources>
