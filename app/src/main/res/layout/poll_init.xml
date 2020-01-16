@@ -19,15 +19,14 @@
 
         <ImageView
             android:id="@+id/ellipse_init"
-            android:layout_width="wrap_content"
+            android:layout_width="270dp"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/progressBar"
-            app:layout_constraintEnd_toEndOf="@+id/progressBar"
-            app:layout_constraintStart_toStartOf="@+id/progressBar"
-            app:layout_constraintTop_toTopOf="@+id/progressBar"
-            app:layout_constraintVertical_bias="0.548"
             app:srcCompat="@drawable/ic_ellipse"
-            tools:ignore="VectorDrawableCompat" />
+            tools:ignore="VectorDrawableCompat"
+            wheel:layout_constraintBottom_toBottomOf="parent"
+            wheel:layout_constraintEnd_toEndOf="parent"
+            wheel:layout_constraintStart_toStartOf="parent"
+            wheel:layout_constraintTop_toTopOf="parent" />
 
         <com.pnikosis.materialishprogress.ProgressWheel
             android:id="@+id/progress_wheel"
@@ -35,15 +34,13 @@
             android:layout_height="0dp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:layout_marginTop="1dp"
-            android:layout_marginEnd="2dp"
             wheel:layout_constraintBottom_toBottomOf="parent"
             wheel:layout_constraintEnd_toEndOf="parent"
             wheel:layout_constraintStart_toStartOf="parent"
             wheel:layout_constraintTop_toTopOf="parent"
             wheel:matProg_barColor="#FF9FBF"
             wheel:matProg_barWidth="9dp"
-            wheel:matProg_fillRadius="true"
+            wheel:matProg_circleRadius="165dp"
             wheel:matProg_progressIndeterminate="true"
             wheel:matProg_spinSpeed="0.44" />
 
