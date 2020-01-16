@@ -3,13 +3,10 @@ package ru.brainstorm.android.womenscalendar.library
 import android.content.Context
 import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
-import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
-import android.widget.ImageButton
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.gridlayout.widget.GridLayout
 import ru.brainstorm.android.womenscalendar.R
@@ -117,12 +114,29 @@ class MonthView(context: Context,
         }
 
         override fun bindDay(parent: ViewGroup?, row: Int, col: Int): View? {
-            //val view = View.inflate(context, R.layout.calendar_year_day_layout_for_directly_calendar, null)
             //val leftBlobe = view.findViewById<ImageView>(R.id.blobeStart)
             //val dayText = view.findViewById<TextView>(R.id.calendarDayText)
             val date = calculateDate(row, col)
             if (date < 0)
                 return null
+            val isStart = isStartOfMenstruation(date)
+            val isEnd = isEndOfMenstruation(date)
+            if (isStart or isEnd) {
+                val view = inflate(context, R.layout.drop_day_item, null)
+                view.findViewById<TextView>(R.id.date).apply {
+                    text = date.toString()
+                    gravity = Gravity.CENTER
+                    textSize = 10f
+                }
+                if (isStart) {
+                    view.findViewById<TextView>(R.id.date).background = startBackground
+                    view.findViewById<View>(R.id.end_blobe).visibility = View.GONE
+                } else {
+                    view.findViewById<TextView>(R.id.date).background = endBackground
+                    view.findViewById<View>(R.id.first_blobe).visibility = View.GONE
+                }
+                return view
+            }
             val tv = TextView(context)
             tv.gravity = Gravity.CENTER
             tv.text = date.toString()
@@ -184,9 +198,8 @@ class MonthView(context: Context,
         private fun isStartOfMenstruation(day : Int): Boolean {
             cycleList.forEach {
                 val start = LocalDate.parse(it.startOfCycle, dateFormatter)
-                val end = start.plusDays(it.lengthOfMenstruation.toLong())
                 val curDay = LocalDate.of(month.year, month.month, day)
-                if (curDay.equals(start))
+                if (curDay == start)
                     return true
             }
             return false
@@ -197,7 +210,7 @@ class MonthView(context: Context,
                 val start = LocalDate.parse(it.startOfCycle, dateFormatter)
                 val end = start.plusDays(it.lengthOfMenstruation.toLong())
                 val curDay = LocalDate.of(month.year, month.month, day)
-                if (curDay.equals(end))
+                if (curDay == end)
                     return true
             }
             return false
