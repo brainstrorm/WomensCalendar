@@ -79,8 +79,11 @@ class MenstruationStartNotificationFragment : AbstractMenuFragment() {
     }
 
     private fun initAnimators() {
+
+        val height = activity!!.windowManager.defaultDisplay.height
+        val time_height = (1300*height/2037)
         timeLayout.setOnClickListener {
-            val heightAnimator = ValueAnimator.ofInt(0, timePicker.layoutParams.height).setDuration(1_000)
+            val heightAnimator = ValueAnimator.ofInt(0, time_height).setDuration(1_000)
             heightAnimator.addUpdateListener {
                 val value = it.animatedValue as Int
                 timeInfoLayout.layoutParams.height = value

@@ -17,6 +17,9 @@ import androidx.constraintlayout.widget.ConstraintLayout
 
 import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.presentation.menu.activity.MenuActivity
+import android.view.Display
+import kotlinx.android.synthetic.main.fragment_settings.*
+
 
 class OpeningOfFertilityWindowNotificationFragment : AbstractMenuFragment() {
     private lateinit var mainView : View
@@ -27,6 +30,8 @@ class OpeningOfFertilityWindowNotificationFragment : AbstractMenuFragment() {
     private lateinit var timePicker : TimePicker
     private lateinit var messageEditText: EditText
     private lateinit var pref : SharedPreferences
+    private lateinit var frame_layout : FrameLayout
+
 
     val TimeOfOpeningOfFertilityWindowNotificationTag = "TimeOfOpeningOfFertilityWindowNotification"
     val TextOfOpeningOfFertilityWindowNotificationTag : String = "TextOfOpeningOfFertilityWindowNotification"
@@ -75,8 +80,12 @@ class OpeningOfFertilityWindowNotificationFragment : AbstractMenuFragment() {
     }
 
     private fun initAnimators() {
+
+        val height = activity!!.windowManager.defaultDisplay.height
+        val time_height = (1300*height/2037)
         timeLayout.setOnClickListener {
-            val heightAnimator = ValueAnimator.ofInt(0, timePicker.layoutParams.height).setDuration(1_000)
+
+            val heightAnimator = ValueAnimator.ofInt(0, time_height).setDuration(1_000)
             heightAnimator.addUpdateListener {
                 val value = it.animatedValue as Int
                 timeInfoLayout.layoutParams.height = value
