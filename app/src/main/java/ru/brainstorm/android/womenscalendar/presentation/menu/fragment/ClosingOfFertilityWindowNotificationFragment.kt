@@ -75,7 +75,7 @@ class ClosingOfFertilityWindowNotificationFragment : AbstractMenuFragment() {
     private fun initAnimators() {
 
         val height = activity!!.windowManager.defaultDisplay.height
-        val time_height = ((1100*height/2037))
+        val time_height = ((1300*height/2037))
 
 
         timeLayout.setOnClickListener {
