@@ -72,13 +72,18 @@ class OvulationNotificationFragment : AbstractMenuFragment() {
     }
 
     private fun initAnimators() {
+
+        val height = activity!!.windowManager.defaultDisplay.height
+        val time_height = (1100/2037)*height
+
         timeLayout.setOnClickListener {
-            val heightAnimator = ValueAnimator.ofInt(0, timePicker.layoutParams.height).setDuration(1_000)
+            val heightAnimator = ValueAnimator.ofInt(0, time_height).setDuration(1_000)
             heightAnimator.addUpdateListener {
                 val value = it.animatedValue as Int
                 timeInfoLayout.layoutParams.height = value
                 timeInfoLayout.requestLayout()
             }
+
             val set = AnimatorSet()
             set.play(heightAnimator)
             set.interpolator = AccelerateDecelerateInterpolator()
@@ -94,7 +99,7 @@ class OvulationNotificationFragment : AbstractMenuFragment() {
             editor.putString(TimeOfOvulationNotificationTag, saved)
             editor.commit()
         }
-        val heightAnimator = ValueAnimator.ofInt(timePicker.layoutParams.height, 0).setDuration(1_000)
+        val heightAnimator = ValueAnimator.ofInt(0, 1400).setDuration(1_000)
         heightAnimator.addUpdateListener {
             timeInfoLayout.layoutParams.height = it.animatedValue as Int
             timeInfoLayout.requestLayout()
