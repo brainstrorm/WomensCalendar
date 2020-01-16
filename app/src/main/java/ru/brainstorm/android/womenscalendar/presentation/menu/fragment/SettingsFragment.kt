@@ -12,17 +12,18 @@ import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
+import moxy.presenter.ProvidePresenter
 import ru.brainstorm.android.womenscalendar.App
 import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.data.database.dao.CycleDao
+import ru.brainstorm.android.womenscalendar.data.database.entities.Cycle
+import ru.brainstorm.android.womenscalendar.domain.predictor.PredictorImpl
 import ru.brainstorm.android.womenscalendar.presentation.menu.activity.MenuActivity
 import ru.brainstorm.android.womenscalendar.presentation.rate_us.activity.RateUsActivity
 import java.util.*
 import javax.inject.Inject
+import ru.brainstorm.android.womenscalendar.presentation.menu.extra.*
 
 /**
  * @project WomensCalendar
@@ -33,6 +34,10 @@ class SettingsFragment
 
     @Inject
     lateinit var cycleDao: CycleDao
+
+    @Inject
+    lateinit var predictorImpl : PredictorImpl
+
 
     private lateinit var mainView: View
     private lateinit var menstInfoLayout: ConstraintLayout
@@ -119,7 +124,8 @@ class SettingsFragment
         menstTextView = menstInfoLayout.findViewById(R.id.valueOfMenstruation)
         cycleTextView = cycleInfoLayout.findViewById(R.id.valueOfCycle)
         runBlocking {
-            val cycle = cycleDao.getLatest()
+            val cycles = cycleDao.getAll()
+            val cycle = FindCurrent(cycles)
             menstTextView.text = resources.getQuantityString(R.plurals.days, cycle.lengthOfMenstruation, cycle.lengthOfMenstruation)
             cycleTextView.text = resources.getQuantityString(R.plurals.days, cycle.lengthOfCycle, cycle.lengthOfCycle)
         }
@@ -194,9 +200,30 @@ class SettingsFragment
         if (save) {
             val saved = menstPicker.value
             menstTextView.text = resources.getQuantityString(R.plurals.days, saved, saved)
-            pref.edit()
-                .putInt(MenstruationDurationTag, saved)
-                .commit()
+            CoroutineScope(Dispatchers.IO).launch {
+                val currentCycle = cycleDao.getById(FindCurrent(cycleDao.getAll()).id)
+                val currentId = currentCycle.id
+                currentCycle.lengthOfMenstruation = saved
+                cycleDao.update(currentCycle)
+                var cycles = cycleDao.getAll()
+                var count = 0
+                for (cycle in cycles){
+                    if (currentId < cycle.id) {
+                        count++
+                        cycleDao.delete(cycle)
+                    }
+                }
+                cycles = cycleDao.getAll()
+                predictorImpl.predict(5, PreferenceManager.getDefaultSharedPreferences(context))
+                predictorImpl.updateOvulation()
+            }
+            (activity as MenuActivity).apply {
+                if(supportFragmentManager.findFragmentByTag(CalendarPickerFragment.TAG) != null) {
+                    supportFragmentManager.beginTransaction()
+                        .remove(supportFragmentManager.findFragmentByTag(CalendarPickerFragment.TAG)!!)
+                        .commitNow()
+                }
+            }
         }
         val heightAnimator = ValueAnimator.ofInt(400, 0).setDuration(1_000)
         heightAnimator.addUpdateListener {
@@ -213,9 +240,31 @@ class SettingsFragment
         if (save) {
             val saved = cyclePicker.value
             cycleTextView.text = resources.getQuantityString(R.plurals.days, saved, saved)
-            pref.edit()
-                .putInt(CycleDurationTag, saved)
-                .commit()
+            CoroutineScope(Dispatchers.IO).launch {
+                var currentCycle = cycleDao.getById(FindCurrent(cycleDao.getAll()).id)
+                val currentId = currentCycle.id
+                currentCycle.lengthOfCycle = saved
+                cycleDao.update(currentCycle)
+                var cycles = cycleDao.getAll()
+                var count = 0
+                for (cycle in cycles){
+                    if (currentId < cycle.id) {
+                        count++
+                        cycleDao.delete(cycle)
+                    }
+                }
+                cycles = cycleDao.getAll()
+                predictorImpl.predict(5, PreferenceManager.getDefaultSharedPreferences(context))
+                predictorImpl.updateOvulation()
+            }
+
+            (activity as MenuActivity).apply {
+                if(supportFragmentManager.findFragmentByTag(CalendarPickerFragment.TAG) != null) {
+                    supportFragmentManager.beginTransaction()
+                        .remove(supportFragmentManager.findFragmentByTag(CalendarPickerFragment.TAG)!!)
+                        .commit()
+                }
+            }
         }
         val heightAnimator = ValueAnimator.ofInt(400, 0).setDuration(1_000)
         heightAnimator.addUpdateListener {
@@ -245,12 +294,12 @@ class SettingsFragment
         txtvwAboutApp.setText(R.string.about_us)
     }
     fun updateInformation(){
-        val menstruationDuration = pref.getInt(MenstruationDurationTag, -1)
-        val cycleDuration = pref.getInt(CycleDurationTag, -1)
-        if(menstruationDuration != -1)
-            menstTextView.text = resources.getQuantityString(R.plurals.days, menstruationDuration, menstruationDuration)
-        if (cycleDuration != -1)
-            cycleTextView.text = resources.getQuantityString(R.plurals.days, cycleDuration, cycleDuration)
+        runBlocking {
+            val cycles = cycleDao.getAll()
+            val cycle = FindCurrent(cycles)
+            menstTextView.text = resources.getQuantityString(R.plurals.days, cycle.lengthOfMenstruation, cycle.lengthOfMenstruation)
+            cycleTextView.text = resources.getQuantityString(R.plurals.days, cycle.lengthOfCycle, cycle.lengthOfCycle)
+        }
     }
     //
 }

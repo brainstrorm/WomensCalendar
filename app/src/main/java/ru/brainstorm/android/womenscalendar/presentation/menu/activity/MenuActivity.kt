@@ -134,8 +134,8 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
         buttonInfo = findViewById<ImageButton>(R.id.info).apply { setOnClickListener(this@MenuActivity) }
         buttonMore = findViewById<ImageButton>(R.id.more).apply { setOnClickListener(this@MenuActivity) }
         btnMonthOrYearLayout = findViewById(R.id.btn_month_or_year_)
-        txtvwYear = findViewById<TextView>(R.id.text_month)
-        txtvwMonth = findViewById<TextView>(R.id.text_year)
+        txtvwYear = findViewById<TextView>(R.id.text_year)
+        txtvwMonth = findViewById<TextView>(R.id.text_month)
         txtvwChangeLanguage = findViewById(R.id.change_language)
         txtvwMyProfile = findViewById(R.id.my_profile)
         txtvwNotifications = findViewById(R.id.notifications)
@@ -433,14 +433,14 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
             R.id.btn_month_or_year -> {
                 if(btnMonthOrYearChecked == 1) {
                     btnMonthOrYear.setImageResource(R.drawable.ic_toggle_button_second)
-                    txtvwMonth.setTextColorRes(R.color.white)
-                    txtvwYear.setTextColorRes(R.color.grey_for_year)
+                    txtvwMonth.setTextColorRes(R.color.grey_for_year)
+                    txtvwYear.setTextColorRes(R.color.white)
                     menuPresenter.setFragment(supportFragmentManager, "calendar_year_mode")
                     btnMonthOrYearChecked = 2
                 }else{
                     btnMonthOrYear.setImageResource(R.drawable.ic_toggle_button)
-                    txtvwMonth.setTextColorRes(R.color.grey_for_year)
-                    txtvwYear.setTextColorRes(R.color.white)
+                    txtvwMonth.setTextColorRes(R.color.white)
+                    txtvwYear.setTextColorRes(R.color.grey_for_year)
                     menuPresenter.setFragment(supportFragmentManager, "calendar")
                     btnMonthOrYearChecked = 1
                 }
@@ -501,8 +501,8 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
         var txtvwNotesHeader = findViewById<TextView>(R.id.notes)
         var txtvwCanceled = findViewById<TextView>(R.id.btn_canceled)
         var txtvwSave = findViewById<TextView>(R.id.btn_save)
-        var txtvwYear = findViewById<TextView>(R.id.text_month)
-        var txtvwMonth = findViewById<TextView>(R.id.text_year)
+        var txtvwYear = findViewById<TextView>(R.id.text_year)
+        var txtvwMonth = findViewById<TextView>(R.id.text_month)
         var txtvwChangeLanguage = findViewById<TextView>(R.id.change_language)
         var txtvwNewDateMenu = findViewById<TextView>(R.id.btn_new_date_menu_text)
 

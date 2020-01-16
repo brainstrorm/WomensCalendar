@@ -123,6 +123,24 @@ fun FindDate(set_update: List<Cycle>): Cycle {
     return set_update[ans]
 }
 
+fun FindCurrent(set_update: List<Cycle>): Cycle {
+    val date = java.time.LocalDate.now()
+
+    var ans = 0
+
+    for(i in 1..set_update.size-1) {
+
+        if (date.compareTo(java.time.LocalDate.parse(set_update[i].startOfCycle)) >= 0) {
+            if (date.compareTo(java.time.LocalDate.parse(set_update[i].startOfCycle).plusDays(set_update[i].lengthOfCycle.toLong())) <= 0) {
+                ans = i
+            }
+        }
+    }
+
+    return set_update[ans]
+}
+
+
 
 
 
