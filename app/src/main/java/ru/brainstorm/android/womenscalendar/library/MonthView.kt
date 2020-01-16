@@ -56,7 +56,7 @@ class MonthView(context: Context,
                     gridParams.setGravity(Gravity.CENTER)
                     gridParams.rowSpec = GridLayout.spec(i, 1f)
                     gridParams.columnSpec = GridLayout.spec(j, 1f)
-                    setPadding(0, 0, 0, resources.getDimension(R.dimen.line_padding).toInt())
+//                    setPadding(resources.getDimension(R.dimen.line_padding).toInt(), 0, resources.getDimension(R.dimen.line_padding).toInt(), 0)
                 }
             }
         }
