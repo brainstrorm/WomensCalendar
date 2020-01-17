@@ -45,6 +45,8 @@
     <color name="colorMenstruation">#FFE6EE</color>
     <color name="colorOvulation">#FFECD2</color>
 
+    <color name="colorForActionBar">#C48B9F</color>
+
     <color name="grey_for_year">#8C8C8C</color>
     <color name="example_4_grey">#474747</color>
     <color name="example_4_green">#008489</color>

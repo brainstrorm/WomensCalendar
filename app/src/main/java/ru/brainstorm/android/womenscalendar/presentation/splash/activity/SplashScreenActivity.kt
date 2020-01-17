@@ -2,6 +2,7 @@ package ru.brainstorm.android.womenscalendar.presentation.splash.activity
 
 import android.content.SharedPreferences
 import android.content.res.Configuration
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.widget.TextView
@@ -40,6 +41,10 @@ class SplashScreenActivity : MvpAppCompatActivity(), SplashScreenView {
         super.onCreate(savedInstanceState)
         App.appComponent.inject(this@SplashScreenActivity)
         setContentView(R.layout.activity_splash_screen)
+
+        val bar =  this.supportActionBar
+        bar!!.setBackgroundDrawable(ColorDrawable(resources.getColor(R.color.colorForActionBar)))
+
         supportActionBar?.hide()
 
         txtvwInit = findViewById<TextView>(R.id.init)

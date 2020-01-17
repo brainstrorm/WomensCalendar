@@ -2,6 +2,7 @@ package ru.brainstorm.android.womenscalendar.presentation.quiz.activity
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.drawable.ColorDrawable
 import android.media.Image
 import android.os.Bundle
 import android.view.View
@@ -46,6 +47,9 @@ class QuizActivity : MvpAppCompatActivity(), QuizActivityView, View.OnClickListe
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.poll)
+        val bar = supportActionBar
+        bar!!.setBackgroundDrawable(ColorDrawable( resources.getColor(R.color.colorForActionBar)))
+
         questions = resources.getStringArray(R.array.quiz_questions)
         supportActionBar?.hide()
         supportFragmentManager.beginTransaction()

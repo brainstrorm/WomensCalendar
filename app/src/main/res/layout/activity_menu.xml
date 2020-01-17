@@ -228,13 +228,12 @@
             android:layout_width="57dp"
             android:layout_height="60dp"
             android:layout_marginStart="3dp"
-            android:layout_marginBottom="21dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/for_notes"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.18"
             app:layout_constraintStart_toEndOf="@+id/btn_new_date_menu"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.94"
+            app:layout_constraintVertical_bias="0.90999997"
             tools:ignore="VectorDrawableCompat">
 
             <ImageButton

@@ -14,6 +14,12 @@ import ru.brainstorm.android.womenscalendar.presentation.initialization.view.Ini
 import ru.brainstorm.android.womenscalendar.presentation.menu.activity.MenuActivity
 import ru.brainstorm.android.womenscalendar.presentation.quiz.activity.QuizActivity
 import ru.brainstorm.android.womenscalendar.presentation.splash.presenter.SplashScreenPresenter
+import android.graphics.drawable.ColorDrawable
+import androidx.core.app.ComponentActivity.ExtraData
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+
+
 
 class InitializationActivity :  MvpAppCompatActivity(), InitializationActivityView {
 
@@ -30,6 +36,8 @@ class InitializationActivity :  MvpAppCompatActivity(), InitializationActivityVi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.poll_init)
+        val bar = supportActionBar
+        bar!!.setBackgroundDrawable(ColorDrawable( resources.getColor(R.color.colorForActionBar)))
         initializationActivityPresenter.waiting()
     }
 

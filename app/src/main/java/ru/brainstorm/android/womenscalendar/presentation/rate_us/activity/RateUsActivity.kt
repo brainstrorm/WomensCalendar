@@ -2,6 +2,7 @@ package ru.brainstorm.android.womenscalendar.presentation.rate_us.activity
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import ru.brainstorm.android.womenscalendar.R
@@ -25,8 +26,12 @@ class RateUsActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_rate_us)
+        val bar = supportActionBar
+        bar!!.setBackgroundDrawable(ColorDrawable( resources.getColor(R.color.colorForActionBar)))
+
 
         mRatingBar = findViewById<RatingBar>(R.id.ratingBar)
         cancel = findViewById<TextView>(R.id.cancel)

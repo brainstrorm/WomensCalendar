@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.Configuration
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.view.View
@@ -100,6 +101,9 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu)
+        val bar = supportActionBar
+        bar!!.setBackgroundDrawable(ColorDrawable( resources.getColor(R.color.colorForActionBar)))
+
         supportActionBar?.hide()
 
         pref = PreferenceManager.getDefaultSharedPreferences(this)

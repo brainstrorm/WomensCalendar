@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.content.res.Resources
+import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -108,6 +109,9 @@ class StatisticsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_statistic)
+        val bar = supportActionBar
+        bar!!.setBackgroundDrawable(ColorDrawable( resources.getColor(R.color.colorForActionBar)))
+
         supportActionBar?.hide()
 
         pref = PreferenceManager.getDefaultSharedPreferences(this)
