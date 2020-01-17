@@ -368,6 +368,14 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
                     View.GONE, View.GONE, View.VISIBLE, View.GONE, View.GONE)
                 btnTodayRound.isEnabled = false
             }
+            "about_app" -> {
+                setVisibility(View.VISIBLE, View.GONE, View.GONE,
+                    View.GONE, View.VISIBLE, View.VISIBLE, View.VISIBLE,
+                    View.VISIBLE, View.GONE, View.GONE,
+                    View.GONE, View.GONE, View.GONE, View.GONE,
+                    View.GONE, View.GONE, View.GONE, View.GONE, View.GONE, View.GONE,
+                    View.GONE, View.GONE, View.VISIBLE, View.GONE, View.GONE)
+            }
         }
     }
 

@@ -289,6 +289,18 @@ class MenuPresenter
                 }
                 viewState.setPart("closing_of_fertility_window")
             }
+            "about_app" -> {
+                if (fm.findFragmentById(R.id.for_fragment) == null) {
+                    fm.beginTransaction()
+                        .add(R.id.for_fragment, AboutAppFragment())
+                        .commitNow()
+                } else {
+                    fm.beginTransaction()
+                        .replace(R.id.for_fragment, AboutAppFragment())
+                        .commitNow()
+                }
+                viewState.setPart("about_app")
+            }
         }
     }
 }

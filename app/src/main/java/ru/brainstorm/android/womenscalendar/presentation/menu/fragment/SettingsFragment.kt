@@ -93,6 +93,12 @@ class SettingsFragment
         txtvwHelpAndFeedback = mainView.findViewById(R.id.help_and_feedback_text)
         txtvwDeleteAllNotes = mainView.findViewById(R.id.delete_all_notes_text)
         txtvwAboutApp = mainView.findViewById(R.id.about_app)
+        txtvwAboutApp.setOnClickListener { view ->
+            (activity as MenuActivity).apply {
+                menuPresenter.addFragmentToBackStack(this@SettingsFragment)
+                menuPresenter.setFragment(supportFragmentManager, "about_app")
+            }
+        }
 
         pref = PreferenceManager.getDefaultSharedPreferences(context)
         updateLocale()
