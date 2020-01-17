@@ -40,6 +40,7 @@ class CalendarYearModeFragment : AbstractMenuFragment(){
         recyclerView = inflater.inflate(R.layout.year_fragment, container, false) as RecyclerView
         recyclerView.adapter = YearAdapter()
         recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        recyclerView.scrollToPosition(Year.now().value - START_YEAR)
         (activity as MenuActivity).btnTodayRound.setOnClickListener {
             recyclerView.scrollToPosition(Year.now().value - START_YEAR)
         }

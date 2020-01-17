@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.gridlayout.widget.GridLayout
 import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.data.database.entities.Cycle
+import ru.brainstorm.android.womenscalendar.presentation.menu.activity.MenuActivity
 import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.getDrawableCompat
 import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.setTextColorRes
 import java.time.LocalDate
