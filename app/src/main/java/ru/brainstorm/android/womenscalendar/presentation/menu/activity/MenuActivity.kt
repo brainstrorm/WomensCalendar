@@ -39,8 +39,8 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
 
     private lateinit var btnStatistics: ImageView
     private lateinit var topBar : ImageView
-    private lateinit var btnMonthOrYear : ImageView
-    private  var btnMonthOrYearChecked = 1
+    lateinit var btnMonthOrYear : ImageView
+    var btnMonthOrYearChecked = 1
     private lateinit var btnToday : ImageButton
     private lateinit var btnCalendar : ImageButton
     private lateinit var btnInfo : ImageView
@@ -67,8 +67,8 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
     private lateinit var buttonInfo : ImageButton
     private lateinit var buttonMore : ImageButton
     private lateinit var btnMonthOrYearLayout : ConstraintLayout
-    private lateinit var txtvwMonth : TextView
-    private lateinit var txtvwYear : TextView
+    lateinit var txtvwMonth : TextView
+    lateinit var txtvwYear : TextView
     private lateinit var txtvwChangeLanguage : TextView
     private lateinit var txtvwMyProfile : TextView
     private lateinit var txtvwNotifications : TextView

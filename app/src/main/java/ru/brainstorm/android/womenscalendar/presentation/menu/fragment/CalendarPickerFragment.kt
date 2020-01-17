@@ -18,6 +18,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
 import androidx.core.view.isVisible
+import com.kizitonwose.calendarview.CalendarView
 import com.kizitonwose.calendarview.model.CalendarDay
 import com.kizitonwose.calendarview.model.CalendarMonth
 import com.kizitonwose.calendarview.model.DayOwner
@@ -50,6 +51,7 @@ import kotlin.collections.HashMap
 
 class CalendarPickerFragment : AbstractMenuFragment(), CalendarPickerView{
 
+    lateinit var calendarView : CalendarView
     private lateinit var pref : SharedPreferences
 
     companion object{
@@ -136,7 +138,7 @@ class CalendarPickerFragment : AbstractMenuFragment(), CalendarPickerView{
         }
 
 
-        var calendarView = view.findViewById<com.kizitonwose.calendarview.CalendarView>(R.id.calendarView)
+        calendarView = view.findViewById<com.kizitonwose.calendarview.CalendarView>(R.id.calendarView)
 
         updateLocale()
 

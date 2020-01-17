@@ -8,6 +8,7 @@ import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.core.view.get
 import androidx.gridlayout.widget.GridLayout
+import kotlinx.android.synthetic.main.activity_menu.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -16,6 +17,9 @@ import ru.brainstorm.android.womenscalendar.App
 import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.data.database.dao.CycleDao
 import ru.brainstorm.android.womenscalendar.data.database.entities.Cycle
+import ru.brainstorm.android.womenscalendar.presentation.menu.activity.MenuActivity
+import ru.brainstorm.android.womenscalendar.presentation.menu.fragment.CalendarPickerFragment
+import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.setTextColorRes
 import java.time.LocalDate
 import java.time.Year
 import java.time.YearMonth
@@ -47,6 +51,25 @@ class YearView(context: Context,
             (gridLayout[i - 1] as MonthView).adapter.also {
                 it.cycleList = currentMonthCycles
                 it.month = month
+            }
+            (gridLayout[i-1] as MonthView).setOnClickListener {
+                (context as MenuActivity).apply {
+                    val calendarMonthFragment = supportFragmentManager.findFragmentByTag(CalendarPickerFragment.TAG) as CalendarPickerFragment
+                    calendarMonthFragment.calendarView.scrollToMonth(org.threeten.bp.YearMonth.parse("${month.toString()}"))
+                        if(btnMonthOrYearChecked == 1) {
+                            btnMonthOrYear.setImageResource(R.drawable.ic_toggle_button_second)
+                            txtvwMonth.setTextColorRes(R.color.grey_for_year)
+                            txtvwYear.setTextColorRes(R.color.white)
+                            menuPresenter.setFragment(supportFragmentManager, "calendar_year_mode")
+                            btnMonthOrYearChecked = 2
+                        }else{
+                            btnMonthOrYear.setImageResource(R.drawable.ic_toggle_button)
+                            txtvwMonth.setTextColorRes(R.color.white)
+                            txtvwYear.setTextColorRes(R.color.grey_for_year)
+                            menuPresenter.setFragment(supportFragmentManager, "calendar")
+                            btnMonthOrYearChecked = 1
+                        }
+                }
             }
         }
     }
