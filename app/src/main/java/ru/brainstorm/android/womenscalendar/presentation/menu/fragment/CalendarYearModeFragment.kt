@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.library.YearView
+import ru.brainstorm.android.womenscalendar.presentation.menu.activity.MenuActivity
 import java.time.Year
 
 
@@ -20,6 +21,9 @@ class CalendarYearModeFragment : AbstractMenuFragment(){
 
     companion object{
         val TAG = "CalendarYearMode"
+
+        private val HARDCODED_YEAR_COUNT = 10
+        private val START_YEAR = 2019
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,15 +40,15 @@ class CalendarYearModeFragment : AbstractMenuFragment(){
         recyclerView = inflater.inflate(R.layout.year_fragment, container, false) as RecyclerView
         recyclerView.adapter = YearAdapter()
         recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        (activity as MenuActivity).btnTodayRound.setOnClickListener {
+            recyclerView.scrollToPosition(Year.now().value - START_YEAR)
+        }
         return recyclerView
     }
 
     private inner class YearViewHolder(view: View): RecyclerView.ViewHolder(view)
 
     private inner class YearAdapter : RecyclerView.Adapter<YearViewHolder>() {
-
-        private val HARDCODED_YEAR_COUNT = 10
-        private val START_YEAR = 2019
 
         //This count will be hardcoded
         override fun getItemCount(): Int {
