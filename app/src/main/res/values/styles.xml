@@ -8,6 +8,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="android:colorAccent">#ff9fbf</item>
         <item name="colorControlActivated">#ff9fbf</item>
+        <item name="android:colorPrimaryDark">#c48b9f</item>
     </style>
     <style name="averageMenstruationPickerTheme" parent="Theme.AppCompat.Light">
         <item name="colorAccent">@android:color/white</item>

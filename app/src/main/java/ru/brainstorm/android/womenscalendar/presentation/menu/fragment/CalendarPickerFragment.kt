@@ -39,6 +39,7 @@ import ru.brainstorm.android.womenscalendar.data.database.dao.CycleDao
 import ru.brainstorm.android.womenscalendar.data.database.dao.NoteDao
 import ru.brainstorm.android.womenscalendar.data.database.entities.Cycle
 import ru.brainstorm.android.womenscalendar.data.database.entities.Note
+import ru.brainstorm.android.womenscalendar.presentation.menu.activity.MenuActivity
 import ru.brainstorm.android.womenscalendar.presentation.menu.presenter.CalendarPickerPresenter
 import ru.brainstorm.android.womenscalendar.presentation.menu.view.CalendarPickerView
 import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.*
@@ -144,6 +145,10 @@ class CalendarPickerFragment : AbstractMenuFragment(), CalendarPickerView{
         val currentMonth = YearMonth.now()
         calendarView.setup(currentMonth.minusMonths(12), currentMonth.plusMonths(12), daysOfWeek.first())
         calendarView.scrollToMonth(currentMonth)
+
+        (activity as MenuActivity).btnTodayRound.setOnClickListener {view ->
+            calendarView.scrollToMonth(currentMonth)
+        }
 
 
         class DayViewContainer(view: View) : ViewContainer(view) {
