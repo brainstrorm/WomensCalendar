@@ -149,7 +149,7 @@ class CalendarPickerFragment : AbstractMenuFragment(), CalendarPickerView{
         (activity as MenuActivity).btnTodayRound.setOnClickListener {view ->
             calendarView.scrollToMonth(currentMonth)
         }
-
+        //
 
         class DayViewContainer(view: View) : ViewContainer(view) {
             lateinit var day: CalendarDay // Will be set when this container is bound.
