@@ -87,6 +87,7 @@ If you have any questions or suggestions about our Privacy Policy, do not hesita
                 android:textColor="@color/grey_for_year"
                 android:textStyle="italic"
                 android:textSize="15sp"
+
                 >
             </TextView>
         </ScrollView>
