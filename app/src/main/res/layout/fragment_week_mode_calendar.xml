@@ -131,9 +131,9 @@
             android:id="@+id/TVAdditionalInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
-            android:text="Малая вероятность \n забеременить"
+            android:layout_marginTop="32dp"
             android:gravity="center"
+            android:text="Малая вероятность \n забеременить"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/TVForecastText" />
