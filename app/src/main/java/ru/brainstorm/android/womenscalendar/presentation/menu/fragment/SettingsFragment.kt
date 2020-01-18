@@ -2,6 +2,8 @@ package ru.brainstorm.android.womenscalendar.presentation.menu.fragment
 
 import android.animation.AnimatorSet
 import android.animation.ValueAnimator
+import android.content.ActivityNotFoundException
+import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Bundle
@@ -98,6 +100,12 @@ class SettingsFragment
                 menuPresenter.addFragmentToBackStack(this@SettingsFragment)
                 menuPresenter.setFragment(supportFragmentManager, "about_app")
             }
+        }
+
+
+
+        txtvwHelpAndFeedback.setOnClickListener {
+            sendEmail()
         }
 
         pref = PreferenceManager.getDefaultSharedPreferences(context)
@@ -305,6 +313,22 @@ class SettingsFragment
             val cycle = FindCurrent(cycles)
             menstTextView.text = resources.getQuantityString(R.plurals.days, cycle.lengthOfMenstruation, cycle.lengthOfMenstruation)
             cycleTextView.text = resources.getQuantityString(R.plurals.days, cycle.lengthOfCycle, cycle.lengthOfCycle)
+        }
+    }
+    fun sendEmail(){
+        val i = Intent(Intent.ACTION_SEND)
+        i.type = "message/rfc822"
+        i.putExtra(Intent.EXTRA_EMAIL, arrayOf("mobappcloud@gmail.com"))
+        //i.putExtra(Intent.EXTRA_SUBJECT, "subject of email")
+        //i.putExtra(Intent.EXTRA_TEXT, "body of email")
+        try {
+            startActivity(Intent.createChooser(i, "Send mail..."))
+        } catch (ex: ActivityNotFoundException) {
+            Toast.makeText(
+                context,
+                "There are no email clients installed.",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
     //
