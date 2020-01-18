@@ -18,7 +18,9 @@ import kotlinx.coroutines.*
 import moxy.presenter.ProvidePresenter
 import ru.brainstorm.android.womenscalendar.App
 import ru.brainstorm.android.womenscalendar.R
+import ru.brainstorm.android.womenscalendar.data.User
 import ru.brainstorm.android.womenscalendar.data.database.dao.CycleDao
+import ru.brainstorm.android.womenscalendar.data.database.dao.NoteDao
 import ru.brainstorm.android.womenscalendar.data.database.entities.Cycle
 import ru.brainstorm.android.womenscalendar.domain.predictor.PredictorImpl
 import ru.brainstorm.android.womenscalendar.presentation.menu.activity.MenuActivity
@@ -26,6 +28,7 @@ import ru.brainstorm.android.womenscalendar.presentation.rate_us.activity.RateUs
 import java.util.*
 import javax.inject.Inject
 import ru.brainstorm.android.womenscalendar.presentation.menu.extra.*
+import ru.brainstorm.android.womenscalendar.presentation.quiz.activity.QuizActivity
 
 /**
  * @project WomensCalendar
@@ -36,6 +39,9 @@ class SettingsFragment
 
     @Inject
     lateinit var cycleDao: CycleDao
+
+    @Inject
+    lateinit var noteDao: NoteDao
 
     @Inject
     lateinit var predictorImpl : PredictorImpl
@@ -115,14 +121,23 @@ class SettingsFragment
     }
 //
     private fun initViews() {
-        deleteAllNotes = mainView.findViewById(R.id.deleteAll)
-        deleteAllNotes.setOnClickListener {
-            Toast.makeText(context, R.string.delete_all_notes, Toast.LENGTH_SHORT).show()
-            CoroutineScope(Dispatchers.IO).launch {
-                val all = cycleDao.getAll()
-                all.forEach { cycleDao.delete(it) }
-            }
+    deleteAllNotes = mainView.findViewById(R.id.deleteAll)
+
+    deleteAllNotes.setOnClickListener {
+        Toast.makeText(context, R.string.delete_all_notes, Toast.LENGTH_SHORT).show()
+        CoroutineScope(Dispatchers.IO).launch {
+            val allCycles = cycleDao.getAll()
+            val allNotes = noteDao.getAll()
+
+            allCycles.forEach { cycleDao.delete(it) }
+            allNotes.forEach { noteDao.delete(it) }
+
+            startActivity(QuizActivity.provideIntent(activity as MenuActivity))
         }
+    }
+
+
+
         statistics = mainView.findViewById(R.id.graphs)
         rate_us = mainView.findViewById(R.id.rate_us_text)
 
