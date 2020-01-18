@@ -2,6 +2,9 @@ package ru.brainstorm.android.womenscalendar.presentation.menu.fragment
 
 import android.animation.AnimatorSet
 import android.animation.ValueAnimator
+import android.app.AlertDialog
+import android.app.Dialog
+import android.app.DialogFragment
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.SharedPreferences
@@ -29,6 +32,9 @@ import java.util.*
 import javax.inject.Inject
 import ru.brainstorm.android.womenscalendar.presentation.menu.extra.*
 import ru.brainstorm.android.womenscalendar.presentation.quiz.activity.QuizActivity
+import android.content.DialogInterface
+
+
 
 /**
  * @project WomensCalendar
@@ -123,17 +129,30 @@ class SettingsFragment
     private fun initViews() {
     deleteAllNotes = mainView.findViewById(R.id.deleteAll)
 
+
     deleteAllNotes.setOnClickListener {
-        Toast.makeText(context, R.string.delete_all_notes, Toast.LENGTH_SHORT).show()
-        CoroutineScope(Dispatchers.IO).launch {
-            val allCycles = cycleDao.getAll()
-            val allNotes = noteDao.getAll()
 
-            allCycles.forEach { cycleDao.delete(it) }
-            allNotes.forEach { noteDao.delete(it) }
+        val builder = AlertDialog.Builder(getActivity())
+        builder.setMessage(R.string.are_you_sure)
+            .setPositiveButton(R.string.yes_settings, DialogInterface.OnClickListener { dialog, id ->
 
-            startActivity(QuizActivity.provideIntent(activity as MenuActivity))
-        }
+                CoroutineScope(Dispatchers.IO).launch {
+                    val allCycles = cycleDao.getAll()
+                    val allNotes = noteDao.getAll()
+
+                    allCycles.forEach { cycleDao.delete(it) }
+                    allNotes.forEach { noteDao.delete(it) }
+
+                    startActivity(QuizActivity.provideIntent(activity as MenuActivity))
+                }
+
+            })
+            .setNegativeButton(R.string.no_settings, DialogInterface.OnClickListener { dialog, id ->
+
+            })
+
+        builder.create().show()
+
     }
 
 
@@ -346,5 +365,8 @@ class SettingsFragment
             ).show()
         }
     }
+
     //
 }
+
+

@@ -87,6 +87,11 @@
     <string name="my_profile">Мой профиль</string>
     <string name="notifications">Напоминания</string>
     <string name="womens_calendar">Женский календарь</string>
+    <string name="are_you_sure">Вы действительно хотите удалить все записи ?</string>
+    <string name="yes_settings">Да</string>
+    <string name="no_settings">Нет</string>
+
+
 
     <!-- Languages strings -->
     <string name="languages">Языки</string>
