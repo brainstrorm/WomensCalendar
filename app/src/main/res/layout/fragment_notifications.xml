@@ -68,8 +68,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="48dp"
                 android:layout_marginTop="44dp"
+                android:layout_marginEnd="6dp"
                 android:text="@string/menstruation_starts_today"
                 android:textSize="11dp"
+                app:layout_constraintEnd_toStartOf="@+id/switch_start_of_menstruation"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/arrow_pink"
                 app:layout_constraintTop_toTopOf="parent"></TextView>
 
@@ -131,8 +134,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="48dp"
                 android:layout_marginTop="116dp"
+                android:layout_marginEnd="6dp"
                 android:text="@string/do_not_forget"
                 android:textSize="11dp"
+                app:layout_constraintEnd_toStartOf="@+id/switch_end_of_menstruation"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/square_pink"
                 app:layout_constraintTop_toTopOf="parent"></TextView>
 
@@ -220,8 +226,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="48dp"
                 android:layout_marginTop="46dp"
+                android:layout_marginEnd="6dp"
                 android:text="@string/open_fertilnost_today"
                 android:textSize="11dp"
+                app:layout_constraintEnd_toStartOf="@+id/switch_open_fetilnost"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/arrow_orange"
                 app:layout_constraintTop_toTopOf="parent"></TextView>
 
@@ -284,8 +293,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="44dp"
                 android:layout_marginTop="118dp"
+                android:layout_marginEnd="6dp"
                 android:text="@string/ovulation_will_stsrt"
                 android:textSize="11dp"
+                app:layout_constraintEnd_toStartOf="@+id/switch_ovulation"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/heart"
                 app:layout_constraintTop_toTopOf="parent"></TextView>
 
@@ -349,8 +361,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="48dp"
                 android:layout_marginTop="190dp"
+                android:layout_marginEnd="6dp"
                 android:text="@string/window_of_fertilnost_is_closing"
                 android:textSize="11dp"
+                app:layout_constraintEnd_toStartOf="@+id/switch_closing_ftilnost"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/arrow_orange"
                 app:layout_constraintTop_toTopOf="parent"></TextView>
 
