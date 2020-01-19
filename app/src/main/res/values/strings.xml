@@ -85,6 +85,7 @@
     <string name="language">Русский</string>
     <string name="change_language">Сменить язык</string>
     <string name="my_profile">Мой профиль</string>
+    <string name="about_app_settings">О приложении</string>
     <string name="notifications">Напоминания</string>
     <string name="womens_calendar">Женский календарь</string>
     <string name="are_you_sure">Вы действительно хотите удалить все записи ?</string>

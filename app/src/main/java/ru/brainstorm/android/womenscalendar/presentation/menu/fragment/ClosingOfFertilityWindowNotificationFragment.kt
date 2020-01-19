@@ -4,6 +4,7 @@ import android.animation.AnimatorSet
 import android.animation.ValueAnimator
 import android.content.Context
 import android.content.SharedPreferences
+import android.content.res.Configuration
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.view.LayoutInflater
@@ -15,6 +16,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.presentation.menu.activity.MenuActivity
+import java.util.*
 
 class ClosingOfFertilityWindowNotificationFragment : AbstractMenuFragment() {
     private lateinit var mainView : View
@@ -25,6 +27,7 @@ class ClosingOfFertilityWindowNotificationFragment : AbstractMenuFragment() {
     private lateinit var timePicker : TimePicker
     private lateinit var messageEditText: EditText
     private lateinit var pref : SharedPreferences
+
 
     val TimeOfClosingOfFertilityWindowNotificationTag = "TimeOfClosingOfFertilityWindowNotification"
     val TextOfClosingOfFertilityWindowNotificationTag : String = "TextOfClosingOfFertilityWindowNotification"
@@ -41,6 +44,7 @@ class ClosingOfFertilityWindowNotificationFragment : AbstractMenuFragment() {
         mainView = inflater.inflate(R.layout.fragment_closing_of_fertility_window_notification, container, false)
 
         pref = PreferenceManager.getDefaultSharedPreferences(context)
+
 
         initViews()
         initAnimators()
@@ -68,6 +72,7 @@ class ClosingOfFertilityWindowNotificationFragment : AbstractMenuFragment() {
         }
 
         directTimeTextView = mainView!!.findViewById<TextView>(R.id.direct_time_text)
+
 
         timePicker = mainView!!.findViewById<TimePicker>(R.id.timePicker)
         timePicker.setIs24HourView(true)
@@ -122,4 +127,5 @@ class ClosingOfFertilityWindowNotificationFragment : AbstractMenuFragment() {
     override fun onDetach() {
         super.onDetach()
     }
+
 }
