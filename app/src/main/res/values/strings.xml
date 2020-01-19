@@ -106,7 +106,7 @@
     <string name="vietnamese">Tiếng việt</string>
 
 
-    <!-- Notifications strings -->
+    <!-- Notifications strings -->/
     <string name="period_notifications">Переодические напоминания</string>
     <string name="start_of_menstruation">Начало менструации</string>
     <string name="end_of_menstruation">Конец менструации</string>
