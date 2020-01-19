@@ -57,8 +57,6 @@ class WeekModeCalendarFragment : AbstractMenuFragment() {
     private lateinit var TVIndicatorRing : ImageView
     private lateinit var TVPartOfCycle : TextView
     private lateinit var TVForecastText : TextView
-    private lateinit var TVForecastNumberPred : TextView
-    private lateinit var TVForecastNumberPost : TextView
     private lateinit var TVAdditionalInfo : TextView
     private lateinit var TVToday : TextView
 
@@ -112,8 +110,6 @@ class WeekModeCalendarFragment : AbstractMenuFragment() {
         TVScreen = view.findViewById(R.id.screen)
         TVPartOfCycle = view.findViewById(R.id.TVPartOfCycle)
         TVForecastText = view.findViewById(R.id.TVForecastText)
-        TVForecastNumberPred = view.findViewById(R.id.TVForecastNumberPred)
-        TVForecastNumberPost = view.findViewById(R.id.TVForecastNumberPost)
         TVAdditionalInfo = view.findViewById(R.id.TVAdditionalInfo)
         TVToday = view.findViewById(R.id.TVToday)
         return view
@@ -346,139 +342,134 @@ class WeekModeCalendarFragment : AbstractMenuFragment() {
         numberOfDays: Int,
         day : CalendarDay
     ) {
+        setTodayText(day)
+
         when(indicator){
             PartOfCycle.EMPTY_MENSTRUATION -> {
-                setTextViews(
-                    day,
-                    numberOfDays,
-                    true,
-                    false,
+
+                setOtherText(numberOfDays, R.color.colorForecastTextBlue)
+
+                setPartOfCycle(
                     R.string.menstruation_after,
-                    R.color.colorPartOfCycleInRoundBlue,
-                    R.color.colorForecastNumberBlue,
-                    R.color.colorForecastTextBlue,
-                    R.string.unlikely_to_get_pregnant,
+                    R.color.colorPartOfCycleInRoundBlue
+                )
+                setAdditionalText(
+                    resources.getString(R.string.unlikely_to_get_pregnant),
                     R.color.colorPartOfCycleInRoundBlue)
             }
             PartOfCycle.EMPTY_OVULATION -> {
-                setTextViews(
-                    day,
-                    numberOfDays,
-                    true,
-                    false,
+
+                setOtherText(numberOfDays, R.color.colorForecastTextBlue)
+
+                setPartOfCycle(
                     R.string.ovulation_after,
-                    R.color.colorPartOfCycleInRoundBlue,
-                    R.color.colorForecastNumberBlue,
-                    R.color.colorForecastTextBlue,
-                    R.string.unlikely_to_get_pregnant,
+                    R.color.colorPartOfCycleInRoundBlue
+                )
+                setAdditionalText(
+                    resources.getString(R.string.unlikely_to_get_pregnant),
                     R.color.colorPartOfCycleInRoundBlue)
             }
             PartOfCycle.PRED_MENSTRUATION -> {
-                setTextViews(
-                    day,
-                    numberOfDays,
-                    true,
-                    false,
+
+                setOtherText(numberOfDays, R.color.colorForecastTextBlue)
+
+                setPartOfCycle(
                     R.string.menstruation_after,
-                    R.color.colorPartOfCycleInRoundBlue,
-                    R.color.colorForecastNumberBlue,
-                    R.color.colorForecastTextBlue,
-                    R.string.unlikely_to_get_pregnant,
+                    R.color.colorPartOfCycleInRoundBlue
+                )
+
+                setAdditionalText(
+                    resources.getString(R.string.unlikely_to_get_pregnant),
                     R.color.colorPartOfCycleInRoundBlue)
             }
             PartOfCycle.PRED_OVULATION -> {
-                setTextViews(
-                    day,
-                    numberOfDays,
-                    true,
-                    false,
+
+                setOtherText(numberOfDays, R.color.colorForecastTextBlue)
+
+                setPartOfCycle(
                     R.string.ovulation_after,
-                    R.color.colorPartOfCycleInRoundBlue,
-                    R.color.colorForecastNumberBlue,
-                    R.color.colorForecastTextBlue,
-                    R.string.average_probability_of_getting_pregnant,
+                    R.color.colorPartOfCycleInRoundBlue
+                )
+                setAdditionalText(
+                    resources.getString(R.string.average_probability_of_getting_pregnant),
                     R.color.colorPartOfCycleInRoundBlue)
             }
             PartOfCycle.MENSTRUATION -> {
-                TVToday.text = "${dayFormatterRound.format(day.date).capitalize()}, ${dateFormatter.format(day.date)} ${monthFormatter.format(day.date)}"
 
-                TVForecastNumberPred.isVisible = false
-                TVForecastNumberPost.isVisible = true
+                setMenstruationForecastText(numberOfDays)
 
-                TVPartOfCycle.setText(R.string.menstruation)
-                TVPartOfCycle.setTextColorRes(R.color.colorPartOfCycleInRoundPink)
+                setPartOfCycle(
+                    R.string.menstruation,
+                    R.color.colorPartOfCycleInRoundPink
+                )
 
-                TVForecastText.setText(R.string.day)
-                TVForecastText.setTextColorRes(R.color.colorForecastTextPink)
-
-                TVForecastNumberPost.text = "$numberOfDays"
-                TVForecastNumberPost.setTextColorRes(R.color.colorForecastNumberPink)
-
-                TVAdditionalInfo.text = "${context!!.getText(R.string.the_cycle_lasted)} \n 30 ${30.getDayAddition()}"
-                TVAdditionalInfo.setTextColorRes(R.color.colorPartOfCycleInRoundPink)
+                setAdditionalText(
+                    "${context!!.getText(R.string.the_cycle_lasted)} \n 30 ${30.getDayAddition()}",
+                    R.color.colorPartOfCycleInRoundPink)
             }
             PartOfCycle.OVULATION -> {
-                TVToday.text = "${dayFormatterRound.format(day.date).capitalize()}, ${dateFormatter.format(day.date)} ${monthFormatter.format(day.date)}"
+                setOvulationText()
 
-                TVForecastNumberPred.isVisible = false
-                TVForecastNumberPost.isVisible = false
+                setPartOfCycle(
+                    R.string.forecast_day,
+                    R.color.colorPartOfCycleInRoundYellow
+                    )
 
-                TVPartOfCycle.setText(R.string.forecast_day)
-                TVPartOfCycle.setTextColorRes(R.color.colorPartOfCycleInRoundYellow)
-
-                TVForecastText.setText(R.string.ovulation)
-                TVForecastText.setTextColorRes(R.color.colorForecastTextYellow)
-
-                TVAdditionalInfo.setText(R.string.high_probability_of_getting_pregnant)
-                TVAdditionalInfo.setTextColorRes(R.color.colorPartOfCycleInRoundYellow)
+                setAdditionalText(
+                    resources.getString(R.string.high_probability_of_getting_pregnant),
+                    R.color.colorPartOfCycleInRoundYellow)
             }
             PartOfCycle.POST_OVULATION -> {
-                setTextViews(
-                    day,
-                    numberOfDays,
-                    true,
-                    false,
-                    R.string.menstruation_after,
-                    R.color.colorPartOfCycleInRoundYellow,
-                    R.color.colorForecastNumberBlue,
-                    R.color.colorForecastTextBlue,
-                    R.string.high_probability_of_getting_pregnant,
+
+                setOtherText(numberOfDays, R.color.colorForecastTextBlue)
+
+                setPartOfCycle(R.string.menstruation_after,
+                    R.color.colorPartOfCycleInRoundYellow
+                )
+                setAdditionalText(
+                    resources.getString(R.string.high_probability_of_getting_pregnant),
                     R.color.colorPartOfCycleInRoundBlue)
             }
         }
     }
 
-    private fun setTextViews(
-        day: CalendarDay,
-        numberOfDays: Int,
-        predNumber : Boolean,
-        postNumber : Boolean,
-        partOfCycleTextId : Int,
-        partOfCycleColor : Int,
-        forecastNumberColor : Int,
-        forecastTextColor : Int,
-        additionalInfoTextId : Int,
-        additionalInfoColor: Int
-    ) {
+
+    private fun setAdditionalText(additionalInfoText : String,
+                                  additionalInfoColor: Int){
+        TVAdditionalInfo.text = additionalInfoText
+        TVAdditionalInfo.setTextColorRes(additionalInfoColor)
+    }
+
+    private fun setPartOfCycle(partOfCycleTextId : Int,
+                               partOfCycleColor : Int){
+        TVPartOfCycle.setText(partOfCycleTextId)
+        TVPartOfCycle.setTextColorRes(partOfCycleColor)
+    }
+
+    private fun setTodayText(day: CalendarDay){
+
         TVToday.text =
             "${dayFormatterRound.format(day.date).capitalize()}, ${dateFormatter.format(day.date)} ${monthFormatter.format(
                 day.date
             )}"
+    }
 
-        TVForecastNumberPred.isVisible = predNumber
-        TVForecastNumberPost.isVisible = postNumber
+    private fun setMenstruationForecastText(numberOfDays: Int){
+        TVForecastText.text = "${resources.getString(R.string.DAY)} $numberOfDays"
+        TVForecastText.setTextColorRes(R.color.colorForecastTextPink)
+    }
 
-        TVPartOfCycle.setText(partOfCycleTextId)
-        TVPartOfCycle.setTextColorRes(partOfCycleColor)
+    private fun setOvulationText(){
 
-        TVForecastNumberPred.text = "$numberOfDays"
-        TVForecastNumberPred.setTextColorRes(forecastNumberColor)
+        TVForecastText.setText(R.string.ovulation)
+        TVForecastText.setTextColorRes(R.color.colorForecastTextYellow)
+    }
 
-        TVForecastText.text = numberOfDays.getDayAddition()
+    private fun setOtherText(numberOfDays: Int,
+                             forecastTextColor : Int){
+
+        TVForecastText.text = "$numberOfDays ${numberOfDays.getDayAddition()}"
         TVForecastText.setTextColorRes(forecastTextColor)
-
-        TVAdditionalInfo.setText(additionalInfoTextId)
-        TVAdditionalInfo.setTextColorRes(additionalInfoColor)
     }
 
     fun changeCalendar(

@@ -48,6 +48,7 @@
     <string name="menstruation">Менструация</string>
     <string name="ovulation">овуляции</string>
     <string name="day">день</string>
+    <string name="DAY">ДЕНЬ</string>
     <string name="the_cycle_lasted">Цикл длился</string>
     <string name="forecast_day">Прогноз: день</string>
     //for statistics

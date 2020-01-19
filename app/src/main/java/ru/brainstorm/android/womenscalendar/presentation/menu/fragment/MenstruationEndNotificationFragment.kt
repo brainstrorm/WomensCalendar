@@ -4,6 +4,7 @@ import android.animation.AnimatorSet
 import android.animation.ValueAnimator
 import android.content.Context
 import android.content.SharedPreferences
+import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
 import android.preference.PreferenceManager
@@ -17,6 +18,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 
 import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.presentation.menu.activity.MenuActivity
+import java.util.*
 
 class MenstruationEndNotificationFragment : AbstractMenuFragment() {
 
@@ -28,6 +30,9 @@ class MenstruationEndNotificationFragment : AbstractMenuFragment() {
     private lateinit var timePicker : TimePicker
     private lateinit var messageEditText: EditText
     private lateinit var pref : SharedPreferences
+
+    private lateinit var txtvwTime : TextView
+    private lateinit var txtvwMessage: TextView
 
     val TimeOfEndOfMenstruationNotificationTag = "TimeOfEndOfMenstruationNotification"
     val TextOfEndOfMenstruationNotificationTag : String = "TextOfEndOfMenstruationNotification"
@@ -74,6 +79,9 @@ class MenstruationEndNotificationFragment : AbstractMenuFragment() {
 
         timePicker = mainView!!.findViewById<TimePicker>(R.id.timePicker)
         timePicker.setIs24HourView(true)
+
+        txtvwTime = mainView!!.findViewById<TextView>(R.id.time_text)
+        txtvwMessage = mainView!!.findViewById<TextView>(R.id.message)
     }
 
     private fun initAnimators() {
@@ -121,5 +129,17 @@ class MenstruationEndNotificationFragment : AbstractMenuFragment() {
 
     override fun onDetach() {
         super.onDetach()
+    }
+
+    fun updateLocale(){
+        val language = pref.getString("language", "en")
+        val locale = Locale(language)
+        Locale.setDefault(locale)
+        val configuration = Configuration()
+        configuration.locale = locale
+        getResources().updateConfiguration(configuration, null)
+
+        txtvwTime.setText(R.string.time)
+        txtvwMessage.setText(R.string.message)
     }
 }

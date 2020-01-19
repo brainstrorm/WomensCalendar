@@ -4,6 +4,7 @@ import android.animation.AnimatorSet
 import android.animation.ValueAnimator
 import android.content.Context
 import android.content.SharedPreferences
+import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
 import android.preference.PreferenceManager
@@ -19,6 +20,7 @@ import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.presentation.menu.activity.MenuActivity
 import android.view.Display
 import kotlinx.android.synthetic.main.fragment_settings.*
+import java.util.*
 
 
 class OpeningOfFertilityWindowNotificationFragment : AbstractMenuFragment() {
@@ -32,6 +34,8 @@ class OpeningOfFertilityWindowNotificationFragment : AbstractMenuFragment() {
     private lateinit var pref : SharedPreferences
     private lateinit var frame_layout : FrameLayout
 
+    private lateinit var txtvwTime : TextView
+    private lateinit var txtvwMessage: TextView
 
     val TimeOfOpeningOfFertilityWindowNotificationTag = "TimeOfOpeningOfFertilityWindowNotification"
     val TextOfOpeningOfFertilityWindowNotificationTag : String = "TextOfOpeningOfFertilityWindowNotification"
@@ -51,6 +55,8 @@ class OpeningOfFertilityWindowNotificationFragment : AbstractMenuFragment() {
 
         initViews()
         initAnimators()
+
+        updateLocale()
 
         return mainView
     }
@@ -78,6 +84,9 @@ class OpeningOfFertilityWindowNotificationFragment : AbstractMenuFragment() {
 
         timePicker = mainView!!.findViewById<TimePicker>(R.id.timePicker)
         timePicker.setIs24HourView(true)
+
+        txtvwTime = mainView!!.findViewById<TextView>(R.id.time_text)
+        txtvwMessage = mainView!!.findViewById<TextView>(R.id.message)
     }
 
     private fun initAnimators() {
@@ -128,4 +137,17 @@ class OpeningOfFertilityWindowNotificationFragment : AbstractMenuFragment() {
     override fun onDetach() {
         super.onDetach()
     }
+
+    fun updateLocale(){
+        val language = pref.getString("language", "en")
+        val locale = Locale(language)
+        Locale.setDefault(locale)
+        val configuration = Configuration()
+        configuration.locale = locale
+        getResources().updateConfiguration(configuration, null)
+
+        txtvwTime.setText(R.string.time)
+        txtvwMessage.setText(R.string.message)
+    }
+
 }

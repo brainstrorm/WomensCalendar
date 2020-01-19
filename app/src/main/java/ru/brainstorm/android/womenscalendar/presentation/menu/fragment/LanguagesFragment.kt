@@ -40,6 +40,7 @@ class LanguagesFragment : AbstractMenuFragment() {
 
         pref = PreferenceManager.getDefaultSharedPreferences(context)
         txtvwLanguages = view.findViewById<TextView>(R.id.languages_text)
+
         updateLocale()
 
         languagesButton = view.findViewById<ImageButton>(R.id.languages)
@@ -75,6 +76,7 @@ class LanguagesFragment : AbstractMenuFragment() {
         val configuration = Configuration()
         configuration.locale = locale
         getResources().updateConfiguration(configuration, null)
+
         txtvwLanguages.setText(R.string.languages)
     }
 }

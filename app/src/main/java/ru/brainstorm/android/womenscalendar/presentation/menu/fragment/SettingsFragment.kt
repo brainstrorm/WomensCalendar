@@ -121,6 +121,7 @@ class SettingsFragment
         }
 
         pref = PreferenceManager.getDefaultSharedPreferences(context)
+
         updateLocale()
         updateInformation()
         return mainView
