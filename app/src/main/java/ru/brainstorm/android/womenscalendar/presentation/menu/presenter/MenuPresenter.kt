@@ -30,7 +30,8 @@ class MenuPresenter
 
     fun popBackStack(fm : FragmentManager){
         if(!stackOfFragments.isEmpty()){
-            setFragment(fm, stackOfFragments.pop())
+            val fragment = stackOfFragments.pop()
+            setFragment(fm, fragment)
         }
     }
     fun setFragment(fm: FragmentManager, part : String){

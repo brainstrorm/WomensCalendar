@@ -74,6 +74,8 @@ class CalendarPickerFragment : AbstractMenuFragment(), CalendarPickerView{
     private var weekDays = HashMap<String, String>()
     private var months = HashMap<String, String>()
 
+    private var isFragmentInBackStack = false
+
     //private var startDate: LocalDate? = null
     //private var endDate: LocalDate? = null
     private var selectedDate: LocalDate? = null
@@ -167,6 +169,12 @@ class CalendarPickerFragment : AbstractMenuFragment(), CalendarPickerView{
                 view.setOnClickListener {
                     if(day.owner == DayOwner.THIS_MONTH) {
                         selectedDate = day.date
+                        /*if(!isFragmentInBackStack) {
+                            (activity as MenuActivity).apply {
+                                menuPresenter.addFragmentToBackStack(this@CalendarPickerFragment)
+                            }
+                            isFragmentInBackStack = true
+                        }*/
                         calendarPickerPresenter.addNoteFragment(fragmentManager!!, day.date)
                         (activity!!.btn_plus_menu as ImageButton).isEnabled = true
                         calendarView.notifyCalendarChanged()
@@ -360,5 +368,21 @@ class CalendarPickerFragment : AbstractMenuFragment(), CalendarPickerView{
         weekDays.put("Sat", resources.getString(R.string.saturday))
         weekDays.put("Sun", resources.getString(R.string.sunday))
     }
+
+    /*fun updateNotes(){
+        var notes = listOf<Note>()
+        runBlocking {
+            val job = GlobalScope.launch(Dispatchers.IO) {
+                notes = noteDao.getAll()
+            }
+            job.join()
+        }
+
+        var noteDates = HashMap<String, String>()
+
+        for(note in notes){
+            noteDates.put(note.noteDate, note.noteDate)
+        }
+    }*/
 
 }

@@ -433,6 +433,21 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
                     .apply {
                         noteRedactorPresenter.saveNote(this)
                     }
+
+                val calendarFragment = supportFragmentManager.findFragmentByTag(CalendarPickerFragment.TAG)
+                val notesFragment = supportFragmentManager.findFragmentByTag(ListOfNotesFragment.TAG)
+                if(calendarFragment != null) {
+                    supportFragmentManager.beginTransaction()
+                        .detach(calendarFragment!!)
+                        .attach(calendarFragment)
+                        .commit()
+                }
+                if(notesFragment != null){
+                    supportFragmentManager.beginTransaction()
+                        .detach(notesFragment!!)
+                        .attach(notesFragment)
+                        .commit()
+                }
                 menuPresenter.popBackStack(supportFragmentManager)
             }
             R.id.btn_back -> {

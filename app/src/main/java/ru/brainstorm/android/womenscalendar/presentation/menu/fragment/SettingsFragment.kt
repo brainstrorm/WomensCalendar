@@ -125,7 +125,7 @@ class SettingsFragment
         updateInformation()
         return mainView
     }
-//
+
     private fun initViews() {
     deleteAllNotes = mainView.findViewById(R.id.deleteAll)
 

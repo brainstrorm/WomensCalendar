@@ -42,6 +42,9 @@ class CalendarPickerPresenter
                 }
             }
         }
+        fun updateInformation(){
+
+        }
 
 }
 
