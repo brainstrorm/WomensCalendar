@@ -7,9 +7,9 @@
     <string name="btn_poll_next">Further</string>
     <string name="btn_poll_dnt_remember">I do not remember</string>
     <string name="today">Today</string>
-    <string name="calendar">The calendar</string>
+    <string name="calendar">Calendar</string>
     <string name="information">Notes</string>
-    <string name="more">Yet</string>
+    <string name="more">More</string>
     <string name="new_date_text_menu">Change menstrual dates</string>
     <string name="text_press_last_menstruation">Add past month dates</string>
     <string name="text_duration_of_menstruation">Cycle duration and menstruation</string>
