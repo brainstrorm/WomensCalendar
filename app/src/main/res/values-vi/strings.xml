@@ -20,10 +20,10 @@
 
     <string-array name="poll_texts">
 
-        <item name="when_start_days0">Thời gian cuối cùng của bạn bắt đầu khi nào?</item>
-        <item name="when_start_days1">Thời gian cuối cùng của bạn bắt đầu khi nào?</item>
-        <item name="how_long_days">Thời gian trung bình hàng tháng của bạn là gì?</item>
-        <item name="year_of_birth">Sẽ có dự đoán nếu bạn chỉ ra năm sinh của mình?</item>
+        <item name="when_start_days0">Thời gian cuối cùng của \n bạn bắt đầu khi nào?</item>
+        <item name="when_start_days1">Thời gian cuối cùng của \n bạn bắt đầu khi nào?</item>
+        <item name="how_long_days">Thời gian trung bình hàng \n  tháng của bạn là gì?</item>
+        <item name="year_of_birth">Sẽ có dự đoán nếu bạn chỉ \n ra năm sinh của mình?</item>
             
     </string-array>
 
@@ -35,17 +35,17 @@
     <string name="hello_blank_fragment">Xin chào mảnh trống</string>
 
     <string-array name="quiz_questions">
-        <item>Thời gian cuối cùng của bạn bắt đầu khi nào?</item>
-        <item>Thời gian trung bình hàng tháng của bạn là gì?</item>
-        <item>Chu kỳ trung bình của bạn kéo dài bao lâu?</item>
-        <item>Dự đoán sẽ là nếu bạn chỉ ra năm sinh của mình</item>
+        <item>Thời gian cuối cùng của \n bạn bắt đầu khi nào?</item>
+        <item>Thời gian trung bình hàng \n tháng của bạn là gì?</item>
+        <item>Chu kỳ trung bình của bạn \n kéo dài bao lâu?</item>
+        <item>Dự đoán sẽ là nếu bạn \n chỉ ra năm sinh của mình</item>
     </string-array>
 
     //for WeekModeCalendarFragment
     <string name="menstruation_after">Kinh nguyệt qua</string>
-    <string name="unlikely_to_get_pregnant">Không có khả năng mang thai</string>
-    <string name="average_probability_of_getting_pregnant">Cơ hội trung bình \ n để có thai</string>
-    <string name="high_probability_of_getting_pregnant">Khả năng cao có thai \ n</string>
+    <string name="unlikely_to_get_pregnant">Không có khả năng \n mang thai</string>
+    <string name="average_probability_of_getting_pregnant">Cơ hội trung bình \n để có thai</string>
+    <string name="high_probability_of_getting_pregnant">Khả năng cao có thai \n</string>
     <string name="ovulation_after">Rụng trứng qua</string>
     <string name="menstruation">Kinh nguyệt</string>
     <string name="ovulation">rụng trứng</string>
@@ -124,7 +124,7 @@
     <string name="window_of_fertilnost_is_closing">Cửa sổ sinh sản Đóng</string>
     <string name="time">Thời gian</string>
     <string name="message">Tin nhắn</string>
-    <string name="notification_menstruation_start">Nhắc nhở: \ n Kinh nguyệt sẽ bắt đầu ngay hôm nay!</string>
+    <string name="notification_menstruation_start">Nhắc nhở: \n Kinh nguyệt sẽ bắt đầu ngay hôm nay!</string>
 
 
     

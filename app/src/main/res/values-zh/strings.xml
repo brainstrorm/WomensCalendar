@@ -20,32 +20,32 @@
 
     <string-array name="poll_texts">
 
-        <item name="when_start_days0">您的最后一个\ n期间是什么时候开始的？</item>
-        <item name="when_start_days1">您的最后一个\ n期间是什么时候开始的？</item>
+        <item name="when_start_days0">您的最后一个 \n 期间是什么时候开始的？</item>
+        <item name="when_start_days1">您的最后一个 \n 期间是什么时候开始的？</item>
         <item name="how_long_days">您的平均每月时间是多少？</item>
         <item name="year_of_birth">如果您指出自己的出生年份，将会有预测吗？</item>
             
     </string-array>
 
     <string name="step_poll">步骤％1 $ d of 4</string>
-    <string name="poll_init">进行预测\ n个周期...</string>
+    <string name="poll_init">进行预测 \n 个周期...</string>
 
 
     
     <string name="hello_blank_fragment">你好空白片段</string>
 
     <string-array name="quiz_questions">
-        <item>您的最后一个\ n期间是什么时候开始的？</item>
+        <item>您的最后一个 \n 期间是什么时候开始的？</item>
         <item>您的平均每月时间是多少？</item>
-        <item>您的平均周期\ n持续多长时间？</item>
-        <item>如果您指出自己的出生年份，将会做出预测</item>
+        <item>您的平均周期 \n 持续多长时间？</item>
+        <item>如果您指出自己的出生年份 \n 将会做出预测</item>
     </string-array>
 
     //for WeekModeCalendarFragment
     <string name="menstruation_after">经期</string>
-    <string name="unlikely_to_get_pregnant">\ n不太可能怀孕</string>
-    <string name="average_probability_of_getting_pregnant">\ n怀孕的平均机会</string>
-    <string name="high_probability_of_getting_pregnant">\ n怀孕的可能性很高</string>
+    <string name="unlikely_to_get_pregnant">\n 不太可能怀孕</string>
+    <string name="average_probability_of_getting_pregnant">\n 怀孕的平均机会</string>
+    <string name="high_probability_of_getting_pregnant">\n 怀孕的可能性很高</string>
     <string name="ovulation_after">通过排卵</string>
     <string name="menstruation">月经</string>
     <string name="ovulation">排卵</string>
@@ -124,7 +124,7 @@
     <string name="window_of_fertilnost_is_closing">生育窗口关闭</string>
     <string name="time">时间</string>
     <string name="message">留言内容</string>
-    <string name="notification_menstruation_start">提醒：\ n月经将从今天开始！</string>
+    <string name="notification_menstruation_start">提醒：\n 月经将从今天开始！</string>
 
 
     

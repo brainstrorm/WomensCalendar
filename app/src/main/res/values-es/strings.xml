@@ -20,32 +20,32 @@
 
     <string-array name="poll_texts">
 
-        <item name="when_start_days0">¿Cuándo comenzó su último \ n período?</item>
-        <item name="when_start_days1">¿Cuándo comenzó su último \ n período?</item>
-        <item name="how_long_days">¿Cuál es su período mensual promedio?</item>
-        <item name="year_of_birth">¿Habrá predicciones si indica su \ n año de nacimiento?</item>
+        <item name="when_start_days0">¿Cuándo comenzó su último \n período?</item>
+        <item name="when_start_days1">¿Cuándo comenzó su último \n período?</item>
+        <item name="how_long_days">¿Cuál es su período \n mensual promedio?</item>
+        <item name="year_of_birth">¿Habrá predicciones si indica su \n año de nacimiento?</item>
             
     </string-array>
 
     <string name="step_poll">Paso %1$d de 4</string>
-    <string name="poll_init">Haciendo pronósticos \ n ciclos ...</string>
+    <string name="poll_init">Haciendo pronósticos \n ciclos ...</string>
 
 
     
     <string name="hello_blank_fragment">Hola fragmento en blanco</string>
 
     <string-array name="quiz_questions">
-        <item>¿Cuándo comenzó su último \ n período?</item>
-        <item>¿Cuál es su período mensual promedio?</item>
-        <item>¿Cuánto dura su ciclo promedio \ n?</item>
-        <item>Las predicciones serán si usted indica su \ n año de nacimiento</item>
+        <item>¿Cuándo comenzó su último \n período?</item>
+        <item>¿Cuál es su período \n mensual promedio?</item>
+        <item>¿Cuánto dura su ciclo promedio \n?</item>
+        <item>Las predicciones serán si usted indica su \n año de nacimiento</item>
     </string-array>
 
     //for WeekModeCalendarFragment
     <string name="menstruation_after">Menstruación a través de</string>
-    <string name="unlikely_to_get_pregnant">Es poco probable que quede embarazada</string>
-    <string name="average_probability_of_getting_pregnant">Posibilidad promedio de quedar embarazada</string>
-    <string name="high_probability_of_getting_pregnant">Alta probabilidad de quedar embarazada</string>
+    <string name="unlikely_to_get_pregnant">Es poco probable que \n quede embarazada</string>
+    <string name="average_probability_of_getting_pregnant">Posibilidad promedio de  \n quedar embarazada</string>
+    <string name="high_probability_of_getting_pregnant">Alta probabilidad de \n quedar embarazada</string>
     <string name="ovulation_after">Ovulación a través de</string>
     <string name="menstruation">Menstruación</string>
     <string name="ovulation">ovulación</string>
@@ -124,7 +124,7 @@
     <string name="window_of_fertilnost_is_closing">La ventana de fertilidad se cierra</string>
     <string name="time">Tiempo</string>
     <string name="message">Mensaje</string>
-    <string name="notification_menstruation_start">Recordatorio: \ n ¡La menstruación comenzará hoy!</string>
+    <string name="notification_menstruation_start">Recordatorio: \n ¡La menstruación comenzará hoy!</string>
 
 
     

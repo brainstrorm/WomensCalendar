@@ -23,12 +23,12 @@
         <item name="when_start_days0">ช่วงเวลาสุดท้ายของคุณเริ่มต้นเมื่อใด</item>
         <item name="when_start_days1">ช่วงเวลาสุดท้ายของคุณเริ่มต้นเมื่อใด</item>
         <item name="how_long_days">ระยะเวลาเฉลี่ยรายเดือนของคุณคืออะไร</item>
-        <item name="year_of_birth">จะมีการคาดการณ์หรือไม่หากคุณระบุปีเกิด \ n ของคุณ?</item>
+        <item name="year_of_birth">จะมีการคาดการณ์หรือไม่หากคุณระบุปีเกิด \n ของคุณ?</item>
             
     </string-array>
 
     <string name="step_poll">ขั้นตอน %1$d จาก 4</string>
-    <string name="poll_init">กำลังคาดการณ์ \ n รอบ ...</string>
+    <string name="poll_init">กำลังคาดการณ์ \n รอบ ...</string>
 
 
     
@@ -43,9 +43,9 @@
 
     //for WeekModeCalendarFragment
     <string name="menstruation_after">มีประจำเดือนผ่าน</string>
-    <string name="unlikely_to_get_pregnant">ไม่น่าจะตั้งครรภ์ \ n</string>
+    <string name="unlikely_to_get_pregnant">ไม่น่าจะตั้งครรภ์ \n</string>
     <string name="average_probability_of_getting_pregnant">มีโอกาสโดยเฉลี่ยที่จะตั้งครรภ์</string>
-    <string name="high_probability_of_getting_pregnant">มีโอกาสสูง \ n ที่จะตั้งครรภ์</string>
+    <string name="high_probability_of_getting_pregnant">มีโอกาสสูง \n ที่จะตั้งครรภ์</string>
     <string name="ovulation_after">การตกไข่ผ่าน</string>
     <string name="menstruation">การมีประจำเดือน</string>
     <string name="ovulation">การตกไข่</string>
@@ -124,7 +124,7 @@
     <string name="window_of_fertilnost_is_closing">หน้าต่างการเจริญพันธุ์ปิด</string>
     <string name="time">เวลา</string>
     <string name="message">ข่าวสาร</string>
-    <string name="notification_menstruation_start">คำเตือน: \ n การมีประจำเดือนจะเริ่มต้นวันนี้!</string>
+    <string name="notification_menstruation_start">คำเตือน: \n การมีประจำเดือนจะเริ่มต้นวันนี้!</string>
 
 
     

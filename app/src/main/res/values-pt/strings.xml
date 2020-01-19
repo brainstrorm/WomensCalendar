@@ -11,7 +11,7 @@
     <string name="information">Anotações</string>
     <string name="more">Mais</string>
     <string name="new_date_text_menu">Alterar datas menstruais</string>
-    <string name="text_press_last_menstruation">Adicionar datas do mês passado</string>
+    <string name="text_press_last_menstruation">Adicionar datas  do mês passado</string>
     <string name="text_duration_of_menstruation">Duração do ciclo e menstruação</string>
     <string name="text_avg_length_of_menstruation">A duração média da menstruação</string>
     <string name="text_avg_length_of_cycle">Tempo médio do ciclo</string>
@@ -20,32 +20,32 @@
 
     <string-array name="poll_texts">
 
-        <item name="when_start_days0">Quando começou o seu último \ n período?</item>
-        <item name="when_start_days1">Quando começou o seu último \ n período?</item>
-        <item name="how_long_days">Qual é o seu período mensal médio?</item>
-        <item name="year_of_birth">Haverá previsões se você indicar seu \ n ano de nascimento?</item>
+        <item name="when_start_days0">Quando começou o seu último \n período?</item>
+        <item name="when_start_days1">Quando começou o seu último \n período?</item>
+        <item name="how_long_days">Qual é o seu período \n mensal médio?</item>
+        <item name="year_of_birth">Haverá previsões se você indicar seu \n ano de nascimento?</item>
             
     </string-array>
 
     <string name="step_poll">Etapa %1$d de 4</string>
-    <string name="poll_init">Fazendo previsões \ n ciclos ...</string>
+    <string name="poll_init">Fazendo previsões \n ciclos ...</string>
 
 
     
     <string name="hello_blank_fragment">Olá fragmento em branco</string>
 
     <string-array name="quiz_questions">
-        <item>Quando começou o seu último \ n período?</item>
-        <item>Qual é o seu período mensal médio?</item>
-        <item>Quanto tempo dura o seu ciclo médio \ n?</item>
-        <item>As previsões serão se você indicar seu \ n ano de nascimento</item>
+        <item>Quando começou o seu último \n período?</item>
+        <item>Qual é o seu período \n mensal médio?</item>
+        <item>Quanto tempo dura o seu ciclo médio \n?</item>
+        <item>As previsões serão se você indicar seu \n ano de nascimento</item>
     </string-array>
 
     //for WeekModeCalendarFragment
     <string name="menstruation_after">Menstruação através</string>
-    <string name="unlikely_to_get_pregnant">Improvável \ n engravidar</string>
-    <string name="average_probability_of_getting_pregnant">Média de chances \ n de engravidar</string>
-    <string name="high_probability_of_getting_pregnant">Alta probabilidade \ n de engravidar</string>
+    <string name="unlikely_to_get_pregnant">Improvável \n engravidar</string>
+    <string name="average_probability_of_getting_pregnant">Média de chances \n de engravidar</string>
+    <string name="high_probability_of_getting_pregnant">Alta probabilidade \n de engravidar</string>
     <string name="ovulation_after">Ovulação através</string>
     <string name="menstruation">Menstruação</string>
     <string name="ovulation">ovulação</string>
@@ -124,7 +124,7 @@
     <string name="window_of_fertilnost_is_closing">Fecha a janela de fertilidade</string>
     <string name="time">Tempo</string>
     <string name="message">Mensagem</string>
-    <string name="notification_menstruation_start">Lembrete: \ n A menstruação começará hoje!</string>
+    <string name="notification_menstruation_start">Lembrete: \n A menstruação começará hoje!</string>
 
 
     
