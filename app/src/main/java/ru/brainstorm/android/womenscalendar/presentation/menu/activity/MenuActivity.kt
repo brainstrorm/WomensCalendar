@@ -287,8 +287,8 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
                     View.GONE, View.GONE, View.GONE,
                     View.VISIBLE, View.VISIBLE, View.VISIBLE, View.VISIBLE,
                     View.GONE, View.GONE, View.GONE, View.GONE, View.GONE, View.GONE,
-                    View.GONE, View.GONE, View.GONE, View.VISIBLE, View.VISIBLE,View.GONE)
-                btnTodayRound.isEnabled = false
+                    View.GONE, View.GONE, View.GONE, View.GONE, View.GONE,View.GONE)
+
             }
             "calendar_year_mode" -> {
                 setVisibility(View.VISIBLE, View.VISIBLE, View.VISIBLE,

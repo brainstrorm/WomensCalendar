@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Bundle
+import android.os.Message
 import android.preference.PreferenceManager
 import android.view.LayoutInflater
 import android.view.View
@@ -28,6 +29,8 @@ class ClosingOfFertilityWindowNotificationFragment : AbstractMenuFragment() {
     private lateinit var messageEditText: EditText
     private lateinit var pref : SharedPreferences
 
+    private lateinit var txtvwTime : TextView
+    private lateinit var txtvwMessage: TextView
 
     val TimeOfClosingOfFertilityWindowNotificationTag = "TimeOfClosingOfFertilityWindowNotification"
     val TextOfClosingOfFertilityWindowNotificationTag : String = "TextOfClosingOfFertilityWindowNotification"
@@ -45,9 +48,10 @@ class ClosingOfFertilityWindowNotificationFragment : AbstractMenuFragment() {
 
         pref = PreferenceManager.getDefaultSharedPreferences(context)
 
-
         initViews()
         initAnimators()
+
+        updateLocale()
 
         return mainView
     }
@@ -76,6 +80,9 @@ class ClosingOfFertilityWindowNotificationFragment : AbstractMenuFragment() {
 
         timePicker = mainView!!.findViewById<TimePicker>(R.id.timePicker)
         timePicker.setIs24HourView(true)
+
+        txtvwTime = mainView!!.findViewById<TextView>(R.id.time_text)
+        txtvwMessage = mainView!!.findViewById<TextView>(R.id.message)
     }
 
     private fun initAnimators() {
@@ -126,6 +133,18 @@ class ClosingOfFertilityWindowNotificationFragment : AbstractMenuFragment() {
 
     override fun onDetach() {
         super.onDetach()
+    }
+
+    fun updateLocale(){
+        val language = pref.getString("language", "en")
+        val locale = Locale(language)
+        Locale.setDefault(locale)
+        val configuration = Configuration()
+        configuration.locale = locale
+        getResources().updateConfiguration(configuration, null)
+
+        txtvwTime.setText(R.string.time)
+        txtvwMessage.setText(R.string.message)
     }
 
 }

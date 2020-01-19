@@ -1,7 +1,10 @@
 package ru.brainstorm.android.womenscalendar.presentation.menu.fragment
 
 import android.annotation.SuppressLint
+import android.content.SharedPreferences
+import android.content.res.Configuration
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -29,10 +32,14 @@ import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.daysOfWee
 import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.makeInVisible
 import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.makeVisible
 import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.setTextColorRes
+import java.util.*
+import kotlin.collections.HashMap
 import kotlin.math.round
 
 
 class ChangeMenstruationDatesFragment : AbstractMenuFragment(), ChangeMenstruationDatesView {
+
+    private lateinit var pref : SharedPreferences
 
     @InjectPresenter
     lateinit var changeMenstruationDatesPresenter: ChangeMenstruationDatesPresenter
@@ -70,31 +77,13 @@ class ChangeMenstruationDatesFragment : AbstractMenuFragment(), ChangeMenstruati
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        pref = PreferenceManager.getDefaultSharedPreferences(context)
+
+        updateLocale()
+
         var calendarView = view.findViewById<CalendarView>(R.id.calendarView)
 
-        weekDays.put("Mon", "Пн")
-        weekDays.put("Tue", "Вт")
-        weekDays.put("Wed", "Ср")
-        weekDays.put("Thu", "Чт")
-        weekDays.put("Fri", "Пт")
-        weekDays.put("Sat", "Сб")
-        weekDays.put("Sun", "Вс")
-
-        months.put("October", "Октябрь")
-        months.put("November", "Ноябрь")
-        months.put("December", "Декабрь")
-        months.put("January", "Январь")
-        months.put("February", "Февраль")
-        months.put("March", "Март")
-        months.put("April", "Апрель")
-        months.put("May", "Май")
-        months.put("June", "Июнь")
-        months.put("July", "Июль")
-        months.put("August", "Август")
-        months.put("September", "Сентябрь")
-
         val daysOfWeek = daysOfWeekFromLocale()
-
 
         val currentMonth = YearMonth.now()
         calendarView.setup(currentMonth.minusMonths(12), currentMonth.plusMonths(12), daysOfWeek.first())
@@ -223,6 +212,37 @@ class ChangeMenstruationDatesFragment : AbstractMenuFragment(), ChangeMenstruati
 
     fun getEndDate() : LocalDate? {
         return endDate
+    }
+
+    fun updateLocale(){
+
+        val language = pref.getString("language", "en")
+        val locale = Locale(language)
+        Locale.setDefault(locale)
+        val configuration = Configuration()
+        configuration.locale = locale
+        getResources().updateConfiguration(configuration, null)
+
+        months.put("October", resources.getString(R.string.october))
+        months.put("November", resources.getString(R.string.november))
+        months.put("December", resources.getString(R.string.december))
+        months.put("January", resources.getString(R.string.january))
+        months.put("February", resources.getString(R.string.february))
+        months.put("March", resources.getString(R.string.march))
+        months.put("April", resources.getString(R.string.april))
+        months.put("May", resources.getString(R.string.may))
+        months.put("June", resources.getString(R.string.june))
+        months.put("July", resources.getString(R.string.july))
+        months.put("August", resources.getString(R.string.august))
+        months.put("September", resources.getString(R.string.september))
+
+        weekDays.put("Mon", resources.getString(R.string.monday))
+        weekDays.put("Tue", resources.getString(R.string.tuesday))
+        weekDays.put("Wed", resources.getString(R.string.wednesday))
+        weekDays.put("Thu", resources.getString(R.string.thursday))
+        weekDays.put("Fri", resources.getString(R.string.friday))
+        weekDays.put("Sat", resources.getString(R.string.saturday))
+        weekDays.put("Sun", resources.getString(R.string.sunday))
     }
 
 }

@@ -1,5 +1,6 @@
 package ru.brainstorm.android.womenscalendar.presentation.rate_us.activity
 
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
@@ -9,6 +10,7 @@ import ru.brainstorm.android.womenscalendar.R
 import android.widget.RatingBar
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_rate_us.*
 import ru.brainstorm.android.womenscalendar.presentation.statistics.activity.StatisticsActivity
 
@@ -23,6 +25,7 @@ class RateUsActivity : AppCompatActivity() {
 
     private lateinit var mRatingBar: RatingBar
     private lateinit var cancel: TextView
+    private lateinit var txtvwCallBack : TextView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,6 +38,10 @@ class RateUsActivity : AppCompatActivity() {
 
         mRatingBar = findViewById<RatingBar>(R.id.ratingBar)
         cancel = findViewById<TextView>(R.id.cancel)
+        txtvwCallBack = findViewById<TextView>(R.id.call_back)
+        txtvwCallBack.setOnClickListener {
+            sendEmail()
+        }
         mRatingBar.onRatingBarChangeListener =
             RatingBar.OnRatingBarChangeListener { ratingBar, v, b -> }
 
@@ -52,6 +59,23 @@ class RateUsActivity : AppCompatActivity() {
 
         cancel.setOnClickListener{
             finish()
+        }
+    }
+
+    fun sendEmail(){
+        val i = Intent(Intent.ACTION_SEND)
+        i.type = "message/rfc822"
+        i.putExtra(Intent.EXTRA_EMAIL, arrayOf("mobappcloud@gmail.com"))
+        //i.putExtra(Intent.EXTRA_SUBJECT, "subject of email")
+        //i.putExtra(Intent.EXTRA_TEXT, "body of email")
+        try {
+            startActivity(Intent.createChooser(i, "Send mail..."))
+        } catch (ex: ActivityNotFoundException) {
+            Toast.makeText(
+                this,
+                "There are no email clients installed.",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 
