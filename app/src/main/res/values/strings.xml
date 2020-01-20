@@ -19,7 +19,7 @@
     <string-array name="poll_texts">
 
         <item name="when_start_days0">Когда начались ваши последние \n месячные?</item>
-        <item name="when_start_days1">Когда начались ваши последние \n месячные?</item>
+        <item name="when_start_days1">Сколько в среднем у вас \n идут месячные?</item>
         <item name="how_long_days">Сколько в среднем у вас идут \n месячные?</item>
         <item name="year_of_birth">Прогнозы будут, если вы укажите ваш \n год рождения?</item>
             

@@ -21,7 +21,7 @@
     <string-array name="poll_texts">
 
         <item name="when_start_days0">When did your last \n period begin?</item>
-        <item name="when_start_days1">When did your last \n period begin?</item>
+        <item name="when_start_days1">How much is your monthly \n average?</item>
         <item name="how_long_days">What is your average \n monthly period?</item>
         <item name="year_of_birth">Will there be predictions if you indicate your \n year of birth?</item>
             
@@ -42,7 +42,7 @@
     </string-array>
 
     //for WeekModeCalendarFragment
-    <string name="menstruation_after">Menstruation through</string>
+    <string name="menstruation_after">Menstruation after</string>
     <string name="unlikely_to_get_pregnant">Unlikely \n to get pregnant</string>
     <string name="average_probability_of_getting_pregnant">Average chance \n to get pregnant</string>
     <string name="high_probability_of_getting_pregnant">High probability \n to become pregnant</string>
@@ -77,7 +77,7 @@
     <string name="deleting_all_notes">Delete all notes</string>
     <string name="cancel">Cancel</string>
     <string name="ru_save">Save</string>
-    <string name="remind">Reminders</string>
+    <string name="remind">Notifications</string>
     <string name="graphs">Charts and reports</string>
     <string name="settings">Settings</string>
     <string name="rate_us">Rate us</string>
