@@ -147,8 +147,8 @@ class StatisticsActivity : AppCompatActivity() {
             return@async cycles
         }
 
-        txtvwAvgOfCycles.setText(findAvg(cycleDao).first.toString()+" "+findAvg(cycleDao).first.toInt().getDayAddition())
-        txtvwAvgOfMenstruation.setText(findAvg(cycleDao).first.toString()+" "+findAvg(cycleDao).second.toInt().getDayAddition())
+        txtvwAvgOfCycles.setText(findAvg(cycleDao).first.toString()+" "+findAvg(cycleDao).first.toInt().getDayAddition(this))
+        txtvwAvgOfMenstruation.setText(findAvg(cycleDao).first.toString()+" "+findAvg(cycleDao).second.toInt().getDayAddition(this))
 
 
     }

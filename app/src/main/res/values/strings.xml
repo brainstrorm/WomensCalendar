@@ -73,6 +73,12 @@
         <item quantity="many">%1$d дней</item>
         <item quantity="other">%1$d дней</item>
     </plurals>
+
+    //days for information
+    <string name="day_1">день</string>
+    <string name="day_2_3_4">дня</string>
+    <string name="days">дней</string>
+
     <string name="deleting_all_notes">Удаляем все заметки</string>
     <string name="cancel">Отмена</string>
     <string name="ru_save">Сохранить</string>
@@ -155,5 +161,6 @@
     <string name="cancel_rate_us">ОТМЕНА</string>
     <string name="call_back_rate_us">ОБРАТНАЯ СВЯЗЬ</string>
 
-
+    <!-- For average cycle picker -->
+    <string name="choose">Выберите</string>
 </resources>

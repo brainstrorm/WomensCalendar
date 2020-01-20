@@ -1,6 +1,9 @@
 package ru.brainstorm.android.womenscalendar.presentation.quiz.fragment
 
+import android.content.SharedPreferences
+import android.content.res.Configuration
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -21,6 +24,7 @@ class BirthDateFragment : AbstractQuizFragment() {
     private lateinit var choose: TextView
     private lateinit var averageMenstruationPicker: NumberPicker
 
+    private lateinit var pref : SharedPreferences
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -31,6 +35,8 @@ class BirthDateFragment : AbstractQuizFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        pref = PreferenceManager.getDefaultSharedPreferences(context)
 
         averageMenstruationPicker = view.findViewById(R.id.birthDatePicker)
         choose = view.findViewById(R.id.choose)
@@ -68,4 +74,15 @@ class BirthDateFragment : AbstractQuizFragment() {
         Log.d(QuizActivity.TAG, "Saving date: ${User.birthDate}")
     }
 
+
+    fun updateLocale(){
+        val language = pref.getString("language", "en")
+        val locale = Locale(language)
+        Locale.setDefault(locale)
+        val configuration = Configuration()
+        configuration.locale = locale
+        getResources().updateConfiguration(configuration, null)
+
+        choose.setText(R.string.choose)
+    }
 }

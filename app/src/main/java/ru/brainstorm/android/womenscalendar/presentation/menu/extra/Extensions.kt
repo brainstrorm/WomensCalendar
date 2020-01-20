@@ -1,23 +1,25 @@
 package ru.brainstorm.android.womenscalendar.presentation.menu.extra
 
 import android.content.ActivityNotFoundException
+import android.content.Context
 import android.content.Intent
 import android.widget.Toast
 import org.threeten.bp.LocalDate
+import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.data.database.entities.Cycle
+import ru.brainstorm.android.womenscalendar.presentation.menu.fragment.WeekModeCalendarFragment
 
 
-
-fun Int.getDayAddition(): String {
+fun Int.getDayAddition(context: Context): String {
     val preLastDigit = this % 100 / 10
     if (preLastDigit == 1) {
-        return "дней"
+        return context.resources.getString(R.string.days)
     }
 
     when (this % 10) {
-        1 -> return "день"
-        2, 3, 4 -> return "дня"
-        else -> return "дней"
+        1 -> return context.resources.getString(R.string.day_1)
+        2, 3, 4 -> return context.resources.getString(R.string.day_2_3_4)
+        else -> return context.resources.getString(R.string.days)
     }
 }
 

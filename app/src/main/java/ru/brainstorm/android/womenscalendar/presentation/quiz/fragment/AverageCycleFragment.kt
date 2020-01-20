@@ -1,6 +1,9 @@
 package ru.brainstorm.android.womenscalendar.presentation.quiz.fragment
 
+import android.content.SharedPreferences
+import android.content.res.Configuration
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +14,9 @@ import com.shawnlin.numberpicker.NumberPicker
 import kotlinx.android.synthetic.main.fragment_average_cycle.*
 import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.data.database.entities.Cycle
+import ru.brainstorm.android.womenscalendar.presentation.menu.extra.getDayAddition
 import ru.brainstorm.android.womenscalendar.presentation.quiz.activity.QuizActivity
+import java.util.*
 
 
 class AverageCycleFragment : AbstractQuizFragment() {
@@ -19,6 +24,8 @@ class AverageCycleFragment : AbstractQuizFragment() {
     private lateinit var choose: TextView
     private lateinit var days: TextView
     private lateinit var averageCyclePicker: NumberPicker
+
+    private lateinit var pref : SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,6 +37,8 @@ class AverageCycleFragment : AbstractQuizFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        pref = PreferenceManager.getDefaultSharedPreferences(context)
 
         averageCyclePicker = view.findViewById<NumberPicker>(R.id.averageCyclePicker)
         choose = view.findViewById(R.id.choose)
@@ -44,7 +53,10 @@ class AverageCycleFragment : AbstractQuizFragment() {
         averageCyclePicker.setOnValueChangedListener { _, _, _ ->
             choose.isVisible = false
             days.isVisible = true
+            days.setText(averageCyclePicker.value.getDayAddition(context!!))
         }
+
+        updateLocale()
 
     }
 
@@ -63,5 +75,16 @@ class AverageCycleFragment : AbstractQuizFragment() {
             cycle.lengthOfCycle = averageCyclePicker.value
             Log.d(QuizActivity.TAG, "Saving cycle length: ${cycle.lengthOfCycle}")
         }
+    }
+
+    fun updateLocale(){
+        val language = pref.getString("language", "en")
+        val locale = Locale(language)
+        Locale.setDefault(locale)
+        val configuration = Configuration()
+        configuration.locale = locale
+        getResources().updateConfiguration(configuration, null)
+
+        choose.setText(R.string.choose)
     }
 }

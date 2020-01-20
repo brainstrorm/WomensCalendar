@@ -30,7 +30,6 @@
     <string name="step_poll">Etapa %1$d de 4</string>
     <string name="poll_init">Fazendo previsões \n ciclos ...</string>
 
-
     
     <string name="hello_blank_fragment">Olá fragmento em branco</string>
 
@@ -69,11 +68,16 @@
     <string name="settings_len_of_cycle">Duração do ciclo</string>
     <string name="settings_len_of_menstr">Menstruação</string>
     <plurals name="days">
-        <item quantity="one">%1$d день</item>
-        <item quantity="few">%1$d дня</item>
-        <item quantity="many">%1$d дней</item>
-        <item quantity="other">%1$d дней</item>
+        <item quantity="one">%1$d dia</item>
+        <item quantity="few">%1$d dias</item>
+        <item quantity="many">%1$d dias</item>
+        <item quantity="other">%1$d dias</item>
     </plurals>
+
+    <string name="day_1">dia</string>
+    <string name="day_2_3_4">dias</string>
+    <string name="days">dias</string>
+
     <string name="deleting_all_notes">Excluir todas as notas</string>
     <string name="cancel">Cancelar</string>
     <string name="ru_save">Salvar</string>

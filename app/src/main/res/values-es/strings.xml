@@ -70,11 +70,16 @@
     <string name="settings_len_of_cycle">Duración del ciclo</string>
     <string name="settings_len_of_menstr">Menstruación</string>
     <plurals name="days">
-        <item quantity="one">%1$d день</item>
-        <item quantity="few">%1$d дня</item>
-        <item quantity="many">%1$d дней</item>
-        <item quantity="other">%1$d дней</item>
+        <item quantity="one">%1$d >día</item>
+        <item quantity="few">%1$d día</item>
+        <item quantity="many">%1$d día</item>
+        <item quantity="other">%1$d día</item>
     </plurals>
+
+    <string name="day_1">día</string>
+    <string name="day_2_3_4">día</string>
+    <string name="days">día</string>
+
     <string name="deleting_all_notes">Eliminar todas las notas</string>
     <string name="cancel">Cancelar</string>
     <string name="ru_save">Guardar</string>

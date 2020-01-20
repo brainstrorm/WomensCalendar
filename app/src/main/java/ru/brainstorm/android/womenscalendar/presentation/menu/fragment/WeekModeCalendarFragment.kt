@@ -404,7 +404,7 @@ class WeekModeCalendarFragment : AbstractMenuFragment() {
                 )
 
                 setAdditionalText(
-                    "${context!!.getText(R.string.the_cycle_lasted)} \n 30 ${30.getDayAddition()}",
+                    "${context!!.getText(R.string.the_cycle_lasted)} \n 30 ${30.getDayAddition(context!!)}",
                     R.color.colorPartOfCycleInRoundPink)
             }
             PartOfCycle.OVULATION -> {
@@ -468,7 +468,7 @@ class WeekModeCalendarFragment : AbstractMenuFragment() {
     private fun setOtherText(numberOfDays: Int,
                              forecastTextColor : Int){
 
-        TVForecastText.text = "$numberOfDays ${numberOfDays.getDayAddition()}"
+        TVForecastText.text = "$numberOfDays ${numberOfDays.getDayAddition(context!!)}"
         TVForecastText.setTextColorRes(forecastTextColor)
     }
 

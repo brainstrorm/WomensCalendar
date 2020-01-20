@@ -214,6 +214,7 @@ class SettingsFragment
         }
         cyclePicker.minValue = 0
         cyclePicker.maxValue = 30
+
         menstPicker.minValue = 0
         menstPicker.maxValue = 10
     }

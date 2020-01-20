@@ -55,14 +55,19 @@ class SplashScreenActivity : MvpAppCompatActivity(), SplashScreenView {
 
         splashScreenPresenter.checkFirstLaunch()
     }
-
     fun updateLocale(){
-        val language = pref.getString("language", "en")
-        val locale = Locale(language)
+        if(pref.getString("language", "def").equals("def")) {
+            val APP_LANGUAGE = "language"
+            val editor = pref.edit()
+            editor.putString(APP_LANGUAGE, Locale.getDefault().getLanguage())
+            editor.commit()
+        }
+        val locale = Locale(pref.getString("language", "en")!!)
         Locale.setDefault(locale)
         val configuration = Configuration()
         configuration.locale = locale
         getResources().updateConfiguration(configuration, null)
+
         txtvwInit.setText(R.string.init_rus)
     }
 
