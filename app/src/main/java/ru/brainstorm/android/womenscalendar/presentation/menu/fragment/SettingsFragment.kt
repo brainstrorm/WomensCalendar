@@ -75,6 +75,8 @@ class SettingsFragment
     private lateinit var settingsLayout : LinearLayout
     private lateinit var notificationsLayout : LinearLayout
     private lateinit var btnBack : ImageView
+    private lateinit var txtvwValueOfMenstruation : TextView
+    private lateinit var txtvwValueOfCycle : TextView
 
     private lateinit var pref : SharedPreferences
 

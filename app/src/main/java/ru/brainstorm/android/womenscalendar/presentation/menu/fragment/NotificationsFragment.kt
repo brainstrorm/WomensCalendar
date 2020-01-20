@@ -67,6 +67,8 @@ public class NotificationsFragment : AbstractMenuFragment() {
     private lateinit var txtvwClosingOfFertilityWindow : TextView
     private lateinit var txtvwFertilityWindowCloses : TextView
 
+
+
     private lateinit var pref : SharedPreferences
 
     final val NotificationIDTag =  "START_MENSTRUATION_NOTIFICATION"
@@ -155,6 +157,7 @@ public class NotificationsFragment : AbstractMenuFragment() {
         txtvwPredictableOvulation = view.findViewById(R.id.predictable_ovulation)
         txtvwClosingOfFertilityWindow = view.findViewById(R.id.close_of_fertility_window)
         txtvwFertilityWindowCloses = view.findViewById(R.id.closing_of_fertility_window)
+
 
         updateLocale()
 
