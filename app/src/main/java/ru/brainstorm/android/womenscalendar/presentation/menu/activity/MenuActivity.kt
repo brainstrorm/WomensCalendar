@@ -398,7 +398,10 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
                menuPresenter.setFragment(supportFragmentManager, "today")
             }
             R.id.calendar -> {
-
+                btnMonthOrYearChecked == 1
+                btnMonthOrYear.setImageResource(R.drawable.ic_toggle_button)
+                txtvwMonth.setTextColorRes(R.color.white)
+                txtvwYear.setTextColorRes(R.color.grey_for_year)
                 menuPresenter.setFragment(supportFragmentManager, "calendar")
             }
             R.id.info -> {
