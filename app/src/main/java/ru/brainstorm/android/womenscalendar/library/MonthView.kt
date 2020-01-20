@@ -173,11 +173,11 @@ class MonthView(context: Context,
         private fun roundToday(detected: DayState, tv: TextView?) {
             tv ?: return
             when(detected) {
-                DayState.NONE -> tv.setBackgroundResource(R.drawable.black_circle)
-                DayState.EXACT_OVULATION -> tv.setBackgroundResource(R.drawable.ovulation_round_selected)
+                DayState.NONE -> tv.setBackgroundResource(R.drawable.black_circle_for_year)
+                DayState.EXACT_OVULATION -> tv.setBackgroundResource(R.drawable.ovulation_round_selected_for_year)
                 DayState.MENSTRUATION, DayState.CURRENT_MENSTRUATION, DayState.START_MENSTRUATION_NOW, DayState.END_MENSTRUATION_NOW ->
-                    tv.setBackgroundResource(R.drawable.red_circle)
-                DayState.OVULATION -> tv.setBackgroundResource(R.drawable.orange_circle)
+                    tv.setBackgroundResource(R.drawable.red_circle_for_year)
+                DayState.OVULATION -> tv.setBackgroundResource(R.drawable.orange_circle_for_year)
             }
         }
 
