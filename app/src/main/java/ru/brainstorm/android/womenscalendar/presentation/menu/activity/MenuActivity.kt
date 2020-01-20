@@ -301,7 +301,7 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
                 btnCalendar?.layoutParams.width = 51
                 btnCalendar?.layoutParams.height = 51
                 txtvwCalendar.setTextColor(resources.getColor(R.color.colorBlueNotesRedactor))
-                btnTodayRound.isEnabled = false
+                btnTodayRound.isEnabled = true
             }
             "languages" -> {
                 setVisibility(View.VISIBLE, View.GONE, View.GONE,
