@@ -117,105 +117,100 @@ class MonthView(context: Context,
         override fun bindDay(parent: ViewGroup?, row: Int, col: Int): View? {
             //val leftBlobe = view.findViewById<ImageView>(R.id.blobeStart)
             //val dayText = view.findViewById<TextView>(R.id.calendarDayText)
+            var view: View? = null
+            var tv: TextView?
             val date = calculateDate(row, col)
             if (date < 0)
-                return null
-            val isStart = isStartOfMenstruation(date)
-            val isEnd = isEndOfMenstruation(date)
-            if (isStart or isEnd) {
-                val view = inflate(context, R.layout.drop_day_item, null)
-                view.findViewById<TextView>(R.id.date).apply {
-                    text = date.toString()
-                    gravity = Gravity.CENTER
-                    textSize = 10f
-                }
-                if (isStart) {
-                    view.findViewById<TextView>(R.id.date).background = startBackground
-                    view.findViewById<View>(R.id.end_blobe).visibility = View.GONE
-                } else {
-                    view.findViewById<TextView>(R.id.date).background = endBackground
-                    view.findViewById<View>(R.id.first_blobe).visibility = View.GONE
-                }
                 return view
-            }
-            val tv = TextView(context)
-            tv.gravity = Gravity.CENTER
-            tv.text = date.toString()
-            tv.textSize = 10f
-            if (isMenstruationDay(date)) {
-                if(isStartOfMenstruation(date)){
+            val detected = detectDay(date)
+            when (detected) {
+                DayState.NONE -> {
+                    view = TextView(context)
+                    tv = view
+                }
+                DayState.START_MENSTRUATION_NOW -> {
+                    view = inflate(context, R.layout.drop_day_item, null)
+                    view.findViewById<View>(R.id.end_blobe).visibility = View.GONE
+                    tv = view.findViewById(R.id.date)
                     tv.background = startBackground
-                }else if(isEndOfMenstruation(date)){
+                }
+                DayState.END_MENSTRUATION_NOW -> {
+                    view = inflate(context, R.layout.drop_day_item, null)
+                    view.findViewById<View>(R.id.first_blobe).visibility = View.GONE
+                    tv = view.findViewById(R.id.date)
                     tv.background = endBackground
-                }else{
+                }
+                DayState.CURRENT_MENSTRUATION -> {
+                    view = TextView(context)
+                    tv = view
                     tv.setBackgroundResource(R.drawable.example_4_continuous_selected_bg_middle)
                 }
-            }
-            if (isOvulationDay(date)) {
-                if(isDirectOvulationDay(date)){
+                DayState.MENSTRUATION -> {
+                    view = TextView(context)
+                    tv = view
+                    tv.setTextColorRes(R.color.settings_pink_btn)
+                }
+                DayState.OVULATION -> {
+                    view = TextView(context)
+                    tv = view
+                    tv.setTextColorRes(R.color.settings_orange_btn)
+                }
+                DayState.EXACT_OVULATION -> {
+                    view = TextView(context)
+                    tv = view
                     tv.setBackgroundResource(R.drawable.orange_round_for_year)
                     tv.setTextColorRes(R.color.color_White)
-                }else{
-                    tv.setTextColorRes(R.color.colorOfChosenNumberOrange)
                 }
             }
-
-            return tv
+            if (LocalDate.now() == LocalDate.of(month.year, month.month, date))
+                roundToday(detected, tv)
+            tv?.gravity = Gravity.CENTER
+            tv?.text = date.toString()
+            tv?.textSize = 10f
+            return view
         }
 
-        private fun isOvulationDay(day: Int): Boolean {
-            cycleList.forEach {
-                val start = LocalDate.parse(it.ovulation, dateFormatter).minusDays(4L)
-                val end = start.plusDays(8L)
-                val curDay = LocalDate.of(month.year, month.month, day)
-                if (curDay.isAfter(start) and curDay.isBefore(end) or curDay.isEqual(start) or curDay.isEqual(end))
-                    return true
+        private fun roundToday(detected: DayState, tv: TextView?) {
+            tv ?: return
+            when(detected) {
+                DayState.NONE -> tv.setBackgroundResource(R.drawable.black_circle)
+                DayState.EXACT_OVULATION -> tv.setBackgroundResource(R.drawable.ovulation_round_selected)
+                DayState.MENSTRUATION, DayState.CURRENT_MENSTRUATION, DayState.START_MENSTRUATION_NOW, DayState.END_MENSTRUATION_NOW ->
+                    tv.setBackgroundResource(R.drawable.red_circle)
+                DayState.OVULATION -> tv.setBackgroundResource(R.drawable.orange_circle)
             }
-            return false
         }
 
-        private fun isDirectOvulationDay(day: Int): Boolean {
+        private fun detectDay(date: Int): DayState {
+            val curDay = LocalDate.of(month.year, month.month, date)
             cycleList.forEach {
-                val start = LocalDate.parse(it.ovulation, dateFormatter).minusDays(4L)
-                val end = start.plusDays(8L)
-                val curDay = LocalDate.of(month.year, month.month, day)
-                if (curDay.equals(LocalDate.parse(it.ovulation, dateFormatter)))
-                    return true
+                val startOfMenstruation = LocalDate.parse(it.startOfCycle, dateFormatter)
+                val endOfMenstruation = startOfMenstruation.plusDays(it.lengthOfMenstruation.toLong())
+                if (LocalDate.now() in startOfMenstruation..startOfMenstruation.plusDays(it.lengthOfCycle.toLong())) {
+                    when(curDay) {
+                        startOfMenstruation -> return DayState.START_MENSTRUATION_NOW
+                        endOfMenstruation -> return DayState.END_MENSTRUATION_NOW
+                        else -> {
+                            if (startOfMenstruation.isBefore(curDay) && endOfMenstruation.isAfter(curDay)) {
+                                return DayState.CURRENT_MENSTRUATION
+                            }
+                        }
+                    }
+                }
+                if (curDay in startOfMenstruation..endOfMenstruation) {
+                    return DayState.MENSTRUATION
+                }
+                val exactOvulation = LocalDate.parse(it.ovulation, dateFormatter)
+                if (exactOvulation == curDay)
+                    return DayState.EXACT_OVULATION
+                val startOfOvulation = exactOvulation.minusDays(4L)
+                val endOfOvulation = exactOvulation.plusDays(4L)
+                if (curDay in startOfOvulation..endOfOvulation)
+                    return DayState.OVULATION
             }
-            return false
+            return DayState.NONE
         }
 
-        private fun isMenstruationDay(day: Int): Boolean {
-            cycleList.forEach {
-                val start = LocalDate.parse(it.startOfCycle, dateFormatter)
-                val end = start.plusDays(it.lengthOfMenstruation.toLong())
-                val curDay = LocalDate.of(month.year, month.month, day)
-                if (curDay.isAfter(start) and curDay.isBefore(end) or curDay.isEqual(start) or curDay.isEqual(end))
-                    return true
-            }
-            return false
-        }
-
-        private fun isStartOfMenstruation(day : Int): Boolean {
-            cycleList.forEach {
-                val start = LocalDate.parse(it.startOfCycle, dateFormatter)
-                val curDay = LocalDate.of(month.year, month.month, day)
-                if (curDay == start)
-                    return true
-            }
-            return false
-        }
-
-        private fun isEndOfMenstruation(day : Int): Boolean {
-            cycleList.forEach {
-                val start = LocalDate.parse(it.startOfCycle, dateFormatter)
-                val end = start.plusDays(it.lengthOfMenstruation.toLong())
-                val curDay = LocalDate.of(month.year, month.month, day)
-                if (curDay == end)
-                    return true
-            }
-            return false
-        }
         protected fun calculateDate(row: Int, col: Int): Int {
             val date  = (row*getColCount() + col - offset + 1)
             if (date > 0 && date <= month.lengthOfMonth()) {
