@@ -12,13 +12,15 @@ import android.widget.TextView
 import androidx.gridlayout.widget.GridLayout
 import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.data.database.entities.Cycle
-import ru.brainstorm.android.womenscalendar.presentation.menu.activity.MenuActivity
 import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.getDrawableCompat
 import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.setTextColorRes
+import java.text.DateFormatSymbols
 import java.time.LocalDate
 import java.time.Month
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
+import java.time.format.TextStyle
+import java.util.*
 
 /**
  * @project Calendar
@@ -67,7 +69,6 @@ class MonthView(context: Context,
                     gridParams.setGravity(Gravity.CENTER)
                     gridParams.rowSpec = GridLayout.spec(i, 1f)
                     gridParams.columnSpec = GridLayout.spec(j, 1f)
-//                    setPadding(resources.getDimension(R.dimen.line_padding).toInt(), 0, resources.getDimension(R.dimen.line_padding).toInt(), 0)
                 }
             }
         }
@@ -83,6 +84,8 @@ class MonthView(context: Context,
     }
 
     open inner class DefaultMonthAdapter(month: YearMonth) : MonthAdapter {
+
+        private val dateFormatSymbols = DateFormatSymbols()
 
         private val dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
 
@@ -100,7 +103,9 @@ class MonthView(context: Context,
 
         private var offset: Int = 0
 
-        override fun getTitle(): String = month.month.name
+        override fun getTitle(): String {
+            return month.month.getDisplayName(TextStyle.FULL_STANDALONE, Locale.getDefault())
+        }
 
         override fun getColCount(): Int = 7
 
@@ -116,10 +121,8 @@ class MonthView(context: Context,
         }
 
         override fun bindDay(parent: ViewGroup?, row: Int, col: Int): View? {
-            //val leftBlobe = view.findViewById<ImageView>(R.id.blobeStart)
-            //val dayText = view.findViewById<TextView>(R.id.calendarDayText)
             var view: View? = null
-            var tv: TextView?
+            val tv: TextView?
             val date = calculateDate(row, col)
             if (date < 0)
                 return view
@@ -172,7 +175,7 @@ class MonthView(context: Context,
             tv?.textSize = 10f
             return view
         }
-//
+
         private fun roundToday(detected: DayState, tv: TextView?) {
             tv ?: return
             when(detected) {
