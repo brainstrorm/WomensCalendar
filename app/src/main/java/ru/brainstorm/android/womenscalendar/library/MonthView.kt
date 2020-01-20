@@ -169,7 +169,7 @@ class MonthView(context: Context,
             tv?.textSize = 10f
             return view
         }
-
+//
         private fun roundToday(detected: DayState, tv: TextView?) {
             tv ?: return
             when(detected) {
