@@ -8,10 +8,12 @@ import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.gridlayout.widget.GridLayout
 import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.data.database.entities.Cycle
+import ru.brainstorm.android.womenscalendar.data.database.entities.Note
 import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.getDrawableCompat
 import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.setTextColorRes
 import java.text.DateFormatSymbols
@@ -76,6 +78,7 @@ class MonthView(context: Context,
 
     interface MonthAdapter {
         var cycleList: List<Cycle>
+        var noteList: List<Note>
         var month: YearMonth
         fun getRowCount(): Int
         fun getColCount(): Int
@@ -85,8 +88,6 @@ class MonthView(context: Context,
 
     open inner class DefaultMonthAdapter(month: YearMonth) : MonthAdapter {
 
-        private val dateFormatSymbols = DateFormatSymbols()
-
         private val dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
 
         override var cycleList: List<Cycle> = emptyList()
@@ -94,6 +95,8 @@ class MonthView(context: Context,
             field = value
             notifyDataChanged()
         }
+
+        override var noteList: List<Note> = emptyList()
 
         override var month: YearMonth = month
         set(value) {
@@ -129,51 +132,62 @@ class MonthView(context: Context,
             val detected = detectDay(date)
             when (detected) {
                 DayState.NONE -> {
-                    view = TextView(context)
-                    tv = view
+                    view = View.inflate(context, R.layout.day_item_with_dot, null)
+                    tv = view.findViewById(R.id.date)
                 }
                 DayState.START_MENSTRUATION_NOW -> {
                     view = inflate(context, R.layout.drop_day_item, null)
                     view.findViewById<View>(R.id.end_blobe).visibility = View.GONE
                     tv = view.findViewById(R.id.date)
-                    tv.background = startBackground
+                    view.background = startBackground
                 }
                 DayState.END_MENSTRUATION_NOW -> {
                     view = inflate(context, R.layout.drop_day_item, null)
                     view.findViewById<View>(R.id.first_blobe).visibility = View.GONE
                     tv = view.findViewById(R.id.date)
-                    tv.background = endBackground
+                    view.background = endBackground
                 }
                 DayState.CURRENT_MENSTRUATION -> {
-                    view = inflate(context, R.layout.drop_day_item, null)
-                    view.findViewById<View>(R.id.first_blobe).visibility = View.GONE
-                    view.findViewById<View>(R.id.end_blobe).visibility = View.GONE
+                    view = View.inflate(context, R.layout.day_item_with_dot, null)
                     tv = view.findViewById(R.id.date)
-                    view.setBackgroundResource(R.drawable.example_4_continuous_selected_bg_middle)
+                    view.findViewById<View>(R.id.background)
+                        .setBackgroundResource(R.drawable.example_4_continuous_selected_bg_middle)
                 }
                 DayState.MENSTRUATION -> {
-                    view = TextView(context)
-                    tv = view
+                    view = View.inflate(context, R.layout.day_item_with_dot, null)
+                    tv = view.findViewById(R.id.date)
                     tv.setTextColorRes(R.color.settings_pink_btn)
                 }
                 DayState.OVULATION -> {
-                    view = TextView(context)
-                    tv = view
+                    view = View.inflate(context, R.layout.day_item_with_dot, null)
+                    tv = view.findViewById(R.id.date)
                     tv.setTextColorRes(R.color.settings_orange_btn)
                 }
                 DayState.EXACT_OVULATION -> {
-                    view = TextView(context)
-                    tv = view
+                    view = View.inflate(context, R.layout.day_item_with_dot, null)
+                    tv = view.findViewById(R.id.date)
                     tv.setBackgroundResource(R.drawable.orange_round_for_year)
                     tv.setTextColorRes(R.color.color_White)
                 }
             }
             if (LocalDate.now() == LocalDate.of(month.year, month.month, date))
                 roundToday(detected, tv)
+            if (noteDay(date)) {
+                view.findViewById<ImageView>(R.id.dot).visibility = View.VISIBLE
+            }
             tv?.gravity = Gravity.CENTER
             tv?.text = date.toString()
             tv?.textSize = 10f
             return view
+        }
+
+        private fun noteDay(date: Int): Boolean {
+            val curDay = LocalDate.of(month.year, month.month, date)
+            noteList.forEach {
+                if (LocalDate.parse(it.noteDate, dateFormatter) == curDay)
+                    return true
+            }
+            return false
         }
 
         private fun roundToday(detected: DayState, tv: TextView?) {
