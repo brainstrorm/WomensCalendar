@@ -1,412 +1,410 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_height="match_parent"
-    android:layout_width="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-
-
-
-<LinearLayout
-    android:id="@+id/main"
-    android:background="@color/settings_background"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/expand_menstruation_picker"
-        android:background="@color/white"
-        android:padding="8dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/valueOfMenstruation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:paddingBottom="8dp"
-            android:paddingTop="8dp"
-            android:textSize="16sp"
-            android:text="@string/day"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/settingsMenstruation"
-            android:layout_width="0dp"
-            android:paddingBottom="8dp"
-            android:paddingTop="8dp"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:text="@string/settings_len_of_menstr"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/valueOfMenstruation"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/settingsPickMenstruation"
-        android:layout_width="match_parent"
-        android:layout_height="0dp">
-
-        <Button
-            android:id="@+id/settings_cancel_menstruation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:text="@string/cancel"
-            android:textColor="@color/color_Blue"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/settings_save_menstruation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:text="@string/ru_save"
-            android:textColor="@color/color_Blue"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.shawnlin.numberpicker.NumberPicker
-            android:id="@+id/pick_menstruation"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/settings_save_menstruation"
-            app:layout_constraintStart_toEndOf="@+id/settings_cancel_menstruation"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/expand_cycle_picker"
-        android:background="@color/white"
+    <ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="8dp">
+        android:orientation="vertical"
+        xmlns:android="http://schemas.android.com/apk/res/android">
 
-        <TextView
-            android:paddingBottom="8dp"
-            android:paddingTop="8dp"
-            android:id="@+id/valueOfCycle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:textSize="16sp"
-            android:text="@string/day"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <LinearLayout
+            android:id="@+id/main"
+            android:background="@color/settings_background"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:paddingBottom="8dp"
-            android:paddingTop="8dp"
-            android:id="@+id/settingsCycle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:text="@string/settings_len_of_cycle"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/valueOfCycle"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/expand_menstruation_picker"
+                android:background="@color/white"
+                android:padding="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/settingsPickCycle"
-        android:layout_width="match_parent"
-        android:layout_marginBottom="16dp"
-        android:layout_height="0dp">
+                <TextView
+                    android:id="@+id/valueOfMenstruation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:paddingBottom="8dp"
+                    android:paddingTop="8dp"
+                    android:textSize="16sp"
+                    android:text="@string/day"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/settings_cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:text="@string/cancel"
-            android:textColor="@color/color_Blue"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/settingsMenstruation"
+                    android:layout_width="0dp"
+                    android:paddingBottom="8dp"
+                    android:paddingTop="8dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:text="@string/settings_len_of_menstr"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/valueOfMenstruation"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <Button
-            android:id="@+id/settings_save"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:text="@string/ru_save"
-            android:textColor="@color/color_Blue"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/settingsPickMenstruation"
+                android:layout_width="match_parent"
+                android:layout_height="0dp">
 
-        <com.shawnlin.numberpicker.NumberPicker
-            android:id="@+id/pick_cycle"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/settings_save"
-            app:layout_constraintStart_toEndOf="@+id/settings_cancel"
-            app:layout_constraintTop_toTopOf="parent" />
+                <Button
+                    android:id="@+id/settings_cancel_menstruation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:text="@string/cancel"
+                    android:textColor="@color/color_Blue"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <Button
+                    android:id="@+id/settings_save_menstruation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:text="@string/ru_save"
+                    android:textColor="@color/color_Blue"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:background="@drawable/line"
-        android:id="@+id/reminders"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="horizontal">
+                <com.shawnlin.numberpicker.NumberPicker
+                    android:id="@+id/pick_menstruation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/settings_save_menstruation"
+                    app:layout_constraintStart_toEndOf="@+id/settings_cancel_menstruation"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:layout_weight="0"
-            app:srcCompat="@drawable/ic_baseline_notifications_active_24px"
-            app:tint="@color/settings_pink_btn" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TextView
-            android:paddingBottom="16dp"
-            android:paddingTop="16dp"
-            android:textSize="16sp"
-            android:id="@+id/notifications_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/remind" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/expand_cycle_picker"
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="8dp">
 
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:layout_weight="0"
-            app:srcCompat="@drawable/ic_shape_settings" />
-    </LinearLayout>
+                <TextView
+                    android:paddingBottom="8dp"
+                    android:paddingTop="8dp"
+                    android:id="@+id/valueOfCycle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:textSize="16sp"
+                    android:text="@string/day"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:background="@drawable/line"
-        android:id="@+id/graphs"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="horizontal">
+                <TextView
+                    android:paddingBottom="8dp"
+                    android:paddingTop="8dp"
+                    android:id="@+id/settingsCycle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:text="@string/settings_len_of_cycle"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/valueOfCycle"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:layout_weight="0"
-            app:srcCompat="@drawable/ic_baseline_poll_24px"
-            app:tint="@color/settings_pink_btn" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/settingsPickCycle"
+                android:layout_width="match_parent"
+                android:layout_marginBottom="16dp"
+                android:layout_height="0dp">
 
-        <TextView
-            android:paddingBottom="16dp"
-            android:paddingTop="16dp"
-            android:textSize="16sp"
-            android:id="@+id/graphics_and_reports_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/graphs" />
+                <Button
+                    android:id="@+id/settings_cancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:text="@string/cancel"
+                    android:textColor="@color/color_Blue"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/imageView5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:layout_weight="0"
-            app:srcCompat="@drawable/ic_shape_settings" />
+                <Button
+                    android:id="@+id/settings_save"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:text="@string/ru_save"
+                    android:textColor="@color/color_Blue"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-    </LinearLayout>
+                <com.shawnlin.numberpicker.NumberPicker
+                    android:id="@+id/pick_cycle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/settings_save"
+                    app:layout_constraintStart_toEndOf="@+id/settings_cancel"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:background="@color/white"
-        android:id="@+id/settings"
-        android:layout_marginBottom="16dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="horizontal">
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <ImageView
-            android:id="@+id/imageView6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_weight="0"
-            app:srcCompat="@drawable/ic_baseline_settings_20px"
-            app:tint="@color/settings_pink_btn" />
+            <LinearLayout
+                android:background="@drawable/line"
+                android:id="@+id/reminders"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-        <TextView
-            android:paddingBottom="16dp"
-            android:paddingTop="16dp"
-            android:textSize="16sp"
-            android:id="@+id/settings_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/settings" />
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:layout_weight="0"
+                    app:srcCompat="@drawable/ic_baseline_notifications_active_24px"
+                    app:tint="@color/settings_pink_btn" />
 
-        <ImageView
-            android:id="@+id/imageView7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:layout_weight="0"
-            app:srcCompat="@drawable/ic_shape_settings" />
-    </LinearLayout>
+                <TextView
+                    android:paddingBottom="16dp"
+                    android:paddingTop="16dp"
+                    android:textSize="16sp"
+                    android:id="@+id/notifications_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/remind" />
 
-    <LinearLayout
-        android:background="@drawable/line"
-        android:id="@+id/rateUs"
-        android:layout_width="match_parent"
-        android:gravity="center"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:layout_weight="0"
+                    app:srcCompat="@drawable/ic_shape_settings" />
+            </LinearLayout>
 
-        <ImageView
-            android:id="@+id/imageView8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:layout_weight="0"
-            app:srcCompat="@drawable/ic_baseline_grade_24px"
-            app:tint="@color/settings_orange_btn" />
+            <LinearLayout
+                android:background="@drawable/line"
+                android:id="@+id/graphs"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/rate_us_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingTop="16dp"
-            android:paddingBottom="16dp"
-            android:text="@string/rate_us"
-            android:textSize="16sp" />
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:layout_weight="0"
+                    app:srcCompat="@drawable/ic_baseline_poll_24px"
+                    app:tint="@color/settings_pink_btn" />
 
-        <ImageView
-            android:id="@+id/imageView9"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:layout_weight="0"
-            app:srcCompat="@drawable/ic_shape_settings" />
-    </LinearLayout>
+                <TextView
+                    android:paddingBottom="16dp"
+                    android:paddingTop="16dp"
+                    android:textSize="16sp"
+                    android:id="@+id/graphics_and_reports_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/graphs" />
 
-    <LinearLayout
-        android:background="@drawable/line"
-        android:id="@+id/helpFeedback"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/imageView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:layout_weight="0"
+                    app:srcCompat="@drawable/ic_shape_settings" />
 
-        <ImageView
-            android:id="@+id/imageView10"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:layout_weight="0"
-            app:srcCompat="@drawable/ic_baseline_feedback_24px"
-            app:tint="@color/settings_orange_btn" />
+            </LinearLayout>
 
-        <TextView
-            android:paddingBottom="16dp"
-            android:paddingTop="16dp"
-            android:textSize="16sp"
-            android:id="@+id/help_and_feedback_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/help_feedback" />
+            <LinearLayout
+                android:background="@color/white"
+                android:id="@+id/settings"
+                android:layout_marginBottom="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/imageView11"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:layout_weight="0"
-            app:srcCompat="@drawable/ic_shape_settings" />
-    </LinearLayout>
+                <ImageView
+                    android:id="@+id/imageView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_weight="0"
+                    app:srcCompat="@drawable/ic_baseline_settings_20px"
+                    app:tint="@color/settings_pink_btn" />
 
-    <LinearLayout
-        android:background="@drawable/line"
-        android:id="@+id/deleteAll"
-        android:gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+                <TextView
+                    android:paddingBottom="16dp"
+                    android:paddingTop="16dp"
+                    android:textSize="16sp"
+                    android:id="@+id/settings_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/settings" />
 
-        <ImageView
-            android:id="@+id/imageView12"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:layout_weight="0"
-            app:srcCompat="@drawable/ic_baseline_delete_24px"
-            app:tint="@color/settings_orange_btn" />
+                <ImageView
+                    android:id="@+id/imageView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:layout_weight="0"
+                    app:srcCompat="@drawable/ic_shape_settings" />
+            </LinearLayout>
 
-        <TextView
-            android:paddingBottom="16dp"
-            android:paddingTop="16dp"
-            android:textSize="16sp"
-            android:id="@+id/delete_all_notes_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/delete_all_notes" />
+            <LinearLayout
+                android:background="@drawable/line"
+                android:id="@+id/rateUs"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/imageView13"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:layout_weight="0"
-            app:srcCompat="@drawable/ic_shape_settings" />
-    </LinearLayout>
+                <ImageView
+                    android:id="@+id/imageView8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:layout_weight="0"
+                    app:srcCompat="@drawable/ic_baseline_grade_24px"
+                    app:tint="@color/settings_orange_btn" />
 
-    <LinearLayout
-        android:background="@color/white"
-        android:gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/rate_us_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingTop="16dp"
+                    android:paddingBottom="16dp"
+                    android:text="@string/rate_us"
+                    android:textSize="16sp" />
 
-        <ImageView
-            android:id="@+id/imageView14"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:layout_weight="0"
-            app:srcCompat="@drawable/ic_baseline_info_24px"
-            app:tint="@color/settings_orange_btn" />
+                <ImageView
+                    android:id="@+id/imageView9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:layout_weight="0"
+                    app:srcCompat="@drawable/ic_shape_settings" />
+            </LinearLayout>
 
-        <TextView
-            android:paddingBottom="16dp"
-            android:paddingTop="16dp"
-            android:textSize="16sp"
-            android:id="@+id/about_app"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/about_us" />
+            <LinearLayout
+                android:background="@drawable/line"
+                android:id="@+id/helpFeedback"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/imageView15"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:layout_weight="0"
-            app:srcCompat="@drawable/ic_shape_settings" />
-    </LinearLayout>
+                <ImageView
+                    android:id="@+id/imageView10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:layout_weight="0"
+                    app:srcCompat="@drawable/ic_baseline_feedback_24px"
+                    app:tint="@color/settings_orange_btn" />
 
-</LinearLayout>
+                <TextView
+                    android:paddingBottom="16dp"
+                    android:paddingTop="16dp"
+                    android:textSize="16sp"
+                    android:id="@+id/help_and_feedback_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/help_feedback" />
 
-    </FrameLayout>
+                <ImageView
+                    android:id="@+id/imageView11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:layout_weight="0"
+                    app:srcCompat="@drawable/ic_shape_settings" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:background="@drawable/line"
+                android:id="@+id/deleteAll"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imageView12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:layout_weight="0"
+                    app:srcCompat="@drawable/ic_baseline_delete_24px"
+                    app:tint="@color/settings_orange_btn" />
+
+                <TextView
+                    android:paddingBottom="16dp"
+                    android:paddingTop="16dp"
+                    android:textSize="16sp"
+                    android:id="@+id/delete_all_notes_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/delete_all_notes" />
+
+                <ImageView
+                    android:id="@+id/imageView13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:layout_weight="0"
+                    app:srcCompat="@drawable/ic_shape_settings" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:background="@color/white"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imageView14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:layout_weight="0"
+                    app:srcCompat="@drawable/ic_baseline_info_24px"
+                    app:tint="@color/settings_orange_btn" />
+
+                <TextView
+                    android:paddingBottom="16dp"
+                    android:paddingTop="16dp"
+                    android:textSize="16sp"
+                    android:id="@+id/about_app"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/about_us" />
+
+                <ImageView
+                    android:id="@+id/imageView15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:layout_weight="0"
+                    app:srcCompat="@drawable/ic_shape_settings" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>

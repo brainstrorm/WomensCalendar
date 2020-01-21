@@ -53,7 +53,7 @@ class SettingsFragment
     lateinit var predictorImpl : PredictorImpl
 
 
-    private lateinit var mainView: View
+    private lateinit var mainView: ScrollView
     private lateinit var menstInfoLayout: ConstraintLayout
     private lateinit var cycleInfoLayout: ConstraintLayout
     private lateinit var menstLayout: ConstraintLayout
@@ -95,10 +95,8 @@ class SettingsFragment
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        mainView = inflater.inflate(R.layout.fragment_settings, container, false)
-        val kek: View = mainView.findViewById(R.id.main)
-        (mainView as ViewGroup).removeView(kek)
-        mainView = kek
+
+        mainView = inflater.inflate(R.layout.fragment_settings, container, false) as ScrollView
         initViews()
         initAnimators()
 
@@ -126,7 +124,10 @@ class SettingsFragment
 
         updateLocale()
         updateInformation()
+
+
         return mainView
+
     }
 
     private fun initViews() {

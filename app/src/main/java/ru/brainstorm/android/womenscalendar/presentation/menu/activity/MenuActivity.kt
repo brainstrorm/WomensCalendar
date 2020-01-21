@@ -504,20 +504,6 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
                 menuPresenter.addFragmentToBackStackString(currentFragment)
                 menuPresenter.setFragment(supportFragmentManager, "change_menstruation_dates")
             }
-            /*R.id.btn_today_menu -> {
-                when(currentFragment){
-                    "calendar" -> {
-                        (supportFragmentManager.findFragmentByTag(CalendarPickerFragment.TAG)
-                                as CalendarPickerFragment).toCurrentMonth()
-                    }
-                    "calendar_year_mode" -> {
-                        (supportFragmentManager.findFragmentByTag(CalendarYearModeFragment.TAG)
-                                as CalendarYearModeFragment).apply {
-                            recyclerView.scrollToPosition(Year.now().value - CalendarYearModeFragment.START_YEAR)
-                        }
-                    }
-                }
-            }*/
         }
 
     }
