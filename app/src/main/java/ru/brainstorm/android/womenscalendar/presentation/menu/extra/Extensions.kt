@@ -3,6 +3,7 @@ package ru.brainstorm.android.womenscalendar.presentation.menu.extra
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
+import android.preference.PreferenceManager
 import android.widget.Toast
 import org.threeten.bp.LocalDate
 import ru.brainstorm.android.womenscalendar.R
@@ -11,16 +12,39 @@ import ru.brainstorm.android.womenscalendar.presentation.menu.fragment.WeekModeC
 
 
 fun Int.getDayAddition(context: Context): String {
-    val preLastDigit = this % 100 / 10
-    if (preLastDigit == 1) {
-        return context.resources.getString(R.string.days)
-    }
+    val pref = PreferenceManager.getDefaultSharedPreferences(context)
+    when(pref.getString("language", "en")) {
+        "ru" -> {
+            val preLastDigit = this % 100 / 10
+            if (preLastDigit == 1) {
+                return context.resources.getString(R.string.days)
+            }
 
-    when (this % 10) {
-        1 -> return context.resources.getString(R.string.day_1)
-        2, 3, 4 -> return context.resources.getString(R.string.day_2_3_4)
-        else -> return context.resources.getString(R.string.days)
+            when (this % 10) {
+                1 -> return context.resources.getString(R.string.day_1)
+                2, 3, 4 -> return context.resources.getString(R.string.day_2_3_4)
+                else -> return context.resources.getString(R.string.days)
+            }
+        }
+        "en" -> {
+            if (this == 1){
+                return context.resources.getString(R.string.day_1)
+            }else{
+                return context.resources.getString(R.string.days)
+            }
+        }
+        "es" -> {
+            return context.resources.getString(R.string.day_1)
+        }
+        "pt" -> {
+            if(this == 1) {
+                return context.resources.getString(R.string.day_1)
+            }else{
+                return context.resources.getString(R.string.days)
+            }
+        }
     }
+    return context.resources.getString(R.string.days)
 }
 
 fun differenceBetweenDates(startDate : LocalDate, endDate : LocalDate) : Int{
