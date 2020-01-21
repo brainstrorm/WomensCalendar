@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -23,14 +24,14 @@ class CalendarYearModeFragment : AbstractMenuFragment(){
         val TAG = "CalendarYearMode"
 
         private val HARDCODED_YEAR_COUNT = 10
-        private val START_YEAR = 2019
+        val START_YEAR = 2019
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
 
-    private lateinit var recyclerView: RecyclerView
+    lateinit var recyclerView: RecyclerView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,8 +42,21 @@ class CalendarYearModeFragment : AbstractMenuFragment(){
         recyclerView.adapter = YearAdapter()
         recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         recyclerView.scrollToPosition(Year.now().value - START_YEAR)
-        (activity as MenuActivity).btnTodayRound.setOnClickListener {
-            recyclerView.scrollToPosition(Year.now().value - START_YEAR)
+        (activity as MenuActivity).apply {
+            btnTodayRound.setOnClickListener {
+                val calendarMonth = supportFragmentManager.findFragmentByTag(CalendarPickerFragment.TAG)
+                if (calendarMonth != null) {
+                    supportFragmentManager.beginTransaction()
+                        .detach(calendarMonth)
+                        .commit()
+                }
+                recyclerView.scrollToPosition(Year.now().value - START_YEAR)
+                if(calendarMonth != null) {
+                    supportFragmentManager.beginTransaction()
+                        .attach(calendarMonth)
+                        .commit()
+                }
+            }
         }
         return recyclerView
     }

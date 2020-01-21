@@ -9,6 +9,7 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.core.view.children
 import com.kizitonwose.calendarview.CalendarView
@@ -24,8 +25,10 @@ import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import org.threeten.bp.LocalDate
 import org.threeten.bp.YearMonth
+import org.w3c.dom.Text
 import ru.brainstorm.android.womenscalendar.App
 import ru.brainstorm.android.womenscalendar.R
+import ru.brainstorm.android.womenscalendar.presentation.menu.activity.MenuActivity
 import ru.brainstorm.android.womenscalendar.presentation.menu.presenter.ChangeMenstruationDatesPresenter
 import ru.brainstorm.android.womenscalendar.presentation.menu.view.ChangeMenstruationDatesView
 import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.daysOfWeekFromLocale
@@ -81,6 +84,40 @@ class ChangeMenstruationDatesFragment : AbstractMenuFragment(), ChangeMenstruati
 
         updateLocale()
 
+        (activity as MenuActivity).apply {
+            findViewById<TextView>(R.id.btn_save).setOnClickListener {
+                changeMenstruationDatesPresenter.save(
+                    getStartDate(),
+                    getEndDate(),
+                    supportFragmentManager,
+                    context!!
+                )
+                val calendarMonth = supportFragmentManager.findFragmentByTag(CalendarPickerFragment.TAG)
+                val calendarYear = supportFragmentManager.findFragmentByTag(CalendarYearModeFragment.TAG)
+                val weekMode = supportFragmentManager.findFragmentByTag(WeekModeCalendarFragment.TAG)
+                if (calendarMonth != null) {
+                    supportFragmentManager.beginTransaction()
+                        .detach(calendarMonth)
+                        .attach(calendarMonth)
+                        .commit()
+                }
+                if (calendarYear != null) {
+                    supportFragmentManager.beginTransaction()
+                        .detach(calendarYear)
+                        .attach(calendarYear)
+                        .commit()
+                }
+                if (weekMode != null){
+                    supportFragmentManager.beginTransaction()
+                        .detach(weekMode)
+                        .attach(weekMode)
+                        .commit()
+                }
+                val activity = this
+                menuPresenter.popBackStack(supportFragmentManager)
+
+            }
+        }
         var calendarView = view.findViewById<CalendarView>(R.id.calendarView)
 
         val daysOfWeek = daysOfWeekFromLocale()

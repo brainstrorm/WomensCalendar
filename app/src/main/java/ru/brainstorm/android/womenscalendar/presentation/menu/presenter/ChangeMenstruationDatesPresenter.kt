@@ -1,5 +1,7 @@
 package ru.brainstorm.android.womenscalendar.presentation.menu.presenter
 
+import android.content.Context
+import android.preference.PreferenceManager
 import androidx.fragment.app.FragmentManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -10,8 +12,10 @@ import moxy.MvpPresenter
 import moxy.MvpView
 import org.threeten.bp.LocalDate
 import ru.brainstorm.android.womenscalendar.data.database.dao.CycleDao
+import ru.brainstorm.android.womenscalendar.domain.predictor.PredictorImpl
 import ru.brainstorm.android.womenscalendar.presentation.menu.extra.differenceBetweenDates
 import ru.brainstorm.android.womenscalendar.presentation.menu.fragment.CalendarPickerFragment
+import ru.brainstorm.android.womenscalendar.presentation.menu.fragment.ChangeMenstruationDatesFragment
 import ru.brainstorm.android.womenscalendar.presentation.menu.fragment.WeekModeCalendarFragment
 import ru.brainstorm.android.womenscalendar.presentation.menu.view.ChangeMenstruationDatesView
 import javax.inject.Inject
@@ -25,7 +29,10 @@ constructor()
     @Inject
     lateinit var cycleDao: CycleDao
 
-    fun save(startDate : LocalDate?, endDate : LocalDate?, fm : FragmentManager){
+    @Inject
+    lateinit var predictorImpl: PredictorImpl
+
+    fun save(startDate : LocalDate?, endDate : LocalDate?, fm : FragmentManager, context: Context){
         if (startDate != null && endDate != null) {
             runBlocking {
                 val job = GlobalScope.launch(Dispatchers.IO) {
@@ -37,18 +44,9 @@ constructor()
                         cycleDao.delete(cycle)
                     }
                     cycleDao.insert(cycle)
+                    predictorImpl.predict(5, PreferenceManager.getDefaultSharedPreferences(context))
                 }
                 job.join()
-            }
-            if (fm.findFragmentByTag(CalendarPickerFragment.TAG) != null) {
-                fm.beginTransaction()
-                    .remove(fm.findFragmentByTag(CalendarPickerFragment.TAG)!!)
-                    .commit()
-            }
-            if(fm.findFragmentByTag(WeekModeCalendarFragment.TAG) != null){
-                fm.beginTransaction()
-                    .remove(fm.findFragmentByTag(WeekModeCalendarFragment.TAG)!!)
-                    .commit()
             }
         }
     }

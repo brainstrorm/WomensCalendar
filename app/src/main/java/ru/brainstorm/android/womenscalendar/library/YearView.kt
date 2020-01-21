@@ -69,6 +69,7 @@ class YearView(context: Context,
                             menuPresenter.setFragment(supportFragmentManager, "calendar")
                             btnMonthOrYearChecked = 1
                         }
+
                 }
             }
         }

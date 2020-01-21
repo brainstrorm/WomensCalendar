@@ -54,6 +54,8 @@ class CalendarPickerFragment : AbstractMenuFragment(), CalendarPickerView{
     lateinit var calendarView : CalendarView
     private lateinit var pref : SharedPreferences
 
+    val currentMonth = YearMonth.now()
+
     companion object{
         val TAG = "CalendarPicker"
     }
@@ -111,14 +113,7 @@ class CalendarPickerFragment : AbstractMenuFragment(), CalendarPickerView{
     ): View? {
         // Inflate the layout for this fragment
         setHasOptionsMenu(true)
-
-        return inflater.inflate(R.layout.fragment_calendar_picker, container, false)
-    }
-
-
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        val view = inflater.inflate(R.layout.fragment_calendar_picker, container, false)
 
         pref = PreferenceManager.getDefaultSharedPreferences(context)
 
@@ -146,12 +141,24 @@ class CalendarPickerFragment : AbstractMenuFragment(), CalendarPickerView{
 
         val daysOfWeek = daysOfWeekFromLocale()
 
-        val currentMonth = YearMonth.now()
         calendarView.setup(currentMonth.minusMonths(12), currentMonth.plusMonths(12), daysOfWeek.first())
         calendarView.scrollToMonth(currentMonth)
 
-        (activity as MenuActivity).btnTodayRound.setOnClickListener {view ->
-            calendarView.scrollToMonth(currentMonth)
+        (activity as MenuActivity).apply {
+            btnTodayRound.setOnClickListener { view ->
+                val calendarYear = supportFragmentManager.findFragmentByTag(CalendarYearModeFragment.TAG)
+                if(calendarYear != null) {
+                    supportFragmentManager.beginTransaction()
+                        .detach(calendarYear)
+                        .commit()
+                }
+                calendarView.scrollToMonth(currentMonth)
+                if (calendarYear != null) {
+                    supportFragmentManager.beginTransaction()
+                        .attach(calendarYear)
+                        .commit()
+                }
+            }
         }
         //
 
@@ -271,7 +278,7 @@ class CalendarPickerFragment : AbstractMenuFragment(), CalendarPickerView{
                                         && startMenstruation.monthValue != day.date.monthValue
                                         && endMenstruation.monthValue != day.date.monthValue)
                             ) {
-                                    textView.background = null
+                                textView.background = null
                             }
                         }
                     }
@@ -304,8 +311,7 @@ class CalendarPickerFragment : AbstractMenuFragment(), CalendarPickerView{
                 container.textView.text = monthTitle
             }
         }
-
-
+        return view
     }
 
 

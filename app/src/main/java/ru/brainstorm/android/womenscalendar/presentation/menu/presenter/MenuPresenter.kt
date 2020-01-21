@@ -20,6 +20,9 @@ class MenuPresenter
     internal var date = ""
     internal var text = ""
 
+    fun cleanStack(){
+        stackOfFragments = Stack()
+    }
     fun providePart(part : String){
         viewState.setPart(part)
     }
@@ -28,6 +31,9 @@ class MenuPresenter
         stackOfFragments.push(fragment.getPart())
     }
 
+    fun addFragmentToBackStackString(fragment : String){
+        stackOfFragments.push(fragment)
+    }
     fun popBackStack(fm : FragmentManager){
         if(!stackOfFragments.isEmpty()){
             val fragment = stackOfFragments.pop()

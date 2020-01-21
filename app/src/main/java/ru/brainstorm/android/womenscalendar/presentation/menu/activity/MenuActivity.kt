@@ -25,6 +25,7 @@ import ru.brainstorm.android.womenscalendar.presentation.menu.view.MenuView
 import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.setTextColorRes
 import ru.brainstorm.android.womenscalendar.presentation.rate_us.activity.RateUsActivity
 import ru.brainstorm.android.womenscalendar.presentation.statistics.activity.StatisticsActivity
+import java.time.Year
 import java.util.*
 import javax.inject.Inject
 
@@ -90,7 +91,7 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
     private var btnCalendarIsChecked : Boolean = false
     private var btnInfoIsChecked : Boolean = false
     private var btnMoreIsChecked : Boolean = false
-
+    private var currentFragment : String = ""
     //private lateinit var txtvwLanguages : TextView
 
     private lateinit var pref : SharedPreferences
@@ -210,6 +211,8 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
         btnMore?.layoutParams.height = 48
         txtvwMore.setTextColor(resources.getColor(R.color.colorGrey))
         btnMoreIsChecked = false
+
+        currentFragment = part
 
         when(part){
             "today" ->{
@@ -465,30 +468,24 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
             R.id.btn_back -> {
                 menuPresenter.popBackStack(supportFragmentManager)
             }
-            R.id.btn_new_date_menu -> {
-                menuPresenter.setFragment(supportFragmentManager, "change_menstruation_dates")
-                var calendarPickerFragment : AbstractMenuFragment? = supportFragmentManager.findFragmentByTag(CalendarPickerFragment.TAG)
-                    as AbstractMenuFragment?
-                var weekModeCalendarFragment : AbstractMenuFragment? = supportFragmentManager.findFragmentByTag(WeekModeCalendarFragment.TAG)
-                    as AbstractMenuFragment?
-                if(calendarPickerFragment != null && calendarPickerFragment.isHidden == false)
-                    menuPresenter.addFragmentToBackStack(calendarPickerFragment)
-                if(weekModeCalendarFragment != null && weekModeCalendarFragment.isHidden == false)
-                    menuPresenter.addFragmentToBackStack(weekModeCalendarFragment)
-            }
             R.id.btn_cross, R.id.btn_canceled-> {
                 menuPresenter.popBackStack(supportFragmentManager)
             }
-            R.id.btn_save -> {
-                val changeMenstruationDatesFragment = supportFragmentManager.findFragmentByTag(
-                    ChangeMenstruationDatesFragment.TAG
-                ) as ChangeMenstruationDatesFragment
-                changeMenstruationDatesFragment.apply {
-                    changeMenstruationDatesPresenter.save(getStartDate(), getEndDate(), supportFragmentManager)
-                }
-                menuPresenter.popBackStack(supportFragmentManager)
-            }
             R.id.btn_month_or_year -> {
+                val calendarMonth = supportFragmentManager.findFragmentByTag(CalendarPickerFragment.TAG)
+                val calendarYear = supportFragmentManager.findFragmentByTag(CalendarYearModeFragment.TAG)
+                if (calendarMonth != null) {
+                    supportFragmentManager.beginTransaction()
+                        .detach(calendarMonth)
+                        .attach(calendarMonth)
+                        .commit()
+                }
+                if (calendarYear != null) {
+                    supportFragmentManager.beginTransaction()
+                        .detach(calendarYear)
+                        .attach(calendarYear)
+                        .commit()
+                }
                 if(btnMonthOrYearChecked == 1) {
                     btnMonthOrYear.setImageResource(R.drawable.ic_toggle_button_second)
                     txtvwMonth.setTextColorRes(R.color.grey_for_year)
@@ -503,6 +500,24 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
                     btnMonthOrYearChecked = 1
                 }
             }
+            R.id.btn_new_date_menu -> {
+                menuPresenter.addFragmentToBackStackString(currentFragment)
+                menuPresenter.setFragment(supportFragmentManager, "change_menstruation_dates")
+            }
+            /*R.id.btn_today_menu -> {
+                when(currentFragment){
+                    "calendar" -> {
+                        (supportFragmentManager.findFragmentByTag(CalendarPickerFragment.TAG)
+                                as CalendarPickerFragment).toCurrentMonth()
+                    }
+                    "calendar_year_mode" -> {
+                        (supportFragmentManager.findFragmentByTag(CalendarYearModeFragment.TAG)
+                                as CalendarYearModeFragment).apply {
+                            recyclerView.scrollToPosition(Year.now().value - CalendarYearModeFragment.START_YEAR)
+                        }
+                    }
+                }
+            }*/
         }
 
     }
