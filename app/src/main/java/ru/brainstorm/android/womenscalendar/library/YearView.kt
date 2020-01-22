@@ -16,7 +16,9 @@ import kotlinx.coroutines.withContext
 import ru.brainstorm.android.womenscalendar.App
 import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.data.database.dao.CycleDao
+import ru.brainstorm.android.womenscalendar.data.database.dao.NoteDao
 import ru.brainstorm.android.womenscalendar.data.database.entities.Cycle
+import ru.brainstorm.android.womenscalendar.data.database.entities.Note
 import ru.brainstorm.android.womenscalendar.presentation.menu.activity.MenuActivity
 import ru.brainstorm.android.womenscalendar.presentation.menu.fragment.CalendarPickerFragment
 import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.setTextColorRes
@@ -32,7 +34,7 @@ import java.time.format.DateTimeFormatter
 class YearView(context: Context,
                attrs: AttributeSet? = null) : FrameLayout(context, attrs) {
 
-    var adapter: YearAdapter = YearAdapter(Year.of(1970), App.appDatabase.cycleDao())
+    var adapter: YearAdapter = YearAdapter(Year.of(1970), App.appDatabase.cycleDao(), App.appDatabase.noteDao())
 
     private val mainView = View.inflate(context, R.layout.year_view, null)
 
@@ -47,8 +49,10 @@ class YearView(context: Context,
         mainView.findViewById<TextView>(R.id.textView).text = adapter.year.value.toString()
         for (i in 1..12) {
             val month = adapter.year.atMonth(i)
+            val currentMonthNotes = adapter.notesList.filter { it.first.monthValue == i }.map { it.second }
             val currentMonthCycles = adapter.cycleList.filter { YearMonth.parse(it.startOfCycle, adapter.dateFormatter) == month || startedBefore(it, month) }
             (gridLayout[i - 1] as MonthView).adapter.also {
+                it.noteList = currentMonthNotes
                 it.cycleList = currentMonthCycles
                 it.month = month
             }
@@ -80,9 +84,11 @@ class YearView(context: Context,
         return ld.month == month.month
     }
 
-    open inner class YearAdapter(year: Year, private val cycleDao: CycleDao) {
+    open inner class YearAdapter(year: Year, private val cycleDao: CycleDao, private val noteDao: NoteDao) {
 
         val dateFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+
+        var notesList: List<Pair<YearMonth, Note>> = emptyList()
 
         var cycleList: List<Cycle> = emptyList()
         set(value) {
@@ -98,7 +104,9 @@ class YearView(context: Context,
 
         private fun refilter() {
             GlobalScope.launch(Dispatchers.Main) {
-                cycleDao.getAll().forEach { Log.d("CYCLE_FILTER", "${Year.parse(it.startOfCycle, dateFormatter).value == year.value}") }
+                notesList = noteDao.getAll()
+                    .map { Pair(YearMonth.parse(it.noteDate, dateFormatter), it) }
+                    .filter { it.first.year == year.value }
                 cycleList = cycleDao.getAll().filter { Year.parse(it.startOfCycle, dateFormatter).value == year.value || startedBefore(it) }
             }
         }

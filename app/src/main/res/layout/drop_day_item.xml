@@ -11,12 +11,7 @@
         android:layout_width="4dp"
         android:layout_height="4dp"
         android:layout_weight="0"/>
-    <TextView
-        android:id="@+id/date"
-        android:layout_weight="1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:ignore="PxUsage" />
+    <include layout="@layout/day_item_with_dot"/>
     <ImageView
         android:id="@+id/end_blobe"
         android:src="@drawable/blobe_end_start_of_menstruation"
