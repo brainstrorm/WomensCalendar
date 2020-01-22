@@ -124,8 +124,12 @@
     <string name="window_of_fertilnost_is_closing">Cửa sổ sinh sản Đóng</string>
     <string name="time">Thời gian</string>
     <string name="message">Tin nhắn</string>
-    <string name="notification_menstruation_start">Nhắc nhở: \n Kinh nguyệt sẽ bắt đầu ngay hôm nay!</string>
-
+    <string name="notification_menstruation_start">Bắt đầu từ hôm\nnay kinh nguyệt</string>
+    <string name="do_not_forget_message">Nhắc nhở:\nđừng quên để đánh dấu\nsự kết thúc của bạn,\nthời gian!</string>
+    <string name="open_fertilnost_today_message">Nhắc lại:\nnhững khả năng sinh\nsản cửa sổ mở ra\nngày hôm nay!</string>
+    <string name="ovulation_will_stsrt_message">Nhắc nhở:\ncó lẽ, rụng trứng\nsẽ xảy ra hôm nay</string>
+    <string name="window_of_fertilnost_is_closing_message">Nhắc lại:\nnhững khả năng sinh\nsản đóng cửa sổ\nngày hôm nay!</string>
+    <string name="notification_menstruation_start_message">Nhắc nhở:\nbắt đầu từ hôm\nnay kinh nguyệt!</string>
 
     
     <string name="october">Tháng 10</string>

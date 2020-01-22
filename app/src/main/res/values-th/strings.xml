@@ -124,7 +124,12 @@
     <string name="window_of_fertilnost_is_closing">หน้าต่างการเจริญพันธุ์ปิด</string>
     <string name="time">เวลา</string>
     <string name="message">ข่าวสาร</string>
-    <string name="notification_menstruation_start">คำเตือน: \n การมีประจำเดือนจะเริ่มต้นวันนี้!</string>
+    <string name="notification_menstruation_start">Menstruation เริ่มวันนี้</string>
+    <string name="do_not_forget_message">เตือน:อย่าลืมมาร\n์กที่สุดของคุณประ\nจำเดือนทุกคนวิ่ง</string>
+    <string name="open_fertilnost_today_message">เตือน:กา fertility\nหน้าต่างเปิดอนวันนี้!</string>
+    <string name="ovulation_will_stsrt_message">ข้อควรจำ:ส่วนสั\nนนิษฐานได้เลยว่าเค้า,\novulation จะเกิดขึ้นวันนี้</string>
+    <string name="window_of_fertilnost_is_closing_message">จำได้ไหมที่ fertility\nหน้าต่างซึ่งจะปิดในวันนี้!</string>
+    <string name="notification_menstruation_start_message">เตือน:menstruation เริ่มวันนี้้!</string>
 
 
     

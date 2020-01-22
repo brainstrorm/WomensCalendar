@@ -34,6 +34,7 @@ class OpeningOfFertilityWindowNotificationFragment : AbstractMenuFragment() {
     private lateinit var pref : SharedPreferences
     private lateinit var frame_layout : FrameLayout
 
+
     private lateinit var txtvwTime : TextView
     private lateinit var txtvwMessage: TextView
 
@@ -81,6 +82,7 @@ class OpeningOfFertilityWindowNotificationFragment : AbstractMenuFragment() {
         }
 
         directTimeTextView = mainView!!.findViewById<TextView>(R.id.direct_time_text)
+        directTimeTextView.text = pref.getString("time_open_ertility","00:00")
 
         timePicker = mainView!!.findViewById<TimePicker>(R.id.timePicker)
         timePicker.setIs24HourView(true)
@@ -112,6 +114,8 @@ class OpeningOfFertilityWindowNotificationFragment : AbstractMenuFragment() {
         if (save) {
             val saved = "${timePicker.hour}:${timePicker.minute}"
             directTimeTextView.text = saved
+            pref.edit().putString("time_open_fertility",saved).apply()
+
             val editor = pref.edit()
             editor.putString(TimeOfOpeningOfFertilityWindowNotificationTag, saved)
             editor.commit()

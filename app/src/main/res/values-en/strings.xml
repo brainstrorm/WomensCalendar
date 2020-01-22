@@ -130,10 +130,14 @@
     <string name="window_of_fertilnost_is_closing">The fertility window is closing</string>
     <string name="time">Time</string>
     <string name="message">Message</string>
-    <string name="notification_menstruation_start">Reminder: \n Menstruation will begin today!</string>
+    <string name="notification_menstruation_start">Menstruation will begin today</string>
+    <string name="do_not_forget_message">Reminder:\ndon\'t forget to mark\nthe end of your period!</string>
+    <string name="open_fertilnost_today_message">Reminder:\nthe fertility window\nopens today!</string>
+    <string name="ovulation_will_stsrt_message">Reminder:\npresumably, ovulation will\noccur today</string>
+    <string name="window_of_fertilnost_is_closing_message">Reminder:\nthe fertility window\ncloses today!</string>
+    <string name="notification_menstruation_start_message">Reminder:\nmenstruation starts today!</string>
 
 
-    
     <string name="october">October</string>
     <string name="november">November</string>
     <string name="december">December</string>

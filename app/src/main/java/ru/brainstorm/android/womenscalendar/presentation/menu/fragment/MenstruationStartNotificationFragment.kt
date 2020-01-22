@@ -80,6 +80,8 @@ class MenstruationStartNotificationFragment : AbstractMenuFragment() {
         }
 
         directTimeTextView = mainView!!.findViewById<TextView>(R.id.direct_time_text)
+        directTimeTextView.text = pref.getString("time_start_menstruation","00:00")
+
 
         timePicker = mainView!!.findViewById<TimePicker>(R.id.timePicker)
         timePicker.setIs24HourView(true)
@@ -110,6 +112,8 @@ class MenstruationStartNotificationFragment : AbstractMenuFragment() {
         if (save) {
             val saved = "${timePicker.hour}:${timePicker.minute}"
             directTimeTextView.text = saved
+            pref.edit().putString("time_start_menstruation",saved).apply()
+
             val editor = pref.edit()
             editor.putString(TimeOfStartOfMenstruationNotificationTag, saved)
             editor.commit()

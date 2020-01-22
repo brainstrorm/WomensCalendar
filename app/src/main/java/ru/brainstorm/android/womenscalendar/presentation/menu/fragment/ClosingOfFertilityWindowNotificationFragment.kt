@@ -76,6 +76,8 @@ class ClosingOfFertilityWindowNotificationFragment : AbstractMenuFragment() {
         }
 
         directTimeTextView = mainView!!.findViewById<TextView>(R.id.direct_time_text)
+        directTimeTextView.text = pref.getString("time_closing_fertility","00:00")
+
 
 
         timePicker = mainView!!.findViewById<TimePicker>(R.id.timePicker)
@@ -109,6 +111,8 @@ class ClosingOfFertilityWindowNotificationFragment : AbstractMenuFragment() {
         if (save) {
             val saved = "${timePicker.hour}:${timePicker.minute}"
             directTimeTextView.text = saved
+            pref.edit().putString("time_closing_fertility",saved).apply()
+
             val editor = pref.edit()
             editor.putString(TimeOfClosingOfFertilityWindowNotificationTag, saved)
             editor.commit()

@@ -121,15 +121,23 @@
     <string name="closing_of_fertility_window">Закрытие окна фертильности</string>
     <string name="menstruation_starts_today">Менструация начинается сегодня</string>
     <string name="do_not_forget">Не забудьте отметить окончание менструации</string>
+    <string name="do_not_forget_message">Напоминание:\nне забудьте отметить\nокончание менструации!</string>
+
+    Reminder: don't forget to mark the end of your period!
     <string name="open_fertilnost">Открытие фертильности</string>
     <string name="open_fertilnost_today">Сегодня открвается окно фертильности</string>
+    <string name="open_fertilnost_today_message">Напоминание:\nсегодня открвается\nокно фертильности!</string>
     <string name="ovulation_notifications">Овуляция</string>
     <string name="ovulation_will_stsrt">Предположительно, овуляция настпуит...</string>
+    <string name="ovulation_will_stsrt_message">Напоминание:\nпредположительно, овуляция\nнастпуит сегодня</string>
     <string name="end_fertilnost">Закрытие окна фертильности</string>
     <string name="window_of_fertilnost_is_closing">Окно фертильности закрывается</string>
+    <string name="window_of_fertilnost_is_closing_message">Напоминание:\nокно фертильности\nзакрывается сегодня!</string>
     <string name="time">Время</string>
     <string name="message">Сообщение</string>
-    <string name="notification_menstruation_start">Напоминание: \n Сегодня начнется менструаця !</string>
+    <string name="notification_menstruation_start">Сегодня начнется менструация</string>
+    <string name="notification_menstruation_start_message">Напоминание:\nсегодня начнется менструация!</string>
+
 
 
     <!-- months -->

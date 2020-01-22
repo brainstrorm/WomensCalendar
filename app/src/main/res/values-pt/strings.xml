@@ -129,7 +129,12 @@
     <string name="window_of_fertilnost_is_closing">Fecha a janela de fertilidade</string>
     <string name="time">Tempo</string>
     <string name="message">Mensagem</string>
-    <string name="notification_menstruation_start">Lembrete: \n A menstruação começará hoje!</string>
+    <string name="notification_menstruation_start">Começa hoje a menstruação!</string>
+    <string name="do_not_forget_message">Lembrete:\nnão se esqueça de marcar\no final de seu período!</string>
+    <string name="open_fertilnost_today_message">Lembrete:\na janela de fertilidade\nabre hoje!</string>
+    <string name="ovulation_will_stsrt_message">Lembrete:\npresumivelmente, a ovulação\nocorrerá hoje</string>
+    <string name="window_of_fertilnost_is_closing_message">Lembrete:\na janela de fertilidade,\nque se encerra hoje!</string>
+    <string name="notification_menstruation_start_message">Lembrete:\ncomeça hoje a menstruação!</string>
 
 
     

@@ -18,7 +18,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/notification_closing_of_fertility_window_time"
             android:layout_width="match_parent"
-            android:layout_height="75dp"
+            android:layout_height="72dp"
             android:layout_marginTop="32dp"
             android:background="@drawable/bcgr_rect_settings_notifications"
             app:layout_constraintEnd_toEndOf="parent"
@@ -32,10 +32,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="26dp"
                 android:text="@string/time"
                 android:textColor="@color/black"
                 android:textSize="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"></TextView>
 
@@ -43,10 +43,10 @@
                 android:id="@+id/direct_time_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:layout_marginEnd="25dp"
                 android:textColor="@color/colorPink"
                 android:textSize="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"></TextView>
 
@@ -93,31 +93,34 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/notification_closing_of_fertility_window_text"
             android:layout_width="match_parent"
-            android:layout_height="75dp"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
             android:background="@drawable/bcgr_rect_settings_notifications">
 
             <TextView
                 android:id="@+id/message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="26dp"
                 android:text="@string/message"
                 android:textColor="@color/black"
                 android:textSize="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"></TextView>
 
             <EditText
                 android:id="@+id/message_edit"
-                android:layout_width="wrap_content"
+                android:layout_width="230dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="25dp"
-                android:layout_marginBottom="25dp"
+                android:layout_marginEnd="5dp"
+                android:background="@null"
+                android:gravity="center"
+                android:text="@string/window_of_fertilnost_is_closing_message"
                 android:textColor="@color/colorPink"
                 android:textSize="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"></EditText>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"></EditText>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

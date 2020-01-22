@@ -124,8 +124,12 @@
     <string name="window_of_fertilnost_is_closing">生育窗口关闭</string>
     <string name="time">时间</string>
     <string name="message">留言内容</string>
-    <string name="notification_menstruation_start">提醒：\n 月经将从今天开始！</string>
-
+    <string name="notification_menstruation_start">月经从今天开始</string>
+    <string name="do_not_forget_message">提醒:\n不要忘记纪念你的月经结束！</string>
+    <string name="open_fertilnost_today_message">提醒\n生育窗口今天打开！</string>
+    <string name="ovulation_will_stsrt_message">提醒\n据推测今天排卵会发生</string>
+    <string name="window_of_fertilnost_is_closing_message">提醒\n生育窗口今天关闭！</string>
+    <string name="notification_menstruation_start_message">提醒\n月经从今天开始！</string>
 
     
     <string name="october">十月</string>
