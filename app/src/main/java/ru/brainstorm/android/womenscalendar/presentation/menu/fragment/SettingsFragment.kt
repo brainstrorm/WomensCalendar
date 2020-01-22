@@ -33,7 +33,7 @@ import javax.inject.Inject
 import ru.brainstorm.android.womenscalendar.presentation.menu.extra.*
 import ru.brainstorm.android.womenscalendar.presentation.quiz.activity.QuizActivity
 import android.content.DialogInterface
-
+import android.net.Uri
 
 
 /**
@@ -355,20 +355,16 @@ class SettingsFragment
         }
     }
     fun sendEmail(){
-        val i = Intent(Intent.ACTION_SEND)
-        i.type = "message/rfc822"
-        i.putExtra(Intent.EXTRA_EMAIL, arrayOf("mobappcloud@gmail.com"))
-        //i.putExtra(Intent.EXTRA_SUBJECT, "subject of email")
-        //i.putExtra(Intent.EXTRA_TEXT, "body of email")
-        try {
-            startActivity(Intent.createChooser(i, "Send mail..."))
-        } catch (ex: ActivityNotFoundException) {
-            Toast.makeText(
-                context,
-                "There are no email clients installed.",
-                Toast.LENGTH_SHORT
-            ).show()
-        }
+        val intent = Intent(Intent.ACTION_SEND)
+            .setType("message/rfc822")
+            .setPackage("com.google.android.gm")
+            .putExtra(Intent.EXTRA_EMAIL, arrayOf("mobappcloud@gmail.com"))
+            //.putExtra(Intent.EXTRA_SUBJECT, "test")
+            //.putExtra(Intent.EXTRA_TEXT, "hello. this is a message sent from my demo app :-)")
+        if (intent.resolveActivity(context!!.packageManager)!= null)
+            startActivity(intent)
+        else
+            Toast.makeText(context,"Gmail App is not installed",Toast.LENGTH_SHORT).show()
     }
 
     //
