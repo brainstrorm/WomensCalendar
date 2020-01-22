@@ -16,6 +16,10 @@ import java.security.AccessController.getContext
 import java.time.LocalDate
 import java.time.format.DateTimeParseException
 import javax.inject.Inject
+import java.util.*
+import java.text.SimpleDateFormat
+
+
 
 
 class PredictorImpl
@@ -34,16 +38,30 @@ class PredictorImpl
 
         if(set_inject.size == 1) {
 
+            if  (set_inject[0].startOfCycle == ""){
+
+                set_inject[0].startOfCycle = LocalDate.now().toString()
+            }
+
+            if (set_inject[0].lengthOfCycle == 0){
+                set_inject[0].lengthOfCycle = 25
+            }
+
+            if (set_inject[0].lengthOfMenstruation == 0){
+                set_inject[0].lengthOfMenstruation = 5
+            }
+
                 if((set_inject[0].lengthOfCycle < 21)&&(set_inject[0].lengthOfCycle > 35)){
                     set_inject[0].lengthOfCycle = 24
                 }
 
                 if((set_inject[0].lengthOfMenstruation < 2)&&(set_inject[0].lengthOfMenstruation > 8)){
-                    set_inject[0].lengthOfMenstruation = 5
+                    set_inject[0].lengthOfMenstruation = 6
                 }
                     set_inject[0].ovulation = LocalDate.parse(set_inject.last().startOfCycle)
                         .plusDays(set_inject[0].lengthOfCycle - 14.toLong()).toString()
                 }
+
 
         for (cycle in set_inject) {
             setLengthofmenstruation.add(cycle.lengthOfMenstruation)

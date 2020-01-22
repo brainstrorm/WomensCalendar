@@ -13,7 +13,7 @@ class Cycle {
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0
 
-    lateinit var startOfCycle: String
+     var startOfCycle: String = "NotExist"
 
     lateinit var ovulation: String
 
