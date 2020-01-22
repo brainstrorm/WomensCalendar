@@ -579,4 +579,8 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
         txtvwClosingOfFertilityWindow.setText(R.string.closing_of_fertility_window)
         txtvwTodayBtn.setText(R.string.text_today_menu)
     }
+
+    override fun onBackPressed() {
+        menuPresenter.popBackStack(supportFragmentManager)
+    }
 }
