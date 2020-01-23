@@ -18,6 +18,7 @@ import com.kizitonwose.calendarview.model.CalendarDay
 import com.kizitonwose.calendarview.model.DayOwner
 import com.kizitonwose.calendarview.ui.DayBinder
 import com.kizitonwose.calendarview.ui.ViewContainer
+import kotlinx.android.synthetic.main.activity_menu.*
 import kotlinx.android.synthetic.main.calendar_day_layout_for_direcly_calendar.view.*
 import kotlinx.android.synthetic.main.calendar_day_week_mode.view.*
 import kotlinx.android.synthetic.main.fragment_week_mode_calendar.*
@@ -33,6 +34,7 @@ import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.data.database.dao.CycleDao
 import ru.brainstorm.android.womenscalendar.data.database.entities.Cycle
 import ru.brainstorm.android.womenscalendar.domain.predictor.PredictorImpl
+import ru.brainstorm.android.womenscalendar.presentation.menu.activity.MenuActivity
 import ru.brainstorm.android.womenscalendar.presentation.menu.extra.getDayAddition
 import ru.brainstorm.android.womenscalendar.presentation.menu.extra.PartOfCycle
 import ru.brainstorm.android.womenscalendar.presentation.menu.extra.differenceBetweenDates
@@ -141,10 +143,16 @@ class WeekModeCalendarFragment : AbstractMenuFragment() {
 
         calendarView.dayHeight = (calendarView.dayWidth * 1.25).toInt()
         val currentMonth = YearMonth.now()
+
         // Value for firstDayOfWeek does not matter since inDates and outDates are not generated.
         calendarView.setup(currentMonth, currentMonth.plusMonths(3), DayOfWeek.values().random())
         calendarView.scrollToDate(LocalDate.now())
 
+        (activity as MenuActivity).apply {
+            btnTodayRound.setOnClickListener { view ->
+                calendarView.scrollToDate(LocalDate.now())
+            }
+        }
         class DayViewContainer(view: View) : ViewContainer(view) {
             val dayText = view.exSevenDayText
             val dateText = view.exSevenDateText
