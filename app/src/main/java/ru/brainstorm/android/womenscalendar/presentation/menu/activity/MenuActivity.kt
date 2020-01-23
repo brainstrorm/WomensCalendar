@@ -228,7 +228,7 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
                 txtvwToday.setTextColor(resources.getColor(R.color.colorBlueNotesRedactor))
                 btnTodayIsChecked = true
                 btnPlusNote.isEnabled = false
-                btnTodayRound.isEnabled = false
+                btnTodayRound.isEnabled = true
             }
             "calendar" ->{
                 setVisibility(View.VISIBLE, View.VISIBLE, View.VISIBLE,
@@ -503,6 +503,16 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
             R.id.btn_new_date_menu -> {
                 menuPresenter.addFragmentToBackStackString(currentFragment)
                 menuPresenter.setFragment(supportFragmentManager, "change_menstruation_dates")
+            }
+            R.id.btn_today_menu -> {
+                when(currentFragment){
+                    "calendar",
+                    "today",
+                    "calendar_year_mode" ->{
+                        val fragment = supportFragmentManager.findFragmentByTag(currentFragment) as OnScrollListener
+                        fragment.scrollToToday()
+                    }
+                }
             }
         }
 
