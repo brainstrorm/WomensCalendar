@@ -143,7 +143,7 @@ class OvulationNotificationFragment : AbstractMenuFragment(), OnBackPressedListe
     fun updateLocale(){
         val language = pref.getString("language", "en")
         val locale = Locale(language)
-        Locale.setDefault(locale)
+        Locale.setDefault(locale)//
         val configuration = Configuration()
         configuration.locale = locale
         getResources().updateConfiguration(configuration, null)
