@@ -51,6 +51,7 @@
     <string name="menstruation">Menstruación</string>
     <string name="ovulation">ovulación</string>
     <string name="day">dia</string>
+    <string name="DAY">DÍA</string>
     <string name="the_cycle_lasted">El ciclo duró</string>
     <string name="forecast_day">Pronóstico: día</string>
     //for statistics
@@ -64,9 +65,11 @@
     <string name="btn_save_menu">Guardar</string>
     <string name="btn_month">MES</string>
     <string name="btn_year">AÑO</string>
+    <string name="during_cycle">Ciclo actual: </string>
 
 
-    
+
+
     <string name="settings_len_of_cycle">Duración del ciclo</string>
     <string name="settings_len_of_menstr">Menstruación</string>
     <plurals name="days">
@@ -104,7 +107,7 @@
 
 
     <!-- Languages strings -->
-    <string name="languages">Языки</string>
+    <string name="languages">Idiomas</string>
     <string name="english">English</string>
     <string name="russian">Русский</string>
     <string name="spanish">Espanol</string>

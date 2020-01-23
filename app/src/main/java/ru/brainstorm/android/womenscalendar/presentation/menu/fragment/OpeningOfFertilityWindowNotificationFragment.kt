@@ -64,6 +64,7 @@ class OpeningOfFertilityWindowNotificationFragment : AbstractMenuFragment(), OnB
 
         updateLocale()
 
+
         return mainView
     }
 
@@ -88,6 +89,7 @@ class OpeningOfFertilityWindowNotificationFragment : AbstractMenuFragment(), OnB
 
         directTimeTextView = mainView!!.findViewById<TextView>(R.id.direct_time_text)
         directTimeTextView.text = pref.getString("time_open_fertility","00:00")
+
 
         timePicker = mainView!!.findViewById<TimePicker>(R.id.timePicker)
         timePicker.setIs24HourView(true)
@@ -157,6 +159,8 @@ class OpeningOfFertilityWindowNotificationFragment : AbstractMenuFragment(), OnB
 
         txtvwTime.setText(R.string.time)
         txtvwMessage.setText(R.string.message)
+        messageEditText.setText(pref.getString(TextOfOpeningOfFertilityWindowNotificationTag,activity!!.resources.getString(R.string.open_fertilnost_today_message)))
+
     }
 
     override fun onBackPressed() {

@@ -79,7 +79,6 @@ class OvulationNotificationFragment : AbstractMenuFragment(), OnBackPressedListe
 
         directTimeTextView = mainView!!.findViewById<TextView>(R.id.direct_time_text)
         directTimeTextView.text = pref.getString("time_ovulation","00:00")
-        messageEditText.setText(pref.getString(TextOfOvulationNotificationTag,activity!!.resources.getString(R.string.ovulation_will_stsrt_message)))
 
 
         timePicker = mainView!!.findViewById<TimePicker>(R.id.timePicker)
@@ -151,6 +150,8 @@ class OvulationNotificationFragment : AbstractMenuFragment(), OnBackPressedListe
 
         txtvwTime.setText(R.string.time)
         txtvwMessage.setText(R.string.message)
+        messageEditText.setText(pref.getString(TextOfOvulationNotificationTag,activity!!.resources.getString(R.string.ovulation_will_stsrt_message)))
+
     }
 
     override fun onBackPressed() {

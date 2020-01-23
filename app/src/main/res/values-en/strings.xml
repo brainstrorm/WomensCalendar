@@ -50,6 +50,7 @@
     <string name="menstruation">Menstruation</string>
     <string name="ovulation">ovulation</string>
     <string name="day">day</string>
+    <string name="DAY">DAY</string>
     <string name="the_cycle_lasted">The cycle lasted</string>
     <string name="forecast_day">Forecast: day</string>
     //for statistics
@@ -63,9 +64,11 @@
     <string name="btn_save_menu">Save</string>
     <string name="btn_month">MONTH</string>
     <string name="btn_year">YEAR</string>
+    <string name="during_cycle">Current cycle: </string>
 
 
-    
+
+
     <string name="settings_len_of_cycle">Cycle duration</string>
     <string name="settings_len_of_menstr">Menstruation</string>
     <plurals name="days">
@@ -103,7 +106,7 @@
 
 
     <!-- Languages strings -->
-    <string name="languages">Языки</string>
+    <string name="languages">Languages</string>
     <string name="english">English</string>
     <string name="russian">Русский</string>
     <string name="spanish">Espanol</string>

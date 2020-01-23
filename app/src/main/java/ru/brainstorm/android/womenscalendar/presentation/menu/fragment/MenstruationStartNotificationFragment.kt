@@ -61,6 +61,7 @@ class MenstruationStartNotificationFragment : AbstractMenuFragment(), OnBackPres
         initAnimators()
 
         updateLocale()
+
         return mainView
     }
 
@@ -85,7 +86,6 @@ class MenstruationStartNotificationFragment : AbstractMenuFragment(), OnBackPres
 
         directTimeTextView = mainView!!.findViewById<TextView>(R.id.direct_time_text)
         directTimeTextView.text = pref.getString("time_start_menstruation","00:00")
-        messageEditText.setText(pref.getString(TextOfStartOfMenstruationNotificationTag,activity!!.resources.getString(R.string.notification_menstruation_start_message)))
 
 
         timePicker = mainView!!.findViewById<TimePicker>(R.id.timePicker)
@@ -155,6 +155,8 @@ class MenstruationStartNotificationFragment : AbstractMenuFragment(), OnBackPres
 
         txtvwTime.setText(R.string.time)
         txtvwMessage.setText(R.string.message)
+        messageEditText.setText(pref.getString(TextOfStartOfMenstruationNotificationTag,activity!!.resources.getString(R.string.notification_menstruation_start_message)))
+
     }
 
     override fun onBackPressed() {

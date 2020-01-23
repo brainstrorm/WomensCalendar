@@ -57,13 +57,13 @@ class StatisticsActivity : AppCompatActivity() {
 
 
 
-
     @Inject
     lateinit var cycleDao: CycleDao
 
-    class Adapter(private val cycles: List<Cycle>): RecyclerView.Adapter<Adapter.ViewHolder>(){
+    class Adapter(private val cycles: List<Cycle>, context: Context): RecyclerView.Adapter<Adapter.ViewHolder>(){
         private val dateFormatter = DateTimeFormatter.ofPattern("dd")
         private val monthFormatter = DateTimeFormatter.ofPattern("MMMM")
+        private val A_context = context
         override fun getItemCount() = cycles.size
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             val itemView = LayoutInflater.from(parent?.context).inflate(R.layout.list_item_view, parent, false)
@@ -76,7 +76,8 @@ class StatisticsActivity : AppCompatActivity() {
             var endOfCycle = LocalDate.parse(currentCycle.startOfCycle).
                 plusDays(currentCycle.lengthOfCycle.toLong())
             if(position == 0) {
-                holder?.daysOfCycle?.setText("Текущий цикл: ${dateFormatter.format(startOfCycle)} " +
+
+                holder?.daysOfCycle?.setText(A_context!!.resources.getString(R.string.during_cycle)+"${dateFormatter.format(startOfCycle)} " +
                         "${monthFormatter.format(startOfCycle)} - ${dateFormatter.format(endOfCycle)}" +
                         " ${monthFormatter.format(endOfCycle)}")
             }else{
@@ -115,7 +116,6 @@ class StatisticsActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         pref = PreferenceManager.getDefaultSharedPreferences(this)
-
         updateLocale()
 
         txtvwAvgLengthOfCycle = findViewById<TextView>(R.id.Avg_length_of_cycle)
@@ -143,7 +143,7 @@ class StatisticsActivity : AppCompatActivity() {
             val text = cycles[0].startOfCycle
             recyclerView = findViewById(R.id.setOfStatictics)
             recyclerView.layoutManager = LinearLayoutManager(this@StatisticsActivity)
-            recyclerView.adapter = Adapter(cycles)
+            recyclerView.adapter = Adapter(cycles,this@StatisticsActivity)
             return@async cycles
         }
 
