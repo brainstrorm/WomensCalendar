@@ -24,7 +24,7 @@ import org.threeten.bp.LocalDate
 import java.util.*
 
 
-class OpeningOfFertilityWindowNotificationFragment : AbstractMenuFragment() {
+class OpeningOfFertilityWindowNotificationFragment : AbstractMenuFragment(), OnBackPressedListener {
     private lateinit var mainView : View
     private lateinit var backButton : ImageView
     private lateinit var timeLayout : ConstraintLayout
@@ -41,6 +41,10 @@ class OpeningOfFertilityWindowNotificationFragment : AbstractMenuFragment() {
 
     val TimeOfOpeningOfFertilityWindowNotificationTag = "TimeOfOpeningOfFertilityWindowNotification"
     val TextOfOpeningOfFertilityWindowNotificationTag : String = "TextOfOpeningOfFertilityWindowNotification"
+
+    companion object{
+        val TAG = "opening_of_fertility_window"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,7 +75,6 @@ class OpeningOfFertilityWindowNotificationFragment : AbstractMenuFragment() {
         timeInfoLayout.findViewById<Button>(R.id.opening_of_fertility_window_save_notification)
             .setOnClickListener{rollUpTimePicker(true)}
         messageEditText = mainView.findViewById<EditText>(R.id.message_edit)
-        messageEditText.setText(pref.getString(TextOfOpeningOfFertilityWindowNotificationTag,activity!!.resources.getString(R.string.open_fertilnost_today_message)))
 
         backButton = activity!!.findViewById<ImageView>(R.id.btn_back)
         backButton.setOnClickListener{view ->
@@ -154,6 +157,15 @@ class OpeningOfFertilityWindowNotificationFragment : AbstractMenuFragment() {
 
         txtvwTime.setText(R.string.time)
         txtvwMessage.setText(R.string.message)
+    }
+
+    override fun onBackPressed() {
+        (activity as MenuActivity).apply {
+            menuPresenter.popBackStack(supportFragmentManager)
+            pref.edit()
+                .putString(TextOfOpeningOfFertilityWindowNotificationTag, messageEditText.text.toString())
+                .commit()
+        }
     }
 
 

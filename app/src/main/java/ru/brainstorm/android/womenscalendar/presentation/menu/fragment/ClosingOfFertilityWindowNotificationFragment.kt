@@ -19,7 +19,7 @@ import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.presentation.menu.activity.MenuActivity
 import java.util.*
 
-class ClosingOfFertilityWindowNotificationFragment : AbstractMenuFragment() {
+class ClosingOfFertilityWindowNotificationFragment : AbstractMenuFragment(), OnBackPressedListener {
     private lateinit var mainView : View
     private lateinit var backButton : ImageView
     private lateinit var timeLayout : ConstraintLayout
@@ -34,6 +34,10 @@ class ClosingOfFertilityWindowNotificationFragment : AbstractMenuFragment() {
 
     val TimeOfClosingOfFertilityWindowNotificationTag = "TimeOfClosingOfFertilityWindowNotification"
     val TextOfClosingOfFertilityWindowNotificationTag : String = "TextOfClosingOfFertilityWindowNotification"
+
+    companion object{
+        val TAG = "closing_of_fertility_window"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -150,6 +154,15 @@ class ClosingOfFertilityWindowNotificationFragment : AbstractMenuFragment() {
 
         txtvwTime.setText(R.string.time)
         txtvwMessage.setText(R.string.message)
+    }
+
+    override fun onBackPressed() {
+        (activity as MenuActivity).apply {
+            menuPresenter.popBackStack(supportFragmentManager)
+            pref.edit()
+                .putString(TextOfClosingOfFertilityWindowNotificationTag, messageEditText.text.toString())
+                .commit()
+        }
     }
 
 }

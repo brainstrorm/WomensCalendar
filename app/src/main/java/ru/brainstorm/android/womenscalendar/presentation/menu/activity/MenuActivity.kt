@@ -581,6 +581,19 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
     }
 
     override fun onBackPressed() {
-        menuPresenter.popBackStack(supportFragmentManager)
+        when(currentFragment){
+            "start_of_menstruation",
+            "end_of_menstruation",
+            "ovulation",
+            "opening_of_fertility_window",
+            "closing_of_fertility_window" -> {
+                val fragment = supportFragmentManager.findFragmentByTag(currentFragment)
+                as OnBackPressedListener
+                fragment.onBackPressed()
+            }
+            else -> {
+                menuPresenter.popBackStack(supportFragmentManager)
+            }
+        }
     }
 }

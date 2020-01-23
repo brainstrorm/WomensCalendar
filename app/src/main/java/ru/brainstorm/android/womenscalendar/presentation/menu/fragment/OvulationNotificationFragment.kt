@@ -17,7 +17,7 @@ import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.presentation.menu.activity.MenuActivity
 import java.util.*
 
-class OvulationNotificationFragment : AbstractMenuFragment() {
+class OvulationNotificationFragment : AbstractMenuFragment(), OnBackPressedListener {
     private lateinit var mainView : View
     private lateinit var backButton : ImageView
     private lateinit var timeLayout : ConstraintLayout
@@ -32,6 +32,10 @@ class OvulationNotificationFragment : AbstractMenuFragment() {
 
     val TimeOfOvulationNotificationTag = "TimeOfOvulationNotification"
     val TextOfOvulationNotificationTag : String = "TextOfOvulationNotification"
+
+    companion object{
+        val TAG = "ovulation"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -147,6 +151,15 @@ class OvulationNotificationFragment : AbstractMenuFragment() {
 
         txtvwTime.setText(R.string.time)
         txtvwMessage.setText(R.string.message)
+    }
+
+    override fun onBackPressed() {
+        (activity as MenuActivity).apply {
+            menuPresenter.popBackStack(supportFragmentManager)
+            pref.edit()
+                .putString(TextOfOvulationNotificationTag, messageEditText.text.toString())
+                .commit()
+        }
     }
 
 }

@@ -236,11 +236,13 @@ class MenuPresenter
             "start_of_menstruation" -> {
                 if (fm.findFragmentById(R.id.for_fragment) == null) {
                     fm.beginTransaction()
-                        .add(R.id.for_fragment, MenstruationStartNotificationFragment())
+                        .add(R.id.for_fragment, MenstruationStartNotificationFragment(),
+                            MenstruationStartNotificationFragment.TAG)
                         .commitNow()
                 } else {
                     fm.beginTransaction()
-                        .replace(R.id.for_fragment, MenstruationStartNotificationFragment())
+                        .replace(R.id.for_fragment, MenstruationStartNotificationFragment(),
+                            MenstruationStartNotificationFragment.TAG)
                         .commitNow()
                 }
                 viewState.setPart("start_of_menstruation")
@@ -249,11 +251,13 @@ class MenuPresenter
             "end_of_menstruation" -> {
                 if (fm.findFragmentById(R.id.for_fragment) == null) {
                     fm.beginTransaction()
-                        .add(R.id.for_fragment, MenstruationEndNotificationFragment())
+                        .add(R.id.for_fragment, MenstruationEndNotificationFragment(),
+                            MenstruationEndNotificationFragment.TAG)
                         .commitNow()
                 } else {
                     fm.beginTransaction()
-                        .replace(R.id.for_fragment, MenstruationEndNotificationFragment())
+                        .replace(R.id.for_fragment, MenstruationEndNotificationFragment(),
+                            MenstruationEndNotificationFragment.TAG)
                         .commitNow()
                 }
                 viewState.setPart("end_of_menstruation")
@@ -261,11 +265,13 @@ class MenuPresenter
             "ovulation" -> {
                 if (fm.findFragmentById(R.id.for_fragment) == null) {
                     fm.beginTransaction()
-                        .add(R.id.for_fragment, OvulationNotificationFragment())
+                        .add(R.id.for_fragment, OvulationNotificationFragment(),
+                            OvulationNotificationFragment.TAG)
                         .commitNow()
                 } else {
                     fm.beginTransaction()
-                        .replace(R.id.for_fragment, OvulationNotificationFragment())
+                        .replace(R.id.for_fragment, OvulationNotificationFragment(),
+                            OvulationNotificationFragment.TAG)
                         .commitNow()
                 }
                 viewState.setPart("ovulation")
@@ -274,11 +280,13 @@ class MenuPresenter
             "opening_of_fertility_window" -> {
                 if (fm.findFragmentById(R.id.for_fragment) == null) {
                     fm.beginTransaction()
-                        .add(R.id.for_fragment, OpeningOfFertilityWindowNotificationFragment())
+                        .add(R.id.for_fragment, OpeningOfFertilityWindowNotificationFragment(),
+                            OpeningOfFertilityWindowNotificationFragment.TAG)
                         .commitNow()
                 } else {
                     fm.beginTransaction()
-                        .replace(R.id.for_fragment, OpeningOfFertilityWindowNotificationFragment())
+                        .replace(R.id.for_fragment, OpeningOfFertilityWindowNotificationFragment(),
+                            OpeningOfFertilityWindowNotificationFragment.TAG)
                         .commitNow()
                 }
                 viewState.setPart("opening_of_fertility_window")
@@ -287,11 +295,13 @@ class MenuPresenter
             "closing_of_fertility_window" -> {
                 if (fm.findFragmentById(R.id.for_fragment) == null) {
                     fm.beginTransaction()
-                        .add(R.id.for_fragment, ClosingOfFertilityWindowNotificationFragment())
+                        .add(R.id.for_fragment, ClosingOfFertilityWindowNotificationFragment(),
+                            ClosingOfFertilityWindowNotificationFragment.TAG)
                         .commitNow()
                 } else {
                     fm.beginTransaction()
-                        .replace(R.id.for_fragment, ClosingOfFertilityWindowNotificationFragment())
+                        .replace(R.id.for_fragment, ClosingOfFertilityWindowNotificationFragment(),
+                            ClosingOfFertilityWindowNotificationFragment.TAG)
                         .commitNow()
                 }
                 viewState.setPart("closing_of_fertility_window")
