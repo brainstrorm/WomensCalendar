@@ -1,6 +1,8 @@
 package ru.brainstorm.android.womenscalendar.presentation.menu.fragment
 
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,6 +31,7 @@ class NoteRedactorFragment : AbstractMenuFragment(), NoteRedactorView {
     private lateinit var text: String
     @InjectPresenter
     lateinit var noteRedactorPresenter: NoteRedactorPresenter
+    private lateinit var pref : SharedPreferences
 
     @ProvidePresenter
     fun providePresenter() = App.appComponent.presenter().noteRedactorPresenter()
@@ -36,6 +39,7 @@ class NoteRedactorFragment : AbstractMenuFragment(), NoteRedactorView {
     companion object{
         val TAG = "NoteRedactor"
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -46,7 +50,10 @@ class NoteRedactorFragment : AbstractMenuFragment(), NoteRedactorView {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_note_redactor, container, false)
 
+        pref = PreferenceManager.getDefaultSharedPreferences(context)
+
         textNoteRedactor = view.findViewById<EditText>(R.id.text_notes_redactor)
+
         dateNoteRedactor = view.findViewById<TextView>(R.id.date_notes_redactor)
 
         noteRedactorPresenter.viewState.setInformation()

@@ -20,6 +20,7 @@ import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.presentation.menu.activity.MenuActivity
 import android.view.Display
 import kotlinx.android.synthetic.main.fragment_settings.*
+import org.threeten.bp.LocalDate
 import java.util.*
 
 
@@ -70,6 +71,7 @@ class OpeningOfFertilityWindowNotificationFragment : AbstractMenuFragment() {
         timeInfoLayout.findViewById<Button>(R.id.opening_of_fertility_window_save_notification)
             .setOnClickListener{rollUpTimePicker(true)}
         messageEditText = mainView.findViewById<EditText>(R.id.message_edit)
+        messageEditText.setText(pref.getString(TextOfOpeningOfFertilityWindowNotificationTag,activity!!.resources.getString(R.string.open_fertilnost_today_message)))
 
         backButton = activity!!.findViewById<ImageView>(R.id.btn_back)
         backButton.setOnClickListener{view ->
@@ -82,7 +84,7 @@ class OpeningOfFertilityWindowNotificationFragment : AbstractMenuFragment() {
         }
 
         directTimeTextView = mainView!!.findViewById<TextView>(R.id.direct_time_text)
-        directTimeTextView.text = pref.getString("time_open_ertility","00:00")
+        directTimeTextView.text = pref.getString("time_open_fertility","00:00")
 
         timePicker = mainView!!.findViewById<TimePicker>(R.id.timePicker)
         timePicker.setIs24HourView(true)
@@ -153,5 +155,7 @@ class OpeningOfFertilityWindowNotificationFragment : AbstractMenuFragment() {
         txtvwTime.setText(R.string.time)
         txtvwMessage.setText(R.string.message)
     }
+
+
 
 }

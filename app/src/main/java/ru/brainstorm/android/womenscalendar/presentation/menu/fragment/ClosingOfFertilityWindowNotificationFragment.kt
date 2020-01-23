@@ -77,6 +77,7 @@ class ClosingOfFertilityWindowNotificationFragment : AbstractMenuFragment() {
 
         directTimeTextView = mainView!!.findViewById<TextView>(R.id.direct_time_text)
         directTimeTextView.text = pref.getString("time_closing_fertility","00:00")
+        messageEditText.setText(pref.getString(TextOfClosingOfFertilityWindowNotificationTag,activity!!.resources.getString(R.string.window_of_fertilnost_is_closing_message)))
 
 
 

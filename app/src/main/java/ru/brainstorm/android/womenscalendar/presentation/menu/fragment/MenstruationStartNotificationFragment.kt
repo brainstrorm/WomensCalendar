@@ -81,6 +81,7 @@ class MenstruationStartNotificationFragment : AbstractMenuFragment() {
 
         directTimeTextView = mainView!!.findViewById<TextView>(R.id.direct_time_text)
         directTimeTextView.text = pref.getString("time_start_menstruation","00:00")
+        messageEditText.setText(pref.getString(TextOfStartOfMenstruationNotificationTag,activity!!.resources.getString(R.string.notification_menstruation_start_message)))
 
 
         timePicker = mainView!!.findViewById<TimePicker>(R.id.timePicker)
