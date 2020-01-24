@@ -7,6 +7,8 @@ import android.content.res.Configuration
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.preference.PreferenceManager
+import android.view.GestureDetector
+import android.view.MotionEvent
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageButton
@@ -19,6 +21,7 @@ import moxy.presenter.ProvidePresenter
 import ru.brainstorm.android.womenscalendar.App
 import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.data.database.dao.CycleDao
+import ru.brainstorm.android.womenscalendar.presentation.menu.extra.OnSwipeTouchListener
 import ru.brainstorm.android.womenscalendar.presentation.menu.fragment.*
 import ru.brainstorm.android.womenscalendar.presentation.menu.presenter.MenuPresenter
 import ru.brainstorm.android.womenscalendar.presentation.menu.view.MenuView
@@ -129,7 +132,10 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
         btnPlusNote = findViewById<ImageButton>(R.id.btn_plus_menu).apply { setOnClickListener(this@MenuActivity) }
         btnNewDates = findViewById<ImageButton>(R.id.btn_new_date_menu).apply { setOnClickListener(this@MenuActivity) }
         txtvwNewDates = findViewById<TextView>(R.id.btn_new_date_menu_text)
-        layoutForNotes = findViewById<FrameLayout>(R.id.for_notes).apply { setOnClickListener(this@MenuActivity) }
+        layoutForNotes = findViewById<FrameLayout>(R.id.for_notes).apply {
+            setOnClickListener(this@MenuActivity)
+            setOnTouchListener(OnSwipeTouchListener(this@MenuActivity))
+        }
         btnBack = findViewById<ImageView>(R.id.btn_back).apply { setOnClickListener(this@MenuActivity) }
         btnDone = findViewById<TextView>(R.id.done).apply { setOnClickListener(this@MenuActivity) }
         txtvwCalendar = findViewById<TextView>(R.id.calendar_text)
@@ -604,6 +610,74 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
             else -> {
                 menuPresenter.popBackStack(supportFragmentManager)
             }
+        }
+    }
+
+    inner class OnSwipeTouchListener(ctx: Context?) : View.OnTouchListener {
+        private val gestureDetector: GestureDetector
+        override fun onTouch(v: View?, event: MotionEvent?): Boolean { //обработка клика
+            return gestureDetector.onTouchEvent(event)
+        }
+
+        private inner class GestureListener : GestureDetector.SimpleOnGestureListener() {
+            override fun onDown(e: MotionEvent): Boolean {
+                return true
+            }
+
+            override fun onFling(
+                e1: MotionEvent,
+                e2: MotionEvent,
+                velocityX: Float,
+                velocityY: Float
+            ): Boolean {
+                var result = false
+                try {
+                    val diffY = e2.y - e1.y
+                    val diffX = e2.x - e1.x
+                    if (Math.abs(diffX) > Math.abs(diffY)) {
+                        if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(
+                                velocityX
+                            ) > SWIPE_VELOCITY_THRESHOLD
+                        ) {
+                            if (diffX > 0) {
+                                onSwipeRight()
+                            } else {
+                                onSwipeLeft()
+                            }
+                        }
+                        result = true
+                    } else if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(
+                            velocityY
+                        ) > SWIPE_VELOCITY_THRESHOLD
+                    ) {
+                        if (diffY > 0) {
+                            onSwipeBottom()
+                        } else {
+                            onSwipeTop()
+                        }
+                    }
+                    result = true
+                } catch (exception: Exception) {
+                    exception.printStackTrace()
+                }
+                return result
+            }
+
+            private val SWIPE_THRESHOLD = 100
+            private val SWIPE_VELOCITY_THRESHOLD = 100
+        }
+
+        fun onSwipeRight() {}
+        fun onSwipeLeft() {}
+        fun onSwipeTop() {}
+        fun onSwipeBottom(){
+            supportFragmentManager.beginTransaction()
+                .detach(supportFragmentManager.findFragmentByTag(SelectedDayNoteFragment.TAG)!!)
+                .commit()
+        }
+
+        init {
+            gestureDetector = GestureDetector(ctx, GestureListener())
         }
     }
 }

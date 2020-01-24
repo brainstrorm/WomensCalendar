@@ -37,7 +37,7 @@ class CalendarPickerPresenter
                     fragment.provideDate(date.toString())
                     selectedDayNotePresenter.setInformationFromCalendar(date.toString())
                     fm.beginTransaction()
-                        .show(fm.findFragmentByTag(SelectedDayNoteFragment.TAG)!!)
+                        .attach(fm.findFragmentByTag(SelectedDayNoteFragment.TAG)!!)
                         .commit()
                 }
             }
