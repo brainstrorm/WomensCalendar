@@ -374,7 +374,6 @@ class CalendarPickerFragment : AbstractMenuFragment(), CalendarPickerView{
         weekDays.put("Sat", resources.getString(R.string.saturday))
         weekDays.put("Sun", resources.getString(R.string.sunday))
     }
-
     /*fun updateNotes(){
         var notes = listOf<Note>()
         runBlocking {

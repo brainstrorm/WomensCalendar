@@ -1,34 +1,48 @@
 package ru.brainstorm.android.womenscalendar.presentation.menu.fragment
 
+import android.app.AlertDialog
+import android.app.DatePickerDialog
+import android.app.DatePickerDialog.OnDateSetListener
+import android.content.DialogInterface
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.preference.PreferenceManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import org.threeten.bp.LocalDate
 import org.threeten.bp.format.DateTimeFormatter
-import org.w3c.dom.Text
 import ru.brainstorm.android.womenscalendar.App
 import ru.brainstorm.android.womenscalendar.R
-import ru.brainstorm.android.womenscalendar.presentation.menu.presenter.MenuPresenter
+import ru.brainstorm.android.womenscalendar.presentation.menu.activity.MenuActivity
 import ru.brainstorm.android.womenscalendar.presentation.menu.presenter.NoteRedactorPresenter
 import ru.brainstorm.android.womenscalendar.presentation.menu.view.NoteRedactorView
+import ru.brainstorm.android.womenscalendar.presentation.quiz.activity.QuizActivity
+import java.util.*
+
 
 class NoteRedactorFragment : AbstractMenuFragment(), NoteRedactorView {
 
     private lateinit var textNoteRedactor : EditText
     private lateinit var dateNoteRedactor : TextView
+    private lateinit var btnPen : ImageView
 
     private val dateFormatter = DateTimeFormatter.ofPattern("dd")
     private val monthFormatter = DateTimeFormatter.ofPattern("MMMM")
     private val dayOfWeekFormatter = DateTimeFormatter.ofPattern("EEEE")
     private lateinit var date: String
     private lateinit var text: String
+
+    private val dateAndTime: Calendar? = Calendar.getInstance()
     @InjectPresenter
     lateinit var noteRedactorPresenter: NoteRedactorPresenter
     private lateinit var pref : SharedPreferences
@@ -39,6 +53,14 @@ class NoteRedactorFragment : AbstractMenuFragment(), NoteRedactorView {
     companion object{
         val TAG = "NoteRedactor"
     }
+
+    private val d =
+        OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+            date = LocalDate.parse("$year-" +
+                    "${if(monthOfYear < 10) "0${monthOfYear + 1}" else "${monthOfYear + 1}"}" +
+                    "-$dayOfMonth").toString()
+            noteRedactorPresenter.viewState.setDate()
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,9 +78,21 @@ class NoteRedactorFragment : AbstractMenuFragment(), NoteRedactorView {
 
         dateNoteRedactor = view.findViewById<TextView>(R.id.date_notes_redactor)
 
+        btnPen = view.findViewById<ImageView>(R.id.bnt_pen_notes_redactor)
+
+        btnPen.setOnClickListener {
+            val fragmentPicker = DatePickerDialog(
+                activity!!, d,
+                LocalDate.parse(date).year,
+                LocalDate.parse(date).monthValue - 1,
+                LocalDate.parse(date).dayOfMonth
+            )
+            fragmentPicker.show()
+        }
         noteRedactorPresenter.viewState.setInformation()
 
-        return inflater.inflate(R.layout.fragment_note_redactor, container, false)
+
+        return view
     }
 
     fun provideInformation(date : String, text : String){
@@ -83,5 +117,12 @@ class NoteRedactorFragment : AbstractMenuFragment(), NoteRedactorView {
         view!!.findViewById<TextView>(R.id.date_notes_redactor).setText("${dayOfWeekFormatter.format(localDate)}," +
                 " ${dateFormatter.format(localDate)} ${monthFormatter.format(localDate)} ${localDate.year} г.")
     }
+
+    override fun setDate() {
+        val localDate = LocalDate.parse(date)
+        view!!.findViewById<TextView>(R.id.date_notes_redactor).setText("${dayOfWeekFormatter.format(localDate)}," +
+                " ${dateFormatter.format(localDate)} ${monthFormatter.format(localDate)} ${localDate.year} г.")
+    }
+
 }
 

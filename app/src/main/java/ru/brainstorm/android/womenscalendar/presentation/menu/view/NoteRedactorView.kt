@@ -9,4 +9,7 @@ interface NoteRedactorView : MvpView{
 
     @StateStrategyType(OneExecutionStateStrategy::class)
     fun setInformation()
+
+    @StateStrategyType(OneExecutionStateStrategy::class)
+    fun setDate()
 }

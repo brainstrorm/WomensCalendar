@@ -9,4 +9,5 @@ interface SelectedDayNoteView : MvpView {
 
     @StateStrategyType(OneExecutionStateStrategy::class)
     fun setInformation(date: String, text : String)
+
 }
