@@ -16,6 +16,8 @@
     <string name="text_avg_length_of_menstruation">平均月经时间</string>
     <string name="text_avg_length_of_cycle">平均循环时间</string>
     <string name="text_today_menu">今天</string>
+    <string name="date_of_note">记录日期</string>
+
 
 
     <string-array name="poll_texts">

@@ -14,6 +14,8 @@
     <string name="text_avg_length_of_menstruation">Средняя длительность месячных</string>
     <string name="text_avg_length_of_cycle">Средняя длительность цикла</string>
     <string name="text_today_menu">Сегодня</string>
+    <string name="date_of_note">Дата заметки</string>
+
 
 
     <string-array name="poll_texts">

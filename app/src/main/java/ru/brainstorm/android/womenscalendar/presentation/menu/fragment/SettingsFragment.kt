@@ -146,6 +146,7 @@ class SettingsFragment
 
                     allCycles.forEach { cycleDao.delete(it) }
                     allNotes.forEach { noteDao.delete(it) }
+                    pref.edit().clear().apply()
 
                     startActivity(QuizActivity.provideIntent(activity as MenuActivity))
                 }

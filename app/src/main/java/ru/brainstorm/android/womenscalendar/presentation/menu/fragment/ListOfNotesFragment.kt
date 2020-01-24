@@ -48,8 +48,8 @@ class ListOfNotesFragment : AbstractMenuFragment(), ListOfNotesView {
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val note = notes[position]
             var noteText = note.noteText
-            if(noteText.length > 15){
-                noteText = noteText.substring(15)
+            if(noteText.length > 155){
+                noteText = noteText.substring(0,155)
             }
             val noteDate = org.threeten.bp.LocalDate.parse(note.noteDate)
 
