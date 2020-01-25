@@ -49,7 +49,7 @@ class ListOfNotesFragment : AbstractMenuFragment(), ListOfNotesView {
             val note = notes[position]
             var noteText = note.noteText
             if(noteText.length > 155){
-                noteText = noteText.substring(0,155)
+                noteText = noteText.substring(0,155)+"..."
             }
             val noteDate = org.threeten.bp.LocalDate.parse(note.noteDate)
 

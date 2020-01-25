@@ -173,6 +173,7 @@ class CalendarPickerFragment : AbstractMenuFragment(), CalendarPickerView{
 
             //обработчик нажатий
             init {
+
                 view.setOnClickListener {
                     if(day.owner == DayOwner.THIS_MONTH) {
                         selectedDate = day.date
@@ -183,6 +184,7 @@ class CalendarPickerFragment : AbstractMenuFragment(), CalendarPickerView{
                             isFragmentInBackStack = true
                         }*/
                         calendarPickerPresenter.addNoteFragment(fragmentManager!!, day.date)
+
                         (activity!!.btn_plus_menu as ImageButton).isEnabled = true
                         calendarView.notifyCalendarChanged()
                     }
