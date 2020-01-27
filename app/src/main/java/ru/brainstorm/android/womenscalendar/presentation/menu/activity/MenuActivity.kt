@@ -691,4 +691,5 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView{
         }
     }
 
+    //
 }
