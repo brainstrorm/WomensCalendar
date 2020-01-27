@@ -517,18 +517,15 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView{
                 menuPresenter.setFragment(supportFragmentManager, "change_menstruation_dates")
             }
             R.id.btn_today_menu -> {
-                when(currentFragment){
+                when (currentFragment) {
                     "calendar",
                     "today",
-                    "calendar_year_mode" ->{
-                        val fragment = supportFragmentManager.findFragmentByTag(currentFragment) as OnScrollListener
+                    "calendar_year_mode" -> {
+                        val fragment =
+                            supportFragmentManager.findFragmentByTag(currentFragment) as OnScrollListener
                         fragment.scrollToToday()
                     }
                 }
-            }
-            else -> {
-
-                supportFragmentManager.beginTransaction().remove(supportFragmentManager.findFragmentByTag(SelectedDayNoteFragment.TAG)!!).commit()
             }
         }
 
