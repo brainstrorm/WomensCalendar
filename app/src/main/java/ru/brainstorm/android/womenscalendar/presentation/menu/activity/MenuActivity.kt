@@ -404,6 +404,7 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView{
             }
             R.id.today -> {
                menuPresenter.setFragment(supportFragmentManager, "today")
+
             }
             R.id.calendar -> {
                 btnMonthOrYearChecked == 1
@@ -519,9 +520,14 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView{
                     }
                 }
             }
+            else -> {
+
+                supportFragmentManager.beginTransaction().remove(supportFragmentManager.findFragmentByTag(SelectedDayNoteFragment.TAG)!!).commit()
+            }
         }
 
     }
+
 
     fun setVisibility(topBarVisibility : Int, btnMonthOrYearVisibility : Int, btnStatisticsVisibility : Int,
                       btnNewDatesVisibility : Int, layoutLeftVisibility : Int, layoutRightVisibility : Int, btnPlusNoteVisibility : Int,

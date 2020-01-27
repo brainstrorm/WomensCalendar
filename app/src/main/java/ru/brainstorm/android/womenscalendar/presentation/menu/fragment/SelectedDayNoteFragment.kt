@@ -87,9 +87,13 @@ class SelectedDayNoteFragment : AbstractMenuFragment(), SelectedDayNoteView {
     override fun setInformation(date: String, text: String) {
         val localDate = LocalDate.parse(date)
         dateForNote.setText("${dateFormatter.format(localDate)} ${monthFormatter.format(localDate)}")
-        textForNote.setText(text)
+        if (text.length > 150) {
+            textForNote.setText(text.substring(0, 100) + "...")
+        }
+        else {
+            textForNote.setText(text)
+        }
     }
-
     fun provideDate(date: String){
         this.date = date
     }
