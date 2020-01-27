@@ -21,6 +21,10 @@ import com.kizitonwose.calendarview.ui.MonthHeaderFooterBinder
 import com.kizitonwose.calendarview.ui.ViewContainer
 import kotlinx.android.synthetic.main.calendar_day_legend.view.*
 import kotlinx.android.synthetic.main.calendar_header.view.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import org.threeten.bp.LocalDate
@@ -28,6 +32,7 @@ import org.threeten.bp.YearMonth
 import org.w3c.dom.Text
 import ru.brainstorm.android.womenscalendar.App
 import ru.brainstorm.android.womenscalendar.R
+import ru.brainstorm.android.womenscalendar.data.database.dao.CycleDao
 import ru.brainstorm.android.womenscalendar.presentation.menu.activity.MenuActivity
 import ru.brainstorm.android.womenscalendar.presentation.menu.extra.differenceBetweenDates
 import ru.brainstorm.android.womenscalendar.presentation.menu.presenter.ChangeMenstruationDatesPresenter
@@ -37,12 +42,17 @@ import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.makeInVis
 import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.makeVisible
 import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.setTextColorRes
 import java.util.*
+import javax.inject.Inject
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 import kotlin.math.round
 
 
 class ChangeMenstruationDatesFragment : AbstractMenuFragment(), ChangeMenstruationDatesView {
+
+
+    @Inject
+    lateinit var cycleDao: CycleDao
 
     private lateinit var pref : SharedPreferences
 
@@ -287,17 +297,31 @@ class ChangeMenstruationDatesFragment : AbstractMenuFragment(), ChangeMenstruati
     }
 
     fun getAverageDurationOfMenstruation() : Int?{
-        var averageDurationOfMenstruation : Int
-        var sum = 0
+        var averageDurationOfMenstruation = 0
+        var sum_intervals = 0
+        var sum_cycles = 0
         var count = 0
+
+        runBlocking {
+            val job = GlobalScope.launch(Dispatchers.IO) {
+                val cycles = cycleDao.getAll()
+
+                cycles.forEach(){
+                   sum_cycles+= it.lengthOfMenstruation
+                }
+
         if (!intervals.isEmpty()){
             for(interval in intervals){
-                sum+= differenceBetweenDates(interval.second!!, interval.first!!)
+                sum_intervals+= differenceBetweenDates(interval.first!!, interval.second!!)
                 count++
             }
-            averageDurationOfMenstruation = sum/count
+
+            averageDurationOfMenstruation = (sum_intervals+sum_cycles)/(count+cycles.size)
         }else{
             averageDurationOfMenstruation = 0
+        }
+            }
+            job.join()
         }
 
         return averageDurationOfMenstruation

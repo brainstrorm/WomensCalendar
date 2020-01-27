@@ -37,14 +37,14 @@ constructor()
             runBlocking {
                 val job = GlobalScope.launch(Dispatchers.IO) {
                     val cycle = cycleDao.getAll()[0]
-                    cycle.startOfCycle = startDate.toString()
+                    val length = cycleDao.getAll().size
                     cycle.lengthOfMenstruation = averageDurationOfMenstruation
                     cycle.predicted = false
                     for(cycle in cycleDao.getAll()){
                         cycleDao.delete(cycle)
                     }
                     cycleDao.insert(cycle)
-                    predictorImpl.predict(5, PreferenceManager.getDefaultSharedPreferences(context))
+                    predictorImpl.predict(length-1, PreferenceManager.getDefaultSharedPreferences(context))
                 }
                 job.join()
             }
