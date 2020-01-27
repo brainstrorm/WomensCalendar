@@ -132,9 +132,6 @@ class StatisticsActivity : AppCompatActivity() {
         }
 
 
-
-
-
         //get data from db
         App.appComponent.inject(this)
         var cycles = listOf<Cycle>()
