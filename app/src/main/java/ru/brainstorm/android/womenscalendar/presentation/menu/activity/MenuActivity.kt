@@ -32,7 +32,7 @@ import java.time.Year
 import java.util.*
 import javax.inject.Inject
 
-class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
+class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView{
 
     @InjectPresenter
     lateinit var menuPresenter: MenuPresenter
@@ -98,6 +98,7 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
     //private lateinit var txtvwLanguages : TextView
 
     private lateinit var pref : SharedPreferences
+    private lateinit var mGestureDetector: GestureDetector
 
     @Inject
     lateinit var cycleDao: CycleDao
@@ -118,7 +119,6 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
 
         pref = PreferenceManager.getDefaultSharedPreferences(this)
 
-
         txtvwAboutApp = findViewById<TextView>(R.id.about_app)
         topBar = findViewById(R.id.topBar)
         btnMonthOrYear = findViewById<ImageView>(R.id.btn_month_or_year).apply{ setOnClickListener(this@MenuActivity)}
@@ -133,7 +133,6 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
         btnNewDates = findViewById<ImageButton>(R.id.btn_new_date_menu).apply { setOnClickListener(this@MenuActivity) }
         txtvwNewDates = findViewById<TextView>(R.id.btn_new_date_menu_text)
         layoutForNotes = findViewById<FrameLayout>(R.id.for_notes).apply {
-            setOnClickListener(this@MenuActivity)
             setOnTouchListener(OnSwipeTouchListener(this@MenuActivity))
         }
         btnBack = findViewById<ImageView>(R.id.btn_back).apply { setOnClickListener(this@MenuActivity) }
@@ -624,6 +623,11 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
                 return true
             }
 
+            override fun onSingleTapUp(e: MotionEvent?): Boolean {
+                menuPresenter.addFragmentToBackStack(supportFragmentManager.findFragmentByTag(CalendarPickerFragment.TAG) as AbstractMenuFragment)
+                menuPresenter.setFragment(supportFragmentManager, "note_redactor")
+                return true
+            }
             override fun onFling(
                 e1: MotionEvent,
                 e2: MotionEvent,
@@ -680,4 +684,5 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView {
             gestureDetector = GestureDetector(ctx, GestureListener())
         }
     }
+
 }
