@@ -12,7 +12,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".presentation.rate_us.activity.RateUsActivity"></activity>
-        <activity android:name=".presentation.note_redactor.activity.NoteRedactorActivity" />
         <activity android:name=".presentation.statistics.activity.StatisticsActivity" />
         <activity android:name=".presentation.initialization.activity.InitializationActivity" />
         <activity android:name=".presentation.menu.activity.MenuActivity" />

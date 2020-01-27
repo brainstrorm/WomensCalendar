@@ -155,7 +155,6 @@ class ChangeMenstruationDatesFragment : AbstractMenuFragment(), ChangeMenstruati
                                 endDate = null
                             } else if (date != startDate) {
                                 endDate = date
-
                                 intervals.add(Pair(startDate, endDate))
 
                                 activity!!.apply {
@@ -170,7 +169,6 @@ class ChangeMenstruationDatesFragment : AbstractMenuFragment(), ChangeMenstruati
                             startDate = date
                         }
                         calendarView.notifyCalendarChanged()
-                        //menuItem.isVisible = selectedDate != null
                     }
                 }
             }
@@ -182,31 +180,10 @@ class ChangeMenstruationDatesFragment : AbstractMenuFragment(), ChangeMenstruati
                 container.day = day
                 val textView = container.textView
                 val roundField = container.roundField
-
-                /*if (!intervals.isEmpty() && day.date.isAfter(intervals[0].first) && day.date.isBefore(intervals.last().second)) {
-                    for(interval in intervals){
-                        if(day.date.isEqual(interval.first) || day.date.isEqual(interval.second) ||
-                            (day.date.isAfter(interval.first) && day.date.isBefore(interval.second))){
-                            textView.setTextColorRes(R.color.colorPrimaryDark)
-                            roundField.makeVisible()
-                            roundField.setBackgroundResource(R.drawable.round_field_selected)
-                        }
-                    }
-                }else{*/
                     if (day.owner == DayOwner.THIS_MONTH) {
                         textView.text = day.date.dayOfMonth.toString()
 
                         when {
-                            !intervals.isEmpty() && day.date.isAfter(intervals[0].first) && day.date.isBefore(intervals.last().second) -> {
-                                for(interval in intervals){
-                                    if(day.date.isEqual(interval.first) || day.date.isEqual(interval.second) ||
-                                        (day.date.isAfter(interval.first) && day.date.isBefore(interval.second))){
-                                        textView.setTextColorRes(R.color.colorPrimaryDark)
-                                        roundField.makeVisible()
-                                        roundField.setBackgroundResource(R.drawable.round_field_selected)
-                                    }
-                                }
-                            }
                             startDate == day.date && endDate == null -> {
                                 textView.setTextColorRes(R.color.colorPrimaryDark)
                                 roundField.makeVisible()
@@ -233,6 +210,17 @@ class ChangeMenstruationDatesFragment : AbstractMenuFragment(), ChangeMenstruati
                                 roundField.setBackgroundResource(R.drawable.round_field_not_selected)
                             }
                         }
+
+                        /*if(!intervals.isEmpty() && day.date.isAfter(intervals[0].first) && day.date.isBefore(intervals.last().second)){
+                            for(interval in intervals){
+                                if(day.date.isEqual(interval.first) || day.date.isEqual(interval.second) ||
+                                    (day.date.isAfter(interval.first) && day.date.isBefore(interval.second))){
+                                    textView.setTextColorRes(R.color.colorPrimaryDark)
+                                    roundField.makeVisible()
+                                    roundField.setBackgroundResource(R.drawable.round_field_selected)
+                                }
+                            }
+                        }*/
 
                     } else {
                         // This part is to make the coloured selection background continuous
@@ -264,7 +252,18 @@ class ChangeMenstruationDatesFragment : AbstractMenuFragment(), ChangeMenstruati
                                 roundField.setBackgroundResource(R.drawable.round_field_selected)
                             }
                         }
-                    //}
+                    }
+                if (day.owner == DayOwner.THIS_MONTH) {
+                    if(!intervals.isEmpty()){
+                        for(interval in intervals){
+                            if(day.date.isEqual(interval.first) || day.date.isEqual(interval.second) ||
+                                (day.date.isAfter(interval.first) && day.date.isBefore(interval.second))){
+                                textView.setTextColorRes(R.color.colorPrimaryDark)
+                                roundField.makeVisible()
+                                roundField.setBackgroundResource(R.drawable.round_field_selected)
+                            }
+                        }
+                    }
                 }
             }
         }
