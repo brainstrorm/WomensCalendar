@@ -124,7 +124,7 @@
     <string name="end_of_menstruation">End of menstruation</string>
     <string name="ovulation_notification">Ovulation</string>
     <string name="opening_of_fertility_window">Fertility Window Opening</string>
-    <string name="closing_of_fertility_window">Fertility Window Closure</string>
+    <string name="closing_of_fertility_window">Fertility Window Closing</string>
     <string name="menstruation_starts_today">Menstruation starts today</string>
     <string name="do_not_forget">Remember to mark the end of your period</string>
     <string name="open_fertilnost">Opening the window of fertility</string>

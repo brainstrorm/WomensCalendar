@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.skydoves.progressview.ProgressView
 import kotlinx.android.synthetic.main.activity_statistic.*
 import kotlinx.coroutines.*
+import moxy.presenter.InjectPresenter
 import org.w3c.dom.Text
 import ru.brainstorm.android.womenscalendar.App
 import ru.brainstorm.android.womenscalendar.R
@@ -34,6 +35,8 @@ import java.time.format.DateTimeFormatter
 import java.util.*
 import javax.inject.Inject
 import ru.brainstorm.android.womenscalendar.presentation.menu.extra.*
+import ru.brainstorm.android.womenscalendar.presentation.menu.presenter.MenuPresenter
+import ru.brainstorm.android.womenscalendar.presentation.rate_us.activity.RateUsActivity
 
 
 class StatisticsActivity : AppCompatActivity() {
@@ -44,6 +47,7 @@ class StatisticsActivity : AppCompatActivity() {
 
         fun provideIntent(packageContext: Context) = Intent(packageContext, StatisticsActivity::class.java)
     }
+
 
     private lateinit var pref : SharedPreferences
 
@@ -127,6 +131,10 @@ class StatisticsActivity : AppCompatActivity() {
         arrow = findViewById<ImageView>(R.id.arrow)
 
 
+        txtvwPressDatesOfNewMenstruation.setOnClickListener {
+            goToMenuActivity()
+        }
+
         arrow.setOnClickListener(){
             finish()
         }
@@ -151,6 +159,10 @@ class StatisticsActivity : AppCompatActivity() {
         txtvwAvgOfMenstruation.setText(findAvg(cycleDao).first.toString()+" "+findAvg(cycleDao).second.toInt().getDayAddition(this))
 
 
+    }
+
+    fun goToMenuActivity() {
+        startActivity(MenuActivity.provideIntent(this@StatisticsActivity))
     }
 
     fun updateLocale(){
