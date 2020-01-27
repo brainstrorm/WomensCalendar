@@ -474,7 +474,13 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView{
             R.id.btn_back -> {
                 menuPresenter.popBackStack(supportFragmentManager)
             }
-            R.id.btn_cross, R.id.btn_canceled-> {
+            R.id.btn_cross-> {
+                supportFragmentManager.beginTransaction()
+                    .remove(supportFragmentManager.findFragmentByTag(ChangeMenstruationDatesFragment.TAG)!!)
+                    .commit()
+                menuPresenter.popBackStack(supportFragmentManager)
+            }
+            R.id.btn_canceled-> {
                 menuPresenter.popBackStack(supportFragmentManager)
             }
             R.id.btn_month_or_year -> {

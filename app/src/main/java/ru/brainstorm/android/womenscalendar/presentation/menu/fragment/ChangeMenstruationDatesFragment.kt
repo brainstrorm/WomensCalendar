@@ -29,6 +29,7 @@ import org.w3c.dom.Text
 import ru.brainstorm.android.womenscalendar.App
 import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.presentation.menu.activity.MenuActivity
+import ru.brainstorm.android.womenscalendar.presentation.menu.extra.differenceBetweenDates
 import ru.brainstorm.android.womenscalendar.presentation.menu.presenter.ChangeMenstruationDatesPresenter
 import ru.brainstorm.android.womenscalendar.presentation.menu.view.ChangeMenstruationDatesView
 import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.daysOfWeekFromLocale
@@ -89,7 +90,7 @@ class ChangeMenstruationDatesFragment : AbstractMenuFragment(), ChangeMenstruati
             findViewById<TextView>(R.id.btn_save).setOnClickListener {
                 changeMenstruationDatesPresenter.save(
                     getStartDate(),
-                    getEndDate(),
+                    getAverageDurationOfMenstruation(),
                     supportFragmentManager,
                     context!!
                 )
@@ -144,7 +145,16 @@ class ChangeMenstruationDatesFragment : AbstractMenuFragment(), ChangeMenstruati
                                 endDate = null
                             } else if (date != startDate) {
                                 endDate = date
+
                                 intervals.add(Pair(startDate, endDate))
+
+                                activity!!.apply {
+                                    val fragment = supportFragmentManager.findFragmentByTag(TAG)!!
+                                    supportFragmentManager.beginTransaction()
+                                        .detach(fragment)
+                                        .attach(fragment)
+                                        .commit()
+                                }
                             }
                         } else {
                             startDate = date
@@ -163,36 +173,56 @@ class ChangeMenstruationDatesFragment : AbstractMenuFragment(), ChangeMenstruati
                 val textView = container.textView
                 val roundField = container.roundField
 
+                /*if (!intervals.isEmpty() && day.date.isAfter(intervals[0].first) && day.date.isBefore(intervals.last().second)) {
+                    for(interval in intervals){
+                        if(day.date.isEqual(interval.first) || day.date.isEqual(interval.second) ||
+                            (day.date.isAfter(interval.first) && day.date.isBefore(interval.second))){
+                            textView.setTextColorRes(R.color.colorPrimaryDark)
+                            roundField.makeVisible()
+                            roundField.setBackgroundResource(R.drawable.round_field_selected)
+                        }
+                    }
+                }else{*/
                     if (day.owner == DayOwner.THIS_MONTH) {
                         textView.text = day.date.dayOfMonth.toString()
 
-                            when {
-                                startDate == day.date && endDate == null -> {
-                                    textView.setTextColorRes(R.color.colorPrimaryDark)
-                                    roundField.makeVisible()
-                                    roundField.setBackgroundResource(R.drawable.round_field_selected)
-                                }
-                                day.date == startDate -> {
-                                    textView.setTextColorRes(R.color.colorPrimaryDark)
-                                    roundField.setBackgroundResource(R.drawable.round_field_selected)
-                                }
-                                startDate != null && endDate != null && (day.date > startDate && day.date < endDate) -> {
-                                    textView.setTextColorRes(R.color.colorPrimaryDark)
-                                    roundField.setBackgroundResource(R.drawable.round_field_selected)
-                                }
-                                day.date == endDate -> {
-                                    textView.setTextColorRes(R.color.colorPrimaryDark)
-                                    roundField.setBackgroundResource(R.drawable.round_field_selected)
-                                }
-                                day.date == today -> {
-                                    textView.setTextColorRes(R.color.color_red)
-                                    roundField.setBackgroundResource(R.drawable.round_field_not_selected)
-                                }
-                                else -> {
-                                    textView.setTextColorRes(R.color.colorDays)
-                                    roundField.setBackgroundResource(R.drawable.round_field_not_selected)
+                        when {
+                            !intervals.isEmpty() && day.date.isAfter(intervals[0].first) && day.date.isBefore(intervals.last().second) -> {
+                                for(interval in intervals){
+                                    if(day.date.isEqual(interval.first) || day.date.isEqual(interval.second) ||
+                                        (day.date.isAfter(interval.first) && day.date.isBefore(interval.second))){
+                                        textView.setTextColorRes(R.color.colorPrimaryDark)
+                                        roundField.makeVisible()
+                                        roundField.setBackgroundResource(R.drawable.round_field_selected)
+                                    }
                                 }
                             }
+                            startDate == day.date && endDate == null -> {
+                                textView.setTextColorRes(R.color.colorPrimaryDark)
+                                roundField.makeVisible()
+                                roundField.setBackgroundResource(R.drawable.round_field_selected)
+                            }
+                            day.date == startDate -> {
+                                textView.setTextColorRes(R.color.colorPrimaryDark)
+                                roundField.setBackgroundResource(R.drawable.round_field_selected)
+                            }
+                            startDate != null && endDate != null && (day.date > startDate && day.date < endDate) -> {
+                                textView.setTextColorRes(R.color.colorPrimaryDark)
+                                roundField.setBackgroundResource(R.drawable.round_field_selected)
+                            }
+                            day.date == endDate -> {
+                                textView.setTextColorRes(R.color.colorPrimaryDark)
+                                roundField.setBackgroundResource(R.drawable.round_field_selected)
+                            }
+                            day.date == today -> {
+                                textView.setTextColorRes(R.color.color_red)
+                                roundField.setBackgroundResource(R.drawable.round_field_not_selected)
+                            }
+                            else -> {
+                                textView.setTextColorRes(R.color.colorDays)
+                                roundField.setBackgroundResource(R.drawable.round_field_not_selected)
+                            }
+                        }
 
                     } else {
                         // This part is to make the coloured selection background continuous
@@ -224,8 +254,8 @@ class ChangeMenstruationDatesFragment : AbstractMenuFragment(), ChangeMenstruati
                                 roundField.setBackgroundResource(R.drawable.round_field_selected)
                             }
                         }
-                    }
-
+                    //}
+                }
             }
         }
 
@@ -249,11 +279,28 @@ class ChangeMenstruationDatesFragment : AbstractMenuFragment(), ChangeMenstruati
     }
 
     fun getStartDate() : LocalDate?{
-        return startDate
+        return intervals[0].first
     }
 
     fun getEndDate() : LocalDate? {
-        return endDate
+        return intervals[0].second
+    }
+
+    fun getAverageDurationOfMenstruation() : Int?{
+        var averageDurationOfMenstruation : Int
+        var sum = 0
+        var count = 0
+        if (!intervals.isEmpty()){
+            for(interval in intervals){
+                sum+= differenceBetweenDates(interval.second!!, interval.first!!)
+                count++
+            }
+            averageDurationOfMenstruation = sum/count
+        }else{
+            averageDurationOfMenstruation = 0
+        }
+
+        return averageDurationOfMenstruation
     }
 
     fun updateLocale(){

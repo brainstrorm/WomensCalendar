@@ -32,13 +32,13 @@ constructor()
     @Inject
     lateinit var predictorImpl: PredictorImpl
 
-    fun save(startDate : LocalDate?, endDate : LocalDate?, fm : FragmentManager, context: Context){
-        if (startDate != null && endDate != null) {
+    fun save(startDate : LocalDate?, averageDurationOfMenstruation : Int?, fm : FragmentManager, context: Context){
+        if (startDate != null && averageDurationOfMenstruation != null) {
             runBlocking {
                 val job = GlobalScope.launch(Dispatchers.IO) {
                     val cycle = cycleDao.getAll()[0]
                     cycle.startOfCycle = startDate.toString()
-                    cycle.lengthOfMenstruation = differenceBetweenDates(startDate, endDate)
+                    cycle.lengthOfMenstruation = averageDurationOfMenstruation
                     cycle.predicted = false
                     for(cycle in cycleDao.getAll()){
                         cycleDao.delete(cycle)
