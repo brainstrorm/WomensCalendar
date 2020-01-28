@@ -1,6 +1,6 @@
 <resources>
     <dimen name="line_padding">6dp</dimen>
-    <string name="app_name">WomensCalendar</string>
+    <string name="app_name">Women\'s Calendar</string>
     <string name="init_rus">Синхронизация…</string>
     <string name="btn_poll_next">Далее</string>
     <string name="btn_poll_dnt_remember">Не помню</string>

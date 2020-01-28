@@ -83,7 +83,7 @@ class StatisticsActivity : AppCompatActivity() {
                 plusDays(currentCycle.lengthOfCycle.toLong())
             if(position == 0) {
 
-                holder?.daysOfCycle?.setText(A_context!!.resources.getString(R.string.during_cycle)+"${dateFormatter.format(startOfCycle)} " +
+                holder?.daysOfCycle?.setText(A_context!!.resources.getString(R.string.during_cycle)+" "+"${dateFormatter.format(startOfCycle)} " +
                         "${monthFormatter.format(startOfCycle)} - ${dateFormatter.format(endOfCycle)}" +
                         " ${monthFormatter.format(endOfCycle)}")
             }else{
@@ -155,7 +155,7 @@ class StatisticsActivity : AppCompatActivity() {
         }
 
         txtvwAvgOfCycles.setText(findAvg(cycleDao).first.toString()+" "+findAvg(cycleDao).first.toInt().getDayAddition(this))
-        txtvwAvgOfMenstruation.setText(findAvg(cycleDao).first.toString()+" "+findAvg(cycleDao).second.toInt().getDayAddition(this))
+        txtvwAvgOfMenstruation.setText(findAvg(cycleDao).second.toString()+" "+findAvg(cycleDao).second.toInt().getDayAddition(this))
 
 
     }
