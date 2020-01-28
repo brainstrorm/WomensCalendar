@@ -35,7 +35,7 @@ import javax.inject.Inject
 class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView{
 
     @InjectPresenter
-    lateinit var menuPresenter: MenuPresenter
+     lateinit var menuPresenter: MenuPresenter
 
     @ProvidePresenter
     fun providePresenter() = App.appComponent.presenter().menuPresenter()
@@ -110,6 +110,7 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView{
         const val TAG = "Today"
 
         fun provideIntent(packageContext: Context) = Intent(packageContext, MenuActivity::class.java)
+
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

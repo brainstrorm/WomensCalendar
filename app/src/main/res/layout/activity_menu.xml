@@ -154,7 +154,6 @@
             app:layout_constraintEnd_toEndOf="@+id/info_text"
             app:layout_constraintStart_toStartOf="@+id/info_text"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
             tools:ignore="VectorDrawableCompat" />
 
         <TextView
@@ -176,11 +175,10 @@
             android:layout_marginBottom="6dp"
             android:background="@null"
             android:padding="10dp"
-            app:layout_constraintBottom_toTopOf="@+id/more"
-            app:layout_constraintEnd_toEndOf="@+id/more"
-            app:layout_constraintStart_toStartOf="@+id/more"
+            app:layout_constraintBottom_toTopOf="@+id/more_text"
+            app:layout_constraintEnd_toEndOf="@+id/more_text"
+            app:layout_constraintStart_toStartOf="@+id/more_text"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
             tools:ignore="VectorDrawableCompat" />
 
 

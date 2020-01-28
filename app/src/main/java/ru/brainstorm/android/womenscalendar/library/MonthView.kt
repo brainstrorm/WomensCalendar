@@ -11,6 +11,7 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.gridlayout.widget.GridLayout
+import kotlinx.android.synthetic.main.day_item_with_dot.view.*
 import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.data.database.entities.Cycle
 import ru.brainstorm.android.womenscalendar.data.database.entities.Note
@@ -145,6 +146,7 @@ class MonthView(context: Context,
                     view = inflate(context, R.layout.drop_day_item, null)
                     view.findViewById<View>(R.id.first_blobe).visibility = View.GONE
                     tv = view.findViewById(R.id.date)
+
                     view.background = endBackground
                 }
                 DayState.CURRENT_MENSTRUATION -> {
@@ -166,7 +168,9 @@ class MonthView(context: Context,
                 DayState.EXACT_OVULATION -> {
                     view = View.inflate(context, R.layout.day_item_with_dot, null)
                     tv = view.findViewById(R.id.date)
+
                     tv.setBackgroundResource(R.drawable.orange_round_for_year)
+
                     tv.setTextColorRes(R.color.color_White)
                 }
             }
@@ -193,10 +197,15 @@ class MonthView(context: Context,
         private fun roundToday(detected: DayState, tv: TextView?) {
             tv ?: return
             when(detected) {
-                DayState.NONE -> tv.setBackgroundResource(R.drawable.black_circle_for_year)
-                DayState.EXACT_OVULATION -> tv.setBackgroundResource(R.drawable.ovulation_round_selected_for_year)
-                DayState.MENSTRUATION ->
+                DayState.NONE ->{ tv.setBackgroundResource(R.drawable.black_circle_for_year)
+                }
+                DayState.EXACT_OVULATION -> {tv.setBackgroundResource(R.drawable.ovulation_round_selected_for_year)
+                }
+
+                DayState.MENSTRUATION ->{
                     tv.setBackgroundResource(R.drawable.red_circle_for_year)
+                }
+
                 DayState.CURRENT_MENSTRUATION, DayState.START_MENSTRUATION_NOW, DayState.END_MENSTRUATION_NOW -> {
                     val back = tv.background
                     val circle = context.getDrawable(R.drawable.red_circle_for_year)
@@ -204,7 +213,9 @@ class MonthView(context: Context,
                     val final = LayerDrawable(arrayOf(back, circle))
                     tv.background = final
                 }
-                DayState.OVULATION -> tv.setBackgroundResource(R.drawable.orange_circle_for_year)
+                DayState.OVULATION -> {
+                    tv.setBackgroundResource(R.drawable.orange_circle_for_year)
+                }
             }
         }
 
