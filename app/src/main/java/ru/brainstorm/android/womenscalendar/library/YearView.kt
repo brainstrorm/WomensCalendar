@@ -79,8 +79,9 @@ class YearView(context: Context,
     }
 
     private fun startedBefore(it: Cycle, month: YearMonth): Boolean {
-        val ld = LocalDate.parse(it.startOfCycle, adapter.dateFormatter).plusDays(it.lengthOfCycle.toLong())
-        return ld.month == month.month
+        val start = LocalDate.parse(it.startOfCycle, adapter.dateFormatter)
+        val end = start.plusDays(it.lengthOfCycle.toLong())
+        return (start.monthValue <= month.monthValue && month.monthValue <= end.monthValue)
     }
 
     open inner class YearAdapter(year: Year, private val cycleDao: CycleDao, private val noteDao: NoteDao) {
@@ -113,21 +114,6 @@ class YearView(context: Context,
         private fun startedBefore(cycle: Cycle): Boolean {
             val ld = LocalDate.parse(cycle.startOfCycle, dateFormatter).plusDays(cycle.lengthOfCycle.toLong())
             return ld.year == year.value
-        }
-
-        fun<T : MonthView.MonthAdapter> setAdapterClazz(clazz: Class<T>, vararg parameters: Any) {
-            try {
-                val constructor = clazz.getConstructor(*parameters.map { it::class.java }.toTypedArray())
-                for (i in 0..11) {
-                    val newInstance = constructor.newInstance(parameters)
-                    (gridLayout[i] as MonthView).adapter = newInstance
-                }
-                notifyDataChanged()
-            } catch (e: NoSuchMethodException) {
-                Log.d("YearView", "$e")
-            } catch (e: SecurityException) {
-                Log.d("YearView", "$e")
-            }
         }
     }
 }
