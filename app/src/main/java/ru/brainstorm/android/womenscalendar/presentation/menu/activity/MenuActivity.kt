@@ -110,7 +110,6 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView{
         const val TAG = "Today"
 
         fun provideIntent(packageContext: Context) = Intent(packageContext, MenuActivity::class.java)
-
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -85,7 +85,7 @@ class RateUsActivity : AppCompatActivity() {
     }
 
     private fun launchMarket() {
-        val uri = Uri.parse("market://details?id=com.ivy.jewel.mystery")
+        val uri = Uri.parse("market://details?id=" + getPackageName())
         val myAppLinkToMarket = Intent(Intent.ACTION_VIEW, uri)
         try {
             startActivity(myAppLinkToMarket)
