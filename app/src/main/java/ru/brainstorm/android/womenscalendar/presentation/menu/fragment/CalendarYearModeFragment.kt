@@ -43,19 +43,8 @@ class CalendarYearModeFragment : AbstractMenuFragment(){
         recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         recyclerView.scrollToPosition(Year.now().value - START_YEAR)
         (activity as MenuActivity).apply {
-            btnTodayRound.setOnClickListener {
-                val calendarMonth = supportFragmentManager.findFragmentByTag(CalendarPickerFragment.TAG)
-                if (calendarMonth != null) {
-                    supportFragmentManager.beginTransaction()
-                        .detach(calendarMonth)
-                        .commit()
-                }
+            btnTodayRound_3.setOnClickListener {
                 recyclerView.scrollToPosition(Year.now().value - START_YEAR)
-                if(calendarMonth != null) {
-                    supportFragmentManager.beginTransaction()
-                        .attach(calendarMonth)
-                        .commit()
-                }
             }
         }
         return recyclerView

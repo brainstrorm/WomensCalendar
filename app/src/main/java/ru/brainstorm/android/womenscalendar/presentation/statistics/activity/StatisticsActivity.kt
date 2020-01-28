@@ -17,6 +17,7 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.graphics.drawable.toDrawable
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.skydoves.progressview.ProgressView
@@ -34,6 +35,7 @@ import java.time.format.DateTimeFormatter
 import java.util.*
 import javax.inject.Inject
 import ru.brainstorm.android.womenscalendar.presentation.menu.extra.*
+import ru.brainstorm.android.womenscalendar.presentation.menu.fragment.ChangeMenstruationDatesFragment
 
 
 class StatisticsActivity : AppCompatActivity() {

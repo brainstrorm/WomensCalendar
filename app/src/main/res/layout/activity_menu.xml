@@ -248,6 +248,28 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="VectorDrawableCompat"></ImageButton>
 
+            <ImageButton
+                android:id="@+id/btn_today_menu_2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/menu_btn_plus_circle"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="VectorDrawableCompat"></ImageButton>
+
+            <ImageButton
+                android:id="@+id/btn_today_menu_3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/menu_btn_plus_circle"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="VectorDrawableCompat"></ImageButton>
+
             <TextView
                 android:id="@+id/today_menu"
                 android:layout_width="50dp"
