@@ -8,6 +8,7 @@ import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.presentation.menu.activity.MenuActivity
 import ru.brainstorm.android.womenscalendar.presentation.menu.fragment.*
 import ru.brainstorm.android.womenscalendar.presentation.menu.view.MenuView
+import java.time.LocalDate
 import java.util.*
 import javax.inject.Inject
 
@@ -119,10 +120,10 @@ class MenuPresenter
                         .commit()
                 }
                 if(stackOfFragments.peek() == "calendar") {
-                    val fragment_ =
-                        fm.findFragmentByTag(SelectedDayNoteFragment.TAG) as SelectedDayNoteFragment
-                    date = fragment_.getDate()
-                    text = fragment_.getText()
+                        val fragment_ =
+                            fm.findFragmentByTag(SelectedDayNoteFragment.TAG) as SelectedDayNoteFragment
+                        date = fragment_.getDate()
+                        text = fragment_.getText()
                 }
                 if(fm.findFragmentByTag(NoteRedactorFragment.TAG) == null) {
                     fragment = NoteRedactorFragment()
@@ -339,5 +340,7 @@ class MenuPresenter
             }
         }
     }
+
+
 }
 

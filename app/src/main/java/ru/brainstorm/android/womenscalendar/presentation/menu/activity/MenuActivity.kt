@@ -18,6 +18,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import moxy.MvpAppCompatActivity
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
+import org.threeten.bp.LocalDate
 import ru.brainstorm.android.womenscalendar.App
 import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.data.database.dao.CycleDao
@@ -51,8 +52,8 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView{
     private lateinit var btnMore : ImageView
     private lateinit var layoutLeft : ConstraintLayout
     private lateinit var layoutRight : ConstraintLayout
-    private lateinit var btnPlusNote : ImageButton
     private lateinit var btnPlus : ImageView
+    lateinit var btnPlusNote : ImageButton
     private lateinit var btnNewDates : ImageButton
     private lateinit var txtvwCalendar : TextView
     private lateinit var txtvwToday : TextView
@@ -91,7 +92,9 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView{
     private lateinit var txtvwAboutApp : TextView
     private lateinit var txtvwTodayBtn : TextView
 
-
+    private lateinit var txtvwDurations : TextView
+    private lateinit var btnPressDatesOfNewMenstruation : ImageButton
+    private lateinit var txtvwPressDatesOfNewMenstruation : TextView
 
     private var btnTodayIsChecked : Boolean = true
     private var btnCalendarIsChecked : Boolean = false
@@ -173,6 +176,11 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView{
         txtvwTodayRound = findViewById<TextView>(R.id.today_menu)
         txtvwTodayBtn = findViewById<TextView>(R.id.today_menu)
 
+        txtvwDurations = findViewById(R.id.duration_of_cycle_and_menstruation)
+        btnPressDatesOfNewMenstruation = findViewById<ImageButton>(R.id.btn_press_dates_of_new_menstruation).apply {
+            setOnClickListener(this@MenuActivity)
+        }
+        txtvwPressDatesOfNewMenstruation = findViewById(R.id.press_dates_of_new_menstruation)
 
         changeLocale(pref.getString("language", "en")!!)
 
@@ -233,7 +241,8 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView{
                     View.GONE, View.GONE, View.GONE, View.GONE,
                     View.GONE, View.GONE, View.GONE, View.GONE, View.GONE, View.GONE,
                     View.GONE, View.GONE, View.GONE, View.VISIBLE, View.VISIBLE,View.GONE,
-                    View.GONE, View.GONE,View.VISIBLE)
+                    View.GONE, View.GONE,View.VISIBLE,
+                    View.GONE,View.GONE, View.GONE)
                 btnToday?.setBackgroundResource(R.drawable.ic_btn_today_menu_blue)
                 btnToday?.layoutParams.width = 51
                 btnToday?.layoutParams.height = 51
@@ -249,13 +258,14 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView{
                     View.GONE, View.GONE, View.GONE, View.GONE,
                     View.GONE, View.GONE, View.GONE, View.GONE, View.GONE, View.GONE,
                     View.GONE, View.GONE, View.GONE, View.GONE, View.VISIBLE,View.GONE,
-                    View.VISIBLE, View.GONE,View.VISIBLE)
+                    View.VISIBLE, View.GONE,View.VISIBLE,
+                    View.GONE,View.GONE, View.GONE)
                 btnCalendar?.setBackgroundResource(R.drawable.ic_btn_calendar_menu_blue)
                 btnCalendar?.layoutParams.width = 51
                 btnCalendar?.layoutParams.height = 51
                 txtvwCalendar.setTextColor(resources.getColor(R.color.colorBlueNotesRedactor))
                 btnCalendarIsChecked = true
-                btnPlusNote.isEnabled = false
+                btnPlusNote.isEnabled = true
                 btnTodayRound.isEnabled = true
             }
             "notes" ->{
@@ -265,7 +275,8 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView{
                     View.GONE, View.GONE, View.GONE, View.GONE,
                     View.GONE, View.GONE, View.GONE, View.GONE, View.GONE, View.GONE,
                     View.GONE, View.GONE, View.GONE, View.GONE, View.GONE,View.GONE,
-                    View.GONE, View.GONE,View.VISIBLE)
+                    View.GONE, View.GONE,View.VISIBLE,
+                    View.GONE,View.GONE, View.GONE)
                 btnInfo?.setBackgroundResource(R.drawable.ic_btn_notes_for_menu_blue)
                 btnInfo?.layoutParams.width = 48
                 btnInfo?.layoutParams.height = 48
@@ -281,7 +292,8 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView{
                     View.GONE, View.GONE, View.GONE, View.GONE,
                     View.GONE, View.GONE, View.GONE, View.GONE, View.GONE, View.GONE,
                     View.GONE, View.GONE, View.GONE, View.GONE, View.GONE,View.GONE,
-                    View.GONE, View.GONE,View.GONE)
+                    View.GONE, View.GONE,View.GONE,
+                    View.GONE,View.GONE, View.GONE)
                 btnTodayRound.isEnabled = false
             }
             "more" ->{
@@ -291,7 +303,8 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView{
                     View.GONE, View.GONE, View.GONE, View.GONE,
                     View.GONE, View.VISIBLE, View.GONE, View.GONE, View.GONE, View.GONE,
                     View.GONE, View.GONE, View.GONE, View.GONE, View.GONE,View.GONE,
-                    View.GONE, View.GONE,View.VISIBLE)
+                    View.GONE, View.GONE,View.VISIBLE,
+                    View.GONE,View.GONE, View.GONE)
                 btnMore?.setBackgroundResource(R.drawable.ic_btn_more_menu_blue)
                 btnMore?.layoutParams.width = 48
                 btnMore?.layoutParams.height = 48
@@ -307,7 +320,8 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView{
                     View.VISIBLE, View.VISIBLE, View.VISIBLE, View.VISIBLE,
                     View.GONE, View.GONE, View.GONE, View.GONE, View.GONE, View.GONE,
                     View.GONE, View.GONE, View.GONE, View.GONE, View.GONE,View.GONE,
-                    View.GONE, View.GONE,View.GONE)
+                    View.GONE, View.GONE,View.GONE,
+                    View.GONE,View.GONE, View.GONE)
 
             }
             "calendar_year_mode" -> {
@@ -317,7 +331,8 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView{
                     View.GONE, View.GONE, View.GONE, View.GONE,
                     View.GONE, View.GONE, View.GONE, View.GONE, View.GONE, View.GONE,
                     View.GONE, View.GONE, View.GONE, View.GONE, View.VISIBLE,View.GONE,
-                    View.GONE, View.VISIBLE,View.VISIBLE)
+                    View.GONE, View.VISIBLE,View.VISIBLE,
+                    View.GONE,View.GONE, View.GONE)
                 btnCalendar?.setBackgroundResource(R.drawable.ic_btn_calendar_menu_blue)
                 btnCalendar?.layoutParams.width = 51
                 btnCalendar?.layoutParams.height = 51
@@ -326,22 +341,24 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView{
             }
             "languages" -> {
                 setVisibility(View.VISIBLE, View.GONE, View.GONE,
-                    View.GONE, View.VISIBLE, View.VISIBLE, View.VISIBLE,
+                    View.GONE, View.GONE, View.GONE, View.GONE,
                     View.VISIBLE, View.GONE, View.GONE,
                     View.GONE, View.GONE, View.GONE, View.GONE,
                     View.GONE, View.GONE, View.GONE, View.GONE, View.GONE, View.VISIBLE,
                     View.GONE, View.GONE, View.GONE, View.GONE, View.GONE,View.GONE,
-                    View.GONE, View.GONE,View.VISIBLE)
+                    View.GONE, View.GONE,View.VISIBLE,
+                    View.GONE,View.GONE, View.GONE)
                 btnTodayRound.isEnabled = false
             }
             "change_language" -> {
                 setVisibility(View.VISIBLE, View.GONE, View.GONE,
-                    View.GONE, View.VISIBLE, View.VISIBLE, View.VISIBLE,
+                    View.GONE, View.GONE, View.GONE, View.GONE,
                     View.VISIBLE, View.GONE, View.GONE,
                     View.GONE, View.GONE, View.GONE, View.GONE,
                     View.VISIBLE, View.GONE, View.GONE, View.GONE, View.GONE, View.GONE,
                     View.GONE, View.GONE, View.GONE, View.GONE, View.GONE,View.GONE,
-                    View.GONE, View.GONE,View.VISIBLE)
+                    View.GONE, View.GONE,View.VISIBLE,
+                    View.GONE,View.GONE, View.GONE)
                 btnTodayRound.isEnabled = false
             }
             "notifications" -> {
@@ -351,59 +368,65 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView{
                     View.GONE, View.GONE, View.GONE, View.GONE,
                     View.GONE, View.GONE, View.VISIBLE, View.GONE, View.GONE, View.GONE,
                     View.GONE, View.GONE, View.GONE, View.GONE, View.GONE,View.GONE,
-                    View.GONE, View.GONE,View.VISIBLE)
+                    View.GONE, View.GONE,View.VISIBLE,
+                    View.GONE,View.GONE, View.GONE)
                 btnTodayRound.isEnabled = false
             }
 
             "start_of_menstruation" -> {
                 setVisibility(View.VISIBLE, View.GONE, View.GONE,
-                    View.GONE, View.VISIBLE, View.VISIBLE, View.VISIBLE,
+                    View.GONE, View.GONE, View.GONE, View.GONE,
                     View.VISIBLE, View.GONE, View.GONE,
                     View.GONE, View.GONE, View.GONE, View.GONE,
                     View.GONE, View.GONE, View.GONE, View.VISIBLE, View.GONE, View.GONE,
                     View.GONE, View.GONE, View.GONE, View.GONE, View.GONE,View.GONE,
-                    View.GONE, View.GONE,View.VISIBLE)
+                    View.GONE, View.GONE,View.VISIBLE,
+                    View.GONE,View.GONE, View.GONE)
                 btnTodayRound.isEnabled = false
             }
 
             "end_of_menstruation" -> {
                 setVisibility(View.VISIBLE, View.GONE, View.GONE,
-                    View.GONE, View.VISIBLE, View.VISIBLE, View.VISIBLE,
+                    View.GONE, View.GONE, View.GONE, View.GONE,
                     View.VISIBLE, View.GONE, View.GONE,
                     View.GONE, View.GONE, View.GONE, View.GONE,
                     View.GONE, View.GONE, View.GONE, View.GONE, View.VISIBLE, View.GONE,
                     View.GONE, View.GONE, View.GONE, View.GONE, View.GONE,View.GONE,
-                    View.GONE, View.GONE,View.VISIBLE)
+                    View.GONE, View.GONE,View.VISIBLE,
+                    View.GONE,View.GONE, View.GONE)
                 btnTodayRound.isEnabled = false
             }
             "ovulation" -> {
                 setVisibility(View.VISIBLE, View.GONE, View.GONE,
-                    View.GONE, View.VISIBLE, View.VISIBLE, View.VISIBLE,
+                    View.GONE, View.GONE, View.GONE, View.GONE,
                     View.VISIBLE, View.GONE, View.GONE,
                     View.GONE, View.GONE, View.GONE, View.GONE,
                     View.GONE, View.GONE, View.GONE, View.GONE, View.GONE, View.GONE,
                     View.VISIBLE, View.GONE, View.GONE, View.GONE, View.GONE,View.GONE,
-                    View.GONE, View.GONE,View.VISIBLE)
+                    View.GONE, View.GONE,View.VISIBLE,
+                    View.GONE,View.GONE, View.GONE)
                 btnTodayRound.isEnabled = false
             }
             "opening_of_fertility_window" -> {
                 setVisibility(View.VISIBLE, View.GONE, View.GONE,
-                    View.GONE, View.VISIBLE, View.VISIBLE, View.VISIBLE,
+                    View.GONE, View.GONE, View.GONE, View.GONE,
                     View.VISIBLE, View.GONE, View.GONE,
                     View.GONE, View.GONE, View.GONE, View.GONE,
                     View.GONE, View.GONE, View.GONE, View.GONE, View.GONE, View.GONE,
                     View.GONE, View.VISIBLE, View.GONE, View.GONE, View.GONE,View.GONE,
-                    View.GONE, View.GONE,View.VISIBLE)
+                    View.GONE, View.GONE,View.VISIBLE,
+                    View.GONE,View.GONE, View.GONE)
                 btnTodayRound.isEnabled = false
             }
             "closing_of_fertility_window" -> {
                 setVisibility(View.VISIBLE, View.GONE, View.GONE,
-                    View.GONE, View.VISIBLE, View.VISIBLE, View.VISIBLE,
+                    View.GONE, View.GONE, View.GONE, View.GONE,
                     View.VISIBLE, View.GONE, View.GONE,
                     View.GONE, View.GONE, View.GONE, View.GONE,
                     View.GONE, View.GONE, View.GONE, View.GONE, View.GONE, View.GONE,
                     View.GONE, View.GONE, View.VISIBLE, View.GONE, View.GONE,View.GONE,
-                    View.GONE, View.GONE,View.VISIBLE)
+                    View.GONE, View.GONE,View.VISIBLE,
+                    View.GONE,View.GONE, View.GONE)
                 btnTodayRound.isEnabled = false
             }
             "about_app" -> {
@@ -413,16 +436,18 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView{
                     View.GONE, View.GONE, View.GONE, View.GONE,
                     View.GONE, View.GONE, View.GONE, View.GONE, View.GONE, View.GONE,
                     View.GONE, View.GONE, View.GONE, View.GONE, View.GONE, View.VISIBLE,
-                    View.GONE, View.GONE,View.VISIBLE)
+                    View.GONE, View.GONE,View.VISIBLE,
+                    View.GONE,View.GONE, View.GONE)
             }
             "statistics" -> {
                 setVisibility(View.VISIBLE, View.GONE, View.GONE,
-                    View.GONE, View.VISIBLE, View.VISIBLE, View.VISIBLE,
+                    View.GONE, View.GONE, View.GONE, View.GONE,
                     View.VISIBLE, View.GONE, View.GONE,
                     View.GONE, View.GONE, View.GONE, View.GONE,
                     View.GONE, View.GONE, View.GONE, View.GONE, View.GONE, View.GONE,
-                    View.GONE, View.GONE, View.GONE, View.GONE, View.GONE, View.VISIBLE,
-                    View.GONE, View.GONE,View.VISIBLE)
+                    View.GONE, View.GONE, View.GONE, View.GONE, View.GONE, View.GONE,
+                    View.GONE, View.GONE,View.GONE,
+                    View.VISIBLE,View.VISIBLE, View.VISIBLE)
             }
         }
     }
@@ -431,6 +456,7 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView{
         v ?: return
         when(v.id) {
             R.id.btn_statistics -> {
+                menuPresenter.addFragmentToBackStackString(currentFragment)
                 menuPresenter.setFragment(supportFragmentManager, "statistics")
             }
             R.id.today -> {
@@ -445,7 +471,7 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView{
                 menuPresenter.setFragment(supportFragmentManager, "calendar")
             }
             R.id.info -> {
-
+                menuPresenter.addFragmentToBackStackString(currentFragment)
                 menuPresenter.setFragment(supportFragmentManager, "notes")
             }
             R.id.more -> {
@@ -474,7 +500,7 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView{
                         )
                 menuPresenter.setFragment(supportFragmentManager, "more")
             }
-            R.id.btn_plus_menu, R.id.for_notes -> {
+            R.id.for_notes -> {
                 menuPresenter.addFragmentToBackStack(
                     supportFragmentManager.findFragmentByTag(CalendarPickerFragment.TAG)
                             as AbstractMenuFragment)
@@ -543,7 +569,7 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView{
                     btnMonthOrYearChecked = 1
                 }
             }
-            R.id.btn_new_date_menu -> {
+            R.id.btn_new_date_menu, R.id.btn_press_dates_of_new_menstruation -> {
                 menuPresenter.addFragmentToBackStackString(currentFragment)
                 menuPresenter.setFragment(supportFragmentManager, "change_menstruation_dates")
             }
@@ -561,7 +587,9 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView{
                       txtvwEndOfMenstruationVisibility : Int, txtvwWomensCalendarVisibility : Int,
                       txtvwOvulationVisibility : Int, txtvwOpeningFertilityWindowVisibility : Int,
                       txtvwClosingOfFertilityWindowVisibility : Int, btnTodayRoundVisibility: Int, txtvwTodayRoundVisibility : Int,txtvwAboutAppVisibility : Int,
-                      btnTodayRound_2Visibility : Int, btnTodayRound_3Visibility : Int,btnPlusVisibility : Int){
+                      btnTodayRound_2Visibility : Int, btnTodayRound_3Visibility : Int,btnPlusVisibility : Int,
+                      txtvwDurationsVisibility : Int, btnPressNewDatesOfMenstruationVisibility : Int,
+                      txtvwPressNewDatesOfMenstruationVisibility : Int){
         txtvwAboutApp.visibility = txtvwAboutAppVisibility
         btnPlus.visibility = btnPlusVisibility
         topBar.visibility = topBarVisibility
@@ -592,6 +620,9 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView{
         txtvwTodayRound.visibility = txtvwTodayRoundVisibility
         btnTodayRound_2.visibility = btnTodayRound_2Visibility
         btnTodayRound_3.visibility = btnTodayRound_3Visibility
+        txtvwDurations.visibility = txtvwDurationsVisibility
+        btnPressDatesOfNewMenstruation.visibility = btnPressNewDatesOfMenstruationVisibility
+        txtvwPressDatesOfNewMenstruation.visibility = txtvwPressNewDatesOfMenstruationVisibility
     }
 
     fun changeLocale(language: String){

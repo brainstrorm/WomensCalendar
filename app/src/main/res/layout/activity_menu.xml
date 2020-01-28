@@ -488,6 +488,20 @@
             app:layout_constraintEnd_toEndOf="@+id/topBar"
             app:layout_constraintStart_toStartOf="@+id/topBar"
             app:layout_constraintTop_toTopOf="@+id/topBar"></TextView>
+
+        <TextView
+            android:id="@+id/duration_of_cycle_and_menstruation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_duration_of_menstruation"
+            android:textColor="@color/colorForBtnDurationMenstruationPink"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="@+id/topBar"
+            app:layout_constraintEnd_toEndOf="@+id/topBar"
+            app:layout_constraintStart_toStartOf="@+id/topBar"
+            app:layout_constraintTop_toTopOf="@+id/topBar"></TextView>
+
+
         <ImageView
             android:id="@+id/btn_statistics"
             android:layout_width="wrap_content"
@@ -634,6 +648,36 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+
+    <ImageButton
+        android:id="@+id/btn_press_dates_of_new_menstruation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_nav_bar_bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <TextView
+        android:id="@+id/press_dates_of_new_menstruation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="16dp"
+
+        android:layout_marginEnd="50dp"
+
+        android:layout_marginBottom="8dp"
+        android:text="@string/text_press_last_menstruation"
+        android:textColor="@color/color_Blue"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_press_dates_of_new_menstruation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btn_press_dates_of_new_menstruation"
+        app:layout_constraintVertical_bias="0.422" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

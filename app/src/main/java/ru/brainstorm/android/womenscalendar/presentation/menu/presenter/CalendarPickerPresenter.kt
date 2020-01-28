@@ -26,10 +26,10 @@ class CalendarPickerPresenter
             if(fm.findFragmentByTag(SelectedDayNoteFragment.TAG) == null) {
                 val fragment = SelectedDayNoteFragment()
                 fragment.apply {
+                    this.provideDate(date.toString())
                     fm.beginTransaction()
                         .add(R.id.for_notes, this, SelectedDayNoteFragment.TAG)
-                        .commit()
-                    this.provideDate(date.toString())
+                        .commitNow()
                 }
             }else{
                 val fragment = fm.findFragmentByTag(SelectedDayNoteFragment.TAG) as SelectedDayNoteFragment
@@ -38,12 +38,9 @@ class CalendarPickerPresenter
                     selectedDayNotePresenter.setInformationFromCalendar(date.toString())
                     fm.beginTransaction()
                         .attach(fm.findFragmentByTag(SelectedDayNoteFragment.TAG)!!)
-                        .commit()
+                        .commitNow()
                 }
             }
-        }
-        fun updateInformation(){
-
         }
 
 }

@@ -144,11 +144,6 @@ class CalendarPickerFragment : AbstractMenuFragment(), CalendarPickerView{
         calendarView.setup(currentMonth.minusMonths(12), currentMonth.plusMonths(12), daysOfWeek.first())
         calendarView.scrollToMonth(currentMonth)
 
-            (activity as MenuActivity).apply {
-            btnTodayRound_2.setOnClickListener { view ->
-                calendarView.scrollToMonth(currentMonth)
-            }
-        }
         //
 
         class DayViewContainer(view: View) : ViewContainer(view) {
@@ -162,19 +157,10 @@ class CalendarPickerFragment : AbstractMenuFragment(), CalendarPickerView{
 
             //обработчик нажатий
             init {
-
                 view.setOnClickListener {
                     if(day.owner == DayOwner.THIS_MONTH) {
                         selectedDate = day.date
-                        /*if(!isFragmentInBackStack) {
-                            (activity as MenuActivity).apply {
-                                menuPresenter.addFragmentToBackStack(this@CalendarPickerFragment)
-                            }
-                            isFragmentInBackStack = true
-                        }*/
                         calendarPickerPresenter.addNoteFragment(fragmentManager!!, day.date)
-
-                        (activity!!.btn_plus_menu as ImageButton).isEnabled = true
                         calendarView.notifyCalendarChanged()
                     }
                 }
@@ -300,6 +286,19 @@ class CalendarPickerFragment : AbstractMenuFragment(), CalendarPickerView{
             override fun bind(container: MonthViewContainer, month: CalendarMonth) {
                 val monthTitle = "${months[month.yearMonth.month.name.toLowerCase().capitalize()]} ${month.year}"
                 container.textView.text = monthTitle
+            }
+        }
+
+        (activity as MenuActivity).apply {
+            btnTodayRound_2.setOnClickListener { view ->
+                calendarView.scrollToMonth(currentMonth)
+            }
+            btnPlusNote.setOnClickListener { view ->
+                selectedDate = LocalDate.now()
+                calendarPickerPresenter.addNoteFragment(supportFragmentManager, LocalDate.now())
+                calendarView.notifyCalendarChanged()
+                menuPresenter.addFragmentToBackStack(this@CalendarPickerFragment)
+                menuPresenter.setFragment(supportFragmentManager, "note_redactor")
             }
         }
         return view

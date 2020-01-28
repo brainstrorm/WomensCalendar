@@ -166,7 +166,10 @@ class SettingsFragment
         rate_us = mainView.findViewById(R.id.rate_us_text)
 
         statistics.setOnClickListener {
-            (activity as MenuActivity).goToStatistic()
+            (activity as MenuActivity).apply {
+                menuPresenter.addFragmentToBackStack(this@SettingsFragment)
+                menuPresenter.setFragment(supportFragmentManager, "statistics")
+            }
         }
         rate_us.setOnClickListener{
             (activity as MenuActivity).goToRateUs()
