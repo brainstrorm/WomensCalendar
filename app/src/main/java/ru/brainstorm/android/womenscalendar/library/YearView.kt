@@ -8,11 +8,13 @@ import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.core.view.get
 import androidx.gridlayout.widget.GridLayout
+import io.reactivex.Observable
+import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_menu.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import ru.brainstorm.android.womenscalendar.App
 import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.data.database.dao.CycleDao
@@ -86,6 +88,8 @@ class YearView(context: Context,
 
     open inner class YearAdapter(year: Year, private val cycleDao: CycleDao, private val noteDao: NoteDao) {
 
+        val disposable = CompositeDisposable()
+
         val dateFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
 
         var notesList: List<Pair<YearMonth, Note>> = emptyList()
@@ -103,12 +107,26 @@ class YearView(context: Context,
         }
 
         private fun refilter() {
-            GlobalScope.launch(Dispatchers.Main) {
-                notesList = noteDao.getAll()
-                    .map { Pair(YearMonth.parse(it.noteDate, dateFormatter), it) }
-                    .filter { it.first.year == year.value }
-                cycleList = cycleDao.getAll().filter { Year.parse(it.startOfCycle, dateFormatter).value == year.value || startedBefore(it) }
-            }
+            disposable.add(
+                Single.create<Pair<List<Pair<YearMonth, Note>>, List<Cycle>>> {
+                    runBlocking {
+                        val notesList = noteDao.getAll()
+                            .map { Pair(YearMonth.parse(it.noteDate, dateFormatter), it) }
+                            .filter { it.first.year == year.value }
+                        val cycleList = cycleDao.getAll().filter { Year.parse(it.startOfCycle, dateFormatter).value == year.value || startedBefore(it) }
+                        it.onSuccess(Pair(notesList, cycleList))
+                    }
+                }
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({
+                        disposable.clear()
+                        notesList = it.first
+                        cycleList = it.second
+                    }, {
+
+                    })
+            )
         }
 
         private fun startedBefore(cycle: Cycle): Boolean {
