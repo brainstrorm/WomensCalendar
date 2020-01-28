@@ -13,6 +13,10 @@ import android.widget.TextView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_rate_us.*
 import ru.brainstorm.android.womenscalendar.presentation.statistics.activity.StatisticsActivity
+import androidx.core.app.ComponentActivity.ExtraData
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.net.Uri
 
 
 class RateUsActivity : AppCompatActivity() {
@@ -43,19 +47,20 @@ class RateUsActivity : AppCompatActivity() {
             sendEmail()
         }
         mRatingBar.onRatingBarChangeListener =
-            RatingBar.OnRatingBarChangeListener { ratingBar, v, b -> }
+            RatingBar.OnRatingBarChangeListener { ratingBar, v, b ->
+
+                when (ratingBar.getRating().toInt()) {
+                    1 -> launchMarket()
+                    2 -> launchMarket()
+                    3 -> launchMarket()
+                    4 -> launchMarket()
+                    5 -> launchMarket()
+                }
+
+            }
 
         supportActionBar?.hide()
 
-
-        when (ratingBar.getRating()) {
-            //1 -> mRatingScale.setText("Very bad")
-            //2 -> mRatingScale.setText("Need some improvement")
-            //3 -> mRatingScale.setText("Good")
-            //4 -> mRatingScale.setText("Great")
-            //5 -> mRatingScale.setText("Awesome. I love it")
-            //else -> mRatingScale.setText("")
-        }
 
         cancel.setOnClickListener{
             finish()
@@ -77,6 +82,17 @@ class RateUsActivity : AppCompatActivity() {
                 Toast.LENGTH_SHORT
             ).show()
         }
+    }
+
+    private fun launchMarket() {
+        val uri = Uri.parse("market://details?id=com.ivy.jewel.mystery")
+        val myAppLinkToMarket = Intent(Intent.ACTION_VIEW, uri)
+        try {
+            startActivity(myAppLinkToMarket)
+        } catch (e: ActivityNotFoundException) {
+            Toast.makeText(this, " unable to find market app", Toast.LENGTH_LONG).show()
+        }
+
     }
 
 }
