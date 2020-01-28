@@ -34,6 +34,7 @@ interface AppComponent {
 
     fun inject(calendarPicker : CalendarPickerFragment)
 
+
     fun inject(weekModeCalendar : WeekModeCalendarFragment)
 
     fun inject(statistics: StatisticsActivity)
