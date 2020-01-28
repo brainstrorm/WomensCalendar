@@ -62,22 +62,24 @@
                 android:id="@+id/ovulation_cancel_notification"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="-1dp"
                 android:background="@null"
                 android:text="@string/cancel"
                 android:textColor="@color/color_Blue"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/timePicker" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <Button
                 android:id="@+id/ovulation_save_notification"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
                 android:background="@null"
+                android:paddingRight="15dp"
                 android:text="@string/ru_save"
                 android:textColor="@color/color_Blue"
-                android:paddingRight="15dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/timePicker" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <TimePicker
                 android:id="@+id/timePicker"

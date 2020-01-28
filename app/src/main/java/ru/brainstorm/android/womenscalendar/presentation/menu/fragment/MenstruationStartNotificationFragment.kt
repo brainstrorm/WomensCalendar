@@ -98,7 +98,8 @@ class MenstruationStartNotificationFragment : AbstractMenuFragment(), OnBackPres
     private fun initAnimators() {
 
         val height = activity!!.windowManager.defaultDisplay.height
-        val time_height = (1300*height/2037)
+        val time_height = (height*3)/4
+
         timeLayout.setOnClickListener {
             val heightAnimator = ValueAnimator.ofInt(0, time_height).setDuration(1_000)
             heightAnimator.addUpdateListener {
@@ -124,7 +125,8 @@ class MenstruationStartNotificationFragment : AbstractMenuFragment(), OnBackPres
             editor.commit()
         }
         val height = activity!!.windowManager.defaultDisplay.height
-        val time_height = (1300*height/2037)
+        val time_height = (height*3)/4
+
         val heightAnimator = ValueAnimator.ofInt(time_height, 0).setDuration(1_000)
         heightAnimator.addUpdateListener {
             timeInfoLayout.layoutParams.height = it.animatedValue as Int
