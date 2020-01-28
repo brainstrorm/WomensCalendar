@@ -49,6 +49,8 @@ interface AppComponent {
 
     fun inject(notificationsFragment: NotificationsFragment)
 
+    fun inject(statisticsFragment: StatisticsFragment)
+
     fun presenter(): PresenterComponent
 
     @Subcomponent

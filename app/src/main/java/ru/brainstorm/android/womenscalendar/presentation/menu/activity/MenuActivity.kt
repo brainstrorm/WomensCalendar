@@ -413,6 +413,15 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView{
                     View.GONE, View.GONE, View.GONE, View.GONE, View.GONE, View.VISIBLE,
                     View.GONE, View.GONE)
             }
+            "statistics" -> {
+                setVisibility(View.VISIBLE, View.GONE, View.GONE,
+                    View.GONE, View.VISIBLE, View.VISIBLE, View.VISIBLE,
+                    View.VISIBLE, View.GONE, View.GONE,
+                    View.GONE, View.GONE, View.GONE, View.GONE,
+                    View.GONE, View.GONE, View.GONE, View.GONE, View.GONE, View.GONE,
+                    View.GONE, View.GONE, View.GONE, View.GONE, View.GONE, View.VISIBLE,
+                    View.GONE, View.GONE)
+            }
         }
     }
 
@@ -420,7 +429,7 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView{
         v ?: return
         when(v.id) {
             R.id.btn_statistics -> {
-                goToStatistic()
+                menuPresenter.setFragment(supportFragmentManager, "statistics")
             }
             R.id.today -> {
                menuPresenter.setFragment(supportFragmentManager, "today")

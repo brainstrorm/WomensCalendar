@@ -55,7 +55,6 @@ class AverageCycleFragment : AbstractQuizFragment() {
             days.isVisible = true
             days.setText(averageCyclePicker.value.getDayAddition(context!!))
         }
-
         updateLocale()
 
     }

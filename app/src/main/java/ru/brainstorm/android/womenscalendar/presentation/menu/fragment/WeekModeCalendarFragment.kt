@@ -475,7 +475,6 @@ class WeekModeCalendarFragment : AbstractMenuFragment() {
 
     private fun setOtherText(numberOfDays: Int,
                              forecastTextColor : Int){
-
         TVForecastText.text = "$numberOfDays ${numberOfDays.getDayAddition(context!!)}"
         TVForecastText.setTextColorRes(forecastTextColor)
     }

@@ -8,14 +8,15 @@
 
     <com.shawnlin.numberpicker.NumberPicker
         android:id="@+id/averageCyclePicker"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="128dp"
+        android:layout_height="360dp"
         android:orientation="vertical"
         android:theme="@style/averageMenstruationPickerTheme"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:np_dividerDistance="20dp"/>
 
     <TextView
         android:id="@+id/days"

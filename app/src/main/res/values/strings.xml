@@ -17,7 +17,6 @@
     <string name="date_of_note">Дата заметки</string>
 
 
-
     <string-array name="poll_texts">
 
         <item name="when_start_days0">Когда начались ваши последние \n месячные?</item>
@@ -103,7 +102,6 @@
     <string name="no_settings">Нет</string>
 
 
-
     <!-- Languages strings -->
     <string name="languages">Языки</string>
     <string name="english">English</string>
@@ -140,7 +138,6 @@
     <string name="message">Сообщение</string>
     <string name="notification_menstruation_start">Сегодня начнется менструация</string>
     <string name="notification_menstruation_start_message">Напоминание:\nсегодня начнется менструация!</string>
-
 
 
     <!-- months -->

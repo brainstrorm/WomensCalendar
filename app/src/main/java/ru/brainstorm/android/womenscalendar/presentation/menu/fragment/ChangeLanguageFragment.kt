@@ -90,7 +90,7 @@ class ChangeLanguageFragment : Fragment() {
                 it.isVisible = false
             }
             russian_check_mark.isVisible = true
-            (activity as MenuActivity).changeLocale("rus")
+            (activity as MenuActivity).changeLocale("ru")
         }
         spanishButton.setOnClickListener { view ->
             checkMarks.forEach{
@@ -142,8 +142,6 @@ class ChangeLanguageFragment : Fragment() {
     override fun onDetach() {
         super.onDetach()
     }
-
-
 
 
 }

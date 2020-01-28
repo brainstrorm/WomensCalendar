@@ -51,6 +51,7 @@ import kotlin.math.round
 class ChangeMenstruationDatesFragment : AbstractMenuFragment(), ChangeMenstruationDatesView {
 
 
+
     @Inject
     lateinit var cycleDao: CycleDao
 

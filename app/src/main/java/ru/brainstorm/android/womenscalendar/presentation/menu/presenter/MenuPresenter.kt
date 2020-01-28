@@ -318,6 +318,25 @@ class MenuPresenter
                 }
                 viewState.setPart("about_app")
             }
+            "statistics" -> {
+                if(fm.findFragmentByTag(StatisticsFragment.TAG) == null) {
+                    fragment = StatisticsFragment()
+                    fragment.apply {
+                        fm.beginTransaction()
+                            .add(R.id.for_fragment, this, StatisticsFragment.TAG)
+                            .commit()
+                        viewState.setPart(this.getPart())
+                    }
+                }else{
+                    fragment = fm.findFragmentByTag(StatisticsFragment.TAG) as AbstractMenuFragment
+                    fragment.apply {
+                        fm.beginTransaction()
+                            .show(this)
+                            .commit()
+                        viewState.setPart(this.getPart())
+                    }
+                }
+            }
         }
     }
 }
