@@ -145,19 +145,8 @@ class CalendarPickerFragment : AbstractMenuFragment(), CalendarPickerView{
         calendarView.scrollToMonth(currentMonth)
 
             (activity as MenuActivity).apply {
-            btnTodayRound.setOnClickListener { view ->
-                val calendarYear = supportFragmentManager.findFragmentByTag(CalendarYearModeFragment.TAG)
-                if(calendarYear != null) {
-                    supportFragmentManager.beginTransaction()
-                        .detach(calendarYear)
-                        .commit()
-                }
+            btnTodayRound_2.setOnClickListener { view ->
                 calendarView.scrollToMonth(currentMonth)
-                if (calendarYear != null) {
-                    supportFragmentManager.beginTransaction()
-                        .attach(calendarYear)
-                        .commit()
-                }
             }
         }
         //

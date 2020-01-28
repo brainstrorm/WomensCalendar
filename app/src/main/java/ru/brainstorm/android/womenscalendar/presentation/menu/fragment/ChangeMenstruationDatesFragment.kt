@@ -182,7 +182,6 @@ class ChangeMenstruationDatesFragment : AbstractMenuFragment(), ChangeMenstruati
                 val roundField = container.roundField
                     if (day.owner == DayOwner.THIS_MONTH) {
                         textView.text = day.date.dayOfMonth.toString()
-
                         when {
                             startDate == day.date && endDate == null -> {
                                 textView.setTextColorRes(R.color.colorPrimaryDark)
@@ -210,17 +209,6 @@ class ChangeMenstruationDatesFragment : AbstractMenuFragment(), ChangeMenstruati
                                 roundField.setBackgroundResource(R.drawable.round_field_not_selected)
                             }
                         }
-
-                        /*if(!intervals.isEmpty() && day.date.isAfter(intervals[0].first) && day.date.isBefore(intervals.last().second)){
-                            for(interval in intervals){
-                                if(day.date.isEqual(interval.first) || day.date.isEqual(interval.second) ||
-                                    (day.date.isAfter(interval.first) && day.date.isBefore(interval.second))){
-                                    textView.setTextColorRes(R.color.colorPrimaryDark)
-                                    roundField.makeVisible()
-                                    roundField.setBackgroundResource(R.drawable.round_field_selected)
-                                }
-                            }
-                        }*/
 
                     } else {
                         // This part is to make the coloured selection background continuous
