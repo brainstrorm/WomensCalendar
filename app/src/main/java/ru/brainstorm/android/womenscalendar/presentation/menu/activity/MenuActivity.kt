@@ -136,7 +136,7 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView{
         btnInfo = findViewById<ImageView>(R.id.btn_info).apply{setOnClickListener(this@MenuActivity)}
         btnMore = findViewById<ImageView>(R.id.btn_more).apply{setOnClickListener(this@MenuActivity)}
         btnPlusNote = findViewById<ImageButton>(R.id.btn_plus_menu).apply { setOnClickListener(this@MenuActivity) }
-        btnPlus = findViewById<ImageView>(R.id.btn_plus).apply { setOnClickListener(this@MenuActivity) }
+        btnPlus = findViewById<ImageView>(R.id.btn_plus)
         btnNewDates = findViewById<ImageButton>(R.id.btn_new_date_menu).apply { setOnClickListener(this@MenuActivity) }
         txtvwNewDates = findViewById<TextView>(R.id.btn_new_date_menu_text)
         layoutForNotes = findViewById<FrameLayout>(R.id.for_notes).apply {

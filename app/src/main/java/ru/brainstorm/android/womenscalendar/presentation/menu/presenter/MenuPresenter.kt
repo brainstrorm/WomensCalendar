@@ -56,7 +56,6 @@ class MenuPresenter
                         fm.beginTransaction()
                             .add(R.id.for_fragment, this, CalendarPickerFragment.TAG)
                             .commit()
-                        viewState.setPart(this.getPart())
                     }
                 }else{
                     fragment = fm.findFragmentByTag(CalendarPickerFragment.TAG) as AbstractMenuFragment
@@ -71,9 +70,9 @@ class MenuPresenter
                                 .show(fm.findFragmentByTag(SelectedDayNoteFragment.TAG)!!)
                                 .commit()
                         }
-                        viewState.setPart(this.getPart())
                     }
                 }
+                viewState.setPart("calendar")
             }
             "today" ->{
                 if(fm.findFragmentByTag(WeekModeCalendarFragment.TAG) == null) {

@@ -301,6 +301,9 @@ class CalendarPickerFragment : AbstractMenuFragment(), CalendarPickerView{
                 menuPresenter.setFragment(supportFragmentManager, "note_redactor")
             }
         }
+
+        val b = (activity as MenuActivity).btnPlusNote.isEnabled
+        val a = 1
         return view
     }
 

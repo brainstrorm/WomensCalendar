@@ -1,8 +1,11 @@
 package ru.brainstorm.android.womenscalendar.presentation.menu.fragment
 
 import android.content.Context
+import android.content.SharedPreferences
+import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
+import android.preference.PreferenceManager
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -24,6 +27,7 @@ import ru.brainstorm.android.womenscalendar.data.database.entities.Note
 import ru.brainstorm.android.womenscalendar.presentation.menu.presenter.CalendarPickerPresenter
 import ru.brainstorm.android.womenscalendar.presentation.menu.presenter.SelectedDayNotePresenter
 import ru.brainstorm.android.womenscalendar.presentation.menu.view.SelectedDayNoteView
+import java.util.*
 import javax.inject.Inject
 
 class SelectedDayNoteFragment : AbstractMenuFragment(), SelectedDayNoteView {
@@ -31,6 +35,8 @@ class SelectedDayNoteFragment : AbstractMenuFragment(), SelectedDayNoteView {
     private val dateFormatter = DateTimeFormatter.ofPattern("dd")
     private val monthFormatter = DateTimeFormatter.ofPattern("MMMM")
     private val dayOfWeekFormatter = DateTimeFormatter.ofPattern("EEEE")
+
+    private lateinit var pref : SharedPreferences
 
     @InjectPresenter
     lateinit var selectedDayNotePresenter: SelectedDayNotePresenter
@@ -60,6 +66,8 @@ class SelectedDayNoteFragment : AbstractMenuFragment(), SelectedDayNoteView {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_selected_day_note, container, false)
+
+        pref = PreferenceManager.getDefaultSharedPreferences(context)
 
         App.appComponent.inject(this)
 
