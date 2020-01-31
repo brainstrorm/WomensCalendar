@@ -127,8 +127,20 @@ class ChangeMenstruationDatesFragment : AbstractMenuFragment(), ChangeMenstruati
                         .commit()
                 }
                 val activity = this
+                intervals.clear()
+                supportFragmentManager.beginTransaction()
+                    .remove(this@ChangeMenstruationDatesFragment)
+                    .add(R.id.for_fragment, ChangeMenstruationDatesFragment(), TAG)
+                    .commitNow()
                 menuPresenter.popBackStack(supportFragmentManager)
 
+            }
+            findViewById<TextView>(R.id.btn_canceled).setOnClickListener {
+                intervals.clear()
+                supportFragmentManager.beginTransaction()
+                    .remove(this@ChangeMenstruationDatesFragment)
+                    .add(R.id.for_fragment, ChangeMenstruationDatesFragment(), TAG)
+                    .commitNow()
             }
         }
         var calendarView = view.findViewById<CalendarView>(R.id.calendarView)

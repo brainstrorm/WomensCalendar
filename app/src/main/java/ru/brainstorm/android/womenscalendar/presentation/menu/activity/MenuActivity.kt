@@ -537,9 +537,6 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView{
                     .commit()
                 menuPresenter.popBackStack(supportFragmentManager)
             }
-            R.id.btn_canceled-> {
-                menuPresenter.popBackStack(supportFragmentManager)
-            }
             R.id.btn_month_or_year -> {
                 val calendarMonth = supportFragmentManager.findFragmentByTag(CalendarPickerFragment.TAG)
                 val calendarYear = supportFragmentManager.findFragmentByTag(CalendarYearModeFragment.TAG)
