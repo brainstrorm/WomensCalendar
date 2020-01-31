@@ -49,7 +49,7 @@ import javax.inject.Inject
 import kotlin.collections.HashMap
 
 
-class CalendarPickerFragment : AbstractMenuFragment(), CalendarPickerView{
+class  CalendarPickerFragment : AbstractMenuFragment(), CalendarPickerView{
 
     lateinit var calendarView : CalendarView
     private lateinit var pref : SharedPreferences
