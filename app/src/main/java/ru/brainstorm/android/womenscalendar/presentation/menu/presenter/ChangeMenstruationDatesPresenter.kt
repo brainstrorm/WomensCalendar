@@ -2,6 +2,7 @@ package ru.brainstorm.android.womenscalendar.presentation.menu.presenter
 
 import android.content.Context
 import android.preference.PreferenceManager
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -32,7 +33,8 @@ constructor()
     @Inject
     lateinit var predictorImpl: PredictorImpl
 
-    fun save(startDate : LocalDate?, averageDurationOfMenstruation : Int?, fm : FragmentManager, context: Context){
+    fun save(startDate : LocalDate?, averageDurationOfMenstruation : Int?, fm : FragmentManager, context: Context,
+             fragment : Fragment){
         if (startDate != null && averageDurationOfMenstruation != null) {
             runBlocking {
                 val job = GlobalScope.launch(Dispatchers.IO) {

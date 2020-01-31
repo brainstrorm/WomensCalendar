@@ -69,7 +69,7 @@ class ChangeMenstruationDatesFragment : AbstractMenuFragment(), ChangeMenstruati
 
     private var startDate : LocalDate? = null
     private var endDate : LocalDate? = null
-    private var intervals : ArrayList<Pair<LocalDate?, LocalDate?>> = ArrayList()
+    var intervals : ArrayList<Pair<LocalDate?, LocalDate?>> = ArrayList()
     override fun getPart(): String = "change_menstruation_dates"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -103,35 +103,40 @@ class ChangeMenstruationDatesFragment : AbstractMenuFragment(), ChangeMenstruati
                     getStartDate(),
                     getAverageDurationOfMenstruation(),
                     supportFragmentManager,
-                    context!!
+                    context!!,
+                    this@ChangeMenstruationDatesFragment
                 )
                 val calendarMonth = supportFragmentManager.findFragmentByTag(CalendarPickerFragment.TAG)
                 val calendarYear = supportFragmentManager.findFragmentByTag(CalendarYearModeFragment.TAG)
                 val weekMode = supportFragmentManager.findFragmentByTag(WeekModeCalendarFragment.TAG)
+                val statistic = supportFragmentManager.findFragmentByTag(StatisticsFragment.TAG)
                 if (calendarMonth != null) {
                     supportFragmentManager.beginTransaction()
                         .detach(calendarMonth)
                         .attach(calendarMonth)
-                        .commit()
+                        .remove(this@ChangeMenstruationDatesFragment)
+                        .add(R.id.for_fragment, ChangeMenstruationDatesFragment(), TAG)
+                        .commitNow()
                 }
                 if (calendarYear != null) {
                     supportFragmentManager.beginTransaction()
                         .detach(calendarYear)
                         .attach(calendarYear)
-                        .commit()
+                        .commitNow()
                 }
                 if (weekMode != null){
                     supportFragmentManager.beginTransaction()
                         .detach(weekMode)
                         .attach(weekMode)
-                        .commit()
+                        .commitNow()
                 }
-                val activity = this
+                if (statistic != null){
+                    supportFragmentManager.beginTransaction()
+                        .detach(statistic)
+                        .attach(statistic)
+                        .commitNow()
+                }
                 intervals.clear()
-                supportFragmentManager.beginTransaction()
-                    .remove(this@ChangeMenstruationDatesFragment)
-                    .add(R.id.for_fragment, ChangeMenstruationDatesFragment(), TAG)
-                    .commitNow()
                 menuPresenter.popBackStack(supportFragmentManager)
 
             }
