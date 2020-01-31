@@ -27,8 +27,9 @@ class NoteRedactorPresenter
                     var note = Note()
                     note.noteText = ""
                     note.noteDate = ""
-                    if(noteDao.getByDate(fragment.getDate()) != null){
+                    if(!fragment.getDate().equals(fragment.getNewDate())){
                         noteDao.delete(noteDao.getByDate(fragment.getDate())!!)
+                        fragment.setDate()
                     }
                     note.noteDate = fragment.getDate()
                     note.noteText = fragment.getText()

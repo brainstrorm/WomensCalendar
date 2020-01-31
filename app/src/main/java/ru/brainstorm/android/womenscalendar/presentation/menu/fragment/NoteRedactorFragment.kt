@@ -40,6 +40,7 @@ class NoteRedactorFragment : AbstractMenuFragment(), NoteRedactorView {
     private val monthFormatter = DateTimeFormatter.ofPattern("MMMM")
     private val dayOfWeekFormatter = DateTimeFormatter.ofPattern("EEEE")
     private lateinit var date: String
+    private lateinit var newDate : String
     private lateinit var text: String
 
     private val dateAndTime: Calendar? = Calendar.getInstance()
@@ -56,10 +57,10 @@ class NoteRedactorFragment : AbstractMenuFragment(), NoteRedactorView {
 
     private val d =
         OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-            date = LocalDate.parse("$year-" +
+            newDate = LocalDate.parse("$year-" +
                     "${if(monthOfYear < 10) "0${monthOfYear + 1}" else "${monthOfYear + 1}"}" +
                     "-$dayOfMonth").toString()
-            noteRedactorPresenter.viewState.setDate()
+            noteRedactorPresenter.viewState.setDate_()
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -97,6 +98,7 @@ class NoteRedactorFragment : AbstractMenuFragment(), NoteRedactorView {
 
     fun provideInformation(date : String, text : String){
         this.date = date
+        this.newDate = date
         this.text = text
     }
 
@@ -109,6 +111,13 @@ class NoteRedactorFragment : AbstractMenuFragment(), NoteRedactorView {
     fun getText() : String{
         return view!!.findViewById<EditText>(R.id.text_notes_redactor).text.toString()
     }
+
+    fun setDate() {
+        this.date = newDate
+    }
+
+    fun getNewDate() : String = newDate
+
     override fun getPart(): String = "note_redactor"
 
     override fun setInformation() {
@@ -118,8 +127,8 @@ class NoteRedactorFragment : AbstractMenuFragment(), NoteRedactorView {
                 " ${dateFormatter.format(localDate)} ${monthFormatter.format(localDate)} ${localDate.year} г.")
     }
 
-    override fun setDate() {
-        val localDate = LocalDate.parse(date)
+    override fun setDate_() {
+        val localDate = LocalDate.parse(newDate)
         view!!.findViewById<TextView>(R.id.date_notes_redactor).setText("${dayOfWeekFormatter.format(localDate)}," +
                 " ${dateFormatter.format(localDate)} ${monthFormatter.format(localDate)} ${localDate.year} г.")
     }
