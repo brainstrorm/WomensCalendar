@@ -23,6 +23,7 @@ import ru.brainstorm.android.womenscalendar.App
 import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.data.database.dao.CycleDao
 import ru.brainstorm.android.womenscalendar.data.database.entities.Cycle
+import ru.brainstorm.android.womenscalendar.presentation.menu.activity.MenuActivity
 import ru.brainstorm.android.womenscalendar.presentation.menu.extra.getDayAddition
 import ru.brainstorm.android.womenscalendar.presentation.statistics.activity.StatisticsActivity
 import java.time.LocalDate
@@ -117,10 +118,12 @@ class StatisticsFragment : AbstractMenuFragment() {
 
         txtvwAvgLengthOfCycle = view.findViewById<TextView>(R.id.Avg_length_of_cycle)
         txtvwAvgLengthOfMenstruation = view.findViewById(R.id.avg_length_of_menstruation)
-        //txtvwDurationOfCycleAndMenstruation = view.findViewById(R.id.duration_of_cycle_and_menstruation)
-        //txtvwPressDatesOfNewMenstruation = view.findViewById(R.id.press_dates_of_new_menstruation)
+        txtvwDurationOfCycleAndMenstruation = (activity as MenuActivity).findViewById<TextView>(R.id.duration_of_cycle_and_menstruation)
+        txtvwPressDatesOfNewMenstruation = (activity as MenuActivity).findViewById(R.id.press_dates_of_new_menstruation)
         txtvwAvgOfCycles = view.findViewById<TextView>(R.id.days_of_cycle)
         txtvwAvgOfMenstruation = view.findViewById<TextView>(R.id.days_of_menstruation)
+
+
         //arrow = view.findViewById<ImageView>(R.id.arrow)
 
         updateLocale()
@@ -156,13 +159,14 @@ class StatisticsFragment : AbstractMenuFragment() {
 
         //txtvwAvgLengthOfCycle = view!!.findViewById<TextView>(R.id.Avg_length_of_cycle)
         //txtvwAvgLengthOfMenstruation = view!!.findViewById(R.id.avg_length_of_menstruation)
-        //txtvwDurationOfCycleAndMenstruation = view!!.findViewById(R.id.duration_of_cycle_and_menstruation)
+        // txtvwDurationOfCycleAndMenstruation = view!!.findViewById(R.id.duration_of_cycle_and_menstruation)
         //txtvwPressDatesOfNewMenstruation = view!!.findViewById(R.id.press_dates_of_new_menstruation)
 
-        //txtvwDurationOfCycleAndMenstruation.setText(R.string.text_duration_of_menstruation)
         txtvwAvgLengthOfMenstruation.setText(R.string.text_avg_length_of_menstruation)
         txtvwAvgLengthOfCycle.setText(R.string.text_avg_length_of_cycle)
-        //txtvwPressDatesOfNewMenstruation.setText(R.string.text_press_last_menstruation)
+        txtvwPressDatesOfNewMenstruation.setText(R.string.text_press_last_menstruation)
+        txtvwDurationOfCycleAndMenstruation.setText(R.string.text_duration_of_menstruation)
+
     }
 
     fun findAvg(cycleDao: CycleDao): Pair<Long,Long> {
