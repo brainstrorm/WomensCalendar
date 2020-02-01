@@ -78,9 +78,17 @@ class MenstruationStartNotificationFragment : AbstractMenuFragment(), OnBackPres
         backButton.setOnClickListener{view ->
             (activity as MenuActivity).apply {
                 menuPresenter.popBackStack(supportFragmentManager)
-                pref.edit()
-                    .putString(TextOfStartOfMenstruationNotificationTag, messageEditText.text.toString())
-                    .commit()
+
+                if( messageEditText.text.toString() != resources.getString(R.string.notification_menstruation_start_message)) {
+                    if (messageEditText.text.toString() != (resources.getString(R.string.notification_menstruation_start_message)+" ")) {
+                        pref.edit()
+                            .putString(
+                                TextOfStartOfMenstruationNotificationTag,
+                                messageEditText.text.toString()
+                            )
+                            .commit()
+                    }
+                }
             }
         }
 

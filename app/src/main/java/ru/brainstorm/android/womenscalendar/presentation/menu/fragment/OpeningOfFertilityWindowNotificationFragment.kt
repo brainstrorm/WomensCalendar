@@ -81,9 +81,17 @@ class OpeningOfFertilityWindowNotificationFragment : AbstractMenuFragment(), OnB
         backButton.setOnClickListener{view ->
             (activity as MenuActivity).apply {
                 menuPresenter.popBackStack(supportFragmentManager)
-                pref.edit()
-                    .putString(TextOfOpeningOfFertilityWindowNotificationTag, messageEditText.text.toString())
-                    .commit()
+                if (messageEditText.text.toString() != resources.getString(R.string.open_fertilnost_today_message)) {
+                    if (messageEditText.text.toString() != (resources.getString(R.string.open_fertilnost_today_message) + " ")) {
+
+                        pref.edit()
+                            .putString(
+                                TextOfOpeningOfFertilityWindowNotificationTag,
+                                messageEditText.text.toString()
+                            )
+                            .commit()
+                    }
+                }
             }
         }
 

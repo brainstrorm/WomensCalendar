@@ -73,12 +73,21 @@ class MenstruationEndNotificationFragment : AbstractMenuFragment(), OnBackPresse
         messageEditText = mainView.findViewById<EditText>(R.id.message_edit)
 
         backButton = activity!!.findViewById<ImageView>(R.id.btn_back)
-        backButton.setOnClickListener{view ->
+        backButton.setOnClickListener { view ->
             (activity as MenuActivity).apply {
                 menuPresenter.popBackStack(supportFragmentManager)
-                pref.edit()
-                    .putString(TextOfEndOfMenstruationNotificationTag, messageEditText.text.toString())
-                    .commit()
+
+
+                if (messageEditText.text.toString() != resources.getString(R.string.do_not_forget_message)) {
+                    if (messageEditText.text.toString() != (resources.getString(R.string.do_not_forget_message) + " ")) {
+                        pref.edit()
+                            .putString(
+                                TextOfEndOfMenstruationNotificationTag,
+                                messageEditText.text.toString()
+                            )
+                            .commit()
+                    }
+                }
             }
         }
 

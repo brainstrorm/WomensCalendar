@@ -71,9 +71,19 @@ class OvulationNotificationFragment : AbstractMenuFragment(), OnBackPressedListe
         backButton.setOnClickListener{view ->
             (activity as MenuActivity).apply {
                 menuPresenter.popBackStack(supportFragmentManager)
-                pref.edit()
-                    .putString(TextOfOvulationNotificationTag, messageEditText.text.toString())
-                    .commit()
+
+                if (messageEditText.text.toString() != resources.getString(R.string.ovulation_will_stsrt_message)) {
+                    if (messageEditText.text.toString() != (resources.getString(R.string.ovulation_will_stsrt_message) + " ")) {
+
+                        pref.edit()
+                            .putString(
+                                TextOfOvulationNotificationTag,
+                                messageEditText.text.toString()
+                            )
+                            .commit()
+
+                    }
+                }
             }
         }
 
