@@ -100,10 +100,10 @@ class ClosingOfFertilityWindowNotificationFragment : AbstractMenuFragment(), OnB
 
     private fun initAnimators() {
 
-        val height = activity!!.windowManager.defaultDisplay.height
-        val time_height = (height*3)/4
 
         timeLayout.setOnClickListener {
+            val time_height = timeLayout.height*6
+
             val heightAnimator = ValueAnimator.ofInt(0, time_height).setDuration(1_000)
             heightAnimator.addUpdateListener {
                 val value = it.animatedValue as Int
@@ -128,7 +128,8 @@ class ClosingOfFertilityWindowNotificationFragment : AbstractMenuFragment(), OnB
             editor.commit()
         }
         val height = activity!!.windowManager.defaultDisplay.height
-        val time_height = (height*3)/4
+        val time_height = timeLayout.height*6
+
         val heightAnimator = ValueAnimator.ofInt(time_height,0).setDuration(1_000)
         heightAnimator.addUpdateListener {
             timeInfoLayout.layoutParams.height = it.animatedValue as Int
