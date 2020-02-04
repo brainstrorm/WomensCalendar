@@ -1,13 +1,12 @@
 package ru.brainstorm.android.womenscalendar.presentation.menu.fragment
 
-import android.app.AlarmManager
-import android.app.Notification
-import android.app.PendingIntent
+import android.app.*
 import android.content.Context
 import android.content.Context.ALARM_SERVICE
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.Configuration
+import android.os.Build
 import android.os.Bundle
 import android.os.SystemClock
 import android.preference.PreferenceManager
@@ -20,6 +19,7 @@ import android.widget.ImageView
 import android.widget.Switch
 import android.widget.TextView
 import androidx.core.app.NotificationCompat
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.work.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -79,36 +79,40 @@ public class NotificationsFragment : AbstractMenuFragment() {
     private val requestOvulationKey = "requestOvulationKey"
     private val requestOpenFertilityWindowKey = "requestOpenFertilityWindowKey"
     private val requestCloseFertilityWindowKey = "requestCloseFertilityWindowKey"
+    
 
-     fun scheduleNotification(message : String, startLocalDate : LocalDate, time : String, interval : Int, notificationId : Int) : UUID{
-         val time_ = time.parseDate()
-         val startDate = Date( startLocalDate.year - 1900, startLocalDate.monthValue-1,
-             startLocalDate.dayOfMonth - 1, time_.first, time_.second)
-         val date1970 = Date(70, 0,0,0,0)
-         val startTime = startDate.time - date1970.time - System.currentTimeMillis() - TimeZone.getDefault().getOffset(Date().time)
+    fun scheduleNotification(message : String, startLocalDate : LocalDate, time : String, interval : Int,
+                            isChecked : Boolean, requestKey : String, notificationId : Int){
+        val time_ = time.parseDate()
+        val startDate = Date( startLocalDate.year - 1900, startLocalDate.monthValue-1,
+            startLocalDate.dayOfMonth - 1, time_.first, time_.second)
+        val date1970 = Date(70, 0,0,0,0)
+        val startTime = startDate.time - date1970.time - TimeZone.getDefault().getOffset(Date().time)
 
-         //we set a tag to be able to cancel all work of this type if needed
-         val workTag = "notificationWork"
+        val intent = Intent(context!!, NotificationStartOfMenstruationReceiver::class.java)
+        intent.putExtra("message", message)
+        val pendingIntent = PendingIntent.getBroadcast(context!!, 0, intent, 0)
 
-         //store DBEventID to pass it to the PendingIntent and open the appropriate event page on notification click
-         val inputData = Data.Builder()
-             .putInt(NotificationIDTag, notificationId)
-             .putString(NotificationMessageTag, message)
-             .build()
-         // we then retrieve it inside the NotifyWorker with:
-         // final int DBEventID = getInputData().getInt(DBEventIDTag, ERROR_VALUE);
+        val alarmManager = context!!.getSystemService(ALARM_SERVICE) as AlarmManager
 
-         val notificationWork = PeriodicWorkRequest.Builder(NotifyWorker::class.java, PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS, TimeUnit.MILLISECONDS)
-             .setInitialDelay(startTime, TimeUnit.MILLISECONDS)
-             .setInputData(inputData)
-             .addTag(workTag)
-             .build()
+        if(isChecked) {
+            alarmManager.setRepeating(
+                AlarmManager.RTC_WAKEUP,
+                startTime,
+                interval.toLong(),
+                pendingIntent
+            )
 
-         requestId = notificationWork.id
+            val editor = pref.edit()
+            editor.putString(requestKey, notificationId.toString())
+            editor.commit()
+        }else{
+            alarmManager.cancel(pendingIntent)
 
-
-         WorkManager.getInstance(context!!).enqueue(notificationWork)
-         return requestId
+            val editor = pref.edit()
+            editor.putString(requestKey,"")
+            editor.commit()
+        }
     }
     @Inject
     lateinit var cycleDao: CycleDao
@@ -145,6 +149,8 @@ public class NotificationsFragment : AbstractMenuFragment() {
             job.join()
         }
         pref = PreferenceManager.getDefaultSharedPreferences(context)
+
+        createNotificationChannel()
 
         txtvwPeriodicNotifications = view.findViewById(R.id.period_notification)
         txtvwStartOfMenstruation = view.findViewById(R.id.start_of_menstruation)
@@ -185,132 +191,59 @@ public class NotificationsFragment : AbstractMenuFragment() {
 
         switchStartMenstruationButton.setOnCheckedChangeListener { _, isChecked ->
 
-            if(isChecked) {
-                Log.d("Switcher", "Switcher on + ${Date()}")
-                val workRequestId = scheduleNotification(pref.getString(MenstruationStartNotificationFragment().TextOfStartOfMenstruationNotificationTag,
-                    "This is start of your menstruation")!!,
+                scheduleNotification(pref.getString(MenstruationStartNotificationFragment().TextOfStartOfMenstruationNotificationTag,"This is start of your menstruation")!!,
                     FindStartOfMenstruation(cycles),
                     pref.getString(MenstruationStartNotificationFragment().TimeOfStartOfMenstruationNotificationTag, "9:00")!!,
-                    2*AlarmManager.INTERVAL_DAY.toInt(), 1)
-
-                val editor = pref.edit()
-                editor.putString(requestStartMenstruationKey,workRequestId.toString())
-                editor.commit()
-
-            }else{
-
-                WorkManager.getInstance(context!!).
-                    cancelWorkById(
-                        UUID.fromString(pref.getString(requestStartMenstruationKey, ""))
+                    FindCurrent(cycles).lengthOfCycle*24*60*60,
+                    isChecked,
+                    requestStartMenstruationKey,
+                    1
                     )
-
-                val editor = pref.edit()
-                editor.putString(requestStartMenstruationKey,"")
-                editor.commit()
-            }
-
         }
         //
         switchEndMenstruationButton.setOnCheckedChangeListener { _, isChecked ->
-
-            val FLAG = "EndMenstruation"
-            if(isChecked) {
-                Log.d("Switcher", "Switcher on + ${Date()}")
                 val workRequestId = scheduleNotification(pref.getString(MenstruationEndNotificationFragment().TextOfEndOfMenstruationNotificationTag, "This is start of your menstruation")!!,
                     FindEndOfMenstruation(cycles),
                     pref.getString(MenstruationEndNotificationFragment().TimeOfEndOfMenstruationNotificationTag, "9:00")!!,
-                    2*AlarmManager.INTERVAL_DAY.toInt(), 2)
-
-                val editor = pref.edit()
-                editor.putString(requestEndMenstruationKey,workRequestId.toString())
-                editor.commit()
-            }else{
-                WorkManager.getInstance(context!!).
-                    cancelWorkById(
-                        UUID.fromString(pref.getString(requestEndMenstruationKey, ""))
-                    )
-
-                val editor = pref.edit()
-                editor.putString(requestEndMenstruationKey,"")
-                editor.commit()
-            }
+                    2*AlarmManager.INTERVAL_DAY.toInt(),
+                    isChecked,
+                    requestEndMenstruationKey,
+                    2)
 
 
         }
 
         switchOvulationButton.setOnCheckedChangeListener { _, isChecked ->
-
-            val FLAG = "Ovulation"
-            if(isChecked) {
-                Log.d("Switcher", "Switcher on + ${Date()}")
                 val workRequestId = scheduleNotification(pref.getString(OvulationNotificationFragment().TextOfOvulationNotificationTag, "This is start of your menstruation")!!,
                     FindOvulation(cycles),
                     pref.getString(OvulationNotificationFragment().TimeOfOvulationNotificationTag, "9:00")!!,
-                    2*AlarmManager.INTERVAL_DAY.toInt(), 3)
-                val editor = pref.edit()
-                editor.putString(requestOvulationKey,workRequestId.toString())
-                editor.commit()
-            }else{
-                WorkManager.getInstance(context!!).
-                    cancelWorkById(
-                        UUID.fromString(pref.getString(requestOvulationKey, ""))
-                    )
-
-                val editor = pref.edit()
-                editor.putString(requestOvulationKey,"")
-                editor.commit()
-            }
+                    2*AlarmManager.INTERVAL_DAY.toInt(),
+                    isChecked,
+                    requestOvulationKey,
+                    3)
 
         }
 
         switchOpenFetilnostButton.setOnCheckedChangeListener { _, isChecked ->
-
-            val FLAG = "OpenFetilnost"
-            if(isChecked) {
-                Log.d("Switcher", "Switcher on + ${Date()}")
                 val workRequestId = scheduleNotification(pref.getString(OpeningOfFertilityWindowNotificationFragment().TextOfOpeningOfFertilityWindowNotificationTag, "This is start of your menstruation")!!,
                     FindOpenOfFertilnost(cycles),
                     pref.getString(OpeningOfFertilityWindowNotificationFragment().TimeOfOpeningOfFertilityWindowNotificationTag, "9:00")!!,
-                    2*AlarmManager.INTERVAL_DAY.toInt(), 4)
-                val editor = pref.edit()
-                editor.putString(requestOpenFertilityWindowKey,workRequestId.toString())
-                editor.commit()
-            }else{
-                WorkManager.getInstance(context!!).
-                    cancelWorkById(
-                        UUID.fromString(pref.getString(requestOpenFertilityWindowKey, ""))
-                    )
+                    2*AlarmManager.INTERVAL_DAY.toInt(),
+                    isChecked,
+                    requestOpenFertilityWindowKey,
+                    4)
 
-                val editor = pref.edit()
-                editor.putString(requestOpenFertilityWindowKey,"")
-                editor.commit()
-            }
 
         }
 
         switchCloseFetilnostButton.setOnCheckedChangeListener { _, isChecked ->
 
-            val FLAG = "CloseFetilnost"
-            if (isChecked) {
-                Log.d("Switcher", "Switcher on + ${Date()}")
                 val workRequestId = scheduleNotification(pref.getString(ClosingOfFertilityWindowNotificationFragment().TextOfClosingOfFertilityWindowNotificationTag, "This is start of your menstruation")!!,
                     FindEndOfFertilnost(cycles),
                     pref.getString(ClosingOfFertilityWindowNotificationFragment().TimeOfClosingOfFertilityWindowNotificationTag, "9:00")!!,
-                    2*AlarmManager.INTERVAL_DAY.toInt(), 5)
-                val editor = pref.edit()
-                editor.putString(requestCloseFertilityWindowKey,workRequestId.toString())
-                editor.commit()
-            } else {
-                WorkManager.getInstance(context!!).
-                    cancelWorkById(
-                        UUID.fromString(pref.getString(requestCloseFertilityWindowKey, ""))
-                    )
-
-                val editor = pref.edit()
-                editor.putString(requestCloseFertilityWindowKey,"")
-                editor.commit()
-
-            }
+                    2*AlarmManager.INTERVAL_DAY.toInt(), isChecked,
+                    requestCloseFertilityWindowKey,
+                    5)
         }
 
         //<---------------------------------->
@@ -406,6 +339,20 @@ public class NotificationsFragment : AbstractMenuFragment() {
         if(requestCloseFertilityWindowId != "")
             switchCloseFetilnostButton.isChecked = true
 
+    }
+
+    private fun createNotificationChannel(){
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            val name = "WomensCalendarNotificationChannel"
+            val description = "Channel for Womens Calendar notifications"
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val channel = NotificationChannel("notifyWomensCalendar", name, importance)
+            channel.description = description
+
+            val notificationManager = context!!.getSystemService(NotificationManager::class.java)
+            notificationManager.createNotificationChannel(channel)
+        }
     }
 
 }

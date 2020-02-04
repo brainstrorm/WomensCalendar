@@ -123,6 +123,8 @@ class MenuPresenter
                             fm.findFragmentByTag(SelectedDayNoteFragment.TAG) as SelectedDayNoteFragment
                         date = fragment_.getDate()
                         text = fragment_.getText()
+                }else{
+                    date = LocalDate.now().toString()
                 }
                 if(fm.findFragmentByTag(NoteRedactorFragment.TAG) == null) {
                     fragment = NoteRedactorFragment()

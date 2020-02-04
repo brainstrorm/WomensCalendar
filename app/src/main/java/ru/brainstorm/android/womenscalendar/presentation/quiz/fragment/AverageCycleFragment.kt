@@ -43,7 +43,7 @@ class AverageCycleFragment : AbstractQuizFragment() {
         averageCyclePicker = view.findViewById<NumberPicker>(R.id.averageCyclePicker)
         choose = view.findViewById(R.id.choose)
         days = view.findViewById(R.id.days)
-        averageCyclePicker.minValue = 0
+        averageCyclePicker.minValue = 15
         averageCyclePicker.maxValue = 40
         averageCyclePicker.setDividerColorResource(android.R.color.transparent)
         averageCyclePicker.setTextColorResource(R.color.colorGreyFont)

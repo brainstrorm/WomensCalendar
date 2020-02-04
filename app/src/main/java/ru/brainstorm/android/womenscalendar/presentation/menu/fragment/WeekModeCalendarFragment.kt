@@ -152,6 +152,10 @@ class WeekModeCalendarFragment : AbstractMenuFragment() {
             btnTodayRound.setOnClickListener { view ->
                 calendarView.scrollToDate(LocalDate.now())
             }
+            btnPlusNoteWeek.setOnClickListener { view ->
+                menuPresenter.addFragmentToBackStack(this@WeekModeCalendarFragment)
+                menuPresenter.setFragment(supportFragmentManager, "note_redactor")
+            }
         }
         class DayViewContainer(view: View) : ViewContainer(view) {
             val dayText = view.exSevenDayText

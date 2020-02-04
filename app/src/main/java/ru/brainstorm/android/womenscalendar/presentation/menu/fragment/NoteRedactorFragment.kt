@@ -58,8 +58,8 @@ class NoteRedactorFragment : AbstractMenuFragment(), NoteRedactorView {
     private val d =
         OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
             newDate = LocalDate.parse("$year-" +
-                    "${if(monthOfYear < 10) "0${monthOfYear + 1}" else "${monthOfYear + 1}"}" +
-                    "-$dayOfMonth").toString()
+                    "${if(monthOfYear < 10) "0${monthOfYear + 1}" else "${monthOfYear + 1}"}-" +
+                    "${if(dayOfMonth < 10) "0${dayOfMonth}" else "${dayOfMonth}"}").toString()
             noteRedactorPresenter.viewState.setDate_()
         }
 

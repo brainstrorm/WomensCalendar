@@ -586,6 +586,20 @@
             android:layout_height="match_parent"
             tools:ignore="VectorDrawableCompat">
         </ImageButton>
+        <ImageButton
+            android:background="@drawable/menu_btn_plus_circle"
+            android:id="@+id/btn_plus_menu_for_week"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:ignore="VectorDrawableCompat">
+        </ImageButton>
+        <ImageButton
+            android:background="@drawable/menu_btn_plus_circle"
+            android:id="@+id/btn_plus_menu_for_list_of_notes"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:ignore="VectorDrawableCompat">
+        </ImageButton>
         <ImageView
             android:id="@+id/btn_plus"
             android:layout_width="15dp"
