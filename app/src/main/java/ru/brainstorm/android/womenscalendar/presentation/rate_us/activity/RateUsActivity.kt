@@ -50,9 +50,9 @@ class RateUsActivity : AppCompatActivity() {
             RatingBar.OnRatingBarChangeListener { ratingBar, v, b ->
 
                 when (ratingBar.getRating().toInt()) {
-                    1 -> launchMarket()
-                    2 -> launchMarket()
-                    3 -> launchMarket()
+                    1 -> finish()
+                    2 -> finish()
+                    3 -> finish()
                     4 -> launchMarket()
                     5 -> launchMarket()
                 }
