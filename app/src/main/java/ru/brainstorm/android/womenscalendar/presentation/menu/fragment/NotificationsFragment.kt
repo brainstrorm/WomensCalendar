@@ -79,7 +79,7 @@ public class NotificationsFragment : AbstractMenuFragment() {
     private val requestOvulationKey = "requestOvulationKey"
     private val requestOpenFertilityWindowKey = "requestOpenFertilityWindowKey"
     private val requestCloseFertilityWindowKey = "requestCloseFertilityWindowKey"
-    
+
 
     fun scheduleNotification(message : String, startLocalDate : LocalDate, time : String, interval : Int,
                             isChecked : Boolean, requestKey : String, notificationId : Int){
