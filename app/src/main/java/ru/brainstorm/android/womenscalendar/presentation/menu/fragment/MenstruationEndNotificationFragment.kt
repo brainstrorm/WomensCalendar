@@ -78,14 +78,21 @@ class MenstruationEndNotificationFragment : AbstractMenuFragment(), OnBackPresse
                 menuPresenter.popBackStack(supportFragmentManager)
 
 
-                if (messageEditText.text.toString() != resources.getString(R.string.do_not_forget_message)) {
-                    if (messageEditText.text.toString() != (resources.getString(R.string.do_not_forget_message) + " ")) {
+                if (!messageEditText.text.toString().equals(resources.getString(R.string.do_not_forget_message))) {
+                    if (!messageEditText.text.toString().equals((resources.getString(R.string.do_not_forget_message) + " "))) {
+                        //val s = messageEditText.text.toString()
                         pref.edit()
                             .putString(
                                 TextOfEndOfMenstruationNotificationTag,
                                 messageEditText.text.toString()
                             )
                             .commit()
+                        activity.apply {
+                            supportFragmentManager.beginTransaction()
+                                .detach(supportFragmentManager.findFragmentByTag(NotificationsFragment.TAG)!!)
+                                .attach(supportFragmentManager.findFragmentByTag(NotificationsFragment.TAG)!!)
+                                .commit()
+                        }
                     }
                 }
             }

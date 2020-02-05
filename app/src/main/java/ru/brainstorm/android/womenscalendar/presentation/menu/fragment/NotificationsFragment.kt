@@ -81,6 +81,9 @@ public class NotificationsFragment : AbstractMenuFragment() {
     private val requestCloseFertilityWindowKey = "requestCloseFertilityWindowKey"
 
 
+    companion object{
+        val TAG = "notifications"
+    }
     fun scheduleNotification(message : String, startLocalDate : LocalDate, time : String, interval : Int,
                             isChecked : Boolean, requestKey : String, notificationId : Int){
         val time_ = time.parseDate()
@@ -89,8 +92,11 @@ public class NotificationsFragment : AbstractMenuFragment() {
         val date1970 = Date(70, 0,0,0,0)
         val startTime = startDate.time - date1970.time - TimeZone.getDefault().getOffset(Date().time)
 
-        val intent = Intent(context!!, NotificationStartOfMenstruationReceiver::class.java)
-        intent.putExtra("message", message)
+        val intent = Intent(context!!, NotificationStartOfMenstruationReceiver::class.java).apply {
+            putExtra("message", message)
+        }
+        activity!!.sendBroadcast(intent)
+        val s = message
         val pendingIntent = PendingIntent.getBroadcast(context!!, 0, intent, 0)
 
         val alarmManager = context!!.getSystemService(ALARM_SERVICE) as AlarmManager
@@ -202,10 +208,11 @@ public class NotificationsFragment : AbstractMenuFragment() {
         }
         //
         switchEndMenstruationButton.setOnCheckedChangeListener { _, isChecked ->
-                val workRequestId = scheduleNotification(pref.getString(MenstruationEndNotificationFragment().TextOfEndOfMenstruationNotificationTag, "This is start of your menstruation")!!,
+                val s = pref.getString(MenstruationEndNotificationFragment().TextOfEndOfMenstruationNotificationTag, "This is start of your menstruation")!!
+                scheduleNotification(pref.getString(MenstruationEndNotificationFragment().TextOfEndOfMenstruationNotificationTag, "This is start of your menstruation")!!,
                     FindEndOfMenstruation(cycles),
                     pref.getString(MenstruationEndNotificationFragment().TimeOfEndOfMenstruationNotificationTag, "9:00")!!,
-                    2*AlarmManager.INTERVAL_DAY.toInt(),
+                    FindCurrent(cycles).lengthOfCycle*24*60*60,
                     isChecked,
                     requestEndMenstruationKey,
                     2)
@@ -214,10 +221,10 @@ public class NotificationsFragment : AbstractMenuFragment() {
         }
 
         switchOvulationButton.setOnCheckedChangeListener { _, isChecked ->
-                val workRequestId = scheduleNotification(pref.getString(OvulationNotificationFragment().TextOfOvulationNotificationTag, "This is start of your menstruation")!!,
+                scheduleNotification(pref.getString(OvulationNotificationFragment().TextOfOvulationNotificationTag, "This is start of your menstruation")!!,
                     FindOvulation(cycles),
                     pref.getString(OvulationNotificationFragment().TimeOfOvulationNotificationTag, "9:00")!!,
-                    2*AlarmManager.INTERVAL_DAY.toInt(),
+                    FindCurrent(cycles).lengthOfCycle*24*60*60,
                     isChecked,
                     requestOvulationKey,
                     3)
@@ -228,7 +235,7 @@ public class NotificationsFragment : AbstractMenuFragment() {
                 val workRequestId = scheduleNotification(pref.getString(OpeningOfFertilityWindowNotificationFragment().TextOfOpeningOfFertilityWindowNotificationTag, "This is start of your menstruation")!!,
                     FindOpenOfFertilnost(cycles),
                     pref.getString(OpeningOfFertilityWindowNotificationFragment().TimeOfOpeningOfFertilityWindowNotificationTag, "9:00")!!,
-                    2*AlarmManager.INTERVAL_DAY.toInt(),
+                    FindCurrent(cycles).lengthOfCycle*24*60*60,
                     isChecked,
                     requestOpenFertilityWindowKey,
                     4)
@@ -238,10 +245,10 @@ public class NotificationsFragment : AbstractMenuFragment() {
 
         switchCloseFetilnostButton.setOnCheckedChangeListener { _, isChecked ->
 
-                val workRequestId = scheduleNotification(pref.getString(ClosingOfFertilityWindowNotificationFragment().TextOfClosingOfFertilityWindowNotificationTag, "This is start of your menstruation")!!,
+                scheduleNotification(pref.getString(ClosingOfFertilityWindowNotificationFragment().TextOfClosingOfFertilityWindowNotificationTag, "This is start of your menstruation")!!,
                     FindEndOfFertilnost(cycles),
                     pref.getString(ClosingOfFertilityWindowNotificationFragment().TimeOfClosingOfFertilityWindowNotificationTag, "9:00")!!,
-                    2*AlarmManager.INTERVAL_DAY.toInt(), isChecked,
+                    FindCurrent(cycles).lengthOfCycle*24*60*60, isChecked,
                     requestCloseFertilityWindowKey,
                     5)
         }

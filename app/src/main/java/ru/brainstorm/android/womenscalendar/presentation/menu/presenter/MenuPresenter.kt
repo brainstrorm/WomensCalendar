@@ -225,11 +225,11 @@ class MenuPresenter
             "notifications" -> {
                 if (fm.findFragmentById(R.id.for_fragment) == null) {
                     fm.beginTransaction()
-                        .add(R.id.for_fragment, NotificationsFragment())
+                        .add(R.id.for_fragment, NotificationsFragment(), NotificationsFragment.TAG)
                         .commitNow()
                 } else {
                     fm.beginTransaction()
-                        .replace(R.id.for_fragment, NotificationsFragment())
+                        .replace(R.id.for_fragment, NotificationsFragment(), NotificationsFragment.TAG)
                         .commitNow()
                 }
                 viewState.setPart("notifications")
