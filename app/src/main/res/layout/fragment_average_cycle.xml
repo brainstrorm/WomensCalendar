@@ -27,10 +27,10 @@
         android:textColor="@color/colorOfChosenNumber"
         android:textSize="48sp"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/averageCyclePicker"
         app:layout_constraintStart_toEndOf="@+id/averageCyclePicker"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.521" />
+        app:layout_constraintTop_toTopOf="@id/averageCyclePicker"
+        app:layout_constraintVertical_bias="0.475" />
 
     <TextView
         android:id="@+id/choose"

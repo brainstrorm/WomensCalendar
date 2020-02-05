@@ -5,10 +5,7 @@ import android.content.res.Resources
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.util.DisplayMetrics
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.WindowManager
+import android.view.*
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -109,7 +106,9 @@ class WeekModeCalendarFragment : AbstractMenuFragment() {
         val view = inflater.inflate(R.layout.fragment_week_mode_calendar, container, false)
         TVIndicatorRound = view.findViewById(R.id.indicatorRound)
         TVIndicatorRing = view.findViewById(R.id.indicatorRing)
-        TVScreen = view.findViewById(R.id.screen)
+        TVScreen = view.findViewById<ConstraintLayout>(R.id.screen).apply {
+            setOnTouchListener(OnSwipeTouchListener(context))
+        }
         TVPartOfCycle = view.findViewById(R.id.TVPartOfCycle)
         TVForecastText = view.findViewById(R.id.TVForecastText)
         TVAdditionalInfo = view.findViewById(R.id.TVAdditionalInfo)
@@ -145,12 +144,14 @@ class WeekModeCalendarFragment : AbstractMenuFragment() {
         val currentMonth = YearMonth.now()
 
         // Value for firstDayOfWeek does not matter since inDates and outDates are not generated.
-        calendarView.setup(currentMonth, currentMonth.plusMonths(3), DayOfWeek.values().random())
-        calendarView.scrollToDate(LocalDate.now())
+        calendarView.setup(currentMonth.minusMonths(3), currentMonth.plusMonths(3), DayOfWeek.values().random())
+        calendarView.scrollToDate(LocalDate.now().minusDays(3))
 
         (activity as MenuActivity).apply {
             btnTodayRound.setOnClickListener { view ->
-                calendarView.scrollToDate(LocalDate.now())
+                calendarView.scrollToDate(LocalDate.now().minusDays(3))
+                selectedDate = LocalDate.now()
+                calendarView.notifyCalendarChanged()
             }
             btnPlusNoteWeek.setOnClickListener { view ->
                 menuPresenter.addFragmentToBackStack(this@WeekModeCalendarFragment)
@@ -200,8 +201,8 @@ class WeekModeCalendarFragment : AbstractMenuFragment() {
                 dayText.text = dayFormatter.format(day.date)
                 dateText.setTextColor(view.context.getColorCompat(R.color.colorDays))
                 selectedView.isVisible = false
-                //if (day.date == selectedDate)
-                //   monthText.text = months[monthFormatter.format(day.date)]!!.capitalize()
+                if (day.date == selectedDate)
+                   monthText.text = months[monthFormatter.format(day.date)]!!.capitalize()
                 for (days in menstruationDays) {
                     val menstruationStartDate = LocalDate.parse(days.startOfCycle)
                     val menstruationEndDate = LocalDate.parse(days.startOfCycle)
@@ -521,5 +522,80 @@ class WeekModeCalendarFragment : AbstractMenuFragment() {
     }
 
     override fun getPart(): String = "today"
+
+    inner class OnSwipeTouchListener(ctx: Context?) : View.OnTouchListener {
+        private val gestureDetector: GestureDetector
+        override fun onTouch(v: View?, event: MotionEvent?): Boolean { //обработка клика
+            return gestureDetector.onTouchEvent(event)
+        }
+
+        private inner class GestureListener : GestureDetector.SimpleOnGestureListener() {
+            override fun onDown(e: MotionEvent): Boolean {
+                return true
+            }
+
+            override fun onSingleTapUp(e: MotionEvent?): Boolean {
+                return true
+            }
+            override fun onFling(
+                e1: MotionEvent,
+                e2: MotionEvent,
+                velocityX: Float,
+                velocityY: Float
+            ): Boolean {
+                var result = false
+                try {
+                    val diffY = e2.y - e1.y
+                    val diffX = e2.x - e1.x
+                    if (Math.abs(diffX) > Math.abs(diffY)) {
+                        if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(
+                                velocityX
+                            ) > SWIPE_VELOCITY_THRESHOLD
+                        ) {
+                            if (diffX > 0) {
+                                onSwipeRight()
+                            } else {
+                                onSwipeLeft()
+                            }
+                        }
+                        result = true
+                    } else if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(
+                            velocityY
+                        ) > SWIPE_VELOCITY_THRESHOLD
+                    ) {
+                        if (diffY > 0) {
+                            onSwipeBottom()
+                        } else {
+                            onSwipeTop()
+                        }
+                    }
+                    result = true
+                } catch (exception: Exception) {
+                    exception.printStackTrace()
+                }
+                return result
+            }
+
+            private val SWIPE_THRESHOLD = 100
+            private val SWIPE_VELOCITY_THRESHOLD = 100
+        }
+
+        fun onSwipeRight() {
+            selectedDate = selectedDate.minusDays(1)
+            calendarView.scrollToDate(selectedDate.minusDays(3))
+            calendarView.notifyCalendarChanged()
+        }
+        fun onSwipeLeft() {
+            selectedDate = selectedDate.plusDays(1)
+            calendarView.scrollToDate(selectedDate.minusDays(3))
+            calendarView.notifyCalendarChanged()
+        }
+        fun onSwipeTop() {}
+        fun onSwipeBottom() {}
+
+        init {
+            gestureDetector = GestureDetector(ctx, GestureListener())
+        }
+    }
 
 }

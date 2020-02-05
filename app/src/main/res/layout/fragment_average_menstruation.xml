@@ -27,9 +27,11 @@
         android:textColor="@color/colorOfChosenNumber"
         android:textSize="48sp"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/averageMenstruationPicker"
         app:layout_constraintStart_toEndOf="@+id/averageMenstruationPicker"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@id/averageMenstruationPicker"
+        app:layout_constraintVertical_bias="0.475"
+        />
 
     <TextView
         android:id="@+id/choose"
