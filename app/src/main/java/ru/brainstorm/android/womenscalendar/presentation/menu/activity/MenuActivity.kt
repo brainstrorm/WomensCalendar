@@ -381,7 +381,7 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView{
                     View.GONE, View.GONE, View.GONE, View.GONE,
                     View.GONE, View.GONE, View.VISIBLE, View.GONE, View.GONE, View.GONE,
                     View.GONE, View.GONE, View.GONE, View.GONE, View.GONE,View.GONE,
-                    View.GONE, View.GONE,View.GONE,
+                    View.GONE, View.GONE,View.VISIBLE,
                     View.GONE,View.GONE, View.GONE,
                     View.GONE, View.GONE)
                 btnTodayRound.isEnabled = false
@@ -557,12 +557,12 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView{
                 menuPresenter.popBackStack(supportFragmentManager)
             }
             R.id.btn_back -> {
-                menuPresenter.popBackStack(supportFragmentManager)
                 if(supportFragmentManager.findFragmentByTag(NoteRedactorFragment.TAG) != null){
                     supportFragmentManager.beginTransaction()
                         .remove(supportFragmentManager.findFragmentByTag(NoteRedactorFragment.TAG)!!)
                         .commitNow()
                 }
+                menuPresenter.popBackStack(supportFragmentManager)
             }
             R.id.btn_cross-> {
                 supportFragmentManager.beginTransaction()
