@@ -59,7 +59,7 @@ class WeekModeCalendarFragment : AbstractMenuFragment() {
     private lateinit var TVAdditionalInfo : TextView
     private lateinit var TVToday : TextView
 
-    private var selectedDate: LocalDate = LocalDate.now()
+    var selectedDate: LocalDate = LocalDate.now()
     private val today = LocalDate.now()
     private var menstruationStartDate  = LocalDate.parse("2019-10-27")
     private var menstruationEndDate  = LocalDate.parse("2019-10-29")

@@ -64,7 +64,7 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView{
     private lateinit var txtvwNewDates : TextView
     private lateinit var layoutForNotes : FrameLayout
     private lateinit var btnBack : ImageView
-    private lateinit var btnDone : TextView
+    lateinit var btnDone : TextView
     private lateinit var txtvwNotesHeader : TextView
     private lateinit var btnCross : ImageView
     private lateinit var txtvwCanceled : TextView
@@ -240,14 +240,14 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView{
         when(part){
             "today" ->{
                 setVisibility(View.GONE, View.GONE, View.GONE,
-                    View.VISIBLE, View.VISIBLE, View.VISIBLE, View.VISIBLE,
+                    View.VISIBLE, View.VISIBLE, View.VISIBLE, View.GONE,
                     View.GONE, View.GONE, View.GONE,
                     View.GONE, View.GONE, View.GONE, View.GONE,
                     View.GONE, View.GONE, View.GONE, View.GONE, View.GONE, View.GONE,
                     View.GONE, View.GONE, View.GONE, View.VISIBLE, View.VISIBLE,View.GONE,
                     View.GONE, View.GONE,View.VISIBLE,
                     View.GONE,View.GONE, View.GONE,
-                    View.GONE, View.GONE)
+                    View.VISIBLE, View.GONE)
                 btnToday?.setBackgroundResource(R.drawable.ic_btn_today_menu_blue)
                 btnToday?.layoutParams.width = 51
                 btnToday?.layoutParams.height = 51
@@ -528,10 +528,12 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView{
                 menuPresenter.setFragment(supportFragmentManager, "note_redactor")
             }
             R.id.done -> {
-                (supportFragmentManager.findFragmentByTag(NoteRedactorFragment.TAG) as NoteRedactorFragment)
-                    .apply {
+                val fragment = supportFragmentManager.findFragmentByTag(NoteRedactorFragment.TAG) as NoteRedactorFragment
+                if(!fragment.getText().equals(fragment.getNoteText()) || fragment.getNoteText().equals("")) {
+                    fragment.apply {
                         noteRedactorPresenter.saveNote(this)
                     }
+                }
 
                 val calendarFragment = supportFragmentManager.findFragmentByTag(CalendarPickerFragment.TAG)
                 val notesFragment = supportFragmentManager.findFragmentByTag(ListOfNotesFragment.TAG)
@@ -547,10 +549,20 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView{
                         .attach(notesFragment)
                         .commit()
                 }
+                if(supportFragmentManager.findFragmentByTag(NoteRedactorFragment.TAG) != null){
+                    supportFragmentManager.beginTransaction()
+                        .remove(supportFragmentManager.findFragmentByTag(NoteRedactorFragment.TAG)!!)
+                        .commitNow()
+                }
                 menuPresenter.popBackStack(supportFragmentManager)
             }
             R.id.btn_back -> {
                 menuPresenter.popBackStack(supportFragmentManager)
+                if(supportFragmentManager.findFragmentByTag(NoteRedactorFragment.TAG) != null){
+                    supportFragmentManager.beginTransaction()
+                        .remove(supportFragmentManager.findFragmentByTag(NoteRedactorFragment.TAG)!!)
+                        .commitNow()
+                }
             }
             R.id.btn_cross-> {
                 supportFragmentManager.beginTransaction()

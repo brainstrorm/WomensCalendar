@@ -14,20 +14,21 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import org.threeten.bp.LocalDate
 import org.threeten.bp.format.DateTimeFormatter
 import ru.brainstorm.android.womenscalendar.App
 import ru.brainstorm.android.womenscalendar.R
+import ru.brainstorm.android.womenscalendar.data.database.dao.NoteDao
+import ru.brainstorm.android.womenscalendar.data.database.entities.Note
 import ru.brainstorm.android.womenscalendar.presentation.menu.activity.MenuActivity
 import ru.brainstorm.android.womenscalendar.presentation.menu.presenter.NoteRedactorPresenter
 import ru.brainstorm.android.womenscalendar.presentation.menu.view.NoteRedactorView
 import ru.brainstorm.android.womenscalendar.presentation.quiz.activity.QuizActivity
 import java.util.*
+import javax.inject.Inject
 
 
 class NoteRedactorFragment : AbstractMenuFragment(), NoteRedactorView {
@@ -41,7 +42,9 @@ class NoteRedactorFragment : AbstractMenuFragment(), NoteRedactorView {
     private val dayOfWeekFormatter = DateTimeFormatter.ofPattern("EEEE")
     private lateinit var date: String
     private lateinit var newDate : String
-    private lateinit var text: String
+    private var text: String = ""
+    private var noteText : String = ""
+    private var note = Note()
 
     private val dateAndTime: Calendar? = Calendar.getInstance()
     @InjectPresenter
@@ -50,6 +53,9 @@ class NoteRedactorFragment : AbstractMenuFragment(), NoteRedactorView {
 
     @ProvidePresenter
     fun providePresenter() = App.appComponent.presenter().noteRedactorPresenter()
+
+    @Inject
+    lateinit var noteDao: NoteDao
 
     companion object{
         val TAG = "NoteRedactor"
@@ -73,6 +79,8 @@ class NoteRedactorFragment : AbstractMenuFragment(), NoteRedactorView {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_note_redactor, container, false)
 
+        App.appComponent.inject(this)
+
         pref = PreferenceManager.getDefaultSharedPreferences(context)
 
         textNoteRedactor = view.findViewById<EditText>(R.id.text_notes_redactor)
@@ -80,6 +88,20 @@ class NoteRedactorFragment : AbstractMenuFragment(), NoteRedactorView {
         dateNoteRedactor = view.findViewById<TextView>(R.id.date_notes_redactor)
 
         btnPen = view.findViewById<ImageView>(R.id.bnt_pen_notes_redactor)
+
+        runBlocking {
+            val job = GlobalScope.launch(Dispatchers.IO) {
+                note = noteDao.getByDate(date)
+                if(note != null) {
+                    text = note.noteText
+                    noteText = note.noteText
+                    textNoteRedactor.setText(text)
+                }else{
+                    text = ""
+                }
+            }
+            job.join()
+        }
 
         btnPen.setOnClickListener {
             val fragmentPicker = DatePickerDialog(
@@ -90,6 +112,7 @@ class NoteRedactorFragment : AbstractMenuFragment(), NoteRedactorView {
             )
             fragmentPicker.show()
         }
+
         noteRedactorPresenter.viewState.setInformation()
 
 
@@ -110,6 +133,10 @@ class NoteRedactorFragment : AbstractMenuFragment(), NoteRedactorView {
 
     fun getText() : String{
         return view!!.findViewById<EditText>(R.id.text_notes_redactor).text.toString()
+    }
+
+    fun getNoteText() : String{
+        return noteText
     }
 
     fun setDate() {
