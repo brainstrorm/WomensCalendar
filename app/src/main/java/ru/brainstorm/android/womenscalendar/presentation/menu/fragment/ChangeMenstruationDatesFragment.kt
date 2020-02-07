@@ -19,6 +19,7 @@ import com.kizitonwose.calendarview.model.DayOwner
 import com.kizitonwose.calendarview.ui.DayBinder
 import com.kizitonwose.calendarview.ui.MonthHeaderFooterBinder
 import com.kizitonwose.calendarview.ui.ViewContainer
+import kotlinx.android.synthetic.main.calendar_day_legend.*
 import kotlinx.android.synthetic.main.calendar_day_legend.view.*
 import kotlinx.android.synthetic.main.calendar_header.view.*
 import kotlinx.coroutines.Dispatchers
@@ -29,6 +30,7 @@ import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import org.threeten.bp.LocalDate
 import org.threeten.bp.YearMonth
+import org.threeten.bp.format.TextStyle
 import org.w3c.dom.Text
 import ru.brainstorm.android.womenscalendar.App
 import ru.brainstorm.android.womenscalendar.R
@@ -198,6 +200,10 @@ class ChangeMenstruationDatesFragment : AbstractMenuFragment(), ChangeMenstruati
                 container.day = day
                 val textView = container.textView
                 val roundField = container.roundField
+
+                textView.text = null
+                textView.background = null
+                roundField.makeInVisible()
                     if (day.owner == DayOwner.THIS_MONTH) {
                         textView.text = day.date.dayOfMonth.toString()
                         when {
@@ -208,22 +214,27 @@ class ChangeMenstruationDatesFragment : AbstractMenuFragment(), ChangeMenstruati
                             }
                             day.date == startDate -> {
                                 textView.setTextColorRes(R.color.colorPrimaryDark)
+                                roundField.makeVisible()
                                 roundField.setBackgroundResource(R.drawable.round_field_selected)
                             }
                             startDate != null && endDate != null && (day.date > startDate && day.date < endDate) -> {
                                 textView.setTextColorRes(R.color.colorPrimaryDark)
+                                roundField.makeVisible()
                                 roundField.setBackgroundResource(R.drawable.round_field_selected)
                             }
                             day.date == endDate -> {
                                 textView.setTextColorRes(R.color.colorPrimaryDark)
+                                roundField.makeVisible()
                                 roundField.setBackgroundResource(R.drawable.round_field_selected)
                             }
                             day.date == today -> {
                                 textView.setTextColorRes(R.color.color_red)
+                                roundField.makeVisible()
                                 roundField.setBackgroundResource(R.drawable.round_field_not_selected)
                             }
                             else -> {
                                 textView.setTextColorRes(R.color.colorDays)
+                                roundField.makeVisible()
                                 roundField.setBackgroundResource(R.drawable.round_field_not_selected)
                             }
                         }
@@ -232,7 +243,7 @@ class ChangeMenstruationDatesFragment : AbstractMenuFragment(), ChangeMenstruati
                         // This part is to make the coloured selection background continuous
                         // on the blank in and out dates across various months and also on dates(months)
                         // between the start and end dates if the selection spans across multiple months.
-                        roundField.makeInVisible()
+                        //roundField.makeInVisible()
                         val startDate = startDate
                         val endDate = endDate
                         if (startDate != null && endDate != null) {
@@ -264,7 +275,6 @@ class ChangeMenstruationDatesFragment : AbstractMenuFragment(), ChangeMenstruati
                         for(interval in intervals){
                             if(day.date.isEqual(interval.first) || day.date.isEqual(interval.second) ||
                                 (day.date.isAfter(interval.first) && day.date.isBefore(interval.second))){
-                                textView.setTextColorRes(R.color.colorPrimaryDark)
                                 roundField.makeVisible()
                                 roundField.setBackgroundResource(R.drawable.round_field_selected)
                             }
