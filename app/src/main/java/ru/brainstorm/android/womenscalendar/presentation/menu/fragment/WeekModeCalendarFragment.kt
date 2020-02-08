@@ -201,8 +201,8 @@ class WeekModeCalendarFragment : AbstractMenuFragment() {
                 dayText.text = dayFormatter.format(day.date)
                 dateText.setTextColor(view.context.getColorCompat(R.color.colorDays))
                 selectedView.isVisible = false
-             //   if (day.date == selectedDate)
-  //                 monthText.text = months[monthFormatter.format(day.date)]!!.capitalize()
+                if (day.date == selectedDate)
+                   monthText.text = months[monthFormatter.format(day.date)]!!.capitalize()
                 for (days in menstruationDays) {
                     val menstruationStartDate = LocalDate.parse(days.startOfCycle)
                     val menstruationEndDate = LocalDate.parse(days.startOfCycle)

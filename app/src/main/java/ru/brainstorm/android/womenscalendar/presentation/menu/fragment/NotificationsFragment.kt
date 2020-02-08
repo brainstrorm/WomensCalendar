@@ -196,7 +196,7 @@ public class NotificationsFragment : AbstractMenuFragment() {
         //---> switching notifications <---
 
         switchStartMenstruationButton.setOnCheckedChangeListener { _, isChecked ->
-
+                val s = pref.getString(MenstruationStartNotificationFragment().TextOfStartOfMenstruationNotificationTag,"This is start of your menstruation")!!
                 scheduleNotification(pref.getString(MenstruationStartNotificationFragment().TextOfStartOfMenstruationNotificationTag,"This is start of your menstruation")!!,
                     FindStartOfMenstruation(cycles),
                     pref.getString(MenstruationStartNotificationFragment().TimeOfStartOfMenstruationNotificationTag, "9:00")!!,
@@ -232,7 +232,7 @@ public class NotificationsFragment : AbstractMenuFragment() {
         }
 
         switchOpenFetilnostButton.setOnCheckedChangeListener { _, isChecked ->
-                val workRequestId = scheduleNotification(pref.getString(OpeningOfFertilityWindowNotificationFragment().TextOfOpeningOfFertilityWindowNotificationTag, "This is start of your menstruation")!!,
+                scheduleNotification(pref.getString(OpeningOfFertilityWindowNotificationFragment().TextOfOpeningOfFertilityWindowNotificationTag, "This is start of your menstruation")!!,
                     FindOpenOfFertilnost(cycles),
                     pref.getString(OpeningOfFertilityWindowNotificationFragment().TimeOfOpeningOfFertilityWindowNotificationTag, "9:00")!!,
                     FindCurrent(cycles).lengthOfCycle*24*60*60,

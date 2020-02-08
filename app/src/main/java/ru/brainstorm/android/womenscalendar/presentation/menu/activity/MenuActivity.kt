@@ -529,10 +529,8 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView{
             }
             R.id.done -> {
                 val fragment = supportFragmentManager.findFragmentByTag(NoteRedactorFragment.TAG) as NoteRedactorFragment
-                if(!fragment.getText().equals(fragment.getNoteText()) || fragment.getNoteText().equals("")) {
-                    fragment.apply {
-                        noteRedactorPresenter.saveNote(this)
-                    }
+                fragment.apply {
+                    noteRedactorPresenter.saveNote(this)
                 }
 
                 val calendarFragment = supportFragmentManager.findFragmentByTag(CalendarPickerFragment.TAG)
