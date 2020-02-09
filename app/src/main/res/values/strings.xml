@@ -42,9 +42,9 @@
 
     //for WeekModeCalendarFragment
     <string name="menstruation_after">Менструация через</string>
-    <string name="unlikely_to_get_pregnant">Малая вероятность \n забеременить</string>
-    <string name="average_probability_of_getting_pregnant">Средняя вероятность \n забеременить</string>
-    <string name="high_probability_of_getting_pregnant">Высокая вероятность \n забеременить</string>
+    <string name="unlikely_to_get_pregnant">Малая вероятность \n забеременеть</string>
+    <string name="average_probability_of_getting_pregnant">Средняя вероятность \n забеременеть</string>
+    <string name="high_probability_of_getting_pregnant">Высокая вероятность \n забеременеть</string>
     <string name="ovulation_after">Овуляция через</string>
     <string name="menstruation">Менструация</string>
     <string name="ovulation">овуляции</string>
@@ -126,11 +126,11 @@
 
     Reminder: don't forget to mark the end of your period!
     <string name="open_fertilnost">Открытие фертильности</string>
-    <string name="open_fertilnost_today">Сегодня открвается окно фертильности</string>
-    <string name="open_fertilnost_today_message">Напоминание:\nсегодня открвается\nокно фертильности!</string>
+    <string name="open_fertilnost_today">Сегодня открывается окно фертильности</string>
+    <string name="open_fertilnost_today_message">Напоминание:\nсегодня открывается\nокно фертильности!</string>
     <string name="ovulation_notifications">Овуляция</string>
-    <string name="ovulation_will_stsrt">Предположительно, овуляция настпуит...</string>
-    <string name="ovulation_will_stsrt_message">Напоминание:\nпредположительно, овуляция\nнастпуит сегодня</string>
+    <string name="ovulation_will_stsrt">Предположительно, овуляция наступит...</string>
+    <string name="ovulation_will_stsrt_message">Напоминание:\nпредположительно, овуляция\nнаступит сегодня</string>
     <string name="end_fertilnost">Закрытие окна фертильности</string>
     <string name="window_of_fertilnost_is_closing">Окно фертильности закрывается</string>
     <string name="window_of_fertilnost_is_closing_message">Напоминание:\nокно фертильности\nзакрывается сегодня!</string>

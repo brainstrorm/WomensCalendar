@@ -30,11 +30,10 @@ class OvulationNotificationFragment : AbstractMenuFragment(), OnBackPressedListe
     private lateinit var txtvwTime : TextView
     private lateinit var txtvwMessage: TextView
 
-    val TimeOfOvulationNotificationTag = "TimeOfOvulationNotification"
-    val TextOfOvulationNotificationTag : String = "TextOfOvulationNotification"
-
     companion object{
         val TAG = "ovulation"
+        val TimeOfOvulationNotificationTag = "TimeOfOvulationNotification"
+        val TextOfOvulationNotificationTag : String = "TextOfOvulationNotification"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -88,7 +87,7 @@ class OvulationNotificationFragment : AbstractMenuFragment(), OnBackPressedListe
         }
 
         directTimeTextView = mainView!!.findViewById<TextView>(R.id.direct_time_text)
-        directTimeTextView.text = pref.getString("time_ovulation","00:00")
+        directTimeTextView.text = pref.getString(TimeOfOvulationNotificationTag,"9:00")
 
 
         timePicker = mainView!!.findViewById<TimePicker>(R.id.timePicker)

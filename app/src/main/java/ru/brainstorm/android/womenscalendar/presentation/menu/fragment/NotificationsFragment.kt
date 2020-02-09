@@ -84,7 +84,7 @@ public class NotificationsFragment : AbstractMenuFragment() {
     companion object{
         val TAG = "notifications"
     }
-    fun scheduleNotification(message : String, startLocalDate : LocalDate, time : String, interval : Int,
+    fun scheduleNotification(message : String, startLocalDate : LocalDate, time : String, interval : Long,
                             isChecked : Boolean, requestKey : String, notificationId : Int){
         val time_ = time.parseDate()
         val startDate = Date( startLocalDate.year - 1900, startLocalDate.monthValue-1,
@@ -95,9 +95,9 @@ public class NotificationsFragment : AbstractMenuFragment() {
         val intent = Intent(context!!, NotificationStartOfMenstruationReceiver::class.java).apply {
             putExtra("message", message)
         }
-        activity!!.sendBroadcast(intent)
+        //activity!!.sendBroadcast(intent)
         val s = message
-        val pendingIntent = PendingIntent.getBroadcast(context!!, 0, intent, 0)
+        val pendingIntent = PendingIntent.getBroadcast(context!!, notificationId, intent, PendingIntent.FLAG_UPDATE_CURRENT)
 
         val alarmManager = context!!.getSystemService(ALARM_SERVICE) as AlarmManager
 
@@ -105,7 +105,7 @@ public class NotificationsFragment : AbstractMenuFragment() {
             alarmManager.setRepeating(
                 AlarmManager.RTC_WAKEUP,
                 startTime,
-                interval.toLong(),
+                interval,
                 pendingIntent
             )
 
@@ -196,11 +196,10 @@ public class NotificationsFragment : AbstractMenuFragment() {
         //---> switching notifications <---
 
         switchStartMenstruationButton.setOnCheckedChangeListener { _, isChecked ->
-                val s = pref.getString(MenstruationStartNotificationFragment().TextOfStartOfMenstruationNotificationTag,"This is start of your menstruation")!!
-                scheduleNotification(pref.getString(MenstruationStartNotificationFragment().TextOfStartOfMenstruationNotificationTag,"This is start of your menstruation")!!,
+                scheduleNotification(pref.getString(MenstruationStartNotificationFragment.TextOfStartOfMenstruationNotificationTag,"This is start of your menstruation")!!,
                     FindStartOfMenstruation(cycles),
-                    pref.getString(MenstruationStartNotificationFragment().TimeOfStartOfMenstruationNotificationTag, "9:00")!!,
-                    FindCurrent(cycles).lengthOfCycle*24*60*60,
+                    pref.getString(MenstruationStartNotificationFragment.TimeOfStartOfMenstruationNotificationTag, "9:00")!!,
+                    FindCurrent(cycles).lengthOfCycle.toLong()*24*60*60*1000,
                     isChecked,
                     requestStartMenstruationKey,
                     1
@@ -208,11 +207,11 @@ public class NotificationsFragment : AbstractMenuFragment() {
         }
         //
         switchEndMenstruationButton.setOnCheckedChangeListener { _, isChecked ->
-                val s = pref.getString(MenstruationEndNotificationFragment().TextOfEndOfMenstruationNotificationTag, "This is start of your menstruation")!!
-                scheduleNotification(pref.getString(MenstruationEndNotificationFragment().TextOfEndOfMenstruationNotificationTag, "This is start of your menstruation")!!,
+                val s = pref.getString(MenstruationEndNotificationFragment.TextOfEndOfMenstruationNotificationTag, "This is start of your menstruation")!!
+                scheduleNotification(pref.getString(MenstruationEndNotificationFragment.TextOfEndOfMenstruationNotificationTag, "This is start of your menstruation")!!,
                     FindEndOfMenstruation(cycles),
-                    pref.getString(MenstruationEndNotificationFragment().TimeOfEndOfMenstruationNotificationTag, "9:00")!!,
-                    FindCurrent(cycles).lengthOfCycle*24*60*60,
+                    pref.getString(MenstruationEndNotificationFragment.TimeOfEndOfMenstruationNotificationTag, "9:00")!!,
+                    FindCurrent(cycles).lengthOfCycle.toLong()*24*60*60*1000,
                     isChecked,
                     requestEndMenstruationKey,
                     2)
@@ -221,10 +220,10 @@ public class NotificationsFragment : AbstractMenuFragment() {
         }
 
         switchOvulationButton.setOnCheckedChangeListener { _, isChecked ->
-                scheduleNotification(pref.getString(OvulationNotificationFragment().TextOfOvulationNotificationTag, "This is start of your menstruation")!!,
+                scheduleNotification(pref.getString(OvulationNotificationFragment.TextOfOvulationNotificationTag, "This is start of your menstruation")!!,
                     FindOvulation(cycles),
-                    pref.getString(OvulationNotificationFragment().TimeOfOvulationNotificationTag, "9:00")!!,
-                    FindCurrent(cycles).lengthOfCycle*24*60*60,
+                    pref.getString(OvulationNotificationFragment.TimeOfOvulationNotificationTag, "9:00")!!,
+                    FindCurrent(cycles).lengthOfCycle.toLong()*24*60*60*1000,
                     isChecked,
                     requestOvulationKey,
                     3)
@@ -232,10 +231,10 @@ public class NotificationsFragment : AbstractMenuFragment() {
         }
 
         switchOpenFetilnostButton.setOnCheckedChangeListener { _, isChecked ->
-                scheduleNotification(pref.getString(OpeningOfFertilityWindowNotificationFragment().TextOfOpeningOfFertilityWindowNotificationTag, "This is start of your menstruation")!!,
+                scheduleNotification(pref.getString(OpeningOfFertilityWindowNotificationFragment.TextOfOpeningOfFertilityWindowNotificationTag, "This is start of your menstruation")!!,
                     FindOpenOfFertilnost(cycles),
-                    pref.getString(OpeningOfFertilityWindowNotificationFragment().TimeOfOpeningOfFertilityWindowNotificationTag, "9:00")!!,
-                    FindCurrent(cycles).lengthOfCycle*24*60*60,
+                    pref.getString(OpeningOfFertilityWindowNotificationFragment.TimeOfOpeningOfFertilityWindowNotificationTag, "9:00")!!,
+                    FindCurrent(cycles).lengthOfCycle.toLong()*24*60*60*1000,
                     isChecked,
                     requestOpenFertilityWindowKey,
                     4)
@@ -245,10 +244,10 @@ public class NotificationsFragment : AbstractMenuFragment() {
 
         switchCloseFetilnostButton.setOnCheckedChangeListener { _, isChecked ->
 
-                scheduleNotification(pref.getString(ClosingOfFertilityWindowNotificationFragment().TextOfClosingOfFertilityWindowNotificationTag, "This is start of your menstruation")!!,
+                scheduleNotification(pref.getString(ClosingOfFertilityWindowNotificationFragment.TextOfClosingOfFertilityWindowNotificationTag, "This is start of your menstruation")!!,
                     FindEndOfFertilnost(cycles),
-                    pref.getString(ClosingOfFertilityWindowNotificationFragment().TimeOfClosingOfFertilityWindowNotificationTag, "9:00")!!,
-                    FindCurrent(cycles).lengthOfCycle*24*60*60, isChecked,
+                    pref.getString(ClosingOfFertilityWindowNotificationFragment.TimeOfClosingOfFertilityWindowNotificationTag, "9:00")!!,
+                    FindCurrent(cycles).lengthOfCycle.toLong()*24*60*60*1000, isChecked,
                     requestCloseFertilityWindowKey,
                     5)
         }
@@ -322,6 +321,36 @@ public class NotificationsFragment : AbstractMenuFragment() {
         txtvwPredictableOvulation.setText(R.string.ovulation_will_stsrt)
         txtvwClosingOfFertilityWindow.setText(R.string.end_fertilnost)
         txtvwFertilityWindowCloses.setText(R.string.window_of_fertilnost_is_closing)
+
+        if(!pref.contains(MenstruationStartNotificationFragment.TextOfStartOfMenstruationNotificationTag)){
+            pref.edit()
+                .putString(MenstruationStartNotificationFragment.TextOfStartOfMenstruationNotificationTag, resources.getString(R.string.menstruation_starts_today))
+                .commit()
+        }
+
+        if(!pref.contains(MenstruationEndNotificationFragment.TextOfEndOfMenstruationNotificationTag)){
+            pref.edit()
+                .putString(MenstruationEndNotificationFragment.TextOfEndOfMenstruationNotificationTag, resources.getString(R.string.do_not_forget_message))
+                .commit()
+        }
+
+        if(!pref.contains(OvulationNotificationFragment.TextOfOvulationNotificationTag)){
+            pref.edit()
+                .putString(OvulationNotificationFragment.TextOfOvulationNotificationTag, resources.getString(R.string.ovulation_will_stsrt_message))
+                .commit()
+        }
+
+        if(!pref.contains(OpeningOfFertilityWindowNotificationFragment.TextOfOpeningOfFertilityWindowNotificationTag)){
+            pref.edit()
+                .putString(OpeningOfFertilityWindowNotificationFragment.TextOfOpeningOfFertilityWindowNotificationTag, resources.getString(R.string.open_fertilnost_today_message))
+                .commit()
+        }
+
+        if(!pref.contains(ClosingOfFertilityWindowNotificationFragment.TextOfClosingOfFertilityWindowNotificationTag)){
+            pref.edit()
+                .putString(ClosingOfFertilityWindowNotificationFragment.TextOfClosingOfFertilityWindowNotificationTag, resources.getString(R.string.window_of_fertilnost_is_closing_message))
+                .commit()
+        }
     }
 
     fun updateSwitchers(){

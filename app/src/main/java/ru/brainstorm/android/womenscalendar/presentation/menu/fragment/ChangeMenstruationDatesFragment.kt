@@ -99,57 +99,6 @@ class ChangeMenstruationDatesFragment : AbstractMenuFragment(), ChangeMenstruati
 
         updateLocale()
 
-        (activity as MenuActivity).apply {
-            findViewById<TextView>(R.id.btn_save).setOnClickListener {
-                changeMenstruationDatesPresenter.save(
-                    getStartDate(),
-                    getAverageDurationOfMenstruation(),
-                    supportFragmentManager,
-                    context!!,
-                    this@ChangeMenstruationDatesFragment
-                )
-                val calendarMonth = supportFragmentManager.findFragmentByTag(CalendarPickerFragment.TAG)
-                val calendarYear = supportFragmentManager.findFragmentByTag(CalendarYearModeFragment.TAG)
-                val weekMode = supportFragmentManager.findFragmentByTag(WeekModeCalendarFragment.TAG)
-                val statistic = supportFragmentManager.findFragmentByTag(StatisticsFragment.TAG)
-                if (calendarMonth != null) {
-                    supportFragmentManager.beginTransaction()
-                        .detach(calendarMonth)
-                        .attach(calendarMonth)
-                        .remove(this@ChangeMenstruationDatesFragment)
-                        .add(R.id.for_fragment, ChangeMenstruationDatesFragment(), TAG)
-                        .commitNow()
-                }
-                if (calendarYear != null) {
-                    supportFragmentManager.beginTransaction()
-                        .detach(calendarYear)
-                        .attach(calendarYear)
-                        .commitNow()
-                }
-                if (weekMode != null){
-                    supportFragmentManager.beginTransaction()
-                        .detach(weekMode)
-                        .attach(weekMode)
-                        .commitNow()
-                }
-                if (statistic != null){
-                    supportFragmentManager.beginTransaction()
-                        .detach(statistic)
-                        .attach(statistic)
-                        .commitNow()
-                }
-                intervals.clear()
-                menuPresenter.popBackStack(supportFragmentManager)
-
-            }
-            findViewById<TextView>(R.id.btn_canceled).setOnClickListener {
-                intervals.clear()
-                supportFragmentManager.beginTransaction()
-                    .remove(this@ChangeMenstruationDatesFragment)
-                    .add(R.id.for_fragment, ChangeMenstruationDatesFragment(), TAG)
-                    .commitNow()
-            }
-        }
         var calendarView = view.findViewById<CalendarView>(R.id.calendarView)
 
         val daysOfWeek = daysOfWeekFromLocale()
@@ -299,6 +248,64 @@ class ChangeMenstruationDatesFragment : AbstractMenuFragment(), ChangeMenstruati
             override fun bind(container: MonthViewContainer, month: CalendarMonth) {
                 @SuppressLint("SetTextI18n") // Concatenation warning for `setText` call.
                 container.textView.text = "${months[month.yearMonth.month.name.toLowerCase().capitalize()]!!} ${month.year}"
+            }
+        }
+
+        (activity as MenuActivity).apply {
+            findViewById<TextView>(R.id.btn_save).setOnClickListener {
+                changeMenstruationDatesPresenter.save(
+                    getStartDate(),
+                    getAverageDurationOfMenstruation(),
+                    supportFragmentManager,
+                    context!!,
+                    this@ChangeMenstruationDatesFragment
+                )
+                val calendarMonth = supportFragmentManager.findFragmentByTag(CalendarPickerFragment.TAG)
+                val calendarYear = supportFragmentManager.findFragmentByTag(CalendarYearModeFragment.TAG)
+                val weekMode = supportFragmentManager.findFragmentByTag(WeekModeCalendarFragment.TAG)
+                val statistic = supportFragmentManager.findFragmentByTag(StatisticsFragment.TAG)
+                if (calendarMonth != null) {
+                    supportFragmentManager.beginTransaction()
+                        .detach(calendarMonth)
+                        .attach(calendarMonth)
+                        .remove(this@ChangeMenstruationDatesFragment)
+                        .add(R.id.for_fragment, ChangeMenstruationDatesFragment(), TAG)
+                        .commitNow()
+                }
+                if (calendarYear != null) {
+                    supportFragmentManager.beginTransaction()
+                        .detach(calendarYear)
+                        .attach(calendarYear)
+                        .commitNow()
+                }
+                if (weekMode != null){
+                    supportFragmentManager.beginTransaction()
+                        .detach(weekMode)
+                        .attach(weekMode)
+                        .commitNow()
+                }
+                if (statistic != null){
+                    supportFragmentManager.beginTransaction()
+                        .detach(statistic)
+                        .attach(statistic)
+                        .commitNow()
+                }
+                intervals.clear()
+                menuPresenter.popBackStack(supportFragmentManager)
+
+            }
+            findViewById<TextView>(R.id.btn_canceled).setOnClickListener {
+                intervals.clear()
+                supportFragmentManager.beginTransaction()
+                    .remove(this@ChangeMenstruationDatesFragment)
+                    .add(R.id.for_fragment, ChangeMenstruationDatesFragment(), TAG)
+                    .commitNow()
+                /*if (!intervals.isEmpty()) {
+                    intervals.remove(intervals.last())
+                    startDate = null
+                    endDate = null
+                    calendarView.notifyCalendarChanged()
+                }*/
             }
         }
     }

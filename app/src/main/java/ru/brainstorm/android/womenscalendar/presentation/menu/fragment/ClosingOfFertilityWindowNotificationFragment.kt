@@ -32,11 +32,10 @@ class ClosingOfFertilityWindowNotificationFragment : AbstractMenuFragment(), OnB
     private lateinit var txtvwTime : TextView
     private lateinit var txtvwMessage: TextView
 
-    val TimeOfClosingOfFertilityWindowNotificationTag = "TimeOfClosingOfFertilityWindowNotification"
-    val TextOfClosingOfFertilityWindowNotificationTag : String = "TextOfClosingOfFertilityWindowNotification"
-
     companion object{
         val TAG = "closing_of_fertility_window"
+        val TimeOfClosingOfFertilityWindowNotificationTag = "TimeOfClosingOfFertilityWindowNotification"
+        val TextOfClosingOfFertilityWindowNotificationTag : String = "TextOfClosingOfFertilityWindowNotification"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -87,7 +86,7 @@ class ClosingOfFertilityWindowNotificationFragment : AbstractMenuFragment(), OnB
         }
 
         directTimeTextView = mainView!!.findViewById<TextView>(R.id.direct_time_text)
-        directTimeTextView.text = pref.getString("time_closing_fertility","00:00")
+        directTimeTextView.text = pref.getString(TimeOfClosingOfFertilityWindowNotificationTag,"9:00")
 
 
 
