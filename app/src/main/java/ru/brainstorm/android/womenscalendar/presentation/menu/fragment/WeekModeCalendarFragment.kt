@@ -206,12 +206,12 @@ class WeekModeCalendarFragment : AbstractMenuFragment() {
                 for (days in menstruationDays) {
                     val menstruationStartDate = LocalDate.parse(days.startOfCycle)
                     val menstruationEndDate = LocalDate.parse(days.startOfCycle)
-                        .plusDays(days.lengthOfMenstruation.toLong())
+                        .plusDays(days.lengthOfMenstruation.toLong()-1)
                     val endOfCycle = LocalDate.parse(days.startOfCycle)
                         .plusDays(days.lengthOfCycle.toLong())
                     val ovulationDate = LocalDate.parse(days.ovulation)
-                    val ovulationStartDate = ovulationDate.minusDays(4)
-                    val ovulationEndDate = ovulationDate.plusDays(4)
+                    val ovulationStartDate = ovulationDate.minusDays(6)
+                    val ovulationEndDate = ovulationDate.plusDays(1)
                     when (day.date) {
                         selectedDate -> {
                             dateText.setTextColor(view.context.getColorCompat(R.color.color_White))

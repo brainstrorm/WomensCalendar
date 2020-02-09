@@ -74,9 +74,6 @@ class MenstruationEndNotificationFragment : AbstractMenuFragment(), OnBackPresse
         backButton = activity!!.findViewById<ImageView>(R.id.btn_back)
         backButton.setOnClickListener { view ->
             (activity as MenuActivity).apply {
-                menuPresenter.popBackStack(supportFragmentManager)
-
-
                 if (!messageEditText.text.toString().equals(resources.getString(R.string.do_not_forget_message))) {
                     if (!messageEditText.text.toString().equals((resources.getString(R.string.do_not_forget_message) + " "))) {
                         //val s = messageEditText.text.toString()
@@ -94,6 +91,8 @@ class MenstruationEndNotificationFragment : AbstractMenuFragment(), OnBackPresse
                         }
                     }
                 }
+
+                menuPresenter.popBackStack(supportFragmentManager)
             }
         }
 

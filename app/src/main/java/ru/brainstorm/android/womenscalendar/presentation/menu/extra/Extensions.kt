@@ -99,7 +99,21 @@ fun FindOvulation(set_update: List<Cycle>) : LocalDate {
 }
 
 fun FindStartOfMenstruation(set_update: List<Cycle>) : LocalDate {
-    return LocalDate.parse(FindDate(set_update).startOfCycle)
+    val date = java.time.LocalDate.now()
+
+    var ans = 0
+
+    for(i in 0..set_update.size-1) {
+
+        if (date.compareTo(java.time.LocalDate.parse(set_update[i].startOfCycle)) > 0) {
+            if (date.compareTo(java.time.LocalDate.parse(set_update[i].startOfCycle).plusDays(set_update[i].lengthOfCycle.toLong()-1)) <= 0) {
+                ans = i+1
+            }
+        }else if(date.compareTo(java.time.LocalDate.parse(set_update[i].startOfCycle)) == 0){
+            ans = i
+        }
+    }
+    return LocalDate.parse(set_update[ans].startOfCycle)
 }
 
 fun FindEndOfMenstruation(set_update: List<Cycle>) : LocalDate {
@@ -110,28 +124,56 @@ fun FindEndOfMenstruation(set_update: List<Cycle>) : LocalDate {
     for(i in 0..set_update.size-1) {
 
         if (date.compareTo(java.time.LocalDate.parse(set_update[i].startOfCycle)) >= 0) {
-            if (date.compareTo(java.time.LocalDate.parse(set_update[i].startOfCycle).plusDays(set_update[i].lengthOfMenstruation.toLong())) <= 0) {
+            if (date.compareTo(java.time.LocalDate.parse(set_update[i].startOfCycle).plusDays(set_update[i].lengthOfMenstruation.toLong()-1)) <= 0) {
                 ans = i
+            }else{
+                ans = i+1
             }
         }
     }
 
-    return LocalDate.parse(set_update[ans].startOfCycle).plusDays(set_update[ans].lengthOfMenstruation.toLong())
+    return LocalDate.parse(set_update[ans].startOfCycle).plusDays(set_update[ans].lengthOfMenstruation.toLong()-1)
 }
 
 fun FindOpenOfFertilnost(set_update: List<Cycle>) : LocalDate {
 
+    val date = java.time.LocalDate.now()
 
+    var ans = 0
 
-    return FindOvulation(set_update).minusDays(6)
+    for(i in 0..set_update.size-1) {
+
+        if (date.compareTo(java.time.LocalDate.parse(set_update[i].startOfCycle)) >= 0) {
+            if (date.compareTo(java.time.LocalDate.parse(set_update[i].ovulation).minusDays(6)) <= 0) {
+                ans = i
+            }else{
+                ans = i+1
+            }
+        }
+    }
+
+    return LocalDate.parse(set_update[ans].ovulation).minusDays(6)
 
 }
 
 fun FindEndOfFertilnost(set_update: List<Cycle>) : LocalDate {
 
+    val date = java.time.LocalDate.now()
 
+    var ans = 0
 
-    return FindOvulation(set_update).plusDays(1)
+    for(i in 0..set_update.size-1) {
+
+        if (date.compareTo(java.time.LocalDate.parse(set_update[i].startOfCycle)) >= 0) {
+            if (date.compareTo(java.time.LocalDate.parse(set_update[i].ovulation).plusDays(1)) <= 0) {
+                ans = i
+            }else{
+                ans = i+1
+            }
+        }
+    }
+
+    return LocalDate.parse(set_update[ans].ovulation).plusDays(1)
 }
 
 

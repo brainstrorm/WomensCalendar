@@ -295,17 +295,17 @@ class ChangeMenstruationDatesFragment : AbstractMenuFragment(), ChangeMenstruati
 
             }
             findViewById<TextView>(R.id.btn_canceled).setOnClickListener {
-                intervals.clear()
+                /*intervals.clear()
                 supportFragmentManager.beginTransaction()
                     .remove(this@ChangeMenstruationDatesFragment)
                     .add(R.id.for_fragment, ChangeMenstruationDatesFragment(), TAG)
-                    .commitNow()
-                /*if (!intervals.isEmpty()) {
+                    .commitNow()*/
+                if (!intervals.isEmpty()) {
                     intervals.remove(intervals.last())
                     startDate = null
                     endDate = null
                     calendarView.notifyCalendarChanged()
-                }*/
+                }
             }
         }
     }

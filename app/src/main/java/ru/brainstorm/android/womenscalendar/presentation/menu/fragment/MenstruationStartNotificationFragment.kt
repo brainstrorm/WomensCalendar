@@ -76,19 +76,18 @@ class MenstruationStartNotificationFragment : AbstractMenuFragment(), OnBackPres
 
         backButton = activity!!.findViewById<ImageView>(R.id.btn_back)
         backButton.setOnClickListener{view ->
+            if( messageEditText.text.toString() != resources.getString(R.string.notification_menstruation_start_message)) {
+                if (messageEditText.text.toString() != (resources.getString(R.string.notification_menstruation_start_message)+" ")) {
+                    pref.edit()
+                        .putString(
+                            TextOfStartOfMenstruationNotificationTag,
+                            messageEditText.text.toString()
+                        )
+                        .commit()
+                }
+            }
             (activity as MenuActivity).apply {
                 menuPresenter.popBackStack(supportFragmentManager)
-
-                if( messageEditText.text.toString() != resources.getString(R.string.notification_menstruation_start_message)) {
-                    if (messageEditText.text.toString() != (resources.getString(R.string.notification_menstruation_start_message)+" ")) {
-                        pref.edit()
-                            .putString(
-                                TextOfStartOfMenstruationNotificationTag,
-                                messageEditText.text.toString()
-                            )
-                            .commit()
-                    }
-                }
             }
         }
 

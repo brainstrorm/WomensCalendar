@@ -71,7 +71,6 @@ class ClosingOfFertilityWindowNotificationFragment : AbstractMenuFragment(), OnB
         backButton = activity!!.findViewById<ImageView>(R.id.btn_back)
         backButton.setOnClickListener{view ->
             (activity as MenuActivity).apply {
-                menuPresenter.popBackStack(supportFragmentManager)
                 if (messageEditText.text.toString() != resources.getString(R.string.window_of_fertilnost_is_closing_message)) {
                     if (messageEditText.text.toString() != (resources.getString(R.string.window_of_fertilnost_is_closing_message) + " ")) {
                         pref.edit()
@@ -82,6 +81,7 @@ class ClosingOfFertilityWindowNotificationFragment : AbstractMenuFragment(), OnB
                             .commit()
                     }
                 }
+                menuPresenter.popBackStack(supportFragmentManager)
             }
         }
 

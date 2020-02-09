@@ -223,7 +223,7 @@ class MonthView(context: Context,
             val curDay = LocalDate.of(month.year, month.month, date)
             cycleList.forEach {
                 val startOfMenstruation = LocalDate.parse(it.startOfCycle, dateFormatter)
-                val endOfMenstruation = startOfMenstruation.plusDays(it.lengthOfMenstruation.toLong())
+                val endOfMenstruation = startOfMenstruation.plusDays(it.lengthOfMenstruation.toLong()-1)
                 if (LocalDate.now() in startOfMenstruation..startOfMenstruation.plusDays(it.lengthOfCycle.toLong())) {
                     when(curDay) {
                         startOfMenstruation -> return DayState.START_MENSTRUATION_NOW
@@ -241,8 +241,8 @@ class MonthView(context: Context,
                 val exactOvulation = LocalDate.parse(it.ovulation, dateFormatter)
                 if (exactOvulation == curDay)
                     return DayState.EXACT_OVULATION
-                val startOfOvulation = exactOvulation.minusDays(4L)
-                val endOfOvulation = exactOvulation.plusDays(4L)
+                val startOfOvulation = exactOvulation.minusDays(6L)
+                val endOfOvulation = exactOvulation.plusDays(1L)
                 if (curDay in startOfOvulation..endOfOvulation)
                     return DayState.OVULATION
             }

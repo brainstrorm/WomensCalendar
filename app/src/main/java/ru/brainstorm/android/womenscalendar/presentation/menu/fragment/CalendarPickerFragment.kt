@@ -190,10 +190,10 @@ class  CalendarPickerFragment : AbstractMenuFragment(), CalendarPickerView{
                     textView.setTextColorRes(R.color.example_4_grey)
                     for (days in menstruationDays){
                         val startMenstruation = LocalDate.parse(days.startOfCycle)
-                        val endMenstruation = LocalDate.parse(days.startOfCycle).plusDays(days.lengthOfMenstruation.toLong())
+                        val endMenstruation = LocalDate.parse(days.startOfCycle).plusDays(days.lengthOfMenstruation.toLong()-1)
                         val ovulationDate = LocalDate.parse(days.ovulation)
-                        val startOvulation = LocalDate.parse(days.ovulation).minusDays(4)
-                        val endOvulation = LocalDate.parse(days.ovulation).plusDays(4)
+                        val startOvulation = LocalDate.parse(days.ovulation).minusDays(6)
+                        val endOvulation = LocalDate.parse(days.ovulation).plusDays(1)
                         if(day.date >= startMenstruation && day.date <= startMenstruation.plusDays(days.lengthOfCycle.toLong())) {
                             when (day.date) {
                                 in startMenstruation..endMenstruation -> {

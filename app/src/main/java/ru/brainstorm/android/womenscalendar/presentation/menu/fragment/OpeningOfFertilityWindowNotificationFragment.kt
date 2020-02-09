@@ -79,7 +79,6 @@ class OpeningOfFertilityWindowNotificationFragment : AbstractMenuFragment(), OnB
         backButton = activity!!.findViewById<ImageView>(R.id.btn_back)
         backButton.setOnClickListener{view ->
             (activity as MenuActivity).apply {
-                menuPresenter.popBackStack(supportFragmentManager)
                 if (messageEditText.text.toString() != resources.getString(R.string.open_fertilnost_today_message)) {
                     if (messageEditText.text.toString() != (resources.getString(R.string.open_fertilnost_today_message) + " ")) {
 
@@ -91,6 +90,7 @@ class OpeningOfFertilityWindowNotificationFragment : AbstractMenuFragment(), OnB
                             .commit()
                     }
                 }
+                menuPresenter.popBackStack(supportFragmentManager)
             }
         }
 

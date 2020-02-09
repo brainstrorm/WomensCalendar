@@ -69,8 +69,6 @@ class OvulationNotificationFragment : AbstractMenuFragment(), OnBackPressedListe
         backButton = activity!!.findViewById<ImageView>(R.id.btn_back)
         backButton.setOnClickListener{view ->
             (activity as MenuActivity).apply {
-                menuPresenter.popBackStack(supportFragmentManager)
-
                 if (messageEditText.text.toString() != resources.getString(R.string.ovulation_will_stsrt_message)) {
                     if (messageEditText.text.toString() != (resources.getString(R.string.ovulation_will_stsrt_message) + " ")) {
 
@@ -83,6 +81,7 @@ class OvulationNotificationFragment : AbstractMenuFragment(), OnBackPressedListe
 
                     }
                 }
+                menuPresenter.popBackStack(supportFragmentManager)
             }
         }
 
