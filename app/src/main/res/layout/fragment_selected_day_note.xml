@@ -25,17 +25,16 @@
         android:id="@+id/text_selected_day_note"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:padding="4dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.100"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/date_selcted_day_note" />
-
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="30dp"
