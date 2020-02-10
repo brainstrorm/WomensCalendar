@@ -16,6 +16,7 @@ import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.data.database.dao.NoteDao
 import ru.brainstorm.android.womenscalendar.data.database.entities.Note
 import ru.brainstorm.android.womenscalendar.presentation.menu.activity.MenuActivity
+import ru.brainstorm.android.womenscalendar.presentation.menu.extra.sort
 import ru.brainstorm.android.womenscalendar.presentation.menu.presenter.ListOfNotesPresenter
 import ru.brainstorm.android.womenscalendar.presentation.menu.view.ListOfNotesView
 import java.time.LocalDate
@@ -36,7 +37,7 @@ class ListOfNotesFragment : AbstractMenuFragment(), ListOfNotesView {
     fun providePresenter() = App.appComponent.presenter().listOfNotesPresenter()
 
     private lateinit var recyclerView : RecyclerView
-    private lateinit var notes : List<Note>
+    private lateinit var notes : MutableList<Note>
 
     inner class Adapter(private val notes: List<Note>): RecyclerView.Adapter<Adapter.ViewHolder>(){
         override fun getItemCount() = notes.size
@@ -92,7 +93,8 @@ class ListOfNotesFragment : AbstractMenuFragment(), ListOfNotesView {
 
         runBlocking {
             val job = GlobalScope.launch(Dispatchers.IO) {
-                notes = noteDao.getAll()
+                notes = noteDao.getAll() as MutableList<Note>
+                notes.sort()
             }
             job.join()
         }

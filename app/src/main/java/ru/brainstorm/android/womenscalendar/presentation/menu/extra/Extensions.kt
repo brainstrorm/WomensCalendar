@@ -1,14 +1,12 @@
 package ru.brainstorm.android.womenscalendar.presentation.menu.extra
 
-import android.content.ActivityNotFoundException
+import android.R.array
 import android.content.Context
-import android.content.Intent
 import android.preference.PreferenceManager
-import android.widget.Toast
 import org.threeten.bp.LocalDate
 import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.data.database.entities.Cycle
-import ru.brainstorm.android.womenscalendar.presentation.menu.fragment.WeekModeCalendarFragment
+import ru.brainstorm.android.womenscalendar.data.database.entities.Note
 
 
 fun Int.getDayAddition(context: Context): String {
@@ -209,6 +207,47 @@ fun FindCurrent(set_update: List<Cycle>): Cycle {
     }
 
     return set_update[ans]
+}
+
+fun MutableList<Note>.sort(){
+    var low = 0
+    var high = this.size-1
+    if (this.size == 0) return  //завершить выполнение если длина массива равна 0
+
+
+    if (low >= high) return  //завершить выполнение если уже нечего делить
+
+
+    // выбрать опорный элемент
+    // выбрать опорный элемент
+    val middle: Int = low + (high - low) / 2
+    val opora: Note = this[middle]
+
+    // разделить на подмассивы, который больше и меньше опорного элемента
+    // разделить на подмассивы, который больше и меньше опорного элемента
+    var i: Int = low
+    var j: Int = high
+    while (i <= j) {
+        while (LocalDate.parse(this[i].noteDate).isBefore(LocalDate.parse(opora.noteDate))) {
+            i++
+        }
+        while (LocalDate.parse(this[j].noteDate).isAfter(LocalDate.parse(opora.noteDate))) {
+            j--
+        }
+        if (i <= j) { //меняем местами
+            val temp: Note = this[i]
+            this[i] = this[j]
+            this[j] = temp
+            i++
+            j--
+        }
+    }
+
+    // вызов рекурсии для сортировки левой и правой части
+    // вызов рекурсии для сортировки левой и правой части
+    if (low < j) sort()
+
+    if (high > i) sort()
 }
 
 
