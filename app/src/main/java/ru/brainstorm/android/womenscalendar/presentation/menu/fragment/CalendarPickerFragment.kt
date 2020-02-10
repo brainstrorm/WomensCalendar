@@ -294,11 +294,18 @@ class  CalendarPickerFragment : AbstractMenuFragment(), CalendarPickerView{
                 calendarView.scrollToMonth(currentMonth)
             }
             btnPlusNote.setOnClickListener { view ->
-                selectedDate = LocalDate.now()
-                calendarPickerPresenter.addNoteFragment(supportFragmentManager, LocalDate.now())
-                calendarView.notifyCalendarChanged()
-                menuPresenter.addFragmentToBackStack(this@CalendarPickerFragment)
-                menuPresenter.setFragment(supportFragmentManager, "note_redactor")
+                if(selectedDate == null) {
+                    selectedDate = LocalDate.now()
+                    calendarPickerPresenter.addNoteFragment(supportFragmentManager, LocalDate.now())
+                    calendarView.notifyCalendarChanged()
+                    menuPresenter.addFragmentToBackStack(this@CalendarPickerFragment)
+                    menuPresenter.setFragment(supportFragmentManager, "note_redactor")
+                }else{
+                    menuPresenter.addFragmentToBackStack(
+                        supportFragmentManager.findFragmentByTag(CalendarPickerFragment.TAG)
+                                as AbstractMenuFragment)
+                    menuPresenter.setFragment(supportFragmentManager, "note_redactor")
+                }
             }
         }
 
