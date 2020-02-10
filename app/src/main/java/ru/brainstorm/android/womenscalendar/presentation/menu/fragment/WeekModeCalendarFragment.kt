@@ -1,6 +1,7 @@
 package ru.brainstorm.android.womenscalendar.presentation.menu.fragment
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.content.res.Resources
 import android.os.Bundle
 import android.preference.PreferenceManager
@@ -72,6 +73,8 @@ class WeekModeCalendarFragment : AbstractMenuFragment() {
     private val dayFormatterRound = DateTimeFormatter.ofPattern("EEEE")
     private val monthFormatter = DateTimeFormatter.ofPattern("MMMM")
 
+    private lateinit var pref : SharedPreferences
+
     private var months = hashMapOf(
         "января" to "январь",
         "февраля" to "февраль",
@@ -121,6 +124,9 @@ class WeekModeCalendarFragment : AbstractMenuFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         App.appComponent.inject(this)
+
+        pref = PreferenceManager.getDefaultSharedPreferences(context)
+
         var menstruationDays = listOf<Cycle>()
         runBlocking {
             val job = GlobalScope.launch(Dispatchers.IO) {
@@ -201,8 +207,13 @@ class WeekModeCalendarFragment : AbstractMenuFragment() {
                 dayText.text = dayFormatter.format(day.date)
                 dateText.setTextColor(view.context.getColorCompat(R.color.colorDays))
                 selectedView.isVisible = false
-                if (day.date == selectedDate)
-                   monthText.text = months[monthFormatter.format(day.date)]!!.capitalize()
+                if (day.date == selectedDate) {
+                    if (pref.getString("language","ru").equals("ru")) {
+                        monthText.text = months[monthFormatter.format(day.date)]!!.capitalize()
+                    }else{
+                        monthText.text = monthFormatter.format(day.date)
+                    }
+                }
                 for (days in menstruationDays) {
                     val menstruationStartDate = LocalDate.parse(days.startOfCycle)
                     val menstruationEndDate = LocalDate.parse(days.startOfCycle)
