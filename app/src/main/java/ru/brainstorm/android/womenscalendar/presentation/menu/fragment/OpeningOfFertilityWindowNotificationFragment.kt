@@ -2,7 +2,10 @@ package ru.brainstorm.android.womenscalendar.presentation.menu.fragment
 
 import android.animation.AnimatorSet
 import android.animation.ValueAnimator
+import android.app.AlarmManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.net.Uri
@@ -20,8 +23,17 @@ import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.presentation.menu.activity.MenuActivity
 import android.view.Display
 import kotlinx.android.synthetic.main.fragment_settings.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import org.threeten.bp.LocalDate
+import ru.brainstorm.android.womenscalendar.App
+import ru.brainstorm.android.womenscalendar.data.database.dao.CycleDao
+import ru.brainstorm.android.womenscalendar.data.database.entities.Cycle
+import ru.brainstorm.android.womenscalendar.presentation.menu.extra.*
 import java.util.*
+import javax.inject.Inject
 
 
 class OpeningOfFertilityWindowNotificationFragment : AbstractMenuFragment(), OnBackPressedListener {
@@ -38,6 +50,10 @@ class OpeningOfFertilityWindowNotificationFragment : AbstractMenuFragment(), OnB
 
     private lateinit var txtvwTime : TextView
     private lateinit var txtvwMessage: TextView
+
+    @Inject
+    lateinit var cycleDao: CycleDao
+    var cycles = listOf<Cycle>()
 
     companion object{
         val TAG = "opening_of_fertility_window"
@@ -57,6 +73,15 @@ class OpeningOfFertilityWindowNotificationFragment : AbstractMenuFragment(), OnB
         mainView = inflater.inflate(R.layout.fragment_opening_of_fertility_notification_window, container, false)
 
         pref = PreferenceManager.getDefaultSharedPreferences(context)
+
+        App.appComponent.inject(this)
+
+        runBlocking {
+            val job = GlobalScope.launch(Dispatchers.IO) {
+                cycles = cycleDao.getAll()
+            }
+            job.join()
+        }
 
         initViews()
         initAnimators()
@@ -90,6 +115,18 @@ class OpeningOfFertilityWindowNotificationFragment : AbstractMenuFragment(), OnB
                             .commit()
                     }
                 }
+                var isChecked = false
+                if(pref.getString(NotificationsFragment.requestOpenFertilityWindowKey, "") != ""){
+                    isChecked = true
+                }
+                scheduleNotification(pref.getString(OpeningOfFertilityWindowNotificationFragment.TextOfOpeningOfFertilityWindowNotificationTag,"This is start of your menstruation")!!,
+                    FindOpenOfFertilnost(cycles),
+                    pref.getString(OpeningOfFertilityWindowNotificationFragment.TimeOfOpeningOfFertilityWindowNotificationTag, "9:00")!!,
+                    FindCurrent(cycles).lengthOfCycle.toLong()*24*60*60*1000,
+                    isChecked,
+                    NotificationsFragment.requestOpenFertilityWindowKey,
+                    1
+                )
                 menuPresenter.popBackStack(supportFragmentManager)
             }
         }
@@ -181,6 +218,43 @@ class OpeningOfFertilityWindowNotificationFragment : AbstractMenuFragment(), OnB
         }
     }
 
+    fun scheduleNotification(message : String, startLocalDate : LocalDate, time : String, interval : Long,
+                             isChecked : Boolean, requestKey : String, notificationId : Int){
+        val time_ = time.parseDate()
+        val startDate = Date( startLocalDate.year - 1900, startLocalDate.monthValue-1,
+            startLocalDate.dayOfMonth - 1, time_.first, time_.second)
+        val date1970 = Date(70, 0,0,0,0)
+        val startTime = startDate.time - date1970.time - TimeZone.getDefault().getOffset(Date().time)
 
+        val intent = Intent(context!!, NotificationStartOfMenstruationReceiver::class.java).apply {
+            putExtra("message", message)
+        }
+        //activity!!.sendBroadcast(intent)
+        val s = message
+        val pendingIntent = PendingIntent.getBroadcast(context!!, notificationId, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+
+        val alarmManager = context!!.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+
+        alarmManager.cancel(pendingIntent)
+
+        if(isChecked) {
+            alarmManager.setRepeating(
+                AlarmManager.RTC_WAKEUP,
+                startTime,
+                interval,
+                pendingIntent
+            )
+
+            val editor = pref.edit()
+            editor.putString(requestKey, notificationId.toString())
+            editor.commit()
+        }else{
+            alarmManager.cancel(pendingIntent)
+
+            val editor = pref.edit()
+            editor.putString(requestKey,"")
+            editor.commit()
+        }
+    }
 
 }

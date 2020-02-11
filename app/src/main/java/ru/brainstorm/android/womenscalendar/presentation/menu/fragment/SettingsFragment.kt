@@ -148,6 +148,11 @@ class SettingsFragment
                     allNotes.forEach { noteDao.delete(it) }
                     pref.edit().clear().apply()
 
+                    val APP_LANGUAGE = "language"
+                    val editor = pref.edit()
+                    editor.putString(APP_LANGUAGE, Locale.getDefault().getLanguage())
+                    editor.commit()
+
                     startActivity(QuizActivity.provideIntent(activity as MenuActivity))
                 }
 

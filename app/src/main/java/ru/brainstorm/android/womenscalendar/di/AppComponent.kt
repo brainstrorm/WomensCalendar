@@ -53,6 +53,14 @@ interface AppComponent {
 
     fun inject(menstruationStartNotificationFragment: MenstruationStartNotificationFragment)
 
+    fun inject(menstruationEndNotificationFragment: MenstruationEndNotificationFragment)
+
+    fun inject(ovulationNotificationFragment: OvulationNotificationFragment)
+
+    fun inject(openingOfFertilityWindowNotificationFragment: OpeningOfFertilityWindowNotificationFragment)
+
+    fun inject(closingOfFertilityWindowNotificationFragment: ClosingOfFertilityWindowNotificationFragment)
+
     fun presenter(): PresenterComponent
 
     @Subcomponent
