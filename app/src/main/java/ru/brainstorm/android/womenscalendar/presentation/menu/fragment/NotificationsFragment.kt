@@ -49,7 +49,7 @@ public class NotificationsFragment : AbstractMenuFragment() {
     private lateinit var notificationOvulationButton : ImageButton
     private lateinit var notificationOpeningOfFertilityWindowButton : ImageButton
     private lateinit var notificationClosingOfFertilityWindowButton : ImageButton
-    private lateinit var switchStartMenstruationButton : Switch
+    lateinit var switchStartMenstruationButton : Switch
     private lateinit var switchEndMenstruationButton : Switch
     private lateinit var switchOpenFetilnostButton : Switch
     private lateinit var switchOvulationButton : Switch
@@ -74,15 +74,15 @@ public class NotificationsFragment : AbstractMenuFragment() {
     final val NotificationIDTag =  "START_MENSTRUATION_NOTIFICATION"
     final val NotificationMessageTag = "START_MENSTRUATION_NOTIFICATION_MESSAGE"
     private lateinit var requestId : UUID
-    private val requestStartMenstruationKey = "requestStartMenstruationKey"
-    private val requestEndMenstruationKey = "requestEndMenstruationKey"
-    private val requestOvulationKey = "requestOvulationKey"
-    private val requestOpenFertilityWindowKey = "requestOpenFertilityWindowKey"
-    private val requestCloseFertilityWindowKey = "requestCloseFertilityWindowKey"
 
 
     companion object{
         val TAG = "notifications"
+        val requestStartMenstruationKey = "requestStartMenstruationKey"
+        val requestEndMenstruationKey = "requestEndMenstruationKey"
+        val requestOvulationKey = "requestOvulationKey"
+        val requestOpenFertilityWindowKey = "requestOpenFertilityWindowKey"
+        val requestCloseFertilityWindowKey = "requestCloseFertilityWindowKey"
     }
     fun scheduleNotification(message : String, startLocalDate : LocalDate, time : String, interval : Long,
                             isChecked : Boolean, requestKey : String, notificationId : Int){
@@ -100,6 +100,8 @@ public class NotificationsFragment : AbstractMenuFragment() {
         val pendingIntent = PendingIntent.getBroadcast(context!!, notificationId, intent, PendingIntent.FLAG_UPDATE_CURRENT)
 
         val alarmManager = context!!.getSystemService(ALARM_SERVICE) as AlarmManager
+
+        alarmManager.cancel(pendingIntent)
 
         if(isChecked) {
             alarmManager.setRepeating(

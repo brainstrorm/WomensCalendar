@@ -219,8 +219,8 @@ class SettingsFragment
                 menuPresenter.popBackStack(supportFragmentManager)
             }
         }
-        cyclePicker.minValue = 0
-        cyclePicker.maxValue = 30
+        cyclePicker.minValue = 15
+        cyclePicker.maxValue = 40
 
         menstPicker.minValue = 0
         menstPicker.maxValue = 10

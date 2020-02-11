@@ -2,7 +2,10 @@ package ru.brainstorm.android.womenscalendar.presentation.menu.fragment
 
 import android.animation.AnimatorSet
 import android.animation.ValueAnimator
+import android.app.AlarmManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.net.Uri
@@ -17,11 +20,24 @@ import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import kotlinx.android.synthetic.main.activity_splash_screen.*
 import kotlinx.android.synthetic.main.fragment_settings_change_language.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import org.threeten.bp.LocalDate
 import org.w3c.dom.Text
+import ru.brainstorm.android.womenscalendar.App
 
 import ru.brainstorm.android.womenscalendar.R
+import ru.brainstorm.android.womenscalendar.data.database.dao.CycleDao
+import ru.brainstorm.android.womenscalendar.data.database.entities.Cycle
 import ru.brainstorm.android.womenscalendar.presentation.menu.activity.MenuActivity
+import ru.brainstorm.android.womenscalendar.presentation.menu.extra.FindCurrent
+import ru.brainstorm.android.womenscalendar.presentation.menu.extra.FindStartOfMenstruation
+import ru.brainstorm.android.womenscalendar.presentation.menu.extra.NotificationStartOfMenstruationReceiver
+import ru.brainstorm.android.womenscalendar.presentation.menu.extra.parseDate
 import java.util.*
+import javax.inject.Inject
 
 class MenstruationStartNotificationFragment : AbstractMenuFragment(), OnBackPressedListener {
 
@@ -33,6 +49,10 @@ class MenstruationStartNotificationFragment : AbstractMenuFragment(), OnBackPres
     private lateinit var timePicker : TimePicker
     private lateinit var messageEditText: EditText
     private lateinit var pref : SharedPreferences
+
+    @Inject
+    lateinit var cycleDao: CycleDao
+    var cycles = listOf<Cycle>()
 
     private lateinit var txtvwTime : TextView
     private lateinit var txtvwMessage: TextView
@@ -56,6 +76,15 @@ class MenstruationStartNotificationFragment : AbstractMenuFragment(), OnBackPres
         mainView = inflater.inflate(R.layout.fragment_menstruation_start_notification, container, false)
 
         pref = PreferenceManager.getDefaultSharedPreferences(context)
+
+        App.appComponent.inject(this)
+
+        runBlocking {
+            val job = GlobalScope.launch(Dispatchers.IO) {
+                cycles = cycleDao.getAll()
+            }
+            job.join()
+        }
 
         initViews()
         initAnimators()
@@ -86,6 +115,18 @@ class MenstruationStartNotificationFragment : AbstractMenuFragment(), OnBackPres
                         .commit()
                 }
             }
+            var isChecked = false
+            if(pref.getString(NotificationsFragment.requestStartMenstruationKey, "") != ""){
+                isChecked = true
+            }
+            scheduleNotification(pref.getString(MenstruationStartNotificationFragment.TextOfStartOfMenstruationNotificationTag,"This is start of your menstruation")!!,
+                FindStartOfMenstruation(cycles),
+                pref.getString(MenstruationStartNotificationFragment.TimeOfStartOfMenstruationNotificationTag, "9:00")!!,
+                FindCurrent(cycles).lengthOfCycle.toLong()*24*60*60*1000,
+                isChecked,
+                NotificationsFragment.requestStartMenstruationKey,
+                1
+            )
             (activity as MenuActivity).apply {
                 menuPresenter.popBackStack(supportFragmentManager)
             }
@@ -174,6 +215,45 @@ class MenstruationStartNotificationFragment : AbstractMenuFragment(), OnBackPres
             pref.edit()
                 .putString(TextOfStartOfMenstruationNotificationTag, messageEditText.text.toString())
                 .commit()
+        }
+    }
+
+    fun scheduleNotification(message : String, startLocalDate : LocalDate, time : String, interval : Long,
+                             isChecked : Boolean, requestKey : String, notificationId : Int){
+        val time_ = time.parseDate()
+        val startDate = Date( startLocalDate.year - 1900, startLocalDate.monthValue-1,
+            startLocalDate.dayOfMonth - 1, time_.first, time_.second)
+        val date1970 = Date(70, 0,0,0,0)
+        val startTime = startDate.time - date1970.time - TimeZone.getDefault().getOffset(Date().time)
+
+        val intent = Intent(context!!, NotificationStartOfMenstruationReceiver::class.java).apply {
+            putExtra("message", message)
+        }
+        //activity!!.sendBroadcast(intent)
+        val s = message
+        val pendingIntent = PendingIntent.getBroadcast(context!!, notificationId, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+
+        val alarmManager = context!!.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+
+        alarmManager.cancel(pendingIntent)
+
+        if(isChecked) {
+            alarmManager.setRepeating(
+                AlarmManager.RTC_WAKEUP,
+                startTime,
+                interval,
+                pendingIntent
+            )
+
+            val editor = pref.edit()
+            editor.putString(requestKey, notificationId.toString())
+            editor.commit()
+        }else{
+            alarmManager.cancel(pendingIntent)
+
+            val editor = pref.edit()
+            editor.putString(requestKey,"")
+            editor.commit()
         }
     }
 

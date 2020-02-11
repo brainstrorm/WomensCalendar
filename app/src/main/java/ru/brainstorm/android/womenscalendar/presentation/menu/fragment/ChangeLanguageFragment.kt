@@ -84,6 +84,7 @@ class ChangeLanguageFragment : Fragment() {
             }
             english_check_mark.isVisible = true
             (activity as MenuActivity).changeLocale("en")
+            changeLanguageOfNotifications()
         }
         russianButton.setOnClickListener { view ->
             checkMarks.forEach{
@@ -91,6 +92,7 @@ class ChangeLanguageFragment : Fragment() {
             }
             russian_check_mark.isVisible = true
             (activity as MenuActivity).changeLocale("ru")
+            changeLanguageOfNotifications()
         }
         spanishButton.setOnClickListener { view ->
             checkMarks.forEach{
@@ -98,6 +100,7 @@ class ChangeLanguageFragment : Fragment() {
             }
             spanish_check_mark.isVisible = true
             (activity as MenuActivity).changeLocale("es")
+            changeLanguageOfNotifications()
         }
         portugueseButton.setOnClickListener { view ->
             checkMarks.forEach{
@@ -105,6 +108,7 @@ class ChangeLanguageFragment : Fragment() {
             }
             portugese_check_mark.isVisible = true
             (activity as MenuActivity).changeLocale("pt")
+            changeLanguageOfNotifications()
         }
         thaiButton.setOnClickListener { view ->
             checkMarks.forEach {
@@ -112,6 +116,7 @@ class ChangeLanguageFragment : Fragment() {
             }
             thai_check_mark.isVisible = true
             (activity as MenuActivity).changeLocale("th")
+            changeLanguageOfNotifications()
         }
         vietnameseButton.setOnClickListener { view ->
             checkMarks.forEach {
@@ -119,6 +124,7 @@ class ChangeLanguageFragment : Fragment() {
             }
             vietnamese_check_mark.isVisible = true
             (activity as MenuActivity).changeLocale("vi")
+            changeLanguageOfNotifications()
         }
         chineseButton.setOnClickListener { view ->
             checkMarks.forEach {
@@ -126,6 +132,7 @@ class ChangeLanguageFragment : Fragment() {
             }
             chinese_check_mark.isVisible = true
             (activity as MenuActivity).changeLocale("zh")
+            changeLanguageOfNotifications()
         }
         backButton.setOnClickListener {view ->
             (activity as MenuActivity).apply {
@@ -141,6 +148,16 @@ class ChangeLanguageFragment : Fragment() {
 
     override fun onDetach() {
         super.onDetach()
+    }
+
+    fun changeLanguageOfNotifications(){
+        pref.edit()
+            .putString(MenstruationStartNotificationFragment.TextOfStartOfMenstruationNotificationTag, resources.getString(R.string.menstruation_starts_today))
+            .putString(MenstruationEndNotificationFragment.TextOfEndOfMenstruationNotificationTag, resources.getString(R.string.do_not_forget_message))
+            .putString(OvulationNotificationFragment.TextOfOvulationNotificationTag, resources.getString(R.string.ovulation_will_stsrt_message))
+            .putString(OpeningOfFertilityWindowNotificationFragment.TextOfOpeningOfFertilityWindowNotificationTag, resources.getString(R.string.open_fertilnost_today_message))
+            .putString(ClosingOfFertilityWindowNotificationFragment.TextOfClosingOfFertilityWindowNotificationTag, resources.getString(R.string.window_of_fertilnost_is_closing_message))
+            .commit()
     }
 
 
