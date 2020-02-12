@@ -32,10 +32,7 @@ import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.data.database.dao.CycleDao
 import ru.brainstorm.android.womenscalendar.data.database.entities.Cycle
 import ru.brainstorm.android.womenscalendar.presentation.menu.activity.MenuActivity
-import ru.brainstorm.android.womenscalendar.presentation.menu.extra.FindCurrent
-import ru.brainstorm.android.womenscalendar.presentation.menu.extra.FindStartOfMenstruation
-import ru.brainstorm.android.womenscalendar.presentation.menu.extra.NotificationStartOfMenstruationReceiver
-import ru.brainstorm.android.womenscalendar.presentation.menu.extra.parseDate
+import ru.brainstorm.android.womenscalendar.presentation.menu.extra.*
 import java.util.*
 import javax.inject.Inject
 
@@ -133,7 +130,7 @@ class MenstruationStartNotificationFragment : AbstractMenuFragment(), OnBackPres
         }
 
         directTimeTextView = mainView!!.findViewById<TextView>(R.id.direct_time_text)
-        directTimeTextView.text = pref.getString(TimeOfStartOfMenstruationNotificationTag,"9:00")
+        directTimeTextView.text = pref.getString(TimeOfStartOfMenstruationNotificationTag,"9:00")!!.addZeros()
 
 
         timePicker = mainView!!.findViewById<TimePicker>(R.id.timePicker)
@@ -165,7 +162,7 @@ class MenstruationStartNotificationFragment : AbstractMenuFragment(), OnBackPres
     private fun rollUpTimePicker(save: Boolean = false) {
         if (save) {
             val saved = "${timePicker.hour}:${timePicker.minute}"
-            directTimeTextView.text = saved
+            directTimeTextView.text = saved.addZeros()
             pref.edit().putString("time_start_menstruation",saved).apply()
 
             val editor = pref.edit()

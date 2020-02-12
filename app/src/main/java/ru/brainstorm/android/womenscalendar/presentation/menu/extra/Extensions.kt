@@ -250,6 +250,28 @@ fun MutableList<Note>.sort(){
     if (high > i) sort()
 }
 
+fun String.addZeros() : String{
+    var hoursAndMinutes = this.split(":")
+    var hours = hoursAndMinutes[0]
+    var minutes = hoursAndMinutes[1]
+    if(hours.toInt() < 10)
+        hours = "0$hours"
+    if(minutes.toInt() < 10 && minutes != "00")
+        minutes = "0$minutes"
+    return "$hours:$minutes"
+}
+
+fun String.deleteZeros() : String{
+    var hoursAndMinutes = this.split(":")
+    var hours = hoursAndMinutes[0]
+    var minutes = hoursAndMinutes[1]
+    if(hours[0] == '0')
+        hours = "${hours[1]}"
+    if(minutes[0] == '0')
+        minutes = "${minutes[1]}"
+    return "$hours:$minutes"
+}
+
 
 
 

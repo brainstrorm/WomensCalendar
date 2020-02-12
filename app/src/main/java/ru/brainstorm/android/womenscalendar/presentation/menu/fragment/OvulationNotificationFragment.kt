@@ -124,7 +124,7 @@ class OvulationNotificationFragment : AbstractMenuFragment(), OnBackPressedListe
         }
 
         directTimeTextView = mainView!!.findViewById<TextView>(R.id.direct_time_text)
-        directTimeTextView.text = pref.getString(TimeOfOvulationNotificationTag,"9:00")
+        directTimeTextView.text = pref.getString(TimeOfOvulationNotificationTag,"9:00")!!.addZeros()
 
 
         timePicker = mainView!!.findViewById<TimePicker>(R.id.timePicker)
@@ -157,7 +157,7 @@ class OvulationNotificationFragment : AbstractMenuFragment(), OnBackPressedListe
     private fun rollUpTimePicker(save: Boolean = false) {
         if (save) {
             val saved = "${timePicker.hour}:${timePicker.minute}"
-            directTimeTextView.text = saved
+            directTimeTextView.text = saved.addZeros()
             pref.edit().putString("time_ovulation",saved).apply()
 
             val editor = pref.edit()

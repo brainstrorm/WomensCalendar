@@ -7,9 +7,7 @@ import android.content.res.Configuration
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.preference.PreferenceManager
-import android.view.GestureDetector
-import android.view.MotionEvent
-import android.view.View
+import android.view.*
 import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.ImageView
@@ -126,7 +124,7 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView{
         supportActionBar?.hide()
 
         pref = PreferenceManager.getDefaultSharedPreferences(this)
-
+        
         txtvwAboutApp = findViewById<TextView>(R.id.about_app)
         topBar = findViewById(R.id.topBar)
         btnMonthOrYear = findViewById<ImageView>(R.id.btn_month_or_year).apply{ setOnClickListener(this@MenuActivity)}

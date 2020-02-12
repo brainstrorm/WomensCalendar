@@ -124,7 +124,7 @@ class ClosingOfFertilityWindowNotificationFragment : AbstractMenuFragment(), OnB
         }
 
         directTimeTextView = mainView!!.findViewById<TextView>(R.id.direct_time_text)
-        directTimeTextView.text = pref.getString(TimeOfClosingOfFertilityWindowNotificationTag,"9:00")
+        directTimeTextView.text = pref.getString(TimeOfClosingOfFertilityWindowNotificationTag,"9:00")!!.addZeros()
 
 
 
@@ -157,7 +157,7 @@ class ClosingOfFertilityWindowNotificationFragment : AbstractMenuFragment(), OnB
     private fun rollUpTimePicker(save: Boolean = false) {
         if (save) {
             val saved = "${timePicker.hour}:${timePicker.minute}"
-            directTimeTextView.text = saved
+            directTimeTextView.text = saved.addZeros()
             pref.edit().putString("time_closing_fertility",saved).apply()
 
             val editor = pref.edit()
