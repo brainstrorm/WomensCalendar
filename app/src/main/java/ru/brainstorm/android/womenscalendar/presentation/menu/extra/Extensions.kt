@@ -209,9 +209,7 @@ fun FindCurrent(set_update: List<Cycle>): Cycle {
     return set_update[ans]
 }
 
-fun MutableList<Note>.sort(){
-    var low = 0
-    var high = this.size-1
+fun MutableList<Note>.sort(low : Int, high : Int){
     if (this.size == 0) return  //завершить выполнение если длина массива равна 0
 
 
@@ -245,9 +243,9 @@ fun MutableList<Note>.sort(){
 
     // вызов рекурсии для сортировки левой и правой части
     // вызов рекурсии для сортировки левой и правой части
-    if (low < j) sort()
+    if (low < j) sort(low, j)
 
-    if (high > i) sort()
+    if (high > i) sort(i, high)
 }
 
 fun String.addZeros() : String{

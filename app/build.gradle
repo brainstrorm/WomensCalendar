@@ -144,4 +144,6 @@ dependencies {
     androidTestImplementation "androidx.work:work-testing:$work_version"
     implementation 'androidx.gridlayout:gridlayout:1.0.0'
 
+    //for AdMobs
+
 }

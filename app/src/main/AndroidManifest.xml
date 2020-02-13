@@ -24,6 +24,7 @@
             </intent-filter>
         </activity>
         <receiver android:name=".presentation.menu.extra.NotificationStartOfMenstruationReceiver"/>
+        <!-- Sample AdMob App ID: ca-app-pub-3940256099942544~3347511713 -->
     </application>
 
 </manifest>

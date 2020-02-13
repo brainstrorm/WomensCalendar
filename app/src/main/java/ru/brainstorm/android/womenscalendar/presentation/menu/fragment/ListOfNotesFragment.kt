@@ -94,7 +94,7 @@ class ListOfNotesFragment : AbstractMenuFragment(), ListOfNotesView {
         runBlocking {
             val job = GlobalScope.launch(Dispatchers.IO) {
                 notes = noteDao.getAll() as MutableList<Note>
-                notes.sort()
+                notes.sort(0, notes.size-1)
             }
             job.join()
         }
