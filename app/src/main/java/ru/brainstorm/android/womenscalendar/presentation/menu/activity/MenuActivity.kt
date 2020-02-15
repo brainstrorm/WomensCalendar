@@ -13,6 +13,7 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.google.android.gms.ads.*
 import moxy.MvpAppCompatActivity
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
@@ -96,6 +97,8 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView{
     private lateinit var btnPressDatesOfNewMenstruation : ImageButton
     private lateinit var txtvwPressDatesOfNewMenstruation : TextView
 
+    private lateinit var mInterstitialAd: InterstitialAd
+
     private var btnTodayIsChecked : Boolean = true
     private var btnCalendarIsChecked : Boolean = false
     private var btnInfoIsChecked : Boolean = false
@@ -178,6 +181,7 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView{
         txtvwTodayRound = findViewById<TextView>(R.id.today_menu)
         txtvwTodayBtn = findViewById<TextView>(R.id.today_menu)
 
+
         txtvwDurations = findViewById(R.id.duration_of_cycle_and_menstruation)
         btnPressDatesOfNewMenstruation = findViewById<ImageButton>(R.id.btn_press_dates_of_new_menstruation).apply {
             setOnClickListener(this@MenuActivity)
@@ -193,6 +197,36 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView{
         menuPresenter.setFragment(supportFragmentManager, "today")
         initFragments()
 
+        MobileAds.initialize(this, "ca-app-pub-8660591775381486~3432926821")
+        mInterstitialAd = InterstitialAd(this)
+        mInterstitialAd.adUnitId = "ca-app-pub-3940256099942544/1033173712"
+        mInterstitialAd.adListener = object: AdListener() {
+            override fun onAdLoaded() {
+
+            }
+
+            override fun onAdFailedToLoad(errorCode: Int) {
+                // Code to be executed when an ad request fails.
+            }
+
+            override fun onAdOpened() {
+                // Code to be executed when the ad is displayed.
+            }
+
+            override fun onAdClicked() {
+                // Code to be executed when the user clicks on an ad.
+            }
+
+            override fun onAdLeftApplication() {
+                // Code to be executed when the user has left the app.
+            }
+
+            override fun onAdClosed() {
+                menuPresenter.addFragmentToBackStackString(currentFragment)
+                menuPresenter.setFragment(supportFragmentManager, "statistics")
+            }
+        }
+        mInterstitialAd.loadAd(AdRequest.Builder().build())
 
     }
 
@@ -475,12 +509,17 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView{
         v ?: return
         when(v.id) {
             R.id.btn_statistics -> {
-                menuPresenter.addFragmentToBackStackString(currentFragment)
-                menuPresenter.setFragment(supportFragmentManager, "statistics")
+                if(mInterstitialAd.isLoaded) {
+                    mInterstitialAd.show()
+                    mInterstitialAd.loadAd(AdRequest.Builder().build())
+                }else{
+                    menuPresenter.addFragmentToBackStackString(currentFragment)
+                    menuPresenter.setFragment(supportFragmentManager, "statistics")
+                    mInterstitialAd.loadAd(AdRequest.Builder().build())
+                }
             }
             R.id.today -> {
                menuPresenter.setFragment(supportFragmentManager, "today")
-
             }
             R.id.calendar -> {
                 btnMonthOrYearChecked == 1

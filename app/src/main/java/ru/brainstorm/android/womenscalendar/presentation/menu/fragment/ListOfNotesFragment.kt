@@ -8,19 +8,24 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.coroutines.*
+import com.google.android.gms.ads.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import ru.brainstorm.android.womenscalendar.App
 import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.data.database.dao.NoteDao
 import ru.brainstorm.android.womenscalendar.data.database.entities.Note
+import ru.brainstorm.android.womenscalendar.di.DaggerAppComponent
 import ru.brainstorm.android.womenscalendar.presentation.menu.activity.MenuActivity
 import ru.brainstorm.android.womenscalendar.presentation.menu.extra.sort
 import ru.brainstorm.android.womenscalendar.presentation.menu.presenter.ListOfNotesPresenter
 import ru.brainstorm.android.womenscalendar.presentation.menu.view.ListOfNotesView
-import java.time.LocalDate
 import javax.inject.Inject
+
 
 class ListOfNotesFragment : AbstractMenuFragment(), ListOfNotesView {
 
@@ -38,6 +43,7 @@ class ListOfNotesFragment : AbstractMenuFragment(), ListOfNotesView {
 
     private lateinit var recyclerView : RecyclerView
     private lateinit var notes : MutableList<Note>
+    private lateinit var mAdView: AdView
 
     inner class Adapter(private val notes: List<Note>): RecyclerView.Adapter<Adapter.ViewHolder>(){
         override fun getItemCount() = notes.size
@@ -102,6 +108,11 @@ class ListOfNotesFragment : AbstractMenuFragment(), ListOfNotesView {
         recyclerView = view.findViewById(R.id.notes)
         recyclerView.layoutManager = LinearLayoutManager(context!!)
         recyclerView.adapter = Adapter(notes)
+
+        MobileAds.initialize(activity, "ca-app-pub-8660591775381486~3432926821")
+        mAdView = view.findViewById(R.id.adView)
+        val adRequest: AdRequest = AdRequest.Builder().build()
+        mAdView.loadAd(adRequest)
 
         return view
     }

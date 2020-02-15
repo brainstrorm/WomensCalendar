@@ -4,8 +4,14 @@ import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.preference.PreferenceManager
 import android.widget.TextView
+import com.google.android.gms.ads.AdListener
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.InterstitialAd
+import com.google.android.gms.ads.MobileAds
 import moxy.MvpAppCompatActivity
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
@@ -17,11 +23,13 @@ import ru.brainstorm.android.womenscalendar.presentation.splash.presenter.Splash
 import ru.brainstorm.android.womenscalendar.presentation.splash.view.SplashScreenView
 import java.util.*
 
+
 class SplashScreenActivity : MvpAppCompatActivity(), SplashScreenView {
 
     private lateinit var txtvwInit : TextView
 
     private lateinit var pref : SharedPreferences
+
 
     @InjectPresenter
     internal lateinit var splashScreenPresenter: SplashScreenPresenter
@@ -54,6 +62,7 @@ class SplashScreenActivity : MvpAppCompatActivity(), SplashScreenView {
         updateLocale()
 
         splashScreenPresenter.checkFirstLaunch()
+
     }
     fun updateLocale(){
         if(pref.getString("language", "def").equals("def")) {
@@ -70,5 +79,4 @@ class SplashScreenActivity : MvpAppCompatActivity(), SplashScreenView {
 
         txtvwInit.setText(R.string.init_rus)
     }
-
 }

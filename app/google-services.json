@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "467816837125",
+    "firebase_url": "https://women-s-calendar.firebaseio.com",
+    "project_id": "women-s-calendar",
+    "storage_bucket": "women-s-calendar.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:467816837125:android:eb5226a160055c91086c6c",
+        "android_client_info": {
+          "package_name": "ru.brainstorm.android.womenscalendar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "467816837125-de99s57dbicot2enqhe7g480eqqopbca.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ru.brainstorm.android.womenscalendar",
+            "certificate_hash": "ed2bde8ed118abc9cd17345bb35cd8076aa1b5b4"
+          }
+        },
+        {
+          "client_id": "467816837125-qiuqfcnv13g1lrl9oduq8ue34d97244q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB84ZwfDcVSPf9hedCRHpiM9IdtOnRwzxY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "467816837125-qiuqfcnv13g1lrl9oduq8ue34d97244q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

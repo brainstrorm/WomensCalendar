@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -569,6 +570,7 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout6"
         android:layout_width="67dp"
         android:layout_height="70dp"
         android:layout_marginBottom="22dp"
@@ -580,26 +582,26 @@
         tools:ignore="VectorDrawableCompat">
 
         <ImageButton
-            android:background="@drawable/menu_btn_plus_circle"
             android:id="@+id/btn_plus_menu"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:ignore="VectorDrawableCompat">
-        </ImageButton>
-        <ImageButton
             android:background="@drawable/menu_btn_plus_circle"
+            tools:ignore="VectorDrawableCompat"></ImageButton>
+
+        <ImageButton
             android:id="@+id/btn_plus_menu_for_week"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:ignore="VectorDrawableCompat">
-        </ImageButton>
-        <ImageButton
             android:background="@drawable/menu_btn_plus_circle"
+            tools:ignore="VectorDrawableCompat"></ImageButton>
+
+        <ImageButton
             android:id="@+id/btn_plus_menu_for_list_of_notes"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:ignore="VectorDrawableCompat">
-        </ImageButton>
+            android:background="@drawable/menu_btn_plus_circle"
+            tools:ignore="VectorDrawableCompat"></ImageButton>
+
         <ImageView
             android:id="@+id/btn_plus"
             android:layout_width="15dp"
@@ -692,6 +694,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/btn_press_dates_of_new_menstruation"
         app:layout_constraintVertical_bias="0.422" />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

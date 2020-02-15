@@ -3,6 +3,7 @@
     package="ru.brainstorm.android.womenscalendar">
 
     <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".App"
@@ -25,6 +26,9 @@
         </activity>
         <receiver android:name=".presentation.menu.extra.NotificationStartOfMenstruationReceiver"/>
         <!-- Sample AdMob App ID: ca-app-pub-3940256099942544~3347511713 -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-8660591775381486~3432926821"/>
     </application>
 
 </manifest>
