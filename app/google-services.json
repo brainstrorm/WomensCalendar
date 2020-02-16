@@ -34,6 +34,9 @@
       ],
       "services": {
         "appinvite_service": {
+          "analytics_service": {
+            "status": 1
+          },
           "other_platform_oauth_client": [
             {
               "client_id": "467816837125-qiuqfcnv13g1lrl9oduq8ue34d97244q.apps.googleusercontent.com",

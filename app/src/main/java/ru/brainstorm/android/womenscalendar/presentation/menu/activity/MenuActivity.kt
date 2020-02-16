@@ -14,6 +14,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.android.gms.ads.*
+import com.google.firebase.analytics.FirebaseAnalytics
 import moxy.MvpAppCompatActivity
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
@@ -97,7 +98,7 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView{
     private lateinit var btnPressDatesOfNewMenstruation : ImageButton
     private lateinit var txtvwPressDatesOfNewMenstruation : TextView
 
-    private lateinit var mInterstitialAd: InterstitialAd
+    private lateinit var firebaseAnalytics : FirebaseAnalytics
 
     private var btnTodayIsChecked : Boolean = true
     private var btnCalendarIsChecked : Boolean = false
@@ -127,7 +128,9 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView{
         supportActionBar?.hide()
 
         pref = PreferenceManager.getDefaultSharedPreferences(this)
-        
+
+        firebaseAnalytics = FirebaseAnalytics.getInstance(this)
+
         txtvwAboutApp = findViewById<TextView>(R.id.about_app)
         topBar = findViewById(R.id.topBar)
         btnMonthOrYear = findViewById<ImageView>(R.id.btn_month_or_year).apply{ setOnClickListener(this@MenuActivity)}
@@ -196,37 +199,6 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView{
             .commit()*/
         menuPresenter.setFragment(supportFragmentManager, "today")
         initFragments()
-
-        MobileAds.initialize(this, "ca-app-pub-8660591775381486~3432926821")
-        mInterstitialAd = InterstitialAd(this)
-        mInterstitialAd.adUnitId = "ca-app-pub-3940256099942544/1033173712"
-        mInterstitialAd.adListener = object: AdListener() {
-            override fun onAdLoaded() {
-
-            }
-
-            override fun onAdFailedToLoad(errorCode: Int) {
-                // Code to be executed when an ad request fails.
-            }
-
-            override fun onAdOpened() {
-                // Code to be executed when the ad is displayed.
-            }
-
-            override fun onAdClicked() {
-                // Code to be executed when the user clicks on an ad.
-            }
-
-            override fun onAdLeftApplication() {
-                // Code to be executed when the user has left the app.
-            }
-
-            override fun onAdClosed() {
-                menuPresenter.addFragmentToBackStackString(currentFragment)
-                menuPresenter.setFragment(supportFragmentManager, "statistics")
-            }
-        }
-        mInterstitialAd.loadAd(AdRequest.Builder().build())
 
     }
 
@@ -509,19 +481,24 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView{
         v ?: return
         when(v.id) {
             R.id.btn_statistics -> {
-                if(mInterstitialAd.isLoaded) {
-                    mInterstitialAd.show()
-                    mInterstitialAd.loadAd(AdRequest.Builder().build())
-                }else{
-                    menuPresenter.addFragmentToBackStackString(currentFragment)
-                    menuPresenter.setFragment(supportFragmentManager, "statistics")
-                    mInterstitialAd.loadAd(AdRequest.Builder().build())
-                }
+                menuPresenter.addFragmentToBackStackString(currentFragment)
+                menuPresenter.setFragment(supportFragmentManager, "statistics")
             }
             R.id.today -> {
+                /*val bundle = Bundle()
+                bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "today_fragment")
+                bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "today_fragment")
+                bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "screen_view")
+                firebaseAnalytics.logEvent("today_fragment", bundle)*/
                menuPresenter.setFragment(supportFragmentManager, "today")
             }
             R.id.calendar -> {
+                /*val bundle = Bundle()
+                bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "2")
+                bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "calendar_fragment")
+                bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "fragment")
+                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle)*/
+
                 btnMonthOrYearChecked == 1
                 btnMonthOrYear.setImageResource(R.drawable.ic_toggle_button)
                 txtvwMonth.setTextColorRes(R.color.white)
@@ -529,6 +506,12 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView{
                 menuPresenter.setFragment(supportFragmentManager, "calendar")
             }
             R.id.info -> {
+                /*val bundle = Bundle()
+                bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "3")
+                bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "notes_fragment")
+                bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "fragment")
+                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle)*/
+
                 menuPresenter.addFragmentToBackStackString(currentFragment)
                 menuPresenter.setFragment(supportFragmentManager, "notes")
             }
