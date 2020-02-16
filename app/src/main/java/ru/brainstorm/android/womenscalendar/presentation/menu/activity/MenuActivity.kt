@@ -259,6 +259,10 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView{
                 btnTodayIsChecked = true
                 btnPlusNote.isEnabled = false
                 btnTodayRound.isEnabled = true
+
+                val bundle = Bundle()
+                bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "today_fragment")
+                firebaseAnalytics.logEvent("today_fragment", bundle)
             }
             "calendar" ->{
                 setVisibility(View.VISIBLE, View.VISIBLE, View.VISIBLE,
@@ -277,6 +281,10 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView{
                 btnCalendarIsChecked = true
                 btnPlusNote.isEnabled = true
                 btnTodayRound.isEnabled = true
+
+                val bundle = Bundle()
+                bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "calendar_fragment")
+                firebaseAnalytics.logEvent("calendar_fragment", bundle)
             }
             "notes" ->{
                 setVisibility(View.VISIBLE, View.GONE, View.GONE,
@@ -295,6 +303,10 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView{
                 btnInfoIsChecked = true
                 btnPlusNote.isEnabled = false
                 btnTodayRound.isEnabled = false
+
+                val bundle = Bundle()
+                bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "notes_fragment")
+                firebaseAnalytics.logEvent("notes_fragment", bundle)
             }
             "note_redactor" ->{
                 setVisibility(View.VISIBLE, View.GONE, View.GONE,
@@ -485,20 +497,9 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView{
                 menuPresenter.setFragment(supportFragmentManager, "statistics")
             }
             R.id.today -> {
-                /*val bundle = Bundle()
-                bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "today_fragment")
-                bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "today_fragment")
-                bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "screen_view")
-                firebaseAnalytics.logEvent("today_fragment", bundle)*/
                menuPresenter.setFragment(supportFragmentManager, "today")
             }
             R.id.calendar -> {
-                /*val bundle = Bundle()
-                bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "2")
-                bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "calendar_fragment")
-                bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "fragment")
-                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle)*/
-
                 btnMonthOrYearChecked == 1
                 btnMonthOrYear.setImageResource(R.drawable.ic_toggle_button)
                 txtvwMonth.setTextColorRes(R.color.white)
@@ -506,12 +507,6 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView{
                 menuPresenter.setFragment(supportFragmentManager, "calendar")
             }
             R.id.info -> {
-                /*val bundle = Bundle()
-                bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "3")
-                bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "notes_fragment")
-                bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "fragment")
-                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle)*/
-
                 menuPresenter.addFragmentToBackStackString(currentFragment)
                 menuPresenter.setFragment(supportFragmentManager, "notes")
             }

@@ -21,6 +21,7 @@ import android.widget.TextView
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.work.*
+import com.google.firebase.analytics.FirebaseAnalytics
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -67,7 +68,7 @@ public class NotificationsFragment : AbstractMenuFragment() {
     private lateinit var txtvwClosingOfFertilityWindow : TextView
     private lateinit var txtvwFertilityWindowCloses : TextView
 
-
+    private lateinit var firebaseAnalytics : FirebaseAnalytics
 
     private lateinit var pref : SharedPreferences
 
@@ -85,7 +86,7 @@ public class NotificationsFragment : AbstractMenuFragment() {
         val requestCloseFertilityWindowKey = "requestCloseFertilityWindowKey"
     }
     fun scheduleNotification(message : String, startLocalDate : LocalDate, time : String, interval : Long,
-                            isChecked : Boolean, requestKey : String, notificationId : Int){
+                            isChecked : Boolean, requestKey : String, notificationId : Int, nameOfEvent : String){
         val time_ = time.parseDate()
         val startDate = Date( startLocalDate.year - 1900, startLocalDate.monthValue-1,
             startLocalDate.dayOfMonth - 1, time_.first, time_.second)
@@ -114,6 +115,10 @@ public class NotificationsFragment : AbstractMenuFragment() {
             val editor = pref.edit()
             editor.putString(requestKey, notificationId.toString())
             editor.commit()
+
+            val bundle = Bundle()
+            bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, nameOfEvent)
+            firebaseAnalytics.logEvent(nameOfEvent, bundle)
         }else{
             alarmManager.cancel(pendingIntent)
 
@@ -157,6 +162,8 @@ public class NotificationsFragment : AbstractMenuFragment() {
             job.join()
         }
         pref = PreferenceManager.getDefaultSharedPreferences(context)
+
+        firebaseAnalytics = FirebaseAnalytics.getInstance(context!!)
 
         createNotificationChannel()
 
@@ -204,8 +211,8 @@ public class NotificationsFragment : AbstractMenuFragment() {
                     FindCurrent(cycles).lengthOfCycle.toLong()*24*60*60*1000,
                     isChecked,
                     requestStartMenstruationKey,
-                    1
-                    )
+                    1,
+                    "start_of_menstruation_notification")
         }
         //
         switchEndMenstruationButton.setOnCheckedChangeListener { _, isChecked ->
@@ -216,7 +223,8 @@ public class NotificationsFragment : AbstractMenuFragment() {
                     FindCurrent(cycles).lengthOfCycle.toLong()*24*60*60*1000,
                     isChecked,
                     requestEndMenstruationKey,
-                    2)
+                    2,
+                    "end_of_menstruation_notification")
 
 
         }
@@ -228,7 +236,8 @@ public class NotificationsFragment : AbstractMenuFragment() {
                     FindCurrent(cycles).lengthOfCycle.toLong()*24*60*60*1000,
                     isChecked,
                     requestOvulationKey,
-                    3)
+                    3,
+                    "ovulation_notification")
 
         }
 
@@ -239,7 +248,8 @@ public class NotificationsFragment : AbstractMenuFragment() {
                     FindCurrent(cycles).lengthOfCycle.toLong()*24*60*60*1000,
                     isChecked,
                     requestOpenFertilityWindowKey,
-                    4)
+                    4,
+                    "opening_of_fertilty_window_notification")
 
 
         }
@@ -251,7 +261,8 @@ public class NotificationsFragment : AbstractMenuFragment() {
                     pref.getString(ClosingOfFertilityWindowNotificationFragment.TimeOfClosingOfFertilityWindowNotificationTag, "9:00")!!,
                     FindCurrent(cycles).lengthOfCycle.toLong()*24*60*60*1000, isChecked,
                     requestCloseFertilityWindowKey,
-                    5)
+                    5,
+                    "closing_of_fertility_window_notification")
         }
 
         //<---------------------------------->
