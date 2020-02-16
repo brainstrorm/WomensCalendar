@@ -226,10 +226,10 @@ fun MutableList<Note>.sort(low : Int, high : Int){
     var i: Int = low
     var j: Int = high
     while (i <= j) {
-        while (LocalDate.parse(this[i].noteDate).isBefore(LocalDate.parse(opora.noteDate))) {
+        while (LocalDate.parse(this[i].noteDate).isAfter(LocalDate.parse(opora.noteDate))) {
             i++
         }
-        while (LocalDate.parse(this[j].noteDate).isAfter(LocalDate.parse(opora.noteDate))) {
+        while (LocalDate.parse(this[j].noteDate).isBefore(LocalDate.parse(opora.noteDate))) {
             j--
         }
         if (i <= j) { //меняем местами
