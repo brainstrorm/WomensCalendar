@@ -35,7 +35,9 @@ import org.w3c.dom.Text
 import ru.brainstorm.android.womenscalendar.App
 import ru.brainstorm.android.womenscalendar.R
 import ru.brainstorm.android.womenscalendar.data.database.dao.CycleDao
+import ru.brainstorm.android.womenscalendar.data.database.entities.Cycle
 import ru.brainstorm.android.womenscalendar.presentation.menu.activity.MenuActivity
+import ru.brainstorm.android.womenscalendar.presentation.menu.extra.Interval
 import ru.brainstorm.android.womenscalendar.presentation.menu.extra.differenceBetweenDates
 import ru.brainstorm.android.womenscalendar.presentation.menu.presenter.ChangeMenstruationDatesPresenter
 import ru.brainstorm.android.womenscalendar.presentation.menu.view.ChangeMenstruationDatesView
@@ -71,7 +73,7 @@ class ChangeMenstruationDatesFragment : AbstractMenuFragment(), ChangeMenstruati
 
     private var startDate : LocalDate? = null
     private var endDate : LocalDate? = null
-    var intervals : ArrayList<Pair<LocalDate?, LocalDate?>> = ArrayList()
+    var intervals : MutableList<Interval> = mutableListOf()
     override fun getPart(): String = "change_menstruation_dates"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -97,6 +99,21 @@ class ChangeMenstruationDatesFragment : AbstractMenuFragment(), ChangeMenstruati
 
         pref = PreferenceManager.getDefaultSharedPreferences(context)
 
+        var cycles = listOf<Cycle>()
+        runBlocking {
+            val job = GlobalScope.launch(Dispatchers.IO) {
+                cycles = cycleDao.getAll()
+                for(cycle in cycles){
+                    val startOfCycle = LocalDate.parse(cycle.startOfCycle)
+                    val endOfCycle = LocalDate.parse(cycle.startOfCycle).plusDays((cycle.lengthOfMenstruation-1).toLong())
+                    if(endOfCycle.isBefore(LocalDate.now()) || endOfCycle.isEqual(LocalDate.now())
+                        || (startOfCycle.isBefore(LocalDate.now()) && endOfCycle.isAfter(LocalDate.now()))){
+                        intervals.add(Interval(startOfCycle, endOfCycle, true))
+                    }
+                }
+            }
+            job.join()
+        }
         updateLocale()
 
         var calendarView = view.findViewById<CalendarView>(R.id.calendarView)
@@ -118,7 +135,7 @@ class ChangeMenstruationDatesFragment : AbstractMenuFragment(), ChangeMenstruati
                 view.setOnClickListener {
                     if (day.owner == DayOwner.THIS_MONTH) {
                         val date = day.date
-                        if (startDate != null) {
+                        /*if (startDate != null) {
                             if (date < startDate || endDate != null) {
                                 startDate = date
                                 endDate = null
@@ -136,6 +153,28 @@ class ChangeMenstruationDatesFragment : AbstractMenuFragment(), ChangeMenstruati
                             }
                         } else {
                             startDate = date
+                        }*/
+                        when {
+                            isStartOfCycle(date) != null -> {
+                                val i = isStartOfCycle(date)!!
+                                intervals[i].isChanged = true
+                                intervals[i].startOfCycle = intervals[i].startOfCycle.plusDays(1)
+                            }
+                            isEndOfCycle(date) != null -> {
+                                val i = isEndOfCycle(date)!!
+                                intervals[i].isChanged = true
+                                intervals[i].endOfCycle = intervals[i].endOfCycle.minusDays(1)
+                            }
+                            isInTheAcceptableRangeBeforeStart(date) != null -> {
+                                val i = isInTheAcceptableRangeBeforeStart(date)!!
+                                intervals[i].isChanged = true
+                                intervals[i].startOfCycle = date
+                            }
+                            isInTheAcceptableRangeAfterEnd(date) != null -> {
+                                val i = isInTheAcceptableRangeAfterEnd(date)!!
+                                intervals[i].isChanged = true
+                                intervals[i].endOfCycle = date
+                            }
                         }
                         calendarView.notifyCalendarChanged()
                     }
@@ -222,8 +261,8 @@ class ChangeMenstruationDatesFragment : AbstractMenuFragment(), ChangeMenstruati
                 if (day.owner == DayOwner.THIS_MONTH) {
                     if(!intervals.isEmpty()){
                         for(interval in intervals){
-                            if(day.date.isEqual(interval.first) || day.date.isEqual(interval.second) ||
-                                (day.date.isAfter(interval.first) && day.date.isBefore(interval.second))){
+                            if(day.date.isEqual(interval.startOfCycle) || day.date.isEqual(interval.endOfCycle) ||
+                                (day.date.isAfter(interval.startOfCycle) && day.date.isBefore(interval.endOfCycle))){
                                 roundField.makeVisible()
                                 roundField.setBackgroundResource(R.drawable.round_field_selected)
                             }
@@ -311,11 +350,11 @@ class ChangeMenstruationDatesFragment : AbstractMenuFragment(), ChangeMenstruati
     }
 
     fun getStartDate() : LocalDate?{
-        return intervals[0].first
+        return intervals[0].startOfCycle
     }
 
     fun getEndDate() : LocalDate? {
-        return intervals[0].second
+        return intervals[0].endOfCycle
     }
 
     fun getAverageDurationOfMenstruation() : Int?{
@@ -334,7 +373,7 @@ class ChangeMenstruationDatesFragment : AbstractMenuFragment(), ChangeMenstruati
 
         if (!intervals.isEmpty()){
             for(interval in intervals){
-                sum_intervals+= differenceBetweenDates(interval.first!!, interval.second!!)
+                sum_intervals+= differenceBetweenDates(interval.startOfCycle!!, interval.endOfCycle!!)
                 count++
             }
 
@@ -380,4 +419,43 @@ class ChangeMenstruationDatesFragment : AbstractMenuFragment(), ChangeMenstruati
         weekDays.put("Sun", resources.getString(R.string.sunday))
     }
 
+    fun isStartOfCycle(date : LocalDate) : Int?{
+        for(i in intervals.indices){
+            val lengthOfInterval = differenceBetweenDates(intervals[i].startOfCycle!!,
+                intervals[i].endOfCycle!!)
+            if(date.isEqual(intervals[i].startOfCycle) && lengthOfInterval >= 2)
+                return i
+        }
+        return null
+    }
+
+    fun isEndOfCycle(date : LocalDate) : Int?{
+        for(i in intervals.indices){
+            val lengthOfInterval = differenceBetweenDates(intervals[i].startOfCycle!!,
+                intervals[i].endOfCycle!!)
+            if(date.isEqual(intervals[i].endOfCycle) && lengthOfInterval >= 2)
+                return i
+        }
+        return null
+    }
+    fun isInTheAcceptableRangeBeforeStart(date : LocalDate) : Int?{
+        for(i in intervals.indices){
+            val range = 9 - differenceBetweenDates(intervals[i].startOfCycle!!,
+                intervals[i].endOfCycle!!).toLong()
+            val rangeDate = intervals[i].startOfCycle!!.minusDays(if (range > 0) range else 0)
+            if(date.isBefore(intervals[i].startOfCycle) && (date.isAfter(rangeDate) || date.isEqual(rangeDate)))
+                return i
+        }
+        return null
+    }
+    fun isInTheAcceptableRangeAfterEnd(date : LocalDate) : Int?{
+        for(i in intervals.indices){
+            val range = 9 - differenceBetweenDates(intervals[i].startOfCycle!!,
+                intervals[i].endOfCycle!!).toLong()
+            val rangeDate = intervals[i].endOfCycle!!.plusDays(if (range > 0) range else 0)
+            if(date.isAfter(intervals[i].endOfCycle) && (date.isBefore(rangeDate) || date.isEqual(rangeDate)))
+                return i
+        }
+        return null
+    }
 }
