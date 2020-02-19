@@ -36,7 +36,7 @@ import java.time.format.DateTimeFormatter
 class YearView(context: Context,
                attrs: AttributeSet? = null) : FrameLayout(context, attrs) {
 
-    var adapter: YearAdapter = YearAdapter(Year.of(1970), App.appDatabase.cycleDao(), App.appDatabase.noteDao())
+    var adapter: YearAdapter = YearAdapter(Year.of(2019), App.appDatabase.cycleDao(), App.appDatabase.noteDao())
 
     private val mainView = View.inflate(context, R.layout.year_view, null)
 

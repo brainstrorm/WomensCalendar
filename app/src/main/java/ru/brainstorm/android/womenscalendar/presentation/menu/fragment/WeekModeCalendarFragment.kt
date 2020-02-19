@@ -23,6 +23,8 @@ import kotlinx.android.synthetic.main.fragment_week_mode_calendar.*
 import kotlinx.android.synthetic.main.fragment_week_mode_calendar.view.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.selects.select
+import moxy.presenter.InjectPresenter
+import moxy.presenter.ProvidePresenter
 import org.threeten.bp.DayOfWeek
 import org.threeten.bp.LocalDate
 import org.threeten.bp.YearMonth
@@ -36,6 +38,7 @@ import ru.brainstorm.android.womenscalendar.presentation.menu.activity.MenuActiv
 import ru.brainstorm.android.womenscalendar.presentation.menu.extra.getDayAddition
 import ru.brainstorm.android.womenscalendar.presentation.menu.extra.PartOfCycle
 import ru.brainstorm.android.womenscalendar.presentation.menu.extra.differenceBetweenDates
+import ru.brainstorm.android.womenscalendar.presentation.menu.presenter.CalendarPickerPresenter
 import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.getColorCompat
 import ru.brainstorm.android.womenscalendar.presentation.quiz.fragment.setTextColorRes
 import javax.inject.Inject
@@ -46,6 +49,14 @@ class WeekModeCalendarFragment : AbstractMenuFragment() {
     companion object{
         val TAG = "WeekModeCalendar"
     }
+
+
+    //@InjectPresenter
+//    lateinit var calendarPickerPresenter: CalendarPickerPresenter
+
+  //  @ProvidePresenter
+   // fun providePresenter() = App.appComponent.presenter().calendarPickerPresenter()
+
     @Inject
     lateinit var cycleDao: CycleDao
 
@@ -117,6 +128,7 @@ class WeekModeCalendarFragment : AbstractMenuFragment() {
         TVAdditionalInfo = view.findViewById(R.id.TVAdditionalInfo)
         TVToday = view.findViewById(R.id.TVToday)
         return view
+
     }
 
 
@@ -152,6 +164,18 @@ class WeekModeCalendarFragment : AbstractMenuFragment() {
         // Value for firstDayOfWeek does not matter since inDates and outDates are not generated.
         calendarView.setup(currentMonth.minusMonths(3), currentMonth.plusMonths(3), DayOfWeek.values().random())
         calendarView.scrollToDate(LocalDate.now().minusDays(3))
+
+       /* (activity as MenuActivity).apply {
+
+            btnPlusNoteWeek.setOnClickListener { view ->
+                selectedDate = LocalDate.now()
+                calendarPickerPresenter.addNoteFragment(supportFragmentManager, LocalDate.now())
+                calendarView.notifyCalendarChanged()
+                menuPresenter.addFragmentToBackStack(this@WeekModeCalendarFragment)
+                menuPresenter.setFragment(supportFragmentManager, "note_redactor")
+            }
+        }*/
+
 
         (activity as MenuActivity).apply {
             btnTodayRound.setOnClickListener { view ->

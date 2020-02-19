@@ -297,7 +297,7 @@ class ChangeMenstruationDatesFragment : AbstractMenuFragment(), ChangeMenstruati
                     getAverageDurationOfMenstruation(),
                     supportFragmentManager,
                     context!!,
-                    this@ChangeMenstruationDatesFragment
+                    this@ChangeMenstruationDatesFragment,intervals
                 )
                 val calendarMonth = supportFragmentManager.findFragmentByTag(CalendarPickerFragment.TAG)
                 val calendarYear = supportFragmentManager.findFragmentByTag(CalendarYearModeFragment.TAG)
@@ -358,26 +358,32 @@ class ChangeMenstruationDatesFragment : AbstractMenuFragment(), ChangeMenstruati
     }
 
     fun getAverageDurationOfMenstruation() : Int?{
+        val cyclDate: CycleDao
         var averageDurationOfMenstruation = 0
         var sum_intervals = 0
-        var sum_cycles = 0
         var count = 0
 
         runBlocking {
             val job = GlobalScope.launch(Dispatchers.IO) {
-                val cycles = cycleDao.getAll()
 
-                cycles.forEach(){
-                   sum_cycles+= it.lengthOfMenstruation
-                }
 
         if (!intervals.isEmpty()){
-            for(interval in intervals){
-                sum_intervals+= differenceBetweenDates(interval.startOfCycle!!, interval.endOfCycle!!)
-                count++
+            for(interval in intervals) {
+                if (interval.isChanged) {
+                    sum_intervals += differenceBetweenDates(
+                        interval.startOfCycle!!,
+                        interval.endOfCycle!!
+                    )
+                    count++
+                }
             }
 
-            averageDurationOfMenstruation = (sum_intervals+sum_cycles)/(count+cycles.size)
+            if(count != 0) {
+                averageDurationOfMenstruation = (sum_intervals) / (count)
+            }
+            else {
+                averageDurationOfMenstruation = cycleDao.getAll()[0].lengthOfMenstruation
+            }
         }else{
             averageDurationOfMenstruation = 0
         }
