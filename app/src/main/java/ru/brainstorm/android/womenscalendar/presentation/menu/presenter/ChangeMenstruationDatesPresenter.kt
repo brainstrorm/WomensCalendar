@@ -50,7 +50,7 @@ constructor()
                             // Check the null !!!
                             val real_cycle = Cycle()
                             real_cycle.startOfCycle = intervals[i].startOfCycle.toString()
-                            real_cycle.lengthOfMenstruation = differenceBetweenDates(intervals[i].startOfCycle,intervals[i].endOfCycle)
+                            real_cycle.lengthOfMenstruation = differenceBetweenDates(intervals[i].startOfCycle,intervals[i].endOfCycle)+1
                             real_cycle.lengthOfCycle = differenceBetweenDates(intervals[i].startOfCycle,intervals[i+1].startOfCycle)-1
                             real_cycle.ovulation =  java.time.LocalDate.parse(real_cycle.startOfCycle).plusDays(real_cycle.lengthOfCycle-14.toLong()).toString()
                             real_cycle.predicted = false
@@ -63,7 +63,7 @@ constructor()
                     if (intervals[intervals.size-1].isChanged){
                         val real_cycle = Cycle()
                         real_cycle.startOfCycle = intervals[intervals.size-1].startOfCycle.toString()
-                        real_cycle.lengthOfMenstruation = differenceBetweenDates(intervals[intervals.size-1].startOfCycle,intervals[intervals.size-1].endOfCycle)
+                        real_cycle.lengthOfMenstruation = differenceBetweenDates(intervals[intervals.size-1].startOfCycle,intervals[intervals.size-1].endOfCycle)+1
                         real_cycle.lengthOfCycle = 28
                         real_cycle.ovulation =  java.time.LocalDate.parse(real_cycle.startOfCycle).plusDays(real_cycle.lengthOfCycle-14.toLong()).toString()
                         real_cycle.predicted = false
