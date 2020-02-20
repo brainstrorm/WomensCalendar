@@ -17,6 +17,7 @@ import ru.brainstorm.android.womenscalendar.data.database.entities.Cycle
 import ru.brainstorm.android.womenscalendar.presentation.menu.extra.getDayAddition
 import ru.brainstorm.android.womenscalendar.presentation.quiz.activity.QuizActivity
 import java.util.*
+import org.threeten.bp.LocalDate
 
 
 class AverageCycleFragment : AbstractQuizFragment() {
@@ -72,6 +73,7 @@ class AverageCycleFragment : AbstractQuizFragment() {
     override fun setQuizAns(cycle: Cycle) {
         if (!choose.isVisible) {
             cycle.lengthOfCycle = averageCyclePicker.value
+            cycle.startOfCycle = LocalDate.parse(cycle.startOfCycle).minusDays(cycle.lengthOfCycle*6.toLong()).toString()
             Log.d(QuizActivity.TAG, "Saving cycle length: ${cycle.lengthOfCycle}")
         }
     }

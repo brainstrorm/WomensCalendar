@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.children
 import com.kizitonwose.calendarview.CalendarView
@@ -339,12 +340,22 @@ class ChangeMenstruationDatesFragment : AbstractMenuFragment(), ChangeMenstruati
                     .remove(this@ChangeMenstruationDatesFragment)
                     .add(R.id.for_fragment, ChangeMenstruationDatesFragment(), TAG)
                     .commitNow()*/
-                if (!intervals.isEmpty()) {
+                /*if (!intervals.isEmpty()) {
                     intervals.remove(intervals.last())
                     startDate = null
                     endDate = null
                     calendarView.notifyCalendarChanged()
-                }
+                }*/
+                supportFragmentManager.beginTransaction()
+                    .remove(supportFragmentManager.findFragmentByTag(ChangeMenstruationDatesFragment.TAG)!!)
+                    .commit()
+                menuPresenter.popBackStack(supportFragmentManager)
+            }
+            findViewById<ImageView>(R.id.btn_cross).setOnClickListener{
+                supportFragmentManager.beginTransaction()
+                    .remove(supportFragmentManager.findFragmentByTag(ChangeMenstruationDatesFragment.TAG)!!)
+                    .commit()
+                menuPresenter.popBackStack(supportFragmentManager)
             }
         }
     }

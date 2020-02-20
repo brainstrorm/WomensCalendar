@@ -577,12 +577,12 @@ class MenuActivity : MvpAppCompatActivity(), View.OnClickListener, MenuView{
                 }
                 menuPresenter.popBackStack(supportFragmentManager)
             }
-            R.id.btn_cross-> {
+            /*R.id.btn_cross-> {
                 supportFragmentManager.beginTransaction()
                     .remove(supportFragmentManager.findFragmentByTag(ChangeMenstruationDatesFragment.TAG)!!)
                     .commit()
                 menuPresenter.popBackStack(supportFragmentManager)
-            }
+            }*/
             R.id.btn_month_or_year -> {
                 val calendarMonth = supportFragmentManager.findFragmentByTag(CalendarPickerFragment.TAG)
                 val calendarYear = supportFragmentManager.findFragmentByTag(CalendarYearModeFragment.TAG)

@@ -143,7 +143,7 @@ class WeekModeCalendarFragment : AbstractMenuFragment() {
         runBlocking {
             val job = GlobalScope.launch(Dispatchers.IO) {
                 if (!cycleDao.getAll()[0].predicted) {
-                    predictorImpl.predict(5, PreferenceManager.getDefaultSharedPreferences(context)).join()
+                    predictorImpl.predict(15, PreferenceManager.getDefaultSharedPreferences(context)).join()
                     predictorImpl.updateOvulation().join()
                 }
                 menstruationDays = cycleDao.getAll()
